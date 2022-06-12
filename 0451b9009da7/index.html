@@ -1,0 +1,1032 @@
+<!DOCTYPE html>
+
+
+<html lang="zh-CN">
+  
+
+    <head>
+      <meta name="baidu-site-verification" content="code-rk2CNV4xgj" />
+      <meta charset="utf-8" />
+        
+      <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1"
+      />
+      <title>进程与线程 |  RookieYin&#39;s Note</title>
+  <meta name="generator" content="hexo-theme-ayer">
+      
+      <link rel="shortcut icon" href="/images/2.jpg" />
+       
+<link rel="stylesheet" href="/dist/main.css">
+
+      <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/Shen-Yu/cdn/css/remixicon.min.css"
+      />
+      
+<link rel="stylesheet" href="/css/custom.css">
+ 
+      <script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+       
+ 
+
+      <!-- mermaid -->
+      
+    <link rel="alternate" href="/atom.xml" title="RookieYin's Note" type="application/atom+xml">
+<link href="https://cdn.bootcss.com/KaTeX/0.11.1/katex.min.css" rel="stylesheet" /></head>
+  </html>
+</html>
+
+
+<body>
+<div id="app">
+    
+    
+    <div class="sidebar">
+        <!--<button class="navbar-toggle"></button>-->
+<nav class="navbar">
+  <div class="logo">
+    <a href="/">
+      <img src="/images/2.jpg"
+           style="border-radius: 50%;max-width: none;">
+    </a>
+  </div>
+  <div class = nav-title style="font-size: 2.5rem;color: #ffffff;margin-left: 4rem;font-weight: bold;min-width: 23rem">
+    RookieYin's Note
+  </div>
+  <div class="nav nav-main">
+    
+    <div class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </div>
+    
+    <div class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </div>
+    
+    <div class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </div>
+    
+    <div class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </div>
+    
+    <div class="nav-item">
+      <a class="nav-item-link" href="/friends">友链</a>
+    </div>
+    
+    <div class="nav-item">
+      <a class="nav-item-link" href="/about-me/2021">关于我</a>
+    </div>
+    
+      <div class="nav-item">
+        <div class="nav-item-link navbar-menu-wrap">
+          <div class="navbar-menu"></div>
+        </div>
+      </div>
+    <div class = "nav-item">
+      <a class="nav-item-link nav-item-search"  title="搜索">
+        <i class="ri-search-line"></i>
+      </a>
+    </div>
+  </div>
+</nav>
+<nav class="navbar2">
+  <div style="position: relative;">
+      <div style="height: 4.8rem;display: inline-block;margin-top:1rem;margin-left:1rem;">
+        <a href="/">
+          <img src="/images/2.jpg"
+               style="border-radius: 50%;max-width: none;width:4.8rem">
+        </a>
+      </div>
+    <div class="navbar-title2" style="font-size: 2.5rem;color: #ffffff;margin-left: 4rem;font-weight: bold;margin-top:1rem;
+    min-width: 23rem;height: 4.8rem;overflow: hidden;">
+      <span style="line-height: 4.8rem;">RookieYin's Note</span>
+    </div>
+    <div style="display: inline-block;position: absolute;top:50%;height:50%;transform:translate(-50%,-50%);right:4rem;margin-top: 1rem;">
+      <div class="navbar-menu-wrap">
+        <div class="navbar-menu"></div>
+      </div>
+    </div>
+    <div style="display: inline-block;position: absolute;top:50%;height:50%;transform:translate(-50%,-50%);right:0;">
+      <a class="nav-item-search"  title="搜索">
+        <i class="ri-search-line"></i>
+      </a>
+    </div>
+  </div>
+  <div style="display: inline-block;text-align: center;width: 100%;padding-bottom: 1rem;">
+    
+    <div class="nav-item2">
+      <a class="nav-item-link2" href="/">主页</a>
+    </div>
+    
+    <div class="nav-item2">
+      <a class="nav-item-link2" href="/archives">归档</a>
+    </div>
+    
+    <div class="nav-item2">
+      <a class="nav-item-link2" href="/categories">分类</a>
+    </div>
+    
+    <div class="nav-item2">
+      <a class="nav-item-link2" href="/tags">标签</a>
+    </div>
+    
+    <div class="nav-item2">
+      <a class="nav-item-link2" href="/friends">友链</a>
+    </div>
+    
+    <div class="nav-item2">
+      <a class="nav-item-link2" href="/about-me/2021">关于我</a>
+    </div>
+    
+  </div>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+
+    </div>
+    <main class="content">
+        <section class="outer">
+  <article
+  id="post-8 计算机基础/操作系统/2. 进程与线程"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  进程与线程
+</h1>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/0451b9009da7/" class="article-date">
+  <time datetime="2022-05-22T14:34:49.000Z" itemprop="datePublished">2022-05-22</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/">计算机基础</a> / <a class="article-category-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a>
+  </div>
+
+  
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> 字数统计:</span>
+            <span class="post-count">8.3k</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> 阅读时长≈</span>
+            <span class="post-count">28 分钟</span>
+        </span>
+    </span>
+</div>
+ 
+    </div>
+      
+    <div class="tocbot"></div>
+
+
+
+
+  
+    <div class="article-entry" itemprop="articleBody">
+       
+  <p>本文内容基本来自<a target="_blank" rel="noopener" href="https://xiaolincoding.com/os/4_process/multithread_sync.html#%E7%94%9F%E4%BA%A7%E8%80%85-%E6%B6%88%E8%B4%B9%E8%80%85%E9%97%AE%E9%A2%98">小林coding</a></p>
+<h2 id="什么是进程">什么是进程</h2>
+<p>进程，简单来说就是“一个运行中的程序”。为什么会出现“进程”这个概念呢？</p>
+<p>早期的计算机系统一次只允许执行一个程序，这个程序拥有系统的所有资源。但是现代计算机系统允许将多个程序调入内存并发执行，这就要求对各种程序提供更严格的控制和更好的划分，从而产生了“进程”的概念，即执行中的程序。系统可以看作由一组进程组成：操作系统进程执行系统代码，用户进程执行用户代码。通过CPU多路复用，所有进程可以并发执行。通过进程之间的切换，操作系统能使计算机更为高效。</p>
+<a id="more"></a>
+<h2 id="进程的状态">进程的状态</h2>
+<p>前面提到，进程就是一个执行中的程序。进程在执行过程中会发生状态的改变，下图展示了一个完整的进程状态变迁：</p>
+<center><img src="/images/8-进程五个状态.webp" style="width:500px;"></img></center>
+<ul>
+<li>NULL——&gt;创建状态：一个进程被创建过程中处于创建状态；</li>
+<li>创建状态——&gt;就绪状态：进程创建完成，一切准备就绪后，变为就绪状态；</li>
+<li>就绪状态——&gt;运行状态：处于就绪状态的进程，被进程调度器选中后，获取到CPU资源，进行运行状态；</li>
+<li>运行状态——&gt;结束状态：程序执行完毕或出错，结束执行；</li>
+<li>运行状态——&gt;就绪状态：分配给进程的时间片用完了，进程需要让出CPU，暂停运行，转为就绪状态；</li>
+<li>运行状态——阻塞状态：程序运行过程中，需要请求并等待某个事件，这时需要让出CPU，进入阻塞状态；</li>
+<li>阻塞状态——&gt;就绪状态：进程要等待的事件完成了，从阻塞状态变为就绪状态，继续等待调度器的调用。</li>
+</ul>
+<h2 id="进程控制">进程控制</h2>
+<p>前面提到，操作系统中同时存在多个进程，并且进程运行过程中会在多种状态之间来回切换，那么我们怎样区分不同的进程呢？这就要提到“进程控制块（PCB）”了！</p>
+<p>在操作系统中，是用<strong>进程控制块</strong>（<em>process control block，PCB</em>）数据结构来描述进程的。  <strong>PCB 是进程存在的唯一标识</strong>，这意味着一个进程的存在，必然会有一个 PCB，如果进程消失了，那么 PCB 也会随之消失。 PCB包含以下信息：</p>
+<ul>
+<li>
+<p><strong>进程描述信息</strong></p>
+<p>包括进程标识符、用户标识符等等。</p>
+</li>
+<li>
+<p><strong>进程控制和管理信息</strong></p>
+<p>进程状态、优先级等等。</p>
+</li>
+<li>
+<p><strong>资源分配清单</strong></p>
+<p>内存地址空间、虚拟地址空间信息、打开的文件信息、使用的IO设备等等。</p>
+</li>
+<li>
+<p><strong>CPU相关信息</strong></p>
+<p>CPU中各个寄存器的值，当进程被切换时，用它来恢复上下文信息。</p>
+</li>
+</ul>
+<p>在系统中通常以链表的形式把所有PCB块组织到一起，构成就绪队列和阻塞队列，如下图所示：</p>
+<center><img src="/images/12-PCB状态链表组织.webp" style="width:400px;"></img></center> 
+<h2 id="进程调度">进程调度</h2>
+<p>前面提到系统中会同时存在多个进程，但是CPU资源是有限的，一个CPU一个时刻只能执行一个程序，因此往往会出现多个进程或线程同时竞争CPU的情景，这时就需要一个合理的进程调度算法，来将CPU资源合理分配给各个进程。</p>
+<h3 id="调度原则">调度原则</h3>
+<p>我们先来看看一个合理的调度算法应该遵循哪些原则：</p>
+<ul>
+<li><strong>CPU利用率</strong>：调度程序应当尽可能让CPU处于忙碌状态，提高CPU利用率；</li>
+<li><strong>系统吞吐量</strong>：吞吐量指单位时间内完成的进程数量， 长作业的进程会占用较长的 CPU 资源，因此会降低吞吐量，相反，短作业的进程会提升系统吞吐量 ；</li>
+<li><strong>周转时间</strong>：周转时间=运行时间+阻塞时间，一个进程的周转时间越小越好，不希望进程被阻塞太长时间；</li>
+<li><strong>等待时间</strong>：这个等待不是指处于阻塞状态的时间，而是处于就绪状态的时间，也就是说进程准备好了的话，不要让它等太久才被调用；</li>
+<li><strong>响应时间</strong>：用户提交请求到系统第一次产生响应所花费的时间，在交互式系统中，响应时间越小越好。</li>
+</ul>
+<h3 id="调度算法">调度算法</h3>
+<p>不同的调度算法有不同的应用场景，下面说说在单核CPU中常见的调度算法：</p>
+<ul>
+<li>
+<p><strong>FCFS：先来先服务算法（非抢占式）</strong></p>
+<p>每次从队列头选一个进程执行，然后一直执行，知道进程运行结束或者被阻塞，才会继续从队列中选在下一个进程继续运行。</p>
+<p><strong>优点</strong>：算法很简单，而且非常公平，先到先运行。</p>
+<p><strong>缺点</strong>：它的缺点也很明显，如果一个长作业先运行了，那么就绪队列中的短作业需要等待很长时间，不符合我们前面提到的“系统吞吐量”、“等待时间”、“周转时间”、“响应时间”的设计原则。</p>
+<p><strong>适用场景</strong>：对长作业有利，适用于CPU密集型业务。</p>
+</li>
+<li>
+<p><strong>SJF：最短作业优先</strong></p>
+<p>优先选择运行时间最短的进程来运行，这有助于提高系统的吞吐量。但是缺点很明显，对长作业不利，长作业可能一直得不到运行。</p>
+</li>
+<li>
+<p><strong>HRRN：高响应比优先</strong></p>
+<p>权衡了长作业和短作业，按照如下公式计算进程优先级：</p>
+<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>优先权</mtext><mo>=</mo><mfrac><mrow><mtext>等待时间</mtext><mo>+</mo><mtext>要求服务时间</mtext></mrow><mtext>要求服务时间</mtext></mfrac></mrow><annotation encoding="application/x-tex">优先权=\frac{等待时间+要求服务时间}{要求服务时间}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord cjk_fallback">优</span><span class="mord cjk_fallback">先</span><span class="mord cjk_fallback">权</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:2.04633em;vertical-align:-0.686em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.36033em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord cjk_fallback">要</span><span class="mord cjk_fallback">求</span><span class="mord cjk_fallback">服</span><span class="mord cjk_fallback">务</span><span class="mord cjk_fallback">时</span><span class="mord cjk_fallback">间</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord cjk_fallback">等</span><span class="mord cjk_fallback">待</span><span class="mord cjk_fallback">时</span><span class="mord cjk_fallback">间</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord cjk_fallback">要</span><span class="mord cjk_fallback">求</span><span class="mord cjk_fallback">服</span><span class="mord cjk_fallback">务</span><span class="mord cjk_fallback">时</span><span class="mord cjk_fallback">间</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span></p>
+<ul>
+<li>如果两个进程等待时间相同，优先执行短作业；</li>
+<li>如果两个作业运行时间相同，等待时间越长，优先级越高。</li>
+</ul>
+</li>
+<li>
+<p><strong>RR：时间片轮转</strong></p>
+<p>一个进程运行相等大小的时间片：</p>
+<ul>
+<li>如果时间片内，进程没运行完，会中断该进程，并把CPU分配给另外一个进程；</li>
+<li>如果时间片内，进程运行结束或提前阻塞，立刻把CPU分配给其他进程。</li>
+</ul>
+<p>这种算法的一个核心问题就是：如何设置时间片大小？</p>
+<ul>
+<li>时间片太小：CPU上下文切换过于频繁，降低效率；</li>
+<li>时间片太大：可能引起短作业等待时间过长。</li>
+</ul>
+<p>一般设置成20ms~50ms。</p>
+</li>
+<li>
+<p><strong>HPF：最高优先级优先</strong></p>
+<p>在RR算法中，相当于默认所有进程拥有相同的优先级，大家运行时间一样。但是，在很多场景下，我们希望调度算法是有优先级的，能够优先执行一些紧急任务，希望调度程序能够从就绪队列中选择优先级最高的进程，先执行。</p>
+<p>进程的优先级可以分成静态优先级和动态优先级。</p>
+<ul>
+<li>前者指在进程创建时就已经指定好优先级，进程运行过程中不会改变；</li>
+<li>后者指，进程运行过程中，其优先级会改变，比如等待时间变长，优先级变高。</li>
+</ul>
+<p>该方法也有两种处理优先级高的方法，抢占式和非抢占式。它也存在缺点，低优先级的进程可能一直得不到运行。</p>
+</li>
+<li>
+<p><strong>多级反馈队列</strong></p>
+<p>是“时间片轮转”和“最高优先级优先”的综合扩展。</p>
+<ul>
+<li>多级：指有多条优先级不同的就绪队列；</li>
+<li>反馈： 如果有新的进程加入优先级高的队列时，立刻停止当前正在运行的进程，转而去运行优先级高的队列。</li>
+</ul>
+<center><img src="/images/28-多级队列.webp" style="width:500px;"></img></center>  
+</li>
+<li>
+<p>设置了多个队列，赋予每个队列不同的优先级，每个<strong>队列优先级从高到低</strong>，同时<strong>优先级越高时间片越短</strong>；</p>
+<ul>
+<li>新的进程会被放入到第一级队列的末尾，按先来先服务的原则排队等待被调度，如果在第一级队列规定的时间片没运行完成，则将其转入到第二级队列的末尾，以此类推，直至完成；</li>
+<li>当较高优先级的队列为空，才调度较低优先级的队列中的进程运行。如果进程运行时，有新进程进入较高优先级的队列，则停止当前运行的进程并将其移入到原队列末尾，接着让较高优先级的进程运行。</li>
+</ul>
+</li>
+</ul>
+<p>该算法很好的<strong>兼顾了长短作业，同时有较好的响应时间。</strong></p>
+<h2 id="进程间通信">进程间通信</h2>
+<p>一个进程经常需要和其他进程通信，但是每个进程的用户地址空间都是独立的，不能相互访问。因此进程间的通信必须通过内核。</p>
+<center><img src="/images/1281379-76c95f147203c797.webp" style="width:200px;"></img></center>  
+<p>这里简单总结下常用的7种进程通信方式。</p>
+<h3 id="管道"><strong>管道</strong></h3>
+<p>管道分为两种，有名管道和匿名管道。</p>
+<ul>
+<li><strong>匿名管道</strong>
+<ul>
+<li>linux命令中常见的“ | ”就是管道，它的功能是将前一个命令的输出作为后一个命令的输入。因此，管道传输数据是单向的。</li>
+<li>管道的实质是<strong>一个内核缓冲区</strong>，进程以先进先出的方式从缓冲区存取数据，管道一端的进程顺序的将数据写入缓冲区，另一端的进程则顺序的读出数据。</li>
+<li>匿名管道的局限性在于：（1）单向传数据；（2）只能用于具有亲缘关系的进程；（3）没有名字；（4）管道缓冲区有限等等。</li>
+</ul>
+</li>
+<li><strong>有名管道（FIFO）</strong>
+<ul>
+<li>数据以先进先出的方式进行传输，并且由于有名字，因此不局限于父子进程之间的通信；；</li>
+<li>和匿名管道最大的区别在于，数据以文件形式存在文件系统中；</li>
+<li>不过有名管道还是没有解决单项传输数据的问题，如果要双向传输数据，需要建立两个管道。</li>
+</ul>
+</li>
+</ul>
+<p>总之，无论是有名还是匿名，管道这种通信方式的效率比较低下，因为只有当管道中的数据被读取后，消息发送方才能退出，不适合进程间频繁地交换数据。</p>
+<h3 id="消息队列"><strong>消息队列</strong></h3>
+<ul>
+<li>
+<p>消息队列是存放在内核中的消息链表，每个消息队列由消息队列标识符表示。</p>
+</li>
+<li>
+<p>与管道（无名管道：只存在于内存中的文件；命名管道：存在于实际的磁盘介质或者文件系统）不同的是消息队列存放在内核中，只有在内核重启(即，操作系统重启)或者显示地删除一个消息队列时，该消息队列才会被真正的删除。</p>
+</li>
+<li>
+<p>另外与管道不同的是，消息队列在某个进程往一个队列写入消息之前，并不需要另外某个进程在该队列上等待消息的到达。</p>
+</li>
+<li>
+<p><strong>消息队列不适合比较大数据的传输</strong>，因为在内核中每个消息体都有一个最大长度的限制，同时所有队列所包含的全部消息体的总长度也是有上限。</p>
+</li>
+<li>
+<p><strong>消息队列通信过程中，存在用户态与内核态之间的数据拷贝开销</strong>，因为进程写入数据到内核中的消息队列时，会发生从用户态拷贝数据到内核态的过程，同理另一进程读取内核中的消息数据时，会发生从内核态拷贝数据到用户态的过程。</p>
+</li>
+</ul>
+<h3 id="共享内存"><strong>共享内存</strong></h3>
+<p>消息队列的一个弊端是会有数据拷贝的开销，共享内存就很好的解决了这个问题。</p>
+<p>现代操作系统，对于内存管理，采用的是虚拟内存技术，也就是每个进程都有自己独立的虚拟内存空间，不同进程的虚拟内存映射到不同的物理内存中。所以，即使进程 A 和 进程 B 的虚拟地址是一样的，其实访问的是不同的物理内存地址，对于数据的增删查改互不影响。</p>
+<p><strong>共享内存的机制，就是拿出一块虚拟地址空间来，映射到相同的物理内存中</strong>。这样这个进程写入的东西，另外一个进程马上就能看到了，都不需要拷贝来拷贝去，传来传去，大大提高了进程间通信的速度。</p>
+<center><img src="/images/9-共享内存.webp" style="width:300px;"></img></center>  
+<p>不过由于多个进程共享一段内存，因此需要依靠某种同步机制（如信号量）来达到进程间的同步及互斥。</p>
+<h3 id="信号量"><strong>信号量</strong></h3>
+<p><strong>信号量其实是一个整型的计数器，主要用于实现进程间的互斥与同步，而不是用于缓存进程间通信的数据</strong>。</p>
+<p>信号量表示资源的数量，控制信号量的方式有两种原子操作：</p>
+<ul>
+<li>一个是 <strong>P 操作</strong>，这个操作会把信号量减去 1，相减后如果信号量 &lt; 0，则表明资源已被占用，进程需阻塞等待；相减后如果信号量 &gt;= 0，则表明还有资源可使用，进程可正常继续执行。</li>
+<li>另一个是 <strong>V 操作</strong>，这个操作会把信号量加上 1，相加后如果信号量 &lt;= 0，则表明当前有阻塞中的进程，于是会将该进程唤醒运行；相加后如果信号量 &gt; 0，则表明当前没有阻塞中的进程；</li>
+</ul>
+<p>P 操作是用在进入共享资源之前，V 操作是用在离开共享资源之后，这两个操作是必须成对出现的。</p>
+<blockquote>
+<p><strong>信号量与互斥量之间的区别：</strong><br>
+（1）互斥量用于线程的互斥，信号量用于线程的同步。这是互斥量和信号量的根本区别，也就是互斥和同步之间的区别。<br>
+**互斥：**是指某一资源同时只允许一个访问者对其进行访问，具有唯一性和排它性。但互斥无法限制访问者对资源的访问顺序，即访问是无序的。<br>
+**同步：**是指在互斥的基础上（大多数情况），通过其它机制实现访问者对资源的有序访问。<br>
+在大多数情况下，同步已经实现了互斥，特别是所有写入资源的情况必定是互斥的。少数情况是指可以允许多个访问者同时访问资源<br>
+（2）互斥量值只能为0/1，信号量值可以为非负整数。<br>
+也就是说，一个互斥量只能用于一个资源的互斥访问，它不能实现多个资源的多线程互斥问题。信号量可以实现多个同类资源的多线程互斥和同步。当信号量为单值信号量是，也可以完成一个资源的互斥访问。<br>
+（3）互斥量的加锁和解锁必须由同一线程分别对应使用，信号量可以由一个线程释放，另一个线程得到。</p>
+</blockquote>
+<h3 id="信号">信号</h3>
+<p>上面说的进程间通信，都是常规状态下的工作模式。**对于异常情况下的工作模式，就需要用「信号」的方式来通知进程。**信号跟信号量虽然名字相似度 66.66%，但两者用途完全不一样。</p>
+<p>信号是一种比较复杂的通信方式，用于通知接收进程某个事件已经发生。</p>
+<p>在 Linux 操作系统中， 为了响应各种各样的事件，提供了几十种信号，分别代表不同的意义。我们可以通过 <code>kill -l</code> 命令，查看所有的信号。例如：</p>
+<ul>
+<li>Ctrl+C 产生 <code>SIGINT</code> 信号，表示终止该进程；</li>
+<li>Ctrl+Z 产生 <code>SIGTSTP</code> 信号，表示停止该进程，但还未结束；</li>
+</ul>
+<p>如果进程在后台运行，可以通过 <code>kill</code> 命令的方式给进程发送信号，但前提需要知道运行中的进程 PID 号，例如：</p>
+<ul>
+<li>kill -9 1050 ，表示给 PID 为 1050 的进程发送 <code>SIGKILL</code> 信号，用来立即结束该进程；</li>
+</ul>
+<p>所以，信号事件的来源主要有硬件来源（如键盘 Cltr+C ）和软件来源（如 kill 命令）。</p>
+<p>信号是进程间通信机制中<strong>唯一的异步通信机制</strong>，因为可以在任何时候发送信号给某一进程，一旦有信号产生，我们就有下面这几种，用户进程对信号的处理方式。</p>
+<p><strong>1.执行默认操作</strong>。Linux 对每种信号都规定了默认操作，例如，上面列表中的 SIGTERM 信号，就是终止进程的意思。</p>
+<p><strong>2.捕捉信号</strong>。我们可以为信号定义一个信号处理函数。当信号发生时，我们就执行相应的信号处理函数。</p>
+<p><strong>3.忽略信号</strong>。当我们不希望处理某些信号的时候，就可以忽略该信号，不做任何处理。有两个信号是应用进程无法捕捉和忽略的，即 <code>SIGKILL</code> 和 <code>SEGSTOP</code>，它们用于在任何时候中断或结束某一进程。</p>
+<h3 id="套接字">套接字</h3>
+<p>前面提到的管道、消息队列、共享内存、信号量和信号都是在同一台主机上进行进程间通信，那要想<strong>跨网络与不同主机上的进程之间通信，就需要 Socket 通信了。</strong></p>
+<p>实际上，Socket 通信不仅可以跨网络与不同主机的进程间通信，还可以在同主机上进程间通信。</p>
+<p>前面提到的管道、消息队列、共享内存、信号量和信号都是在同一台主机上进行进程间通信，那要想<strong>跨网络与不同主机上的进程之间通信，就需要 Socket 通信了。</strong></p>
+<p>实际上，Socket 通信不仅可以跨网络与不同主机的进程间通信，还可以在同主机上进程间通信。</p>
+<h2 id="线程是个啥">线程是个啥</h2>
+<h3 id="线程是什么">线程是什么</h3>
+<p>每个进程都有自己的地址空间，即进程空间。一个服务器通常需要接收大量并发请求，为每一个请求都创建一个进程系统开销大、请求响应效率低，因此操作系统引进线程。</p>
+<p>线程可以理解成一个进程的子任务， 一个进程中可以有多个线程，多个线程共享进程的所有资源。</p>
+<ul>
+<li><strong>线程是CPU调度和分派的基本单位</strong>，<strong>用于保证程序的实时性，实现进程内部的并发；</strong></li>
+<li><strong>线程是操作系统可识别的最小执行和调度单位</strong>。</li>
+<li>每个线程都独自占用一个<strong>虚拟处理器</strong>：独自的<strong>寄存器组</strong>，<strong>指令计数器和处理器状态</strong>。</li>
+<li>每个线程完成不同的任务，但是<strong>共享同一地址空间</strong>（也就是同样的<strong>动态内存，映射文件，目标代码等等</strong>），<strong>打开的文件队列和其他内核资源</strong>。</li>
+</ul>
+<h3 id="线程和进程的区别">线程和进程的区别</h3>
+<p>这里简单总结一下线程和进程的区别于联系：</p>
+<ol>
+<li><strong>概念</strong>：进程是运行中的程序，线程时进程的子任务，一个线程只属于一个进程，一个进程可以有多个线程；</li>
+<li><strong>功能</strong>：进程是 <strong>系统进行资源调度和分配的的基本单位，实现了操作系统的并发</strong>； 线程是 <strong>是CPU调度和分派的基本单位</strong>，<strong>用于保证程序的实时性，实现进程内部的并发；线程是操作系统可识别的最小执行和调度单位</strong>。</li>
+<li><strong>内存空间</strong>： <strong>进程在执行过程中拥有独立的内存单元，而多个线程共享进程的内存</strong>。</li>
+<li><strong>性能</strong>： <strong>进程编程调试简单可靠性高，但是创建销毁开销大；线程正相反，开销小，切换速度快，但是编程调试相对复杂</strong>。</li>
+<li><strong>应用场景</strong>： <strong>进程适应于多核、多机分布；线程适用于多核</strong></li>
+<li><strong>系统开销</strong>：进程创建与销毁开销大，线程创建于销毁开销小。</li>
+<li><strong>通信方式</strong>： <strong>进程间通信IPC，线程间可以直接读写进程数据段（如全局变量）来进行通信——需要进程同步和互斥手段的辅助，以保证数据的一致性</strong>。</li>
+</ol>
+<h2 id="死锁是个啥">死锁是个啥</h2>
+<h3 id="互斥与临界区">互斥与临界区</h3>
+<p>在了解死锁之前，我们先看看多线程或进程对共享资源进行访问时产生的冲突问题。</p>
+<ul>
+<li><strong>临界区</strong>：访问共同资源的那段代码称之为临界区，不同进程或线程不能同时进入临界区，否则可能会导致程序错误运行。</li>
+<li><strong>互斥</strong>：要保证只有一个线程或进程在临界区执行。换句话说，当一个线（进）程准备进入临界区时，如果已经有线（进）程进入临界区了，该线（进）程要阻塞，等到临界区空闲时才能进入。</li>
+</ul>
+<center><img src="/images/10-临界区.webp" style="width:400px;"></img></center>   
+<h3 id="同步">同步</h3>
+<p>互斥解决了并发进程/线程对临界区的使用问题。这种基于临界区控制的交互作用是比较简单的，只要一个进程/线程进入了临界区，其他试图想进入临界区的进程/线程都会被阻塞着，直到第一个进程/线程离开了临界区。</p>
+<p>我们都知道在多线程里，每个线程并不一定是顺序执行的，它们基本是以各自独立的、不可预知的速度向前推进，但有时候我们又希望多个线程能密切合作，以实现一个共同的任务。</p>
+<p>例子，线程 1 是负责读入数据的，而线程 2 是负责处理数据的，这两个线程是相互合作、相互依赖的。线程 2 在没有收到线程 1 的唤醒通知时，就会一直阻塞等待，当线程 1 读完数据需要把数据传给线程 2 时，线程 1 会唤醒线程 2，并把数据交给线程 2 处理。</p>
+<p><strong>所谓同步，就是并发进程/线程在一些关键点上可能需要互相等待与互通消息，这种相互制约的等待与互通信息称为进程/线程同步</strong>。</p>
+<p>注意，同步与互斥是两种不同的概念：</p>
+<ul>
+<li>同步就好比：「操作 A 应在操作 B 之前执行」，「操作 C 必须在操作 A 和操作 B 都完成之后才能执行」等；</li>
+<li>互斥就好比：「操作 A 和操作 B 不能在同一时刻执行」。</li>
+</ul>
+<h3 id="线程同步方式">线程同步方式</h3>
+<p>为了实现进程/线程间正确的协作，操作系统必须提供实现进程协作的措施和方法，主要的方法有两种：</p>
+<ul>
+<li><em>锁</em>：加锁、解锁操作；</li>
+<li><em>信号量</em>：P、V 操作。</li>
+</ul>
+<p>这两个都可以方便地实现进程/线程互斥，而信号量比锁的功能更强一些，它还可以方便地实现进程/线程同步。</p>
+<h4 id="锁">锁</h4>
+<center><img src="/images/12-互斥锁.webp" style="width:200px;"></img></center>    
+<p>锁的实现方式有很多种，可以分为“忙等待锁”和“无忙等待锁”：</p>
+<ul>
+<li>忙等待锁：比如说CAS自旋锁，等待锁期间，一直空转；</li>
+<li>无忙等待锁：就是等待锁时阻塞线程，把CPU让给其他线程执行。</li>
+</ul>
+<h4 id="信号量">信号量</h4>
+<p>信号量是操作系统提供的一种协调共享资源访问的方法。</p>
+<p>通常<strong>信号量表示资源的数量</strong>，对应的变量是一个整型（<code>sem</code>）变量。</p>
+<p>另外，还有<strong>两个原子操作的系统调用函数来控制信号量的</strong>，分别是：</p>
+<ul>
+<li><em>P 操作</em>：将 <code>sem</code> 减 <code>1</code>，相减后，如果 <code>sem &lt; 0</code>，则进程/线程进入阻塞等待，否则继续，表明 P 操作可能会阻塞；</li>
+<li><em>V 操作</em>：将 <code>sem</code> 加 <code>1</code>，相加后，如果 <code>sem &lt;= 0</code>，唤醒一个等待中的进程/线程，表明 V 操作不会阻塞；</li>
+</ul>
+<p>P 操作是用在进入临界区之前，V 操作是用在离开临界区之后，这两个操作是必须成对出现的。</p>
+<p>使用信号量可以轻松实现线程的互斥与同步功能。</p>
+<h3 id="死锁的产生">死锁的产生</h3>
+<p>了解了线程间的资源竞争，我们就可以来看死锁这个概念了。</p>
+<p>所谓死锁，就是：<strong>不同线程之间出现资源相互等待，导致所有线程都无法被执行的一种状态。</strong> 比如，有A、B两个线程，都需要使用共享资源x和y。现在A获取了x资源的锁，继续申请y资源的锁，但是y资源的锁已经被B获取了，B在申请x资源的锁。此时，A、B两个线程会一直被阻塞下去。</p>
+<p>那什么时候系统会出现死锁呢？这里总结下出现死锁的4个必要条件：</p>
+<ol>
+<li><strong>互斥</strong>：资源处于非共享模式，一次只能被一个线程使用；</li>
+<li><strong>占有并等待</strong>：某个线程占有了某个非共享资源，并等待使用其他非共享资源。</li>
+<li><strong>非抢占</strong>：某个线程占用了共享资源后，该资源不能被其他线程抢占；</li>
+<li><strong>循环等待</strong>：资源等待的状态形成环路，比如前面提到的例子，A等待B释放，B等待A释放。</li>
+</ol>
+<h3 id="应对死锁">应对死锁</h3>
+<p>死锁是我们不希望看到的，如何解决死锁问题呢？可以从预防、避免、检测和解除4个角度去应对死锁问题。</p>
+<h4 id="预防死锁">预防死锁</h4>
+<p>预防死锁的思路可以从前面提到的死锁四大必要条件着手，只要破坏其中一个条件，就可以预防死锁。</p>
+<ul>
+<li>
+<p>第一“互斥”条件显然不太可行，因为有些资源就是互斥的，不能被同时时候。</p>
+</li>
+<li>
+<p>第三个“非抢占”条件也不太可行， 抢占式可以采用 <strong>剥夺式调度算法</strong>，但剥夺式调度方法目前一般仅适用于 <strong>主存资源</strong> 和 <strong>处理器资源</strong> 的分配，并不适用于所以的资源，会导致 <strong>资源利用率下降</strong>。</p>
+</li>
+<li>
+<p>因此只能考虑破坏第2和第4个条件。</p>
+<ul>
+<li>
+<p><strong>静态资源分配</strong></p>
+<p>静态分配策略可以破坏死锁产生的第二个条件（占有并等待）。所谓静态分配策略，就是<strong>指一个进程必须在执行前就申请到它所需要的全部资源</strong>，并且知道它所要的资源都得到满足之后才开始执行。进程要么占有所有的资源然后开始执行，要么不占有资源，不会出现占有一些资源等待一些资源的情况。</p>
+<p>这种方法很简单，但是<strong>严重地降低了资源利用率</strong>。</p>
+</li>
+<li>
+<p><strong>层次分配策略</strong></p>
+<p>层次分配策略破坏了产生死锁的第四个条件(循环等待)。在层次分配策略下，所有的资源被分成了多个层次，一个进程得到某一次的一个资源后，它只能再申请较高一层的资源；当一个进程要释放某层的一个资源时，必须先释放所占用的较高层的资源，按这种策略，是不可能出现循环等待链的，因为那样的话，就出现了已经申请了较高层的资源，反而去申请了较低层的资源，不符合层次分配策略，证明略。</p>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="避免死锁">避免死锁</h4>
+<p>上面提到的 <strong>破坏</strong> 死锁产生的四个必要条件之一就可以成功 <strong>预防系统发生死锁</strong> ，但是会导致 <strong>低效的进程运行</strong> 和 <strong>资源使用率</strong> 。而死锁的避免相反，它的角度是允许系统中<strong>同时存在四个必要条件</strong> ，只要掌握并发进程中与每个进程有关的资源动态申请情况，做出 <strong>明智和合理的选择</strong> ，仍然可以避免死锁，因为四大条件仅仅是产生死锁的必要条件。</p>
+<p>我们将系统的状态分为 <strong>安全状态</strong> 和 <strong>不安全状态</strong> ，每当在未申请者分配资源前先测试系统状态，若把系统资源分配给申请者会产生死锁，则拒绝分配，否则接受申请，并为它分配资源。</p>
+<blockquote>
+<p>如果操作系统能够保证所有的进程在有限的时间内得到需要的全部资源，则称系统处于安全状态，否则说系统是不安全的。很显然，系统处于安全状态则不会发生死锁，系统若处于不安全状态则可能发生死锁。</p>
+</blockquote>
+<p>那么如何保证系统保持在安全状态呢？通过算法，其中最具有代表性的 <strong>避免死锁算法</strong> 就是 Dijkstra 的银行家算法，银行家算法用一句话表达就是：当一个进程申请使用资源的时候，<strong>银行家算法</strong> 通过先 <strong>试探</strong> 分配给该进程资源，然后通过 <strong>安全性算法</strong> 判断分配后系统是否处于安全状态，若不安全则试探分配作废，让该进程继续等待，若能够进入到安全的状态，则就 <strong>真的分配资源给该进程</strong>。</p>
+<h4 id="检测死锁">检测死锁</h4>
+<p>对资源的分配加以限制可以 <strong>预防和避免</strong> 死锁的发生，但是都不利于各进程对系统资源的<strong>充分共享</strong>。解决死锁问题的另一条途径是 <strong>死锁检测和解除</strong> (这里突然联想到了乐观锁和悲观锁，感觉死锁的检测和解除就像是 <strong>乐观锁</strong> ，分配资源时不去提前管会不会发生死锁了，等到真的死锁出现了再来解决嘛，而 <strong>死锁的预防和避免</strong> 更像是悲观锁，总是觉得死锁会出现，所以在分配资源的时候就很谨慎)。</p>
+<p>这种方法对资源的分配不加以任何限制，也不采取死锁避免措施，但系统 <strong>定时地运行一个 “死锁检测”</strong> 的程序，判断系统内是否出现死锁，如果检测到系统发生了死锁，再采取措施去解除它。</p>
+<ul>
+<li>
+<p><strong>死锁检测方法</strong></p>
+<p>操作系统中的每一刻时刻的<strong>系统状态</strong>都可以用<strong>进程-资源分配图</strong>来表示，进程-资源分配图是描述进程和资源申请及分配关系的一种有向图，可用于<strong>检测系统是否处于死锁状态</strong>。</p>
+<p>用一个方框表示每一个资源类，方框中的黑点表示该资源类中的各个资源，每个键进程用一个圆圈表示，用 <strong>有向边</strong> 来表示<strong>进程申请资源和资源被分配的情况</strong>。</p>
+</li>
+<li>
+<p><strong>死锁检测的步骤</strong></p>
+<p>知道了死锁检测的原理，我们可以利用下列步骤编写一个 <strong>死锁检测</strong> 程序，检测系统是否产生了死锁。</p>
+<ol>
+<li>如果进程-资源分配图中无环路，则此时系统没有发生死锁</li>
+<li>如果进程-资源分配图中有环路，且每个资源类仅有一个资源，则系统中已经发生了死锁。</li>
+<li>如果进程-资源分配图中有环路，且涉及到的资源类有多个资源，此时系统未必会发生死锁。如果能在进程-资源分配图中找出一个 <strong>既不阻塞又非独立的进程</strong> ，该进程能够在有限的时间内归还占有的资源，也就是把边给消除掉了，重复此过程，直到能在有限的时间内 <strong>消除所有的边</strong> ，则不会发生死锁，否则会发生死锁。(消除边的过程类似于 <strong>拓扑排序</strong>)</li>
+</ol>
+</li>
+</ul>
+<h4 id="解除死锁">解除死锁</h4>
+<p>当死锁检测程序检测到存在死锁发生时，应设法让其解除，让系统从死锁状态中恢复过来，常用的解除死锁的方法有以下四种：</p>
+<ol>
+<li><strong>立即结束所有进程的执行，重新启动操作系统</strong> ：这种方法简单，但以前所在的工作全部作废，损失很大。</li>
+<li><strong>撤销涉及死锁的所有进程，解除死锁后继续运行</strong> ：这种方法能彻底打破<strong>死锁的循环等待</strong>条件，但将付出很大代价，例如有些进程可能已经计算了很长时间，由于被撤销而使产生的部分结果也被消除了，再重新执行时还要再次进行计算。</li>
+<li><strong>逐个撤销涉及死锁的进程，回收其资源直至死锁解除。</strong></li>
+<li><strong>抢占资源</strong> ：从涉及死锁的一个或几个进程中抢占资源，把夺得的资源再分配给涉及死锁的进程直至死锁解除。</li>
+</ol>
+<h2 id="参考资料">参考资料</h2>
+<ol>
+<li>
+<p><a target="_blank" rel="noopener" href="https://xiaolincoding.com/os/4_process/process_base.html">https://xiaolincoding.com/os/4_process/process_base.html</a></p>
+</li>
+<li>
+<p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/c1015f5ffa74">https://www.jianshu.com/p/c1015f5ffa74</a></p>
+</li>
+<li>
+<p><a target="_blank" rel="noopener" href="https://xiaolincoding.com/os/4_process/process_commu.html">https://xiaolincoding.com/os/4_process/process_commu.html</a></p>
+</li>
+<li>
+<p><a target="_blank" rel="noopener" href="https://javaguide.cn/cs-basics/operating-system/operating-system-basic-questions-01.html">https://javaguide.cn/cs-basics/operating-system/operating-system-basic-questions-01.html</a></p>
+</li>
+<li>
+<p><a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/1688297">https://cloud.tencent.com/developer/article/1688297</a></p>
+</li>
+</ol>
+ 
+      <!-- reward -->
+      
+      <div id="reword-out">
+        <div id="reward-btn">
+          打赏
+        </div>
+      </div>
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <div class="declare">
+      <ul class="post-copyright">
+        <li>
+          <i class="ri-copyright-line"></i>
+          <strong>版权声明： </strong>
+          
+          本博客所有文章除特别声明外，著作权归作者所有。转载请注明出处！
+          
+        </li>
+      </ul>
+    </div>
+    
+    <footer class="article-footer">
+       
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<!--<div class="wx-share-modal">-->
+<!--    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>-->
+<!--    <p>扫一扫，分享到微信</p>-->
+<!--    <div class="wx-qrcode">-->
+<!--      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://rookieyin.github.io/0451b9009da7/" alt="微信分享二维码">-->
+<!--    </div>-->
+<!--</div>-->
+
+<div id="share-mask"></div>
+  
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" rel="tag">操作系统</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%BA%BF%E7%A8%8B/" rel="tag">线程</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%BF%9B%E7%A8%8B/" rel="tag">进程</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+  <nav class="article-nav">
+    
+      <a href="/7adcc9586fb9/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            内存管理
+          
+        </div>
+      </a>
+    
+    
+      <a href="/e89afa94e460/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">Cookie、Session和Token</div>
+      </a>
+    
+  </nav>
+
+   
+<!-- valine评论 -->
+<div id="vcomments-box">
+  <div id="vcomments"></div>
+</div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js"></script>
+<script>
+  new Valine({
+    el: "#vcomments",
+    app_id: "f9XmUV7HVprPCNptggBNBhWR-gzGzoHsz",
+    app_key: "H73Viqo3lADopEFgshq3XrXs",
+    path: window.location.pathname,
+    avatar: "monsterid",
+    placeholder: "给我的文章加点评论吧~",
+    recordIP: true,
+  });
+  const infoEle = document.querySelector("#vcomments .info");
+  if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+    infoEle.childNodes.forEach(function (item) {
+      item.parentNode.removeChild(item);
+    });
+  }
+</script>
+<style>
+  #vcomments-box {
+    padding: 5px 30px;
+  }
+
+  @media screen and (max-width: 800px) {
+    #vcomments-box {
+      padding: 5px 0px;
+    }
+  }
+
+  #vcomments-box #vcomments {
+    background-color: #fff;
+  }
+
+  .v .vlist .vcard .vh {
+    padding-right: 20px;
+  }
+
+  .v .vlist .vcard {
+    padding-left: 10px;
+  }
+</style>
+
+ 
+   
+     
+</article>
+
+</section>
+        <footer class="footer">
+  <div class="outer">
+    <ul>
+      <li>
+        Copyrights &copy;
+        2021-2022
+        <i class="ri-heart-fill heart_icon"></i> Yin Peng
+      </li>
+    </ul>
+    <ul>
+      <li>引擎:
+        <a style="color: #0681d0" target="_blank" rel="noopener" href="https://hexo.io/zh-cn/">Hexo</a>
+        &nbsp;&nbsp;|&nbsp;&nbsp;主题:修改自
+        <a style="color: #0681d0" target="_blank" rel="noopener" href="https://shen-yu.gitee.io/">Ayer</a>
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        <span>
+  <span><i class="ri-user-3-fill"></i>访问人数:<span id="busuanzi_value_site_uv"></span></span>
+  <span class="division">|</span>
+  <span><i class="ri-eye-fill"></i>浏览次数:<span id="busuanzi_value_page_pv"></span></span>
+</span>
+        
+      </li>
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      <li>
+        <!-- cnzz统计 -->
+        
+        <script type="text/javascript" src='https://s9.cnzz.com/z_stat.php?id=1278069914&amp;web_id=1278069914'></script>
+        
+      </li>
+    </ul>
+  </div>
+</footer>
+
+        <div class="float_btns">
+            <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+
+<div class="todark" id="todark">
+  <i class="ri-moon-line"></i>
+</div>
+
+        </div>
+    </main>
+
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/alipay.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/wxpay.png">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-2.0.3.min.js"></script>
+ 
+<script src="/js/lazyload.min.js"></script>
+
+<!-- Tocbot -->
+ 
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  tocbot.init({
+    tocSelector: ".tocbot",
+    contentSelector: ".article-entry",
+    headingSelector: "h1, h2, h3, h4, h5, h6",
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: "main",
+    positionFixedSelector: ".tocbot",
+    positionFixedClass: "is-position-fixed",
+    fixedSidebarOffset: "auto",
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.js"></script>
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.css"
+/>
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js"></script>
+
+<script src="/dist/main.js"></script>
+
+<!-- ImageViewer -->
+ <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css">
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script> 
+<!-- MathJax -->
+
+<!-- Katex -->
+
+<!-- busuanzi  -->
+ 
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+ 
+<!-- ClickLove -->
+ 
+<script src="/js/clickLove.js"></script>
+ 
+<!-- ClickBoom1 -->
+
+<!-- ClickBoom2 -->
+
+<!-- CodeCopy -->
+ 
+<link rel="stylesheet" href="/css/clipboard.css">
+ <script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="ri-file-copy-2-line"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-checkbox-circle-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-checkbox-circle-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-time-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-time-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+ 
+<!-- CanvasBackground -->
+
+<script>
+  if (window.mermaid) {
+    mermaid.initialize({ theme: "forest" });
+  }
+</script>
+
+
+    
+</div>
+</body>
+
+</html>

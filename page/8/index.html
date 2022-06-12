@@ -185,7 +185,7 @@
     
     
     <article
-  id="post-2 后端/MySQL/13. MySQL调优"
+  id="post-2 后端/Java/Java容器/9.HashMap源码解读"
   class="article article-type-post"
   itemscope
   itemprop="blogPost"
@@ -196,8 +196,8 @@
     <header class="article-header">
        
 <h2 itemprop="name">
-  <a class="article-title" href="/f651ec7154f8/"
-    >MySQL调优</a> 
+  <a class="article-title" href="/40b9b0acf80a/"
+    >HashMap源码解读</a> 
 </h2>
  
 
@@ -205,11 +205,11 @@
     </header>
      
     <div class="article-meta">
-      <a href="/f651ec7154f8/" class="article-date">
-  <time datetime="2021-12-20T12:38:14.000Z" itemprop="datePublished">2021-12-20</time>
+      <a href="/40b9b0acf80a/" class="article-date">
+  <time datetime="2022-01-31T14:34:49.000Z" itemprop="datePublished">2022-01-31</time>
 </a> 
   <div class="article-category">
-    <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a> / <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/MySQL/">MySQL</a>
+    <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a> / <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/Java/">Java</a> / <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/Java/Java%E5%AE%B9%E5%99%A8/">Java容器</a>
   </div>
 
    
@@ -217,16 +217,8 @@
       
     <div class="article-entry" itemprop="articleBody">
        
-  <h1>MySQL调优</h1>
-<h2 id="1-使用explain进行分析">1 使用Explain进行分析</h2>
-<p>Explain 用来分析 SELECT 查询语句，开发人员可以通过分析 Explain 结果来优化查询语句。</p>
-<p>比较重要的字段有:</p>
-<ul>
-<li>select_type : 查询类型，有简单查询、联合查询、子查询等</li>
-<li>key : 使用的索引</li>
-<li>rows : 扫描的行数</li>
-</ul> 
-      <a class="article-more-link" href="/f651ec7154f8/"
+  <p>本文简单分析下HashMap的源码，重点解读了HashMap的resize、put和remove方法。</p> 
+      <a class="article-more-link" href="/40b9b0acf80a/"
         >阅读更多...</a
       >
        
@@ -239,7 +231,7 @@
     
     <footer class="article-footer">
        
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MySQL/" rel="tag">MySQL</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%90%8E%E7%AB%AF/" rel="tag">后端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="tag">数据库</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%90%8E%E7%AB%AF/" rel="tag">后端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%AE%B9%E5%99%A8/" rel="tag">容器</a></li></ul>
 
     </footer>
   </div>
@@ -251,7 +243,7 @@
 
     
     <article
-  id="post-2 后端/MySQL/12. Explain命令怎么用"
+  id="post-2 后端/Java/Java容器/8. 使用PriorityQueue实现堆"
   class="article article-type-post"
   itemscope
   itemprop="blogPost"
@@ -262,8 +254,8 @@
     <header class="article-header">
        
 <h2 itemprop="name">
-  <a class="article-title" href="/7d57ba8dc7c3/"
-    >Explain 命令怎么用</a> 
+  <a class="article-title" href="/3e4a83fe1b86/"
+    >使用PriorityQueue实现堆</a> 
 </h2>
  
 
@@ -271,11 +263,11 @@
     </header>
      
     <div class="article-meta">
-      <a href="/7d57ba8dc7c3/" class="article-date">
-  <time datetime="2021-12-19T12:38:14.000Z" itemprop="datePublished">2021-12-19</time>
+      <a href="/3e4a83fe1b86/" class="article-date">
+  <time datetime="2022-01-30T14:34:49.000Z" itemprop="datePublished">2022-01-30</time>
 </a> 
   <div class="article-category">
-    <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a> / <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/MySQL/">MySQL</a>
+    <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a> / <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/Java/">Java</a> / <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/Java/Java%E5%AE%B9%E5%99%A8/">Java容器</a>
   </div>
 
    
@@ -283,9 +275,10 @@
       
     <div class="article-entry" itemprop="articleBody">
        
-  <h1>Explain 命令怎么用</h1>
-<p>MySQL提供的EXPLAIN命令，可以输出SQL语句的执行计划，帮助我们分析优化SQL语句。EXPLAIN命令用法十分简单，只需要在SQL语句前面加上EXPLAIN即可。</p> 
-      <a class="article-more-link" href="/7d57ba8dc7c3/"
+  <p>本文转自：<a target="_blank" rel="noopener" href="https://blog.csdn.net/shinef/article/details/105935038">[PriorityQueue]:Java中PriorityQueue的用法</a></p>
+<p>不指定Comparator时默认为<a target="_blank" rel="noopener" href="https://so.csdn.net/so/search?q=%E6%9C%80%E5%B0%8F%E5%A0%86&amp;spm=1001.2101.3001.7020">最小堆</a>,通过传入自定义的Comparator函数可以实现大顶堆。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">PriorityQueue&lt;Integer&gt; minHeap = <span class="keyword">new</span> PriorityQueue&lt;Integer&gt;(); <span class="comment">//小顶堆，默认容量为11</span></span><br><span class="line">PriorityQueue&lt;Integer&gt; maxHeap = <span class="keyword">new</span> PriorityQueue&lt;Integer&gt;(<span class="number">11</span>,<span class="keyword">new</span> Comparator&lt;Integer&gt;()&#123; <span class="comment">//大顶堆，容量11</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">compare</span><span class="params">(Integer i1,Integer i2)</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> i2-i1;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">//Comparator也可以使用lambda实现</span></span><br><span class="line">PriorityQueue&lt;Integer&gt; maxHeap = <span class="keyword">new</span> PriorityQueue&lt;Integer&gt;(<span class="number">11</span>, (Integer o1, Integer o2)-&gt;o2-o1);</span><br></pre></td></tr></table></figure> 
+      <a class="article-more-link" href="/3e4a83fe1b86/"
         >阅读更多...</a
       >
        
@@ -298,7 +291,7 @@
     
     <footer class="article-footer">
        
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MySQL/" rel="tag">MySQL</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%90%8E%E7%AB%AF/" rel="tag">后端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="tag">数据库</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%90%8E%E7%AB%AF/" rel="tag">后端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%AE%B9%E5%99%A8/" rel="tag">容器</a></li></ul>
 
     </footer>
   </div>
@@ -310,7 +303,7 @@
 
     
     <article
-  id="post-4 算法/九大排序算法总结"
+  id="post-2 后端/Java/Java容器/7. 常见并发容器总结"
   class="article article-type-post"
   itemscope
   itemprop="blogPost"
@@ -321,8 +314,8 @@
     <header class="article-header">
        
 <h2 itemprop="name">
-  <a class="article-title" href="/20925e201721/"
-    >九大排序算法总结</a> 
+  <a class="article-title" href="/2c9c354cbe3d/"
+    >常见并发容器总结</a> 
 </h2>
  
 
@@ -330,11 +323,11 @@
     </header>
      
     <div class="article-meta">
-      <a href="/20925e201721/" class="article-date">
-  <time datetime="2021-12-19T05:45:52.000Z" itemprop="datePublished">2021-12-19</time>
+      <a href="/2c9c354cbe3d/" class="article-date">
+  <time datetime="2022-01-29T14:34:49.000Z" itemprop="datePublished">2022-01-29</time>
 </a> 
   <div class="article-category">
-    <a class="article-category-link" href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+    <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a> / <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/Java/">Java</a> / <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/Java/Java%E5%AE%B9%E5%99%A8/">Java容器</a>
   </div>
 
    
@@ -342,9 +335,10 @@
       
     <div class="article-entry" itemprop="articleBody">
        
-  <p>本文简单总结一下九大排序算法的思路，并给出java版本代码。</p>
-<center><img src="/images/alg-sort-overview-1.png" style="width:500px;"></img></center> 
-      <a class="article-more-link" href="/20925e201721/"
+  <p>Java中并发集合类有很多，其结构关系如下图所示：</p>
+<center><img src="/images/java-thread-x-juc-overview-2.png" style="width:600px;"></img></center>
+<p>本文主要介绍两个最常用的并发集合类：ConcurrentHashMap和CopyOnWriteArrayList。</p> 
+      <a class="article-more-link" href="/2c9c354cbe3d/"
         >阅读更多...</a
       >
        
@@ -357,7 +351,7 @@
     
     <footer class="article-footer">
        
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%8E%92%E5%BA%8F/" rel="tag">排序</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%90%8E%E7%AB%AF/" rel="tag">后端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%AE%B9%E5%99%A8/" rel="tag">容器</a></li></ul>
 
     </footer>
   </div>
@@ -369,7 +363,7 @@
 
     
     <article
-  id="post-2 后端/MySQL/11. MySQL锁机制"
+  id="post-2 后端/Java/Java容器/6. Java容器各种常用API总结"
   class="article article-type-post"
   itemscope
   itemprop="blogPost"
@@ -380,8 +374,8 @@
     <header class="article-header">
        
 <h2 itemprop="name">
-  <a class="article-title" href="/fddcef8b88e0/"
-    >MySQL锁机制</a> 
+  <a class="article-title" href="/cdac6497ca5d/"
+    >Java容器各种常用API总结</a> 
 </h2>
  
 
@@ -389,11 +383,11 @@
     </header>
      
     <div class="article-meta">
-      <a href="/fddcef8b88e0/" class="article-date">
-  <time datetime="2021-12-18T12:38:14.000Z" itemprop="datePublished">2021-12-18</time>
+      <a href="/cdac6497ca5d/" class="article-date">
+  <time datetime="2022-01-28T14:34:49.000Z" itemprop="datePublished">2022-01-28</time>
 </a> 
   <div class="article-category">
-    <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a> / <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/MySQL/">MySQL</a>
+    <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a> / <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/Java/">Java</a> / <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/Java/Java%E5%AE%B9%E5%99%A8/">Java容器</a>
   </div>
 
    
@@ -401,18 +395,8 @@
       
     <div class="article-entry" itemprop="articleBody">
        
-  <h1>MySQL锁机制</h1>
-<p>在“MySQL事务”一文中，我们知道并发事务下会带来脏读、脏写、不可重复读、幻读等问题。解决这些问题的方式有两种：</p>
-<ul>
-<li>
-<p>一致性非锁定读或者叫快照读：其实现方式就是我们常说的MVCC。</p>
-<p>所有普通的SELECT语句在已提交读和可重复读两种隔离级别下都是采用一致性非锁定读。</p>
-</li>
-<li>
-<p>锁定读：一般情况下，使用MVCC可以解决读-写操作并发执行时带来的问题，但是某些场景下，我们必须采用加锁的方式才能解决这些并发问题。</p>
-</li>
-</ul> 
-      <a class="article-more-link" href="/fddcef8b88e0/"
+  <p>先说一下Java中所有容器都有的常用API：size()容器大小，isEmpty()是否为空，clear()清空容器，iterator()返回容器的迭代器（Collection接口下容器才有，Map接口下的没有）。</p> 
+      <a class="article-more-link" href="/cdac6497ca5d/"
         >阅读更多...</a
       >
        
@@ -425,7 +409,7 @@
     
     <footer class="article-footer">
        
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MySQL/" rel="tag">MySQL</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%90%8E%E7%AB%AF/" rel="tag">后端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="tag">数据库</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%90%8E%E7%AB%AF/" rel="tag">后端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%AE%B9%E5%99%A8/" rel="tag">容器</a></li></ul>
 
     </footer>
   </div>
@@ -437,7 +421,7 @@
 
     
     <article
-  id="post-2 后端/MySQL/10. undo log详解"
+  id="post-2 后端/Java/Java容器/5. Map接口"
   class="article article-type-post"
   itemscope
   itemprop="blogPost"
@@ -448,8 +432,8 @@
     <header class="article-header">
        
 <h2 itemprop="name">
-  <a class="article-title" href="/2a06983ca4ed/"
-    >undo log详解</a> 
+  <a class="article-title" href="/04f89728d40f/"
+    >Map接口</a> 
 </h2>
  
 
@@ -457,11 +441,11 @@
     </header>
      
     <div class="article-meta">
-      <a href="/2a06983ca4ed/" class="article-date">
-  <time datetime="2021-12-17T12:38:14.000Z" itemprop="datePublished">2021-12-17</time>
+      <a href="/04f89728d40f/" class="article-date">
+  <time datetime="2022-01-27T14:34:49.000Z" itemprop="datePublished">2022-01-27</time>
 </a> 
   <div class="article-category">
-    <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a> / <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/MySQL/">MySQL</a>
+    <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a> / <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/Java/">Java</a> / <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/Java/Java%E5%AE%B9%E5%99%A8/">Java容器</a>
   </div>
 
    
@@ -469,10 +453,10 @@
       
     <div class="article-entry" itemprop="articleBody">
        
-  <h1>undo log详解</h1>
-<p>在介绍事务实现原理时候，我们简单了解过undo log，它可以帮助我们实现事务的原子性。本文把undo log拎出来，详细介绍一下。</p>
-<p>在事务的执行过程中，可能遇到各种错误，此时为了保证事务的原子性，我们需要回滚当前事务已经执行的修改。那么怎么回滚这些修改呢？一种直接的方法就是，每次执行insert、delete、update语句时，我们都要留一手，用某种机制记录下数据修改前的样子，这样当我们需要回滚时，我们就能将修改的数据恢复原样。这就是undo log需要实现的功能。</p> 
-      <a class="article-more-link" href="/2a06983ca4ed/"
+  <p>本文主要介绍Map接口下的HashMap，TreeMap，HashTable，LinkedHashMap，ConcurrentHashMap五个类。</p>
+<p>对比这5种Map结构，其中HashMap和ConcurrentHashMap最为常用，前者用于单线程，后者用于多线程。</p>
+<p>TreeMap和LinkedHashMap可以看做两种有特殊用途的Map结构，前者是基于红黑树构造的有序Map，后者在HashMap的基础上多维护了一个双向链表，记录Map中元素顺序（有插入顺序和访问顺序两种，可用于实现LRUCache之类的需求）。</p> 
+      <a class="article-more-link" href="/04f89728d40f/"
         >阅读更多...</a
       >
        
@@ -485,7 +469,7 @@
     
     <footer class="article-footer">
        
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MySQL/" rel="tag">MySQL</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%90%8E%E7%AB%AF/" rel="tag">后端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="tag">数据库</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%90%8E%E7%AB%AF/" rel="tag">后端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%AE%B9%E5%99%A8/" rel="tag">容器</a></li></ul>
 
     </footer>
   </div>
@@ -497,7 +481,7 @@
 
     
     <article
-  id="post-2 后端/MySQL/9. redo log详解"
+  id="post-2 后端/Java/Java容器/4. Collection子接口之Queue"
   class="article article-type-post"
   itemscope
   itemprop="blogPost"
@@ -508,8 +492,8 @@
     <header class="article-header">
        
 <h2 itemprop="name">
-  <a class="article-title" href="/3f95ffdd49a0/"
-    >redo log详解</a> 
+  <a class="article-title" href="/b00da1522087/"
+    >Collection子接口之Queue</a> 
 </h2>
  
 
@@ -517,11 +501,11 @@
     </header>
      
     <div class="article-meta">
-      <a href="/3f95ffdd49a0/" class="article-date">
-  <time datetime="2021-12-16T12:38:14.000Z" itemprop="datePublished">2021-12-16</time>
+      <a href="/b00da1522087/" class="article-date">
+  <time datetime="2022-01-26T14:34:49.000Z" itemprop="datePublished">2022-01-26</time>
 </a> 
   <div class="article-category">
-    <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a> / <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/MySQL/">MySQL</a>
+    <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a> / <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/Java/">Java</a> / <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/Java/Java%E5%AE%B9%E5%99%A8/">Java容器</a>
   </div>
 
    
@@ -529,14 +513,9 @@
       
     <div class="article-entry" itemprop="articleBody">
        
-  <h1>redo log详解</h1>
-<p>之前学习事务的时候，介绍过redo log，其核心功能就是服务器宕机后进行数据恢复。本文把它单独拎出来，详细介绍一下。</p>
-<p>在了解Redo log更具体内容之前，我们先回答一个问题：为什么要有redo log？</p>
-<p>学习过BufferPool，我们知道InnoDB读取/更新数据操作都是在BufferPool中进行的，在某个时间点统一将BufferPool中的脏页同步到磁盘中。但是如果系统发生故障，宕机了，BufferPool中还有脏页没来得及同步到磁盘中，这时就会发生数据丢失。</p>
-<p>为了避免这种情况，我们就需要一种机制，保存BufferPool中数据更新的操作，在系统恢复时，帮助我们恢复宕机前没来得及同步的脏页数据。这就是redo log要完成的功能。</p>
-<p>也就是说，对于更新操作，我们不仅要更新BufferPool中的数据，我们还要将该更新操作记录到redo log中。为了节约空间，redo log中记录的是物理页的变化。比如，某个事务将系统表空间第100号页面中偏移量为1000处的字节从1更改为2，我们只需要进行如下记录：</p>
-<p>“将第0号表空间第100号页面中偏移量为1000处的值改为2”。</p> 
-      <a class="article-more-link" href="/3f95ffdd49a0/"
+  <p>Queue是单端队列，只能从一端插入元素，另一端删除元素，实现上一般遵循 <strong>先进先出（FIFO）</strong> 规则。 Queue接口下面又一个子接口Deque，是双端队列， 在队列的两端均可以插入或删除元素。</p>
+<p>ArrayDeque和LinkedList实现了Deque接口，PriorityQueue和LinkedList实现了Queue接口。下面主要介绍ArrayDeque和PriorityQueue两个类。</p> 
+      <a class="article-more-link" href="/b00da1522087/"
         >阅读更多...</a
       >
        
@@ -549,7 +528,7 @@
     
     <footer class="article-footer">
        
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MySQL/" rel="tag">MySQL</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%90%8E%E7%AB%AF/" rel="tag">后端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="tag">数据库</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%90%8E%E7%AB%AF/" rel="tag">后端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%AE%B9%E5%99%A8/" rel="tag">容器</a></li></ul>
 
     </footer>
   </div>
@@ -561,7 +540,7 @@
 
     
     <article
-  id="post-2 后端/MySQL/8. MySQL的binlog"
+  id="post-2 后端/Java/Java容器/3. Collection子接口之Set"
   class="article article-type-post"
   itemscope
   itemprop="blogPost"
@@ -572,8 +551,8 @@
     <header class="article-header">
        
 <h2 itemprop="name">
-  <a class="article-title" href="/b15c79e9cdee/"
-    >MySQL的binlog</a> 
+  <a class="article-title" href="/e633493f51d0/"
+    >Collection子接口之Set</a> 
 </h2>
  
 
@@ -581,11 +560,11 @@
     </header>
      
     <div class="article-meta">
-      <a href="/b15c79e9cdee/" class="article-date">
-  <time datetime="2021-12-15T12:38:14.000Z" itemprop="datePublished">2021-12-15</time>
+      <a href="/e633493f51d0/" class="article-date">
+  <time datetime="2022-01-25T14:34:49.000Z" itemprop="datePublished">2022-01-25</time>
 </a> 
   <div class="article-category">
-    <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a> / <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/MySQL/">MySQL</a>
+    <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a> / <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/Java/">Java</a> / <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/Java/Java%E5%AE%B9%E5%99%A8/">Java容器</a>
   </div>
 
    
@@ -593,10 +572,8 @@
       
     <div class="article-entry" itemprop="articleBody">
        
-  <h1>MySQL的binlog</h1>
-<p>MySQL中的日志主要包括错误日志、查询日志、慢查询日志、事务日志、二进制日志几大类。其中比较重要的还要属 二进制日志 <code>binlog</code>（归档日志）和事务日志 <code>redo log</code>（重做日志）和 <code>undo log</code>（回滚日志）。</p>
-<p>在“MySQL事务”一文中，介绍了重做日志和回滚日志的相关知识，包括如何通过redo log实现事务的持久性，通过undo log实现事务的原子性。本文主要介绍binlog相关知识。</p> 
-      <a class="article-more-link" href="/b15c79e9cdee/"
+  <p>Set接口下的三种类HashSet、LinkedHashSet、TreeSet和Map接口中的HashMap、LinkedHashMap、TreeMap是一一对应的。前者基本上都是对后者的包装。</p> 
+      <a class="article-more-link" href="/e633493f51d0/"
         >阅读更多...</a
       >
        
@@ -609,7 +586,7 @@
     
     <footer class="article-footer">
        
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MySQL/" rel="tag">MySQL</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%90%8E%E7%AB%AF/" rel="tag">后端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="tag">数据库</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%90%8E%E7%AB%AF/" rel="tag">后端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%AE%B9%E5%99%A8/" rel="tag">容器</a></li></ul>
 
     </footer>
   </div>
@@ -621,7 +598,7 @@
 
     
     <article
-  id="post-2 后端/MySQL/7. MySQL索引"
+  id="post-2 后端/Java/Java容器/2. Collection子接口之List"
   class="article article-type-post"
   itemscope
   itemprop="blogPost"
@@ -632,8 +609,8 @@
     <header class="article-header">
        
 <h2 itemprop="name">
-  <a class="article-title" href="/d7c79caa873a/"
-    >MySQL索引</a> 
+  <a class="article-title" href="/88548635ce75/"
+    >Collection子接口之List</a> 
 </h2>
  
 
@@ -641,11 +618,11 @@
     </header>
      
     <div class="article-meta">
-      <a href="/d7c79caa873a/" class="article-date">
-  <time datetime="2021-12-14T12:38:14.000Z" itemprop="datePublished">2021-12-14</time>
+      <a href="/88548635ce75/" class="article-date">
+  <time datetime="2022-01-24T14:34:49.000Z" itemprop="datePublished">2022-01-24</time>
 </a> 
   <div class="article-category">
-    <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a> / <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/MySQL/">MySQL</a>
+    <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a> / <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/Java/">Java</a> / <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/Java/Java%E5%AE%B9%E5%99%A8/">Java容器</a>
   </div>
 
    
@@ -653,11 +630,9 @@
       
     <div class="article-entry" itemprop="articleBody">
        
-  <h1>MySQL索引</h1>
-<h2 id="1-索引概述">1 索引概述</h2>
-<p><strong>索引是一种用于快速查询和检索数据的数据结构。常见的索引结构有: B 树， B+树和 Hash。</strong></p>
-<p>索引的作用就相当于目录的作用。打个比方: 我们在查字典的时候，如果没有目录，那我们就只能一页一页的去找我们需要查的那个字，速度很慢。如果有目录了，我们只需要先去目录里查找字的位置，然后直接翻到那一页就行了。</p> 
-      <a class="article-more-link" href="/d7c79caa873a/"
+  <p>本文主要介绍List接口下的<code>ArrayList</code>和<code>LinkedList</code>两个类。至于<code>Vector</code>类，其实现和<code>ArrayList</code>十分相似，底层都是<code>Object[]</code>，主要区别在于<code>Vector</code>是线程安全的，里面所有方法都被<code>synchronized</code>修饰。</p>
+<p>尽量减少使用<code>Vector</code>，尽管它是线程安全的，但是和<code>ArrayList</code>相比，效率大大降低。</p> 
+      <a class="article-more-link" href="/88548635ce75/"
         >阅读更多...</a
       >
        
@@ -670,7 +645,7 @@
     
     <footer class="article-footer">
        
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MySQL/" rel="tag">MySQL</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%90%8E%E7%AB%AF/" rel="tag">后端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="tag">数据库</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%90%8E%E7%AB%AF/" rel="tag">后端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%AE%B9%E5%99%A8/" rel="tag">容器</a></li></ul>
 
     </footer>
   </div>
@@ -682,7 +657,7 @@
 
     
     <article
-  id="post-2 后端/MySQL/6. MySQL的缓存机制"
+  id="post-2 后端/Java/Java容器/1. Java集合概述"
   class="article article-type-post"
   itemscope
   itemprop="blogPost"
@@ -693,8 +668,8 @@
     <header class="article-header">
        
 <h2 itemprop="name">
-  <a class="article-title" href="/52b102c1181c/"
-    >MySQL的缓存机制</a> 
+  <a class="article-title" href="/38694dd49f4c/"
+    >Java集合概述</a> 
 </h2>
  
 
@@ -702,11 +677,11 @@
     </header>
      
     <div class="article-meta">
-      <a href="/52b102c1181c/" class="article-date">
-  <time datetime="2021-12-13T12:38:14.000Z" itemprop="datePublished">2021-12-13</time>
+      <a href="/38694dd49f4c/" class="article-date">
+  <time datetime="2022-01-23T14:34:49.000Z" itemprop="datePublished">2022-01-23</time>
 </a> 
   <div class="article-category">
-    <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a> / <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/MySQL/">MySQL</a>
+    <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a> / <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/Java/">Java</a> / <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/Java/Java%E5%AE%B9%E5%99%A8/">Java容器</a>
   </div>
 
    
@@ -714,14 +689,9 @@
       
     <div class="article-entry" itemprop="articleBody">
        
-  <h1>MySQL的缓存机制</h1>
-<p>本文简单总结下MySQL中的缓存机制，具体来说是，使用InnoDB作为作为存储引擎时的各种缓存机制。主要包含三个方面：</p>
-<ul>
-<li>MySQL层——查询缓存：作用不大，高版本mysql已经去掉了这个功能。</li>
-<li>InooDB层——buffer pool：很重要，是保证InnoDB高性能的核心功能之一，也是本文的重点介绍对象。</li>
-<li>三大日志文件的缓存：binglog、redolog和undolog三个日志文件，写文件时，先写到缓存，然后再刷盘。</li>
-</ul> 
-      <a class="article-more-link" href="/52b102c1181c/"
+  <p>Java集合，也叫作容器，主要由<code>Collection</code>和<code>Map</code>两大顶层接口转化而来，其中<code>Collection</code>下面又有<code>List</code>，<code>Queue</code>和<code>Set</code>三大接口。Java集合框架图如下图所示：</p>
+<center><img src="/images/java_collections_overview.png" style="width:900px;"></img></center> 
+      <a class="article-more-link" href="/38694dd49f4c/"
         >阅读更多...</a
       >
        
@@ -734,7 +704,7 @@
     
     <footer class="article-footer">
        
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MySQL/" rel="tag">MySQL</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%90%8E%E7%AB%AF/" rel="tag">后端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="tag">数据库</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%90%8E%E7%AB%AF/" rel="tag">后端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%AE%B9%E5%99%A8/" rel="tag">容器</a></li></ul>
 
     </footer>
   </div>
@@ -746,7 +716,7 @@
 
     
     <article
-  id="post-2 后端/MySQL/5. InnoDB中的MVCC"
+  id="post-2 后端/Java/Java基础知识/1 Java抽象类与接口"
   class="article article-type-post"
   itemscope
   itemprop="blogPost"
@@ -757,8 +727,8 @@
     <header class="article-header">
        
 <h2 itemprop="name">
-  <a class="article-title" href="/f7547b80614e/"
-    >InnoDB中的MVCC</a> 
+  <a class="article-title" href="/bffbbbcd67c3/"
+    >Java抽象类与接口</a> 
 </h2>
  
 
@@ -766,11 +736,11 @@
     </header>
      
     <div class="article-meta">
-      <a href="/f7547b80614e/" class="article-date">
-  <time datetime="2021-12-12T12:38:14.000Z" itemprop="datePublished">2021-12-12</time>
+      <a href="/bffbbbcd67c3/" class="article-date">
+  <time datetime="2022-01-22T14:34:49.000Z" itemprop="datePublished">2022-01-22</time>
 </a> 
   <div class="article-category">
-    <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a> / <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/MySQL/">MySQL</a>
+    <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a> / <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/Java/">Java</a> / <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/Java/Java%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/">Java基础知识</a>
   </div>
 
    
@@ -778,23 +748,8 @@
       
     <div class="article-entry" itemprop="articleBody">
        
-  <h1>InnoDB中的MVCC</h1>
-<h2 id="1-mvcc概述">1 MVCC概述</h2>
-<p>MVCC，全称 Multi-Version Concurrency Control，即多版本并发控制。我们知道数据库并发场景有3种：</p>
-<ol>
-<li>
-<p><strong>读-读</strong>：不存在任何问题，也不需要并发控制</p>
-</li>
-<li>
-<p><strong>读-写</strong>：有线程安全问题，可能会造成事务隔离性问题，可能遇到脏读，幻读，不可重复读</p>
-</li>
-<li>
-<p><strong>写-写</strong>：有线程安全问题，可能会存在更新丢失问题，比如第一类更新丢失，第二类更新丢失</p>
-</li>
-</ol>
-<p>为了在这些场景中实现事务的隔离性，避免脏读、脏写、幻读、不可重复读等现象，一种常规的操作就是加悲观锁，让事务串行执行。但是这种方式会大大削弱系统的并发能力。</p>
-<p>多版本并发控制（MVCC）就是一种用来解决<strong>读-写冲突的无锁并发控制</strong> 。MVCC在MySQL InnoDB中的实现主要是为了提高数据库并发性能，用更好的方式去处理读-写冲突，做到即使有<strong>读写冲突</strong>时，也能做到<strong>不加锁</strong>，<strong>非阻塞并发读</strong> 。</p> 
-      <a class="article-more-link" href="/f7547b80614e/"
+  <p>抽象类和接口都是OOP的抽象表现。两者有相似的地方，也有非常本质的区别，本文简单介绍下Java中的抽象类和接口。</p> 
+      <a class="article-more-link" href="/bffbbbcd67c3/"
         >阅读更多...</a
       >
        
@@ -807,7 +762,7 @@
     
     <footer class="article-footer">
        
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MySQL/" rel="tag">MySQL</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%90%8E%E7%AB%AF/" rel="tag">后端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="tag">数据库</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%90%8E%E7%AB%AF/" rel="tag">后端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%8A%BD%E8%B1%A1%E7%B1%BB/" rel="tag">抽象类</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%8E%A5%E5%8F%A3/" rel="tag">接口</a></li></ul>
 
     </footer>
   </div>
@@ -824,7 +779,7 @@
   
   <nav class="page-nav">
     
-    <a class="extend prev" rel="prev" href="/page/7/">上一页</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><span class="page-number current">8</span><a class="page-number" href="/page/9/">9</a><a class="page-number" href="/page/10/">10</a><span class="space">&hellip;</span><a class="page-number" href="/page/15/">15</a><a class="extend next" rel="next" href="/page/9/">下一页</a>
+    <a class="extend prev" rel="prev" href="/page/7/">上一页</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><span class="page-number current">8</span><a class="page-number" href="/page/9/">9</a><a class="page-number" href="/page/10/">10</a><span class="space">&hellip;</span><a class="page-number" href="/page/17/">17</a><a class="extend next" rel="next" href="/page/9/">下一页</a>
   </nav>
   
 </section>

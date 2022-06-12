@@ -1,0 +1,897 @@
+<!DOCTYPE html>
+
+
+<html lang="zh-CN">
+  
+
+    <head>
+      <meta name="baidu-site-verification" content="code-rk2CNV4xgj" />
+      <meta charset="utf-8" />
+        
+      <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1"
+      />
+      <title>聊聊定时任务的实现方式 |  RookieYin&#39;s Note</title>
+  <meta name="generator" content="hexo-theme-ayer">
+      
+      <link rel="shortcut icon" href="/images/2.jpg" />
+       
+<link rel="stylesheet" href="/dist/main.css">
+
+      <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/Shen-Yu/cdn/css/remixicon.min.css"
+      />
+      
+<link rel="stylesheet" href="/css/custom.css">
+ 
+      <script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+       
+ 
+
+      <!-- mermaid -->
+      
+    <link rel="alternate" href="/atom.xml" title="RookieYin's Note" type="application/atom+xml">
+<link href="https://cdn.bootcss.com/KaTeX/0.11.1/katex.min.css" rel="stylesheet" /></head>
+  </html>
+</html>
+
+
+<body>
+<div id="app">
+    
+    
+    <div class="sidebar">
+        <!--<button class="navbar-toggle"></button>-->
+<nav class="navbar">
+  <div class="logo">
+    <a href="/">
+      <img src="/images/2.jpg"
+           style="border-radius: 50%;max-width: none;">
+    </a>
+  </div>
+  <div class = nav-title style="font-size: 2.5rem;color: #ffffff;margin-left: 4rem;font-weight: bold;min-width: 23rem">
+    RookieYin's Note
+  </div>
+  <div class="nav nav-main">
+    
+    <div class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </div>
+    
+    <div class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </div>
+    
+    <div class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </div>
+    
+    <div class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </div>
+    
+    <div class="nav-item">
+      <a class="nav-item-link" href="/friends">友链</a>
+    </div>
+    
+    <div class="nav-item">
+      <a class="nav-item-link" href="/about-me/2021">关于我</a>
+    </div>
+    
+      <div class="nav-item">
+        <div class="nav-item-link navbar-menu-wrap">
+          <div class="navbar-menu"></div>
+        </div>
+      </div>
+    <div class = "nav-item">
+      <a class="nav-item-link nav-item-search"  title="搜索">
+        <i class="ri-search-line"></i>
+      </a>
+    </div>
+  </div>
+</nav>
+<nav class="navbar2">
+  <div style="position: relative;">
+      <div style="height: 4.8rem;display: inline-block;margin-top:1rem;margin-left:1rem;">
+        <a href="/">
+          <img src="/images/2.jpg"
+               style="border-radius: 50%;max-width: none;width:4.8rem">
+        </a>
+      </div>
+    <div class="navbar-title2" style="font-size: 2.5rem;color: #ffffff;margin-left: 4rem;font-weight: bold;margin-top:1rem;
+    min-width: 23rem;height: 4.8rem;overflow: hidden;">
+      <span style="line-height: 4.8rem;">RookieYin's Note</span>
+    </div>
+    <div style="display: inline-block;position: absolute;top:50%;height:50%;transform:translate(-50%,-50%);right:4rem;margin-top: 1rem;">
+      <div class="navbar-menu-wrap">
+        <div class="navbar-menu"></div>
+      </div>
+    </div>
+    <div style="display: inline-block;position: absolute;top:50%;height:50%;transform:translate(-50%,-50%);right:0;">
+      <a class="nav-item-search"  title="搜索">
+        <i class="ri-search-line"></i>
+      </a>
+    </div>
+  </div>
+  <div style="display: inline-block;text-align: center;width: 100%;padding-bottom: 1rem;">
+    
+    <div class="nav-item2">
+      <a class="nav-item-link2" href="/">主页</a>
+    </div>
+    
+    <div class="nav-item2">
+      <a class="nav-item-link2" href="/archives">归档</a>
+    </div>
+    
+    <div class="nav-item2">
+      <a class="nav-item-link2" href="/categories">分类</a>
+    </div>
+    
+    <div class="nav-item2">
+      <a class="nav-item-link2" href="/tags">标签</a>
+    </div>
+    
+    <div class="nav-item2">
+      <a class="nav-item-link2" href="/friends">友链</a>
+    </div>
+    
+    <div class="nav-item2">
+      <a class="nav-item-link2" href="/about-me/2021">关于我</a>
+    </div>
+    
+  </div>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+
+    </div>
+    <main class="content">
+        <section class="outer">
+  <article
+  id="post-2 后端/其他/1 聊聊定时任务的实现方式"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  聊聊定时任务的实现方式
+</h1>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/89003babc13d/" class="article-date">
+  <time datetime="2022-05-26T05:43:55.000Z" itemprop="datePublished">2022-05-26</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a> / <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/%E5%85%B6%E4%BB%96/">其他</a>
+  </div>
+
+  
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> 字数统计:</span>
+            <span class="post-count">4.4k</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> 阅读时长≈</span>
+            <span class="post-count">19 分钟</span>
+        </span>
+    </span>
+</div>
+ 
+    </div>
+      
+    <div class="tocbot"></div>
+
+
+
+
+  
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h2 id="利用jdk实现">利用JDK实现</h2>
+<h3 id="thread-sleep">Thread Sleep</h3>
+<p>创建一个线程，把任务放到while循环中，每次执行完任务后sleep指定时间。方法简单，但是能够实现的功能十分有限。</p>
+<a id="more"></a>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SleepTest</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">        <span class="keyword">final</span> <span class="keyword">long</span> timeInterval = <span class="number">1000</span>;</span><br><span class="line">        Runnable runnable = <span class="keyword">new</span> Runnable() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                <span class="keyword">while</span> (<span class="keyword">true</span>) &#123;</span><br><span class="line">                    System.out.println(<span class="string">&quot;你好，同学！&quot;</span>);</span><br><span class="line">                    <span class="keyword">try</span> &#123;</span><br><span class="line">                        Thread.sleep(timeInterval);</span><br><span class="line">                    &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                        e.printStackTrace();</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line">        Thread thread = <span class="keyword">new</span> Thread(runnable);</span><br><span class="line">        thread.start();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="timer">Timer</h3>
+<p>和Timer相关的类主要有两个：</p>
+<ul>
+<li>Timer：是jdk中提供的一个定时器工具，使用的时候会在主线程之外起一个单独的线程执行指定的<a target="_blank" rel="noopener" href="https://so.csdn.net/so/search?q=%E8%AE%A1%E5%88%92%E4%BB%BB%E5%8A%A1&amp;spm=1001.2101.3001.7020">计划任务</a>，可以指定执行一次或者反复执行多次。</li>
+<li>TimerTask：是一个实现了Runnable接口的抽象类，代表一个可以被Timer执行的任务。</li>
+</ul>
+<h4 id="使用方式">使用方式</h4>
+<p>Timer的使用也非常简单，需要用到时候<code>new Timer()</code>创建一个定时器工具，然后调用<code>schedule()</code>或者<code> scheduleAtFixedRate ()</code>方法启动任务。下面是一个简单使用示例：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TimerTest</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">        Timer timer = <span class="keyword">new</span> Timer();</span><br><span class="line">        timer.schedule(<span class="keyword">new</span> TimerTask() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                System.out.println(<span class="string">&quot;延迟1秒执行&quot;</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;, <span class="number">1000</span>);<span class="comment">//只传一个参数delay</span></span><br><span class="line">        timer.schedule(<span class="keyword">new</span> TimerTask() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                System.out.println(<span class="string">&quot;每隔1秒执行1次&quot;</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;, <span class="number">5000</span>, <span class="number">1000</span>);</span><br><span class="line">        timer.schedule((<span class="keyword">new</span> TimerTask() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                System.out.println(<span class="string">&quot;每隔5秒执行1次&quot;</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;), <span class="number">5000</span>, <span class="number">5000</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>除了上面例子中以固定时间间隔执行任务外，还可以通过调用<code> scheduleAtFixedRate ()</code>实现以固定频率执行任务。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">timer.scheduleAtFixedRate(<span class="keyword">new</span> TimerTask() &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;以2秒固定速率执行&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;,<span class="number">1000</span>, <span class="number">2000</span>);<span class="comment">//延迟1秒执行，每2秒执行一次</span></span><br></pre></td></tr></table></figure>
+<p>固定速率和固定间隔有啥区别呢？也就是<code>schedule()</code>和<code> scheduleAtFixedRate ()</code>有啥区别？</p>
+<ul>
+<li>
+<p><strong>相同点</strong></p>
+<ul>
+<li>任务执行未超时，下次执行时间 = 上次执行开始时间 + period；</li>
+<li>任务执行超时，下次执行时间 = 上次执行结束时间；</li>
+</ul>
+</li>
+<li>
+<p><strong>不同点</strong></p>
+<p>schedule的策略是错过了就错过了，后续按照新的节奏来走；scheduleAtFixedRate的策略是如果错过了，就努力追上原来的节奏（制定好的节奏）。</p>
+<ul>
+<li>
+<p>schedule侧重保持间隔时间的稳定</p>
+<p>schedule方法会因为前一个任务的延迟而导致其后面的定时任务延时。</p>
+</li>
+<li>
+<p>scheduleAtFixedRate保持执行频率的稳定</p>
+<p>如果第n次执行task时，由于某种原因这次执行时间过长，执行完后的systemCurrentTime&gt;= scheduledExecutionTime(第n+1次)，则此时不做period间隔等待，立即执行第n+1次task。</p>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="底层原理">底层原理</h4>
+<p>Timer的原理模型如下图所示：</p>
+<center><img src="/images/14791b3ecf42cd28cb686e67e3d553c7.png" style="width:500px;"></img></center>
+<ol>
+<li>其中 TaskQueue 是一个平衡二叉树堆实现的优先级队列，每个 Timer 对象内部有唯一一个 TaskQueue 队列。用户线程调用 timer 的 schedule 方法就是把 TimerTask 任务添加到 TaskQueue 队列，在调用 schedule 的方法时候 long delay 参数用来说明该任务延迟多少时间执行。</li>
+<li>TimerThread 是具体执行任务的线程，它从 TaskQueue 队列里面获取优先级最小的任务进行执行，需要注意的是只有执行完了当前的任务才会从队列里面获取下一个任务而不管队列里面是否有已经到了设置的 delay 时间，一个 Timer 只有一个 TimerThread 线程，所以可知 Timer 的内部实现是一个多生产者单消费者模型。</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">   <span class="keyword">try</span> &#123;</span><br><span class="line">       mainLoop();</span><br><span class="line">   &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">       <span class="comment">// 有人杀死了这个线程，表现得好像Timer已取消</span></span><br><span class="line">       <span class="keyword">synchronized</span>(queue) &#123;</span><br><span class="line">           newTasksMayBeScheduled = <span class="keyword">false</span>;</span><br><span class="line">           queue.clear();  <span class="comment">// 消除过时的引用</span></span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br><span class="line"> <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">mainLoop</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">while</span> (<span class="keyword">true</span>) &#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                TimerTask task;</span><br><span class="line">                <span class="keyword">boolean</span> taskFired;</span><br><span class="line">                <span class="comment">//从队列里面获取任务时候要加锁</span></span><br><span class="line">                <span class="keyword">synchronized</span>(queue) &#123;</span><br><span class="line">                    ......</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span> (taskFired)  </span><br><span class="line">                    task.run();<span class="comment">//执行任务</span></span><br><span class="line">            &#125; <span class="keyword">catch</span>(InterruptedException e) &#123;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<p>从上述源码可知，当任务执行过程中抛出了除 InterruptedException 之外的异常后，唯一的消费线程就会因为抛出异常而终止，那么队列里面的其他待执行的任务就会被清除。所以 TimerTask 的 run 方法内最好使用 try-catch 结构 catch 主可能的异常，不要把异常抛出到 run 方法外。</p>
+<h4 id="总结">总结</h4>
+<p>Timer使用起来也非常简单，和Thread.sleep()相比，代码实现上更简单，实现的功能也更多，适合单点，执行比较频繁、有规律的场景。</p>
+<p>Timer也有很多缺点：</p>
+<ol>
+<li>时间敏感：首先Timer对调度的支持是基于绝对时间的，而不是相对时间，所以它对系统时间的改变非常敏感。</li>
+<li>捕获异常：其次Timer线程是不会捕获异常的，如果TimerTask抛出的了未检查异常则会导致Timer线程终止，同时Timer也不会重新恢复线程的执行，他会错误的认为整个Timer线程都会取消。同时，已经被安排单尚未执行的TimerTask也不会再执行了，新的任务也不能被调度。故如果TimerTask抛出未检查的异常，Timer将会产生无法预料的行为。</li>
+<li>任务冲突：Timer在执行定时任务时只会创建一个线程任务，如果存在多个线程，若其中某个线程因为某种原因而导致线程任务执行时间过长，超过了两个任务的间隔时间，会导致下一个任务执行时间滞后。</li>
+</ol>
+<p>这些缺点，在 ScheduledExecutorService 中得到了很好的解决。</p>
+<h3 id="scheduledexecutorservice">ScheduledExecutorService</h3>
+<p>ScheduledExecutorService是JAVA 1.5后新增的定时任务接口，它是基于线程池设计的定时任务类，每个调度任务都会分配到线程池中的一个线程去执行。</p>
+<h4 id="使用方式">使用方式</h4>
+<p>在使用方法上，ScheduledExecutorService和Timer几乎没啥区别，主要通过下面4个方法开启任务：</p>
+<ul>
+<li><code> ScheduledFuture&lt;?&gt; schedule(Runnable command,long delay, TimeUnit unit)</code>：传入Runnable实例，延迟delay执行一次，单位为unit；</li>
+<li><code> &lt;V&gt; ScheduledFuture&lt;V&gt; schedule(Callable&lt;V&gt; callable,long delay, TimeUnit unit)</code>：传入Callable实例，延迟delay，执行一次，单位为unit；</li>
+<li><code>ScheduledFuture&lt;?&gt; scheduleAtFixedRate(Runnable command,long initialDelay,long period,TimeUnit unit)</code>：延迟initialDelay，执行周期为period，单位unit；</li>
+<li><code>ScheduledFuture&lt;?&gt; scheduleWithFixedDelay(Runnable command,long initialDelay,long delay,TimeUnit unit)</code>：延迟initialDelay，间隔delay，单位unit。</li>
+</ul>
+<p>ScheduledExecutorService接口的默认实现类是ScheduledThreadPoolExecutor，下面举个简单例子：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ScheduledExecutorServiceTest</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">        ScheduledThreadPoolExecutor scheduledThreadPoolExecutor = <span class="keyword">new</span> ScheduledThreadPoolExecutor(<span class="number">2</span>);</span><br><span class="line">        scheduledThreadPoolExecutor.scheduleAtFixedRate(()-&gt;&#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;This is run by &quot;</span> + Thread.currentThread().getName());</span><br><span class="line">        &#125;,<span class="number">1</span>,<span class="number">2</span>, TimeUnit.SECONDS);</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//运行结果如下，可以看到任务可能由不同线程执行</span></span><br><span class="line">This is run by pool-<span class="number">1</span>-thread-<span class="number">1</span></span><br><span class="line">This is run by pool-<span class="number">1</span>-thread-<span class="number">1</span></span><br><span class="line">This is run by pool-<span class="number">1</span>-thread-<span class="number">1</span></span><br><span class="line">This is run by pool-<span class="number">1</span>-thread-<span class="number">2</span></span><br><span class="line">This is run by pool-<span class="number">1</span>-thread-<span class="number">2</span></span><br></pre></td></tr></table></figure>
+<h4 id="底层原理">底层原理</h4>
+<p>和Timer类似，不过Timer中使用的是单个消费线程，ScheduledThreadPoolExecutor中使用了线程池技术。另外ScheduledExecutorService中使用了DelayQueue技术。</p>
+<h4 id="总结">总结</h4>
+<p>ScheduledExecutorService可以理解成Timer的升级版，基于线程池实现，解决了Timer存在的一些问题。在实际应用中，我们应该优先使用ScheduledExecutorService。</p>
+<h2 id="spring中-schedule注解的使用">Spring中@Schedule注解的使用</h2>
+<p>从Spring 3开始，Spring自带了一套定时任务工具Spring-Task，可以把它看成是一个轻量级的Quartz，使用起来十分简单，除Spring相关的包外不需要额外的包，支持注解和配置文件两种形式。通常情况下在Spring体系内，针对简单的定时任务，可直接使用Spring提供的功能。</p>
+<h3 id="使用方法">使用方法</h3>
+<p>在SpringBoot中使用@Schedule非常容易，只需要在启动类上添加@EnableScheduling来开启定时任务即可。</p>
+<p>在Spring中使用@Schedule则稍微复杂一点：</p>
+<ol>
+<li>
+<p>首先需要在配置文件中添加如下配置：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">xmlns:context=&quot;http://www.springframework.org/schema/context&quot;</span><br><span class="line">xmlns:task=&quot;http://www.springframework.org/schema/task&quot;</span><br><span class="line"><span class="comment">&lt;!-- xsi中添加下面两项--&gt;</span></span><br><span class="line">http://www.springframework.org/schema/task </span><br><span class="line">http://www.springframework.org/schema/task/spring-task-3.1.xsd</span><br><span class="line"><span class="comment">&lt;!-- 在开启注解方式--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">task:annotation-driven</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>给方法加上@Schedule注解即可，它有3中定义方式</p>
+<ul>
+<li><code>@Scheduled(fixedDelay = 1000L)</code>：固定间隔时间执行任务</li>
+<li><code>@Scheduled(fixedRate = 5000)</code>：固定频率执行任务，和Timer类似</li>
+<li><code>@Scheduled(cron = &quot;0 0 3 * * ?&quot;)</code>：cron表达式</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//必须要添加@Component，要不然Spring扫描不到</span></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ScheduledTasks</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> SimpleDateFormat dateFormat = <span class="keyword">new</span> SimpleDateFormat(<span class="string">&quot;HH:mm:ss&quot;</span>);</span><br><span class="line">    <span class="comment">//函数必须没有参数，没有返回值</span></span><br><span class="line">    <span class="meta">@Scheduled(fixedRate = 5000)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">reportCurrentTime</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(dateFormat.format(<span class="keyword">new</span> Date()) +  <span class="string">&quot;---通过fixedRate定义的定时任务&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Scheduled(cron = &quot;0 0 3 * * ?&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">job1</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(dateFormat.format(<span class="keyword">new</span> Date()) + <span class="string">&quot;---通过cron定义的定时任务&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Scheduled(fixedDelay = 1000L)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">job2</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(dateFormat.format(<span class="keyword">new</span> Date()) + <span class="string">&quot;---通过fixedDelay定义的定时任务&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>下表总结了常用的Cron表达式：</p>
+<table>
+<thead>
+<tr>
+<th>表达式</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0 0 12 * * ?</td>
+<td>每天12点运行</td>
+</tr>
+<tr>
+<td>0 15 10 ? * *</td>
+<td>每天10:15运行</td>
+</tr>
+<tr>
+<td>0 15 10 * * ?</td>
+<td>每天10:15运行</td>
+</tr>
+<tr>
+<td>0 15 10 * * ? *</td>
+<td>每天10:15运行</td>
+</tr>
+<tr>
+<td>0 15 10 * * ? 2008</td>
+<td>在2008年每天10:15运行</td>
+</tr>
+<tr>
+<td>0 * 14 * * ?</td>
+<td>每天14点到15点之间每分钟运行一次，开始于14:00，结束于14:59</td>
+</tr>
+<tr>
+<td>0 0/5 14 * * ?</td>
+<td>每天14点到15点之间每5分钟运行一次，开始于14:00，结束于14:55</td>
+</tr>
+<tr>
+<td>0 0/5 14,18 * * ?</td>
+<td>每天14点到15点之间每5分钟运行一次，每天18点到19点也每5分钟运行一次</td>
+</tr>
+<tr>
+<td>0 0-5 14 * * ?</td>
+<td>每天14:10到14:44，每分钟运行一次</td>
+</tr>
+<tr>
+<td>0 10,44 14 ? 3 WED</td>
+<td>3月每周三的14:10分到14:44，每分钟运行一次</td>
+</tr>
+<tr>
+<td>0 15 10 ? * MON-FRI</td>
+<td>每周一、二、三、四、五的10:15分运行</td>
+</tr>
+<tr>
+<td>0 15 10 15 * ?</td>
+<td>每月15日10:15分运行</td>
+</tr>
+<tr>
+<td>0 15 10 L * ?</td>
+<td>每月最后一天10:15运行</td>
+</tr>
+<tr>
+<td>0 15 10 ? * 6L</td>
+<td>每月最后一个星期五10:15运行</td>
+</tr>
+<tr>
+<td>0 15 10 ? * 6L 2007-2009</td>
+<td>在2007/2008/2009年每个月最后一个星期五10:15分运行</td>
+</tr>
+<tr>
+<td>0 15 10 ? * 6#3</td>
+<td>每月第三个星期五的10:15分运行</td>
+</tr>
+</tbody>
+</table>
+<h3 id="实现原理">实现原理</h3>
+<p>底层用的也是<code>ScheduledExecutorService</code>，感兴趣的可以自己去了解。</p>
+<h2 id="quartz的使用">Quartz的使用</h2>
+<p>Quartz 是一个完全由 Java 编写的开源作业调度框架，为在 Java 应用程序中进行作业调度提供了简单却强大的机制。另外还提供了集群和持久化的支持。</p>
+<p>quartz调度核心元素如下：</p>
+<ol>
+<li>Scheduler:任务调度器，是实际执行任务调度的控制器。在spring中通过SchedulerFactoryBean封装起来。</li>
+<li>Trigger：触发器，用于定义任务调度的时间规则，有SimpleTrigger,CronTrigger,DateIntervalTrigger和NthIncludedDayTrigger，其中CronTrigger用的比较多，本文主要介绍这种方式。CronTrigger在spring中封装在CronTriggerFactoryBean中。</li>
+<li>JobDetail:用来描述Job实现类及其它相关的静态信息，如Job名字、关联监听器等信息。在spring中有JobDetailFactoryBean和 MethodInvokingJobDetailFactoryBean两种实现，如果任务调度只需要执行某个类的某个方法，就可以通过MethodInvokingJobDetailFactoryBean来调用。</li>
+<li>Job：是一个接口，只有一个方法void execute(JobExecutionContext context),开发者实现该接口定义运行任务，JobExecutionContext类提供了调度上下文的各种信息。Job运行时的信息保存在JobDataMap实例中。实现Job接口的任务，默认是无状态的，若要将Job设置成有状态的，在quartz中是给实现的Job添加@DisallowConcurrentExecution注解（以前是实现StatefulJob接口，现在已被Deprecated）,在与spring结合中可以在spring配置文件的job detail中配置concurrent参数。</li>
+<li>JobStore： 存储作业和调度期间的状态。</li>
+</ol>
+<p>这些元素的关系如下图所示：</p>
+<center><img src="/images/763193-1a81cd9837f16b16.webp" style="width:500px;"></img></center>
+<p>Scheduler由SchedulerFactory产生，负责任务的调度。JobDetail可以理解成对Job的一种包装，实际被执行的任务示例是JobDetail，即每次要执行某个job时，会实例化一个新的Job实例放到JobDetail，JobDetail是真正被执行的任务。这样搞的目的主要是提供并发支持。然后，每个Job可以对应一个或多个触发器。</p>
+<h3 id="任务的定义">任务的定义</h3>
+<p>定义一个任务很简单，只需要定义一个实现了Job接口的类<code>QuartzDemo</code>，类中实现执行任务的方法<code>execute（）</code>。然后如下所示，创建一个指定名字和组的JobDetail和Trigger，然后把job和trigger放到scheduler中即可：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">QuartzDemo</span> <span class="keyword">implements</span> <span class="title">Job</span></span>&#123;  </span><br><span class="line">    <span class="meta">@Override</span>  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">execute</span><span class="params">(JobExecutionContext arg0)</span> <span class="keyword">throws</span> JobExecutionException </span>&#123;  </span><br><span class="line">        System.out.println(<span class="string">&quot;Quartz执行.......&quot;</span>);        </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;  </span><br><span class="line"><span class="comment">//引进作业程序  </span></span><br><span class="line">JobDetail jobDetail = <span class="keyword">new</span> JobDetail(<span class="string">&quot;jobDetail-s1&quot;</span>, <span class="string">&quot;jobDetailGroup-s1&quot;</span>, QuartzDemo.class);</span><br><span class="line"><span class="comment">//定义一个触发器  </span></span><br><span class="line">SimpleTrigger simpleTrigger = <span class="keyword">new</span> SimpleTrigger(<span class="string">&quot;simpleTrigger&quot;</span>, <span class="string">&quot;triggerGroup-s1&quot;</span>);</span><br><span class="line"><span class="comment">//这里省略触发器的一些配置信息</span></span><br><span class="line"><span class="comment">//作业和触发器设置到调度器中  </span></span><br><span class="line">scheduler.scheduleJob(jobDetail, simpleTrigger);  </span><br><span class="line"><span class="comment">//启动调度器  </span></span><br><span class="line">scheduler.start();  </span><br></pre></td></tr></table></figure>
+<p>这样一个任务就定义完成了！</p>
+<h3 id="任务的调度">任务的调度</h3>
+<p>Quartz是基于线程池实现的。 在 Quartz 中，有两类线程，Scheduler 调度线程和任务执行线程，其中任务执行线程通常使用一个线程池维护一组线程。</p>
+<ul>
+<li>常规调度线程：调度器实例化后并启动后，调度线程会一直运行， 轮询存储的所有 trigger（调用<code>acquireNextTriggers</code> 默认获取30s内将要触发的所有triggers），如果有需要触发的 trigger，即到达了下一次触发的时间，则从任务执行线程池获取一个空闲线程，执行与该 trigger 关联的任务。</li>
+<li>misfired调度线程： Misfire 线程是扫描所有的 trigger，查看是否有 misfired trigger，如果有的话根据 misfire 的策略分别处理。</li>
+</ul>
+<p>任务调度流程图如下：</p>
+<center><img src="/images/image-20220528163047787.png" style="width:700px;"></img></center>
+<h3 id="使用示例">使用示例</h3>
+<p>在SpringBoot使用quartz非常简单，在pom中引入<code>spring-boot-starter-quartz</code>依赖可以省去很多准备工作，可以参考<a target="_blank" rel="noopener" href="https://blog.csdn.net/u012907049/article/details/73801122/">这个</a>。</p>
+<p>下面是Spring中整合<code>Quzrtz</code>的例子：</p>
+<p>面用spring整合Quartz,分四步：</p>
+<ol>
+<li>导入依赖</li>
+<li>编写Job</li>
+<li>编写spring配置文件</li>
+<li>启动spring容器（启动调度器）</li>
+</ol>
+<h4 id="1-导入maven依赖">1. 导入maven依赖</h4>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">&lt;project xmlns=<span class="string">&quot;http://maven.apache.org/POM/4.0.0&quot;</span> xmlns:xsi=<span class="string">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span> xsi:schemaLocation=<span class="string">&quot;http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd&quot;</span>&gt;</span><br><span class="line">  &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;</span><br><span class="line">  &lt;groupId&gt;org.ouhei.quartz&lt;/groupId&gt;</span><br><span class="line">  &lt;artifactId&gt;ouhei-quartz&lt;/artifactId&gt;</span><br><span class="line">  &lt;version&gt;1.0.0-SNAPSHOT&lt;/version&gt;</span><br><span class="line">  &lt;dependencies&gt;</span><br><span class="line">      &lt;dependency&gt;</span><br><span class="line">          &lt;groupId&gt;org.springframework&lt;/groupId&gt;</span><br><span class="line">          &lt;artifactId&gt;spring-context-support&lt;/artifactId&gt;</span><br><span class="line">          &lt;version&gt;4.0.6.RELEASE&lt;/version&gt;</span><br><span class="line">      &lt;/dependency&gt;</span><br><span class="line">      &lt;dependency&gt;</span><br><span class="line">          &lt;groupId&gt;org.quartz-scheduler&lt;/groupId&gt;</span><br><span class="line">          &lt;artifactId&gt;quartz&lt;/artifactId&gt;</span><br><span class="line">          &lt;version&gt;2.2.1&lt;/version&gt;</span><br><span class="line">      &lt;/dependency&gt;</span><br><span class="line">      &lt;dependency&gt;</span><br><span class="line">          &lt;groupId&gt;org.slf4j&lt;/groupId&gt;</span><br><span class="line">          &lt;artifactId&gt;slf4j-log4j12&lt;/artifactId&gt;</span><br><span class="line">          &lt;version&gt;1.7.7&lt;/version&gt;</span><br><span class="line">      &lt;/dependency&gt;</span><br><span class="line">      &lt;dependency&gt;</span><br><span class="line">          &lt;groupId&gt;org.springframework&lt;/groupId&gt;</span><br><span class="line">          &lt;artifactId&gt;spring-tx&lt;/artifactId&gt;</span><br><span class="line">          &lt;version&gt;4.0.6.RELEASE&lt;/version&gt;</span><br><span class="line">      &lt;/dependency&gt;</span><br><span class="line">  &lt;/dependencies&gt;</span><br><span class="line">&lt;/project&gt;</span><br></pre></td></tr></table></figure>
+<h4 id="编写job">编写Job</h4>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> org.ouhei.quartz;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.quartz.JobExecutionContext;</span><br><span class="line"><span class="keyword">import</span> org.quartz.JobExecutionException;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.ApplicationContext;</span><br><span class="line"><span class="keyword">import</span> org.springframework.scheduling.quartz.QuartzJobBean;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * QuartzJobBean实现了Job接口</span></span><br><span class="line"><span class="comment"> * </span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyJob</span> <span class="keyword">extends</span> <span class="title">QuartzJobBean</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">executeInternal</span><span class="params">(JobExecutionContext context)</span> <span class="keyword">throws</span> JobExecutionException </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;myJob 执行了.............&quot;</span> + context.getTrigger().getKey().getName());</span><br><span class="line">        ApplicationContext applicationContext = (ApplicationContext) context.getJobDetail().getJobDataMap()</span><br><span class="line">                .get(<span class="string">&quot;applicationContext&quot;</span>);</span><br><span class="line">        System.out.println(<span class="string">&quot;获取到的Spring容器是： &quot;</span> + applicationContext); </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="配置文件">配置文件</h4>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">beans</span> <span class="attr">xmlns</span>=<span class="string">&quot;http://www.springframework.org/schema/beans&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">xmlns:context</span>=<span class="string">&quot;http://www.springframework.org/schema/context&quot;</span> <span class="attr">xmlns:p</span>=<span class="string">&quot;http://www.springframework.org/schema/p&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">xmlns:aop</span>=<span class="string">&quot;http://www.springframework.org/schema/aop&quot;</span> <span class="attr">xmlns:tx</span>=<span class="string">&quot;http://www.springframework.org/schema/tx&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">xmlns:xsi</span>=<span class="string">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">xsi:schemaLocation</span>=<span class="string">&quot;http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd</span></span></span><br><span class="line"><span class="tag"><span class="string">    http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd</span></span></span><br><span class="line"><span class="tag"><span class="string">    http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd</span></span></span><br><span class="line"><span class="tag"><span class="string">    http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.0.xsd&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- 定义任务bean --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">name</span>=<span class="string">&quot;myJobDetail&quot;</span> <span class="attr">class</span>=<span class="string">&quot;org.springframework.scheduling.quartz.JobDetailFactoryBean&quot;</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- 指定具体的job类 --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;jobClass&quot;</span> <span class="attr">value</span>=<span class="string">&quot;org.ouhei.quartz.MyJob&quot;</span> /&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- 指定job的名称 --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;name&quot;</span> <span class="attr">value</span>=<span class="string">&quot;myJob&quot;</span> /&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- 指定job的分组 --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;group&quot;</span> <span class="attr">value</span>=<span class="string">&quot;jobs&quot;</span> /&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- 必须设置为true，如果为false，当没有活动的触发器与之关联时会在调度器中删除该任务  --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;durability&quot;</span> <span class="attr">value</span>=<span class="string">&quot;true&quot;</span>/&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- 指定spring容器的key，如果不设定在job中的jobmap中是获取不到spring容器的 --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;applicationContextJobDataKey&quot;</span> <span class="attr">value</span>=<span class="string">&quot;applicationContext&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">&lt;!-- 定义触发器 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;cronTrigger&quot;</span> <span class="attr">class</span>=<span class="string">&quot;org.springframework.scheduling.quartz.CronTriggerFactoryBean&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;jobDetail&quot;</span> <span class="attr">ref</span>=<span class="string">&quot;myJobDetail&quot;</span> /&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- 每5秒执行一次 --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;cronExpression&quot;</span> <span class="attr">value</span>=<span class="string">&quot;0/5 * * * * ?&quot;</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">&lt;!-- 定义触发器 --&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 演示：一个job可以有多个trigger；一个trigger只能有一个job --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;cronTrigger2&quot;</span> <span class="attr">class</span>=<span class="string">&quot;org.springframework.scheduling.quartz.CronTriggerFactoryBean&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;jobDetail&quot;</span> <span class="attr">ref</span>=<span class="string">&quot;myJobDetail&quot;</span> /&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- 每一分钟执行一次 --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;cronExpression&quot;</span> <span class="attr">value</span>=<span class="string">&quot;0 */1 * * * ?&quot;</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">&lt;!-- 定义调度器 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">class</span>=<span class="string">&quot;org.springframework.scheduling.quartz.SchedulerFactoryBean&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;triggers&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">list</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">ref</span> <span class="attr">bean</span>=<span class="string">&quot;cronTrigger&quot;</span> /&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">ref</span> <span class="attr">bean</span>=<span class="string">&quot;cronTrigger2&quot;</span> /&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">list</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">beans</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h4 id="启动spring容器">启动Spring容器</h4>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> org.ouhei.quartz;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.context.support.ClassPathXmlApplicationContext;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">new</span> ClassPathXmlApplicationContext(<span class="string">&quot;classpath:applicationContext-scheduler.xml&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="参考资料">参考资料</h2>
+<ol>
+<li><a target="_blank" rel="noopener" href="https://juejin.cn/post/6992719702032121864">https://juejin.cn/post/6992719702032121864</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/fuyuwei2015/article/details/83825851">https://blog.csdn.net/fuyuwei2015/article/details/83825851</a></li>
+<li><a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000014772752">https://segmentfault.com/a/1190000014772752</a></li>
+</ol>
+ 
+      <!-- reward -->
+      
+      <div id="reword-out">
+        <div id="reward-btn">
+          打赏
+        </div>
+      </div>
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <div class="declare">
+      <ul class="post-copyright">
+        <li>
+          <i class="ri-copyright-line"></i>
+          <strong>版权声明： </strong>
+          
+          本博客所有文章除特别声明外，著作权归作者所有。转载请注明出处！
+          
+        </li>
+      </ul>
+    </div>
+    
+    <footer class="article-footer">
+       
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<!--<div class="wx-share-modal">-->
+<!--    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>-->
+<!--    <p>扫一扫，分享到微信</p>-->
+<!--    <div class="wx-qrcode">-->
+<!--      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://rookieyin.github.io/89003babc13d/" alt="微信分享二维码">-->
+<!--    </div>-->
+<!--</div>-->
+
+<div id="share-mask"></div>
+  
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%90%8E%E7%AB%AF/" rel="tag">后端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1/" rel="tag">定时任务</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+  <nav class="article-nav">
+    
+      <a href="/e11f4fa067fe/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            内存屏障是个啥
+          
+        </div>
+      </a>
+    
+    
+      <a href="/524795742ef5/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">Redisson概述</div>
+      </a>
+    
+  </nav>
+
+   
+<!-- valine评论 -->
+<div id="vcomments-box">
+  <div id="vcomments"></div>
+</div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js"></script>
+<script>
+  new Valine({
+    el: "#vcomments",
+    app_id: "f9XmUV7HVprPCNptggBNBhWR-gzGzoHsz",
+    app_key: "H73Viqo3lADopEFgshq3XrXs",
+    path: window.location.pathname,
+    avatar: "monsterid",
+    placeholder: "给我的文章加点评论吧~",
+    recordIP: true,
+  });
+  const infoEle = document.querySelector("#vcomments .info");
+  if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+    infoEle.childNodes.forEach(function (item) {
+      item.parentNode.removeChild(item);
+    });
+  }
+</script>
+<style>
+  #vcomments-box {
+    padding: 5px 30px;
+  }
+
+  @media screen and (max-width: 800px) {
+    #vcomments-box {
+      padding: 5px 0px;
+    }
+  }
+
+  #vcomments-box #vcomments {
+    background-color: #fff;
+  }
+
+  .v .vlist .vcard .vh {
+    padding-right: 20px;
+  }
+
+  .v .vlist .vcard {
+    padding-left: 10px;
+  }
+</style>
+
+ 
+   
+     
+</article>
+
+</section>
+        <footer class="footer">
+  <div class="outer">
+    <ul>
+      <li>
+        Copyrights &copy;
+        2021-2022
+        <i class="ri-heart-fill heart_icon"></i> Yin Peng
+      </li>
+    </ul>
+    <ul>
+      <li>引擎:
+        <a style="color: #0681d0" target="_blank" rel="noopener" href="https://hexo.io/zh-cn/">Hexo</a>
+        &nbsp;&nbsp;|&nbsp;&nbsp;主题:修改自
+        <a style="color: #0681d0" target="_blank" rel="noopener" href="https://shen-yu.gitee.io/">Ayer</a>
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        <span>
+  <span><i class="ri-user-3-fill"></i>访问人数:<span id="busuanzi_value_site_uv"></span></span>
+  <span class="division">|</span>
+  <span><i class="ri-eye-fill"></i>浏览次数:<span id="busuanzi_value_page_pv"></span></span>
+</span>
+        
+      </li>
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      <li>
+        <!-- cnzz统计 -->
+        
+        <script type="text/javascript" src='https://s9.cnzz.com/z_stat.php?id=1278069914&amp;web_id=1278069914'></script>
+        
+      </li>
+    </ul>
+  </div>
+</footer>
+
+        <div class="float_btns">
+            <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+
+<div class="todark" id="todark">
+  <i class="ri-moon-line"></i>
+</div>
+
+        </div>
+    </main>
+
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/alipay.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/wxpay.png">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-2.0.3.min.js"></script>
+ 
+<script src="/js/lazyload.min.js"></script>
+
+<!-- Tocbot -->
+ 
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  tocbot.init({
+    tocSelector: ".tocbot",
+    contentSelector: ".article-entry",
+    headingSelector: "h1, h2, h3, h4, h5, h6",
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: "main",
+    positionFixedSelector: ".tocbot",
+    positionFixedClass: "is-position-fixed",
+    fixedSidebarOffset: "auto",
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.js"></script>
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.css"
+/>
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js"></script>
+
+<script src="/dist/main.js"></script>
+
+<!-- ImageViewer -->
+ <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css">
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script> 
+<!-- MathJax -->
+
+<!-- Katex -->
+
+<!-- busuanzi  -->
+ 
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+ 
+<!-- ClickLove -->
+ 
+<script src="/js/clickLove.js"></script>
+ 
+<!-- ClickBoom1 -->
+
+<!-- ClickBoom2 -->
+
+<!-- CodeCopy -->
+ 
+<link rel="stylesheet" href="/css/clipboard.css">
+ <script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="ri-file-copy-2-line"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-checkbox-circle-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-checkbox-circle-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-time-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-time-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+ 
+<!-- CanvasBackground -->
+
+<script>
+  if (window.mermaid) {
+    mermaid.initialize({ theme: "forest" });
+  }
+</script>
+
+
+    
+</div>
+</body>
+
+</html>

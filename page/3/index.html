@@ -185,7 +185,7 @@
     
     
     <article
-  id="post-2 后端/Java/JVM/5 Java垃圾回收"
+  id="post-2 后端/Redis/Redis哨兵"
   class="article article-type-post"
   itemscope
   itemprop="blogPost"
@@ -196,8 +196,8 @@
     <header class="article-header">
        
 <h2 itemprop="name">
-  <a class="article-title" href="/55b22090e61c/"
-    >Java垃圾回收</a> 
+  <a class="article-title" href="/feac293ea536/"
+    >Redis哨兵</a> 
 </h2>
  
 
@@ -205,11 +205,11 @@
     </header>
      
     <div class="article-meta">
-      <a href="/55b22090e61c/" class="article-date">
-  <time datetime="2022-03-16T14:34:49.000Z" itemprop="datePublished">2022-03-16</time>
+      <a href="/feac293ea536/" class="article-date">
+  <time datetime="2022-05-15T12:38:14.000Z" itemprop="datePublished">2022-05-15</time>
 </a> 
   <div class="article-category">
-    <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a> / <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/Java/">Java</a> / <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/Java/JVM/">JVM</a>
+    <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a> / <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/Redis/">Redis</a>
   </div>
 
    
@@ -217,9 +217,8 @@
       
     <div class="article-entry" itemprop="articleBody">
        
-  <h2 id="1-回收哪些内存">1 回收哪些内存</h2>
-<p>垃圾收集主要是针对<strong>堆和方法区</strong>进行；程序计数器、虚拟机栈和本地方法栈这三个区域属于线程私有的，只存在于线程的生命周期内，线程结束之后也会消失，因此不需要对这三个区域进行垃圾回收。</p> 
-      <a class="article-more-link" href="/55b22090e61c/"
+  <p>Redis主从复制的作用有数据热备、负载均衡、故障恢复等；但主从复制存在的一个问题是故障恢复无法自动化。本文将要介绍的哨兵，它基于Redis主从复制，主要作用便是<strong>解决主节点故障恢复的自动化问题</strong>，进一步提高系统的高可用性。</p> 
+      <a class="article-more-link" href="/feac293ea536/"
         >阅读更多...</a
       >
        
@@ -232,7 +231,7 @@
     
     <footer class="article-footer">
        
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JVM/" rel="tag">JVM</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%90%8E%E7%AB%AF/" rel="tag">后端</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/redis/" rel="tag">redis</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%90%8E%E7%AB%AF/" rel="tag">后端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="tag">数据库</a></li></ul>
 
     </footer>
   </div>
@@ -244,7 +243,7 @@
 
     
     <article
-  id="post-2 后端/Java/JVM/4 new一个对象的过程"
+  id="post-5 分布式/3 raft算法是个啥"
   class="article article-type-post"
   itemscope
   itemprop="blogPost"
@@ -255,8 +254,8 @@
     <header class="article-header">
        
 <h2 itemprop="name">
-  <a class="article-title" href="/b0774fbf50e0/"
-    >new一个对象的过程</a> 
+  <a class="article-title" href="/c321fe594eaf/"
+    >raft算法是个啥</a> 
 </h2>
  
 
@@ -264,11 +263,11 @@
     </header>
      
     <div class="article-meta">
-      <a href="/b0774fbf50e0/" class="article-date">
-  <time datetime="2022-03-15T14:34:49.000Z" itemprop="datePublished">2022-03-15</time>
+      <a href="/c321fe594eaf/" class="article-date">
+  <time datetime="2022-05-13T12:38:14.000Z" itemprop="datePublished">2022-05-13</time>
 </a> 
   <div class="article-category">
-    <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a> / <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/Java/">Java</a> / <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/Java/JVM/">JVM</a>
+    <a class="article-category-link" href="/categories/%E5%88%86%E5%B8%83%E5%BC%8F/">分布式</a>
   </div>
 
    
@@ -276,10 +275,9 @@
       
     <div class="article-entry" itemprop="articleBody">
        
-  <p>java new一个对象的过程中发生了什么？</p>
-<p>对于第一次使用该类，需要经历两个过程：（1）类加载以及初始化；（2）创建对象。</p>
-<p>如果不是第一次使用该类，直接创建对象即可。</p> 
-      <a class="article-more-link" href="/b0774fbf50e0/"
+  <p>之前学Redis集群相关知识时候遇到过Raft算法，今天系统的学习一下Raft算法的一些细节。</p>
+<p>在继续往下阅读之前可以，先看一个<a target="_blank" rel="noopener" href="http://thesecretlivesofdata.com/raft/">动画</a>，简单了解下Raft算法。或者通过<a target="_blank" rel="noopener" href="https://raft.github.io/raftscope/index.html">这个</a>实操一下！</p> 
+      <a class="article-more-link" href="/c321fe594eaf/"
         >阅读更多...</a
       >
        
@@ -292,7 +290,7 @@
     
     <footer class="article-footer">
        
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JVM/" rel="tag">JVM</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%90%8E%E7%AB%AF/" rel="tag">后端</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F/" rel="tag">分布式</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%90%8E%E7%AB%AF/" rel="tag">后端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a></li></ul>
 
     </footer>
   </div>
@@ -304,7 +302,7 @@
 
     
     <article
-  id="post-2 后端/Java/JVM/3 Java字节码文件"
+  id="post-4 算法/rand(7)模拟rand(10)的背后"
   class="article article-type-post"
   itemscope
   itemprop="blogPost"
@@ -315,8 +313,8 @@
     <header class="article-header">
        
 <h2 itemprop="name">
-  <a class="article-title" href="/9bdf8ffee62d/"
-    >Java字节码文件</a> 
+  <a class="article-title" href="/f85e1f123fb5/"
+    >rand(7)模拟rand(10)的背后</a> 
 </h2>
  
 
@@ -324,11 +322,11 @@
     </header>
      
     <div class="article-meta">
-      <a href="/9bdf8ffee62d/" class="article-date">
-  <time datetime="2022-03-14T14:34:49.000Z" itemprop="datePublished">2022-03-14</time>
+      <a href="/f85e1f123fb5/" class="article-date">
+  <time datetime="2022-05-07T05:39:48.000Z" itemprop="datePublished">2022-05-07</time>
 </a> 
   <div class="article-category">
-    <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a> / <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/Java/">Java</a> / <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/Java/JVM/">JVM</a>
+    <a class="article-category-link" href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
   </div>
 
    
@@ -336,138 +334,15 @@
       
     <div class="article-entry" itemprop="articleBody">
        
-  <h2 id="1-概述">1 概述</h2>
-<p>计算机是不能直接运行java代码的，必须要先运行java虚拟机，再由java虚拟机运行编译后的java代码。这个编译后的java代码，就是本文要介绍的java字节码。</p>
-<p>在 Java 中，JVM 可以理解的代码就叫做<code>字节码</code>（即扩展名为 <code>.class</code> 的文件），它不面向任何特定的处理器，只面向虚拟机。Java 语言通过字节码的方式，在一定程度上解决了传统解释型语言执行效率低的问题，同时又保留了解释型语言可移植的特点。所以 Java 程序运行时比较高效，而且，由于字节码并不针对一种特定的机器，因此，Java 程序无须重新编译便可在多种不同操作系统的计算机上运行。</p> 
-      <a class="article-more-link" href="/9bdf8ffee62d/"
-        >阅读更多...</a
-      >
-       
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JVM/" rel="tag">JVM</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%90%8E%E7%AB%AF/" rel="tag">后端</a></li></ul>
-
-    </footer>
-  </div>
-
-    
- 
-    
-</article>
-
-    
-    <article
-  id="post-2 后端/Java/JVM/2 Java类加载机制"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/00accef91bd0/"
-    >Java类加载机制</a> 
-</h2>
- 
-
-      
-    </header>
-     
-    <div class="article-meta">
-      <a href="/00accef91bd0/" class="article-date">
-  <time datetime="2022-03-13T14:34:49.000Z" itemprop="datePublished">2022-03-13</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a> / <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/Java/">Java</a> / <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/Java/JVM/">JVM</a>
-  </div>
-
-   
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <h2 id="1-类生命周期">1 类生命周期</h2>
-<p>一个类的完整生命周期如下图所示：</p>
-<center><img src="/images/java_jvm_classload_2.png" style="width:500px;"></img></center> 
-      <a class="article-more-link" href="/00accef91bd0/"
-        >阅读更多...</a
-      >
-       
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JVM/" rel="tag">JVM</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%90%8E%E7%AB%AF/" rel="tag">后端</a></li></ul>
-
-    </footer>
-  </div>
-
-    
- 
-    
-</article>
-
-    
-    <article
-  id="post-6 设计模式/一句话总结各种设计模式"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/ff79fb7493a9/"
-    >一句话总结各种设计模式</a> 
-</h2>
- 
-
-      
-    </header>
-     
-    <div class="article-meta">
-      <a href="/ff79fb7493a9/" class="article-date">
-  <time datetime="2022-03-13T07:08:10.000Z" itemprop="datePublished">2022-03-13</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a>
-  </div>
-
-   
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <ol>
+  <p>刷LeetCode遇到这样一道题：<a target="_blank" rel="noopener" href="https://leetcode.cn/problems/implement-rand10-using-rand7/">用 Rand7() 实现 Rand10()</a>，本文以这题为引子，深入探讨一下其背后的一些知识。</p>
+<p><strong>题目描述如下：</strong></p>
+<ul>
 <li>
-<p><strong>单例模式</strong>：系统中只实例化一个对象，通过类的<code>getInstance()</code>方法该实例，常用于线程池、连接池、日志对象等等。</p>
+<p>给定方法 rand7 可生成 [1,7] 范围内的均匀随机整数，试写一个方法 rand10 生成 [1,10] 范围内的均匀随机整数。</p>
+<p>你只能调用 rand7() 且不能调用其他方法。请不要使用系统的 Math.random() 方法。每个测试用例将有一个内部参数 n，即你实现的函数 rand10() 在测试时将被调用的次数。请注意，这不是传递给 rand10() 的参数。</p>
 </li>
-<li>
-<p><strong>工厂模式</strong>：创建与使用分离，把对象实例化的工作交给工厂来作，用户不需要关心对象如何生成的，需要某个对象时，向工厂申请一个即可。</p>
-<ul>
-<li>简单工厂：定义一个工厂类，里面有一个<code>createProduct()</code>用于创建对象。实现简单，但是扩展困难，工厂类单一，职责过重。</li>
-<li>工厂方法：不再由工厂类创建对象，而是将该任务转嫁给工厂类的各个子类来完成，由子类来决定该实例化哪一个类。</li>
-<li>抽象工厂：将多个抽象工厂方法封装到一起，用于生产<strong>一系列相关对象</strong>（核心功能），这些对象组合在一起是一个更大的产品。比如讲生产CPU的工厂方法和生产内存的工厂方法封装到一起，组成生产电脑的工厂。</li>
 </ul> 
-      <a class="article-more-link" href="/ff79fb7493a9/"
+      <a class="article-more-link" href="/f85e1f123fb5/"
         >阅读更多...</a
       >
        
@@ -480,7 +355,7 @@
     
     <footer class="article-footer">
        
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" rel="tag">设计模式</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E9%9A%8F%E6%9C%BA%E5%8C%96/" rel="tag">随机化</a></li></ul>
 
     </footer>
   </div>
@@ -492,7 +367,7 @@
 
     
     <article
-  id="post-6 设计模式/行为型——模板方法模式"
+  id="post-4 算法/B-树"
   class="article article-type-post"
   itemscope
   itemprop="blogPost"
@@ -503,8 +378,8 @@
     <header class="article-header">
        
 <h2 itemprop="name">
-  <a class="article-title" href="/7ce6880842bc/"
-    >行为型——模板方法模式</a> 
+  <a class="article-title" href="/1ffc37519baa/"
+    >B-树</a> 
 </h2>
  
 
@@ -512,11 +387,11 @@
     </header>
      
     <div class="article-meta">
-      <a href="/7ce6880842bc/" class="article-date">
-  <time datetime="2022-03-12T07:08:10.000Z" itemprop="datePublished">2022-03-12</time>
+      <a href="/1ffc37519baa/" class="article-date">
+  <time datetime="2022-05-06T05:39:48.000Z" itemprop="datePublished">2022-05-06</time>
 </a> 
   <div class="article-category">
-    <a class="article-category-link" href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a>
+    <a class="article-category-link" href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
   </div>
 
    
@@ -524,10 +399,11 @@
       
     <div class="article-entry" itemprop="articleBody">
        
-  <h2 id="什么是模板方法模式">什么是模板方法模式</h2>
-<p>模板方法模式：定义某种操作的一个算法骨架， 而将算法的一些步骤延迟到子类中，使得子类可以不改变该算法结构的情况下重定义该算法的某些特定步骤。</p>
-<p>所谓模板方法模式，就是创建一个模板，模板指的就是一个方法或者说操作，这个方法包含一组步骤，其中任何步骤都可以是抽象的，交由子类来具体实现。</p> 
-      <a class="article-more-link" href="/7ce6880842bc/"
+  <h2 id="b-树">B-树</h2>
+<p>B-树，这里的 B 表示 balance( 平衡的意思),B-树是一种多路自平衡的搜索树（B树是<strong>一颗多路平衡查找树</strong>）<br>
+。它类似普通的平衡二叉树，不同的一点是B-树允许每个节点有更多的子节点。下图是 B-树的简化图：</p>
+<center><img src="/images/1446087-bc023e47bc74cfa1.webp" style="width:800px;"></img></center> 
+      <a class="article-more-link" href="/1ffc37519baa/"
         >阅读更多...</a
       >
        
@@ -540,7 +416,7 @@
     
     <footer class="article-footer">
        
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" rel="tag">设计模式</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%A0%91/" rel="tag">树</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a></li></ul>
 
     </footer>
   </div>
@@ -552,7 +428,7 @@
 
     
     <article
-  id="post-2 后端/Redis/Redis主从复制"
+  id="post-4 算法/洗牌算法"
   class="article article-type-post"
   itemscope
   itemprop="blogPost"
@@ -563,8 +439,8 @@
     <header class="article-header">
        
 <h2 itemprop="name">
-  <a class="article-title" href="/0a87fbe80a6b/"
-    >Redis主从复制</a> 
+  <a class="article-title" href="/8d739821694e/"
+    >洗牌算法</a> 
 </h2>
  
 
@@ -572,11 +448,11 @@
     </header>
      
     <div class="article-meta">
-      <a href="/0a87fbe80a6b/" class="article-date">
-  <time datetime="2022-03-11T14:34:58.000Z" itemprop="datePublished">2022-03-11</time>
+      <a href="/8d739821694e/" class="article-date">
+  <time datetime="2022-05-05T05:39:48.000Z" itemprop="datePublished">2022-05-05</time>
 </a> 
   <div class="article-category">
-    <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a> / <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/Redis/">Redis</a>
+    <a class="article-category-link" href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
   </div>
 
    
@@ -584,15 +460,9 @@
       
     <div class="article-entry" itemprop="articleBody">
        
-  <p>主从复制，是指将一台Redis服务器的数据，复制到其他的Redis服务器。前者称为主节点(master)，后者称为从节点(slave)；数据的复制是单向的，只能由主节点到从节点。</p>
-<p>主从复制的目的在于：</p>
-<ol>
-<li><strong>数据冗余</strong>：从节点备份主节点数据，持久化之外的另一种数据冗余方式。</li>
-<li><strong>故障恢复</strong>：主节点出现问题，从节点顶上，实现快速故障恢复。</li>
-<li><strong>负载均衡</strong>：主节点写，从节点读，提高系统并发能力。</li>
-<li><strong>高可用基石</strong>： 主从复制还是哨兵和集群能够实施的基础</li>
-</ol> 
-      <a class="article-more-link" href="/0a87fbe80a6b/"
+  <p>所谓“洗牌算法”，就是把一组序列完全打乱，怎样才算乱呢？需要满足这样一个条件：<strong>对于包含n个元素的序列，每个元素出现在每个位置的概率都是<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi mathvariant="normal">/</mi><mi>n</mi></mrow><annotation encoding="application/x-tex">1/n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mord">/</span><span class="mord mathdefault">n</span></span></span></span>。</strong></p>
+<p>一种直白的方法就是，统计序列的全排列，然后在全排列集合中随机选取一各排列出来。这种方法虽然简单，但是无论是空间还是时间复杂度都太高了，有没有其他性能更高的算法呢？当然有，本文简单总结下集中常用的洗牌算法。</p> 
+      <a class="article-more-link" href="/8d739821694e/"
         >阅读更多...</a
       >
        
@@ -605,7 +475,7 @@
     
     <footer class="article-footer">
        
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/redis/" rel="tag">redis</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%90%8E%E7%AB%AF/" rel="tag">后端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="tag">数据库</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E9%9A%8F%E6%9C%BA%E5%8C%96/" rel="tag">随机化</a></li></ul>
 
     </footer>
   </div>
@@ -617,7 +487,7 @@
 
     
     <article
-  id="post-2 后端/Redis/Redis数据结构底层原理"
+  id="post-4 算法/拓扑排序"
   class="article article-type-post"
   itemscope
   itemprop="blogPost"
@@ -628,8 +498,8 @@
     <header class="article-header">
        
 <h2 itemprop="name">
-  <a class="article-title" href="/67952895de8b/"
-    >Redis数据结构底层原理</a> 
+  <a class="article-title" href="/3da51d7b8480/"
+    >拓扑排序</a> 
 </h2>
  
 
@@ -637,139 +507,11 @@
     </header>
      
     <div class="article-meta">
-      <a href="/67952895de8b/" class="article-date">
-  <time datetime="2022-03-11T14:34:55.000Z" itemprop="datePublished">2022-03-11</time>
+      <a href="/3da51d7b8480/" class="article-date">
+  <time datetime="2022-05-04T05:39:48.000Z" itemprop="datePublished">2022-05-04</time>
 </a> 
   <div class="article-category">
-    <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a> / <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/Redis/">Redis</a>
-  </div>
-
-   
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <blockquote>
-<p>声明：本文大部分内容都来自<a target="_blank" rel="noopener" href="https://pdai.tech/md/db/nosql-redis/db-redis-x-redis-ds.html">Java全站知识体系</a></p>
-</blockquote>
-<p>Redis的每种对象其实都由<strong>对象结构(redisObject)</strong> 与 <strong>对应编码的数据结构</strong>组合而成, 本文主要介绍<strong>底层数据结构</strong> 部分。</p>
-<p>Redis底层包括SDS、QuickList、ZipList、HashTable、IntSet、ZSkipList和Redis Tree of listpack。这些结构和上层数据类型之间的映射关系如下图所示：</p>
-<center><img src="/images/db-redis-object-2-3.png" style="width:700px;"></img></center> 
-      <a class="article-more-link" href="/67952895de8b/"
-        >阅读更多...</a
-      >
-       
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/redis/" rel="tag">redis</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%90%8E%E7%AB%AF/" rel="tag">后端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="tag">数据库</a></li></ul>
-
-    </footer>
-  </div>
-
-    
- 
-    
-</article>
-
-    
-    <article
-  id="post-2 后端/Java/JVM/1 Java内存空间"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/57edbfaf4ec4/"
-    >Java内存空间</a> 
-</h2>
- 
-
-      
-    </header>
-     
-    <div class="article-meta">
-      <a href="/57edbfaf4ec4/" class="article-date">
-  <time datetime="2022-03-11T14:34:49.000Z" itemprop="datePublished">2022-03-11</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a> / <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/Java/">Java</a> / <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/Java/JVM/">JVM</a>
-  </div>
-
-   
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <h2 id="1-概述">1 概述</h2>
-<p>Java虚拟机在执行Java程序时会将它所管理的内存划分成若干个不同的数据区域。</p>
-<p>下图是JVM的整体结构，中间部分就是Java虚拟机定义的各种运行时数据区域。这些内存区域可以分为两类：</p>
-<ul>
-<li><strong>线程私有</strong>：程序计数器、虚拟机栈、本地方法栈</li>
-<li><strong>线程共享</strong>：堆、方法区、堆外内存（Java7的永久代，JDK8的元空间、代码缓存）</li>
-</ul>
-<center><img src="/images/0082zybply1gc6fz21n8kj30u00wpn5v.jpg" style="width:600px;"></img></center> 
-      <a class="article-more-link" href="/57edbfaf4ec4/"
-        >阅读更多...</a
-      >
-       
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JVM/" rel="tag">JVM</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%90%8E%E7%AB%AF/" rel="tag">后端</a></li></ul>
-
-    </footer>
-  </div>
-
-    
- 
-    
-</article>
-
-    
-    <article
-  id="post-6 设计模式/行为型——命令模式"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/e875640894b9/"
-    >行为型——命令模式</a> 
-</h2>
- 
-
-      
-    </header>
-     
-    <div class="article-meta">
-      <a href="/e875640894b9/" class="article-date">
-  <time datetime="2022-03-11T07:08:10.000Z" itemprop="datePublished">2022-03-11</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a>
+    <a class="article-category-link" href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
   </div>
 
    
@@ -778,8 +520,12 @@
     <div class="article-entry" itemprop="articleBody">
        
   <h2 id="概述">概述</h2>
-<p>所谓“命令模式”，简单解释就是：<strong>把命令封装成对象</strong>，当客户需要执行某条命令时，直接new一个该命令对应的对象，然后调用命令对象中的excute方法即可。这种设计下，命令调用者无需关心命令具体是怎样执行的，<strong>达到命令调用者和命令执行者之间解耦的目的</strong>。</p> 
-      <a class="article-more-link" href="/e875640894b9/"
+<p>拓扑排序，我的理解就是：<strong>有向图</strong>中所有节点的<strong>一种排列</strong>，这个排列需要满足下面两个条件：</p>
+<ul>
+<li>序列包含图中所有节点，且每个节点只出现一次；</li>
+<li>若A在序列中排在B的前面，则图中不存在从B到A的路径。</li>
+</ul> 
+      <a class="article-more-link" href="/3da51d7b8480/"
         >阅读更多...</a
       >
        
@@ -792,7 +538,241 @@
     
     <footer class="article-footer">
        
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" rel="tag">设计模式</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%9B%BE/" rel="tag">图</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%8E%92%E5%BA%8F/" rel="tag">排序</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a></li></ul>
+
+    </footer>
+  </div>
+
+    
+ 
+    
+</article>
+
+    
+    <article
+  id="post-4 算法/平衡二叉树"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/325f8721ea9c/"
+    >平衡二叉树</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/325f8721ea9c/" class="article-date">
+  <time datetime="2022-05-03T05:39:48.000Z" itemprop="datePublished">2022-05-03</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+  </div>
+
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <p>平衡二叉树（Balanced Binary Tree）具有以下性质：它是一棵空树或它的左右两个子树的高度差的绝对值不超过1，并且左右两个子树都是一棵平衡二叉树。平衡二叉树的常用实现方法有红黑树、AVL、替罪羊树、Treap、伸展树等。 最小二叉平衡树的节点的公式如下 F(n)=F(n-1)+F(n-2)+1 这个类似于一个递归的数列，可以参考Fibonacci数列，1是根节点，F(n-1)是左子树的节点数量，F(n-2)是右子树的节点数量。</p> 
+      <a class="article-more-link" href="/325f8721ea9c/"
+        >阅读更多...</a
+      >
+       
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/" rel="tag">二叉树</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%8E%92%E5%BA%8F/" rel="tag">排序</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a></li></ul>
+
+    </footer>
+  </div>
+
+    
+ 
+    
+</article>
+
+    
+    <article
+  id="post-4 算法/并查集"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/14bdfa95fb86/"
+    >并查集</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/14bdfa95fb86/" class="article-date">
+  <time datetime="2022-05-03T05:39:48.000Z" itemprop="datePublished">2022-05-03</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+  </div>
+
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <p>并查集，是一种高级数据结构，常用于<strong>数据分组</strong>问题。本文简单介绍一下并查集相关概念以及实现方法，并附带一些leetcode练习题。</p> 
+      <a class="article-more-link" href="/14bdfa95fb86/"
+        >阅读更多...</a
+      >
+       
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86/" rel="tag">并查集</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a></li></ul>
+
+    </footer>
+  </div>
+
+    
+ 
+    
+</article>
+
+    
+    <article
+  id="post-4 算法/链表排序"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/f106f4426061/"
+    >链表排序</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/f106f4426061/" class="article-date">
+  <time datetime="2022-05-02T05:39:48.000Z" itemprop="datePublished">2022-05-02</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+  </div>
+
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/sort-list/">148. 排序链表</a>的最优方法应该是归并排序，鉴于面试时候经常会问链表快排，本文简单总结下链表排序的归并和快排方法。至于插入排序或者冒泡排序什么的，比较简单，本文不作介绍。</p> 
+      <a class="article-more-link" href="/f106f4426061/"
+        >阅读更多...</a
+      >
+       
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%8E%92%E5%BA%8F/" rel="tag">排序</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E9%93%BE%E8%A1%A8/" rel="tag">链表</a></li></ul>
+
+    </footer>
+  </div>
+
+    
+ 
+    
+</article>
+
+    
+    <article
+  id="post-4 算法/01背包问题总结"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/a66897223478/"
+    >01背包问题总结</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/a66897223478/" class="article-date">
+  <time datetime="2022-04-19T05:39:48.000Z" itemprop="datePublished">2022-04-19</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+  </div>
+
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <p>最近刷leetcode过程中遇到了很多背包问题，趁此机会总结下如何用动态规划解决背包问题及其各种变体。</p>
+<h4 id="写在前面："><strong>写在前面：</strong></h4>
+<p>本文适合有一定dp基础的读者阅读，用来复习回顾背包相关问题，遇到类似问题可快速秒掉。</p> 
+      <a class="article-more-link" href="/a66897223478/"
+        >阅读更多...</a
+      >
+       
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/01%E8%83%8C%E5%8C%85/" rel="tag">01背包</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" rel="tag">动态规划</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a></li></ul>
 
     </footer>
   </div>
@@ -809,7 +789,7 @@
   
   <nav class="page-nav">
     
-    <a class="extend prev" rel="prev" href="/page/2/">上一页</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/15/">15</a><a class="extend next" rel="next" href="/page/4/">下一页</a>
+    <a class="extend prev" rel="prev" href="/page/2/">上一页</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/17/">17</a><a class="extend next" rel="next" href="/page/4/">下一页</a>
   </nav>
   
 </section>

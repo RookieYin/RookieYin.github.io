@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+
+
+<html lang="zh-CN">
+  
+
+    <head>
+      <meta name="baidu-site-verification" content="code-rk2CNV4xgj" />
+      <meta charset="utf-8" />
+        
+      <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1"
+      />
+      <title>Redisson概述 |  RookieYin&#39;s Note</title>
+  <meta name="generator" content="hexo-theme-ayer">
+      
+      <link rel="shortcut icon" href="/images/2.jpg" />
+       
+<link rel="stylesheet" href="/dist/main.css">
+
+      <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/Shen-Yu/cdn/css/remixicon.min.css"
+      />
+      
+<link rel="stylesheet" href="/css/custom.css">
+ 
+      <script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+       
+ 
+
+      <!-- mermaid -->
+      
+    <link rel="alternate" href="/atom.xml" title="RookieYin's Note" type="application/atom+xml">
+<link href="https://cdn.bootcss.com/KaTeX/0.11.1/katex.min.css" rel="stylesheet" /></head>
+  </html>
+</html>
+
+
+<body>
+<div id="app">
+    
+    
+    <div class="sidebar">
+        <!--<button class="navbar-toggle"></button>-->
+<nav class="navbar">
+  <div class="logo">
+    <a href="/">
+      <img src="/images/2.jpg"
+           style="border-radius: 50%;max-width: none;">
+    </a>
+  </div>
+  <div class = nav-title style="font-size: 2.5rem;color: #ffffff;margin-left: 4rem;font-weight: bold;min-width: 23rem">
+    RookieYin's Note
+  </div>
+  <div class="nav nav-main">
+    
+    <div class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </div>
+    
+    <div class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </div>
+    
+    <div class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </div>
+    
+    <div class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </div>
+    
+    <div class="nav-item">
+      <a class="nav-item-link" href="/friends">友链</a>
+    </div>
+    
+    <div class="nav-item">
+      <a class="nav-item-link" href="/about-me/2021">关于我</a>
+    </div>
+    
+      <div class="nav-item">
+        <div class="nav-item-link navbar-menu-wrap">
+          <div class="navbar-menu"></div>
+        </div>
+      </div>
+    <div class = "nav-item">
+      <a class="nav-item-link nav-item-search"  title="搜索">
+        <i class="ri-search-line"></i>
+      </a>
+    </div>
+  </div>
+</nav>
+<nav class="navbar2">
+  <div style="position: relative;">
+      <div style="height: 4.8rem;display: inline-block;margin-top:1rem;margin-left:1rem;">
+        <a href="/">
+          <img src="/images/2.jpg"
+               style="border-radius: 50%;max-width: none;width:4.8rem">
+        </a>
+      </div>
+    <div class="navbar-title2" style="font-size: 2.5rem;color: #ffffff;margin-left: 4rem;font-weight: bold;margin-top:1rem;
+    min-width: 23rem;height: 4.8rem;overflow: hidden;">
+      <span style="line-height: 4.8rem;">RookieYin's Note</span>
+    </div>
+    <div style="display: inline-block;position: absolute;top:50%;height:50%;transform:translate(-50%,-50%);right:4rem;margin-top: 1rem;">
+      <div class="navbar-menu-wrap">
+        <div class="navbar-menu"></div>
+      </div>
+    </div>
+    <div style="display: inline-block;position: absolute;top:50%;height:50%;transform:translate(-50%,-50%);right:0;">
+      <a class="nav-item-search"  title="搜索">
+        <i class="ri-search-line"></i>
+      </a>
+    </div>
+  </div>
+  <div style="display: inline-block;text-align: center;width: 100%;padding-bottom: 1rem;">
+    
+    <div class="nav-item2">
+      <a class="nav-item-link2" href="/">主页</a>
+    </div>
+    
+    <div class="nav-item2">
+      <a class="nav-item-link2" href="/archives">归档</a>
+    </div>
+    
+    <div class="nav-item2">
+      <a class="nav-item-link2" href="/categories">分类</a>
+    </div>
+    
+    <div class="nav-item2">
+      <a class="nav-item-link2" href="/tags">标签</a>
+    </div>
+    
+    <div class="nav-item2">
+      <a class="nav-item-link2" href="/friends">友链</a>
+    </div>
+    
+    <div class="nav-item2">
+      <a class="nav-item-link2" href="/about-me/2021">关于我</a>
+    </div>
+    
+  </div>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+
+    </div>
+    <main class="content">
+        <section class="outer">
+  <article
+  id="post-5 分布式/4 Redisson概述"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  Redisson概述
+</h1>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/524795742ef5/" class="article-date">
+  <time datetime="2022-05-25T12:38:14.000Z" itemprop="datePublished">2022-05-25</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E5%88%86%E5%B8%83%E5%BC%8F/">分布式</a>
+  </div>
+
+  
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> 字数统计:</span>
+            <span class="post-count">3k</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> 阅读时长≈</span>
+            <span class="post-count">11 分钟</span>
+        </span>
+    </span>
+</div>
+ 
+    </div>
+      
+    <div class="tocbot"></div>
+
+
+
+
+  
+    <div class="article-entry" itemprop="articleBody">
+       
+  <p>文章转自<a target="_blank" rel="noopener" href="https://my.oschina.net/u/4499317/blog/5039486">这里</a>。</p>
+<a id="more"></a>
+<h2 id="一-redisson-是什么？">一、Redisson 是什么？</h2>
+<p>如果你之前是在用 Redis 的话，那使用 Redisson 的话将会事半功倍，Redisson 提供了使用 Redis 的最简单和最便捷的方法。</p>
+<p>Redisson 的宗旨是促进使用者对 Redis 的关注分离（Separation of Concern），从而让使用者能够将精力更集中地放在处理业务逻辑上。</p>
+<p>Redisson 是一个在 Redis 的基础上实现的 Java 驻内存数据网格（In-Memory Data Grid）。</p>
+<center><img src="/images/0a5b1e05f0e0c83bc7887e34c4d76827.png" style="width:500px;"></img></center> 
+<ul>
+<li><strong>Netty 框架</strong>：Redisson 采用了基于 NIO 的<a href="https://xie.infoq.cn/link?target=http%3A%2F%2Fnetty.io%2F">Netty</a>框架，不仅能作为 Redis 底层驱动客户端，具备提供对 Redis 各种组态形式的<a href="https://xie.infoq.cn/link?target=https%3A%2F%2Fgithub.com%2Fredisson%2Fredisson%23features">连接功能</a>，对 Redis 命令能以同步发送、<a href="https://xie.infoq.cn/link?target=https%3A%2F%2Fgithub.com%2Fredisson%2Fredisson%2Fwiki%2F3.-%E7%A8%8B%E5%BA%8F%E6%8E%A5%E5%8F%A3%E8%B0%83%E7%94%A8%E6%96%B9%E5%BC%8F%2331-%E5%BC%82%E6%AD%A5%E6%89%A7%E8%A1%8C%E6%96%B9%E5%BC%8F">异步形式发送</a>、<a href="https://xie.infoq.cn/link?target=https%3A%2F%2Fgithub.com%2Fredisson%2Fredisson%2Fwiki%2F3.-%E7%A8%8B%E5%BA%8F%E6%8E%A5%E5%8F%A3%E8%B0%83%E7%94%A8%E6%96%B9%E5%BC%8F%2332-%E5%BC%82%E6%AD%A5%E6%B5%81%E6%89%A7%E8%A1%8C%E6%96%B9%E5%BC%8F">异步流形式发送</a>或<a href="https://xie.infoq.cn/link?target=https%3A%2F%2Fgithub.com%2Fredisson%2Fredisson%2Fwiki%2F10.-%E9%A2%9D%E5%A4%96%E5%8A%9F%E8%83%BD%23103-%E5%91%BD%E4%BB%A4%E7%9A%84%E6%89%B9%E9%87%8F%E6%89%A7%E8%A1%8C">管道形式发送</a>的功能，<a href="https://xie.infoq.cn/link?target=https%3A%2F%2Fgithub.com%2Fredisson%2Fredisson%2Fwiki%2F10.-%E9%A2%9D%E5%A4%96%E5%8A%9F%E8%83%BD%23104-%E8%84%9A%E6%9C%AC%E6%89%A7%E8%A1%8C">LUA脚本执行</a>处理，以及<a href="https://xie.infoq.cn/link?target=https%3A%2F%2Fgithub.com%2Fredisson%2Fredisson%2Fwiki%2F4.-%E6%95%B0%E6%8D%AE%E5%BA%8F%E5%88%97%E5%8C%96">处理返回结果</a>的功能</li>
+<li><strong>基础数据结构</strong>：将原生的 Redis <a href="https://xie.infoq.cn/link?target=http%3A%2F%2Fredis.cn%2Ftopics%2Fdata-types-intro.html%23hashes"><code>Hash</code></a>，<a href="https://xie.infoq.cn/link?target=http%3A%2F%2Fredis.cn%2Ftopics%2Fdata-types-intro.html%23redis-lists"><code>List</code></a>，<a href="https://xie.infoq.cn/link?target=http%3A%2F%2Fredis.cn%2Ftopics%2Fdata-types-intro.html%23sets"><code>Set</code></a>，<a href="https://xie.infoq.cn/link?target=http%3A%2F%2Fredis.cn%2Ftopics%2Fdata-types-intro.html%23redis-strings"><code>String</code></a>，<a href="https://xie.infoq.cn/link?target=http%3A%2F%2Fredis.cn%2Fcommands%2Fgeoadd.html"><code>Geo</code></a>，<a href="https://xie.infoq.cn/link?target=http%3A%2F%2Fredis.cn%2Ftopics%2Fdata-types-intro.html%23hyperloglogs"><code>HyperLogLog</code></a>等数据结构封装为 Java 里大家最熟悉的<a href="https://xie.infoq.cn/link?target=https%3A%2F%2Fgithub.com%2Fredisson%2Fredisson%2Fwiki%2F7.-%E5%88%86%E5%B8%83%E5%BC%8F%E9%9B%86%E5%90%88%2371-%E6%98%A0%E5%B0%84map"><code>映射（Map）</code></a>，<a href="https://xie.infoq.cn/link?target=https%3A%2F%2Fgithub.com%2Fredisson%2Fredisson%2Fwiki%2F7.-%E5%88%86%E5%B8%83%E5%BC%8F%E9%9B%86%E5%90%88%2377-%E5%88%97%E8%A1%A8list"><code>列表（List）</code></a>，<a href="https://xie.infoq.cn/link?target=https%3A%2F%2Fgithub.com%2Fredisson%2Fredisson%2Fwiki%2F7.-%E5%88%86%E5%B8%83%E5%BC%8F%E9%9B%86%E5%90%88%2373-%E9%9B%86set"><code>集（Set）</code></a>，<a href="https://xie.infoq.cn/link?target=https%3A%2F%2Fgithub.com%2Fredisson%2Fredisson%2Fwiki%2F6.-%E5%88%86%E5%B8%83%E5%BC%8F%E5%AF%B9%E8%B1%A1%2361-%E9%80%9A%E7%94%A8%E5%AF%B9%E8%B1%A1%E6%A1%B6object-bucket"><code>通用对象桶（Object Bucket）</code></a>，<a href="https://xie.infoq.cn/link?target=https%3A%2F%2Fgithub.com%2Fredisson%2Fredisson%2Fwiki%2F6.-%E5%88%86%E5%B8%83%E5%BC%8F%E5%AF%B9%E8%B1%A1%2362-%E5%9C%B0%E7%90%86%E7%A9%BA%E9%97%B4%E5%AF%B9%E8%B1%A1%E6%A1%B6geospatial-bucket"><code>地理空间对象桶（Geospatial Bucket）</code></a>，<a href="https://xie.infoq.cn/link?target=https%3A%2F%2Fgithub.com%2Fredisson%2Fredisson%2Fwiki%2F6.-%E5%88%86%E5%B8%83%E5%BC%8F%E5%AF%B9%E8%B1%A1%2368-%E5%9F%BA%E6%95%B0%E4%BC%B0%E8%AE%A1%E7%AE%97%E6%B3%95hyperloglog"><code>基数估计算法（HyperLogLog）</code></a>等结构，</li>
+<li><strong>分布式数据结构</strong>：这基础上还提供了分布式的<a href="https://xie.infoq.cn/link?target=https%3A%2F%2Fgithub.com%2Fredisson%2Fredisson%2Fwiki%2F7.-%E5%88%86%E5%B8%83%E5%BC%8F%E9%9B%86%E5%90%88%2372-%E5%A4%9A%E5%80%BC%E6%98%A0%E5%B0%84multimap"><code>多值映射（Multimap）</code></a>，<a href="https://xie.infoq.cn/link?target=https%3A%2F%2Fgithub.com%2Fredisson%2Fredisson%2Fwiki%2F7.-%E5%88%86%E5%B8%83%E5%BC%8F%E9%9B%86%E5%90%88%23712-%E6%9C%AC%E5%9C%B0%E7%BC%93%E5%AD%98%E6%98%A0%E5%B0%84localcachedmap"><code>本地缓存映射（LocalCachedMap）</code></a>，<a href="https://xie.infoq.cn/link?target=https%3A%2F%2Fgithub.com%2Fredisson%2Fredisson%2Fwiki%2F7.-%E5%88%86%E5%B8%83%E5%BC%8F%E9%9B%86%E5%90%88%2374-%E6%9C%89%E5%BA%8F%E9%9B%86sortedset"><code>有序集（SortedSet）</code></a>，<a href="https://xie.infoq.cn/link?target=https%3A%2F%2Fgithub.com%2Fredisson%2Fredisson%2Fwiki%2F7.-%E5%88%86%E5%B8%83%E5%BC%8F%E9%9B%86%E5%90%88%2375-%E8%AE%A1%E5%88%86%E6%8E%92%E5%BA%8F%E9%9B%86scoredsortedset"><code>计分排序集（ScoredSortedSet）</code></a>，<a href="https://xie.infoq.cn/link?target=https%3A%2F%2Fgithub.com%2Fredisson%2Fredisson%2Fwiki%2F7.-%E5%88%86%E5%B8%83%E5%BC%8F%E9%9B%86%E5%90%88%2376-%E5%AD%97%E5%85%B8%E6%8E%92%E5%BA%8F%E9%9B%86lexsortedset"><code>字典排序集（LexSortedSet）</code></a>，<a href="https://xie.infoq.cn/link?target=https%3A%2F%2Fgithub.com%2Fredisson%2Fredisson%2Fwiki%2F7.-%E5%88%86%E5%B8%83%E5%BC%8F%E9%9B%86%E5%90%88%2378-%E5%88%97%E9%98%9Fqueue"><code>列队（Queue）</code></a>，<a href="https://xie.infoq.cn/link?target=https%3A%2F%2Fgithub.com%2Fredisson%2Fredisson%2Fwiki%2F7.-%E5%88%86%E5%B8%83%E5%BC%8F%E9%9B%86%E5%90%88%23710-%E9%98%BB%E5%A1%9E%E9%98%9F%E5%88%97blocking-queue"><code>阻塞队列（Blocking Queue）</code></a>，<a href="https://xie.infoq.cn/link?target=https%3A%2F%2Fgithub.com%2Fredisson%2Fredisson%2Fwiki%2F7.-%E5%88%86%E5%B8%83%E5%BC%8F%E9%9B%86%E5%90%88%23711-%E6%9C%89%E7%95%8C%E9%98%BB%E5%A1%9E%E5%88%97%E9%98%9Fbounded-blocking-queue"><code>有界阻塞列队（Bounded Blocking Queue）</code></a>，<a href="https://xie.infoq.cn/link?target=https%3A%2F%2Fgithub.com%2Fredisson%2Fredisson%2Fwiki%2F7.-%E5%88%86%E5%B8%83%E5%BC%8F%E9%9B%86%E5%90%88%2379-%E5%8F%8C%E7%AB%AF%E9%98%9F%E5%88%97deque"><code>双端队列（Deque）</code></a>，<a href="https://xie.infoq.cn/link?target=https%3A%2F%2Fgithub.com%2Fredisson%2Fredisson%2Fwiki%2F7.-%E5%88%86%E5%B8%83%E5%BC%8F%E9%9B%86%E5%90%88%23712-%E9%98%BB%E5%A1%9E%E5%8F%8C%E7%AB%AF%E5%88%97%E9%98%9Fblocking-deque"><code>阻塞双端列队（Blocking Deque）</code></a>，<a href="https://xie.infoq.cn/link?target=https%3A%2F%2Fgithub.com%2Fredisson%2Fredisson%2Fwiki%2F7.-%E5%88%86%E5%B8%83%E5%BC%8F%E9%9B%86%E5%90%88%23713-%E9%98%BB%E5%A1%9E%E5%85%AC%E5%B9%B3%E5%88%97%E9%98%9Fblocking-fair-queue"><code>阻塞公平列队（Blocking Fair Queue）</code></a>，<a href="https://xie.infoq.cn/link?target=https%3A%2F%2Fgithub.com%2Fredisson%2Fredisson%2Fwiki%2F7.-%E5%88%86%E5%B8%83%E5%BC%8F%E9%9B%86%E5%90%88%23714-%E5%BB%B6%E8%BF%9F%E5%88%97%E9%98%9Fdelayed-queue"><code>延迟列队（Delayed Queue）</code></a>，<a href="https://xie.infoq.cn/link?target=https%3A%2F%2Fgithub.com%2Fredisson%2Fredisson%2Fwiki%2F6.-%E5%88%86%E5%B8%83%E5%BC%8F%E5%AF%B9%E8%B1%A1%2367-%E5%B8%83%E9%9A%86%E8%BF%87%E6%BB%A4%E5%99%A8bloom-filter"><code>布隆过滤器（Bloom Filter）</code></a>，<a href="https://xie.infoq.cn/link?target=https%3A%2F%2Fgithub.com%2Fredisson%2Fredisson%2Fwiki%2F6.-%E5%88%86%E5%B8%83%E5%BC%8F%E5%AF%B9%E8%B1%A1%2364-%E5%8E%9F%E5%AD%90%E6%95%B4%E9%95%BF%E5%BD%A2atomiclong"><code>原子整长形（AtomicLong）</code></a>，<a href="https://xie.infoq.cn/link?target=https%3A%2F%2Fgithub.com%2Fredisson%2Fredisson%2Fwiki%2F6.-%E5%88%86%E5%B8%83%E5%BC%8F%E5%AF%B9%E8%B1%A1%2365-%E5%8E%9F%E5%AD%90%E5%8F%8C%E7%B2%BE%E5%BA%A6%E6%B5%AE%E7%82%B9%E6%95%B0atomicdouble"><code>原子双精度浮点数（AtomicDouble）</code></a>，<a href="https://xie.infoq.cn/link?target=https%3A%2F%2Fgithub.com%2Fredisson%2Fredisson%2Fwiki%2F6.-%E5%88%86%E5%B8%83%E5%BC%8F%E5%AF%B9%E8%B1%A1%2363-bitset"><code>BitSet</code></a>等 Redis 原本没有的分布式数据结构。</li>
+<li><strong>分布式锁</strong>：Redisson 还实现了 Redis<a href="https://xie.infoq.cn/link?target=http%3A%2F%2Fwww.redis.cn%2Ftopics%2Fdistlock.html">文档中提到</a>像分布式锁<a href="https://xie.infoq.cn/link?target=https%3A%2F%2Fgithub.com%2Fredisson%2Fredisson%2Fwiki%2F8.-%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81%E5%92%8C%E5%90%8C%E6%AD%A5%E5%99%A8%2381-%E5%8F%AF%E9%87%8D%E5%85%A5%E9%94%81reentrant-lock"><code>Lock</code></a>这样的更高阶应用场景。事实上 Redisson 并没有不止步于此，在分布式锁的基础上还提供了<a href="https://xie.infoq.cn/link?target=https%3A%2F%2Fgithub.com%2Fredisson%2Fredisson%2Fwiki%2F8.-%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81%E5%92%8C%E5%90%8C%E6%AD%A5%E5%99%A8%2383-%E8%81%94%E9%94%81multilock"><code>联锁（MultiLock）</code></a>，<a href="https://xie.infoq.cn/link?target=https%3A%2F%2Fgithub.com%2Fredisson%2Fredisson%2Fwiki%2F8.-%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81%E5%92%8C%E5%90%8C%E6%AD%A5%E5%99%A8%2385-%E8%AF%BB%E5%86%99%E9%94%81readwritelock"><code>读写锁（ReadWriteLock）</code></a>，<a href="https://xie.infoq.cn/link?target=https%3A%2F%2Fgithub.com%2Fredisson%2Fredisson%2Fwiki%2F8.-%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81%E5%92%8C%E5%90%8C%E6%AD%A5%E5%99%A8%2382-%E5%85%AC%E5%B9%B3%E9%94%81fair-lock"><code>公平锁（Fair Lock）</code></a>，<a href="https://xie.infoq.cn/link?target=https%3A%2F%2Fgithub.com%2Fredisson%2Fredisson%2Fwiki%2F8.-%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81%E5%92%8C%E5%90%8C%E6%AD%A5%E5%99%A8%2384-%E7%BA%A2%E9%94%81redlock"><code>红锁（RedLock）</code></a>，<a href="https://xie.infoq.cn/link?target=https%3A%2F%2Fgithub.com%2Fredisson%2Fredisson%2Fwiki%2F8.-%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81%E5%92%8C%E5%90%8C%E6%AD%A5%E5%99%A8%2386-%E4%BF%A1%E5%8F%B7%E9%87%8Fsemaphore"><code>信号量（Semaphore）</code></a>，<a href="https://xie.infoq.cn/link?target=https%3A%2F%2Fgithub.com%2Fredisson%2Fredisson%2Fwiki%2F8.-%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81%E5%92%8C%E5%90%8C%E6%AD%A5%E5%99%A8%2387-%E5%8F%AF%E8%BF%87%E6%9C%9F%E6%80%A7%E4%BF%A1%E5%8F%B7%E9%87%8Fpermitexpirablesemaphore"><code>可过期性信号量（PermitExpirableSemaphore）</code></a>和<a href="https://xie.infoq.cn/link?target=https%3A%2F%2Fgithub.com%2Fredisson%2Fredisson%2Fwiki%2F8.-%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81%E5%92%8C%E5%90%8C%E6%AD%A5%E5%99%A8%2388-%E9%97%AD%E9%94%81countdownlatch"><code>闭锁（CountDownLatch）</code></a>这些实际当中对多线程高并发应用至关重要的基本部件。正是通过实现基于 Redis 的高阶应用方案，使 Redisson 成为构建分布式系统的重要工具。</li>
+<li><strong>节点</strong>：Redisson 作为独立节点可以用于独立执行其他节点发布到<code>分布式执行服务</code>和<code>分布式调度服务</code>里的远程任务。</li>
+</ul>
+<h2 id="二-整合-redisson">二、整合 Redisson</h2>
+<p>Spring Boot 整合 Redisson 有两种方案：</p>
+<ul>
+<li>程序化配置。</li>
+<li>文件方式配置。</li>
+</ul>
+<p>本篇介绍如何用程序化的方式整合 Redisson。</p>
+<h3 id="2-1-引入-maven-依赖">2.1 引入 Maven 依赖</h3>
+<p>在 passjava-question 微服务的 pom.xml 引入 redisson 的 maven 依赖。</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&lt;!--</span> <span class="string">https://mvnrepository.com/artifact/org.redisson/redisson</span> <span class="string">--&gt;</span></span><br><span class="line"><span class="string">&lt;dependency&gt;</span></span><br><span class="line">    <span class="string">&lt;groupId&gt;org.redisson&lt;/groupId&gt;</span></span><br><span class="line">    <span class="string">&lt;artifactId&gt;redisson&lt;/artifactId&gt;</span></span><br><span class="line">    <span class="string">&lt;version&gt;3.15.5&lt;/version&gt;</span></span><br><span class="line"><span class="string">&lt;/dependency&gt;xxxxxxxxxx</span> <span class="string">&lt;!--</span> <span class="string">https://mvnrepository.com/artifact/org.redisson/redisson</span> <span class="string">--&gt;&lt;dependency&gt;</span>    <span class="string">&lt;groupId&gt;org.redisson&lt;/groupId&gt;</span>    <span class="string">&lt;artifactId&gt;redisson&lt;/artifactId&gt;</span>    <span class="string">&lt;version&gt;3.15.5&lt;/version&gt;&lt;/dependency&gt;&lt;!--</span> <span class="string">https://mvnrepository.com/artifact/org.redisson/redisson</span> <span class="string">--&gt;&lt;dependency&gt;</span>    <span class="string">&lt;groupId&gt;org.redisson&lt;/groupId&gt;</span>    <span class="string">&lt;artifactId&gt;redisson&lt;/artifactId&gt;</span>    <span class="string">&lt;version&gt;3.15.5&lt;/version&gt;&lt;/dependency&gt;yaml</span></span><br></pre></td></tr></table></figure>
+<h3 id="2-2-自定义配置类">2.2 自定义配置类</h3>
+<p>下面的代码是单节点 Redis 的配置。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyRedissonConfig</span> </span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 对 Redisson 的使用都是通过 RedissonClient 对象</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     * <span class="doctag">@throws</span> IOException</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Bean(destroyMethod=&quot;shutdown&quot;)</span> <span class="comment">// 服务停止后调用 shutdown 方法。</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> RedissonClient <span class="title">redisson</span><span class="params">()</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        <span class="comment">// 1.创建配置</span></span><br><span class="line">        Config config = <span class="keyword">new</span> Config();</span><br><span class="line">        <span class="comment">// 集群模式</span></span><br><span class="line">        <span class="comment">// config.useClusterServers().addNodeAddress(&quot;127.0.0.1:7004&quot;, &quot;127.0.0.1:7001&quot;);</span></span><br><span class="line">        <span class="comment">// 2.根据 Config 创建出 RedissonClient 示例。</span></span><br><span class="line">        config.useSingleServer().setAddress(<span class="string">&quot;redis://127.0.0.1:6379&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> Redisson.create(config);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="2-3-测试配置类">2.3 测试配置类</h3>
+<p>新建一个单元测试方法。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Autowired</span></span><br><span class="line">RedissonClient redissonClient;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">TestRedisson</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    System.out.println(redissonClient);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我们运行这个测试方法，打印出 redissonClient</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">org.redisson.Redisson@77f66138</span><br></pre></td></tr></table></figure>
+<h2 id="三-分布式可重入锁">三、分布式可重入锁</h2>
+<h3 id="3-1-可重入锁测试">3.1 可重入锁测试</h3>
+<p>基于 Redis 的 Redisson 分布式可重入锁<code>RLock</code>Java 对象实现了<code>java.util.concurrent.locks.Lock</code>接口。同时还提供了<a href="https://xie.infoq.cn/link?target=http%3A%2F%2Fstatic.javadoc.io%2Forg.redisson%2Fredisson%2F3.10.0%2Forg%2Fredisson%2Fapi%2FRLockAsync.html">异步（Async）</a>、<a href="https://xie.infoq.cn/link?target=http%3A%2F%2Fstatic.javadoc.io%2Forg.redisson%2Fredisson%2F3.10.0%2Forg%2Fredisson%2Fapi%2FRLockReactive.html">反射式（Reactive）</a>和<a href="https://xie.infoq.cn/link?target=http%3A%2F%2Fstatic.javadoc.io%2Forg.redisson%2Fredisson%2F3.10.0%2Forg%2Fredisson%2Fapi%2FRLockRx.html">RxJava2标准</a>的接口。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">RLock lock = redisson.getLock(<span class="string">&quot;anyLock&quot;</span>);</span><br><span class="line"><span class="comment">// 最常见的使用方法</span></span><br><span class="line">lock.lock();</span><br></pre></td></tr></table></figure>
+<p>我们用 passjava 这个开源项目测试下可重入锁的两个点：</p>
+<ul>
+<li>（1）多个线程抢占锁，后面锁需要等待吗？</li>
+<li>（2）如果抢占到锁的线程所在的服务停了，锁会不会被释放？</li>
+</ul>
+<h4 id="3-1-1-验证一：可重入锁是阻塞的吗？">3.1.1 验证一：可重入锁是阻塞的吗？</h4>
+<p>为了验证以上两点，我写了个 demo 程序：代码的流程就是设置<code>WuKong-lock</code>锁，然后加锁，打印线程 ID，等待 10 秒后释放锁，最后返回响应：“test lock ok”。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@ResponseBody</span></span><br><span class="line"><span class="meta">@GetMapping(&quot;test-lock&quot;)</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">TestLock</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 1.获取锁，只要锁的名字一样，获取到的锁就是同一把锁。</span></span><br><span class="line">    RLock lock = redisson.getLock(<span class="string">&quot;WuKong-lock&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 2.加锁</span></span><br><span class="line">    lock.lock();</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;加锁成功，执行后续代码。线程 ID：&quot;</span> + Thread.currentThread().getId());</span><br><span class="line">        Thread.sleep(<span class="number">10000</span>);</span><br><span class="line">    &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">        <span class="comment">//TODO</span></span><br><span class="line">    &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">        lock.unlock();</span><br><span class="line">        <span class="comment">// 3.解锁</span></span><br><span class="line">        System.out.println(<span class="string">&quot;Finally，释放锁成功。线程 ID：&quot;</span> + Thread.currentThread().getId());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;test lock ok&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>先验证第一个点，用两个 http 请求来测试抢占锁。</p>
+<p>请求的 URL：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http:&#x2F;&#x2F;localhost:11000&#x2F;question&#x2F;v1&#x2F;redisson&#x2F;test&#x2F;test-lock</span><br></pre></td></tr></table></figure>
+<center><img src="/images/689d198e4ff7238338cc8c8a5a6d7f7d.png" style="width:500px;"></img></center> 
+<p>第一个线程对应的线程 ID 为 86，10 秒后，释放锁。在这期间，第二个线程需要等待锁释放。</p>
+<p>第一个线程释放锁之后，第二个线程获取到了锁，10 秒后，释放锁。</p>
+<p>画了一个流程图，帮助大家理解。如下图所示：</p>
+<center><img src="/images/df03d68f2fbd8a6722871d13cf786a1f.png" style="width:500px;"></img></center> 
+<ul>
+<li>第一步：线程 A 在 0 秒时，抢占到锁，0.1 秒后，开始执行等待 10 s。</li>
+<li>第二步：线程 B 在 0.1 秒尝试抢占锁，未能抢到锁（被 A 抢占了）。</li>
+<li>第三步：线程 A 在 10.1 秒后，释放锁。</li>
+<li>第四步：线程 B 在 10.1 秒后抢占到锁，然后等待 10 秒后释放锁。</li>
+</ul>
+<p>由此可以得出结论，Redisson 的可重入锁（lock）是阻塞其他线程的，需要等待其他线程释放的。</p>
+<h4 id="3-1-2-验证二：服务停了-锁会释放吗？">3.1.2 验证二：服务停了，锁会释放吗？</h4>
+<p>如果线程 A 在等待的过程中，服务突然停了，那么锁会释放吗？如果不释放的话，就会成为死锁，阻塞了其他线程获取锁。</p>
+<p>我们先来看下线程 A 的获取锁后的，Redis 客户端查询到的结果，如下图所示：</p>
+<center><img src="/images/d71edcbcb4d9b39a0d769881004e959d.png" style="width:500px;"></img></center> 
+<p>WuKong-lock 有值，而且大家可以看到 TTL 在不断变小，说明 WuKong-lock 是自带过期时间的。</p>
+<p>通过观察，经过 30 秒后，WuKong-lock 过期消失了。说明 Redisson 在停机后，占用的锁会自动释放。</p>
+<center><img src="/images/fd85b0c986ff08094e97bf9bbf7f1698.png" style="width:500px;"></img></center> 
+<p>那这又是什么原理呢？这里就要提一个概念了，<code>看门狗</code>。</p>
+<h3 id="3-2-看门狗原理">3.2 看门狗原理</h3>
+<p>如果负责储存这个分布式锁的 Redisson 节点宕机以后，而且这个锁正好处于锁住的状态时，这个锁会出现锁死的状态。为了避免这种情况的发生，Redisson 内部提供了一个监控锁的<code>看门狗</code>，它的作用是在 Redisson 实例被关闭前，不断的延长锁的有效期。</p>
+<p>默认情况下，看门狗的检查锁的超时时间是 30 秒钟，也可以通过修改<a href="https://xie.infoq.cn/link?target=https%3A%2F%2Fgithub.com%2Fredisson%2Fredisson%2Fwiki%2F2.-%E9%85%8D%E7%BD%AE%E6%96%B9%E6%B3%95%23lockwatchdogtimeout%E7%9B%91%E6%8E%A7%E9%94%81%E7%9A%84%E7%9C%8B%E9%97%A8%E7%8B%97%E8%B6%85%E6%97%B6%E5%8D%95%E4%BD%8D%E6%AF%AB%E7%A7%92">Config.lockWatchdogTimeout</a>来另行指定。</p>
+<p>如果我们未制定 lock 的超时时间，就使用 30 秒作为看门狗的默认时间。只要占锁成功，就会启动一个<code>定时任务</code>：每隔 10 秒重新给锁设置过期的时间，过期时间为 30 秒。</p>
+<p>如下图所示：</p>
+<center><img src="/images/3c7db60fbc7d7755d50001f2d89d0758.png" style="width:500px;"></img></center> 
+<p>当服务器宕机后，因为锁的有效期是 30 秒，所以会在 30 秒内自动解锁。（30 秒等于宕机之前的锁占用时间+后续锁占用的时间）。</p>
+<p>如下图所示：</p>
+<center><img src="/images/720ae06ff3ba528fa3b858c5992a8f19.png" style="width:500px;"></img></center> 
+<h3 id="3-3-设置锁过期时间">3.3 设置锁过期时间</h3>
+<p>我们也可以通过给锁设置过期时间，让其自动解锁。</p>
+<p>如下所示，设置锁 8 秒后自动过期。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lock.lock(<span class="number">8</span>, TimeUnit.SECONDS);</span><br></pre></td></tr></table></figure>
+<p>如果业务执行时间超过 8 秒，手动释放锁将会报错，如下图所示：</p>
+<center><img src="/images/ba04bad14e9d60ece580dacd13700ae8.png" style="width:500px;"></img></center> 
+<p>所以我们如果设置了锁的自动过期时间，则执行业务的时间一定要小于锁的自动过期时间，否则就会报错。</p>
+<h2 id="四-王者方案">四、王者方案</h2>
+<p>上一篇我讲解了分布式锁的五种方案：《从青铜到钻石的演进方案》，这一篇主要是讲解如何用 Redisson 在 Spring Boot 项目中实现分布式锁的方案。</p>
+<p>因为 Redisson 非常强大，实现分布式锁的方案非常简洁，所以称作<code>王者方案</code>。</p>
+<p>原理图如下：</p>
+<center><img src="/images/c6ed7d969f3bfc354c113ab622377e16.png" style="width:300px;"></img></center> 
+<p>代码如下所示：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 1.设置分布式锁</span></span><br><span class="line">RLock lock = redisson.getLock(<span class="string">&quot;lock&quot;</span>);</span><br><span class="line"><span class="comment">// 2.占用锁</span></span><br><span class="line">lock.lock();</span><br><span class="line"><span class="comment">// 3.执行业务</span></span><br><span class="line">...</span><br><span class="line"><span class="comment">// 4.释放锁</span></span><br><span class="line">lock.unlock();</span><br></pre></td></tr></table></figure>
+<p>和之前 Redis 的方案相比，简洁很多。</p>
+<h2 id="五-分布式读写锁">五、分布式读写锁</h2>
+<p>基于 Redis 的 Redisson 分布式可重入读写锁<code>RReadWriteLock</code> Java 对象实现了<code>java.util.concurrent.locks.ReadWriteLock</code>接口。其中读锁和写锁都继承了 <code>RLock</code>接口。</p>
+<p>写锁是一个拍他锁（互斥锁），读锁是一个共享锁。</p>
+<ul>
+<li>读锁 + 读锁：相当于没加锁，可以并发读。</li>
+<li>读锁 + 写锁：写锁需要等待读锁释放锁。</li>
+<li>写锁 + 写锁：互斥，需要等待对方的锁释放。</li>
+<li>写锁 + 读锁：读锁需要等待写锁释放。</li>
+</ul>
+<center><img src="/images/d0f087d644fda55e83a707a7579587f1.png" style="width:300px;"></img></center> 
+<p>示例代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">RReadWriteLock rwlock = redisson.getReadWriteLock(<span class="string">&quot;anyRWLock&quot;</span>);</span><br><span class="line"><span class="comment">// 最常见的使用方法</span></span><br><span class="line">rwlock.readLock().lock();</span><br><span class="line"><span class="comment">// 或</span></span><br><span class="line">rwlock.writeLock().lock();</span><br></pre></td></tr></table></figure>
+<p>另外 Redisson 还通过加锁的方法提供了<code>leaseTime</code>的参数来指定加锁的时间。超过这个时间后锁便自动解开了。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 10秒钟以后自动解锁</span></span><br><span class="line"><span class="comment">// 无需调用unlock方法手动解锁</span></span><br><span class="line">rwlock.readLock().lock(<span class="number">10</span>, TimeUnit.SECONDS);</span><br><span class="line"><span class="comment">// 或</span></span><br><span class="line">rwlock.writeLock().lock(<span class="number">10</span>, TimeUnit.SECONDS);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 尝试加锁，最多等待100秒，上锁以后10秒自动解锁</span></span><br><span class="line"><span class="keyword">boolean</span> res = rwlock.readLock().tryLock(<span class="number">100</span>, <span class="number">10</span>, TimeUnit.SECONDS);</span><br><span class="line"><span class="comment">// 或</span></span><br><span class="line"><span class="keyword">boolean</span> res = rwlock.writeLock().tryLock(<span class="number">100</span>, <span class="number">10</span>, TimeUnit.SECONDS);</span><br><span class="line">...</span><br><span class="line">lock.unlock();</span><br></pre></td></tr></table></figure>
+<h2 id="六-分布式信号量">六、分布式信号量</h2>
+<p>基于 Redis 的 Redisson 的分布式信号量（<a href="https://xie.infoq.cn/link?target=http%3A%2F%2Fstatic.javadoc.io%2Forg.redisson%2Fredisson%2F3.10.0%2Forg%2Fredisson%2Fapi%2FRSemaphore.html">Semaphore</a>）Java 对象<code>RSemaphore</code>采用了与<code>java.util.concurrent.Semaphore</code>相似的接口和用法。同时还提供了<a href="https://xie.infoq.cn/link?target=http%3A%2F%2Fstatic.javadoc.io%2Forg.redisson%2Fredisson%2F3.10.0%2Forg%2Fredisson%2Fapi%2FRSemaphoreAsync.html">异步（Async）</a>、<a href="https://xie.infoq.cn/link?target=http%3A%2F%2Fstatic.javadoc.io%2Forg.redisson%2Fredisson%2F3.10.0%2Forg%2Fredisson%2Fapi%2FRSemaphoreReactive.html">反射式（Reactive）</a>和<a href="https://xie.infoq.cn/link?target=http%3A%2F%2Fstatic.javadoc.io%2Forg.redisson%2Fredisson%2F3.10.0%2Forg%2Fredisson%2Fapi%2FRSemaphoreRx.html">RxJava2标准</a>的接口。</p>
+<p>关于信号量的使用大家可以想象一下这个场景，有三个停车位，当三个停车位满了后，其他车就不停了。可以把车位比作信号，现在有三个信号，停一次车，用掉一个信号，车离开就是释放一个信号。</p>
+<center><img src="/images/3a93322d18855775773ac3db252ca71b.png" style="width:300px;"></img></center> 
+<p>我们用 Redisson 来演示上述停车位的场景。</p>
+<p>先定义一个占用停车位的方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 停车，占用停车位</span></span><br><span class="line"><span class="comment">* 总共 3 个车位</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="meta">@ResponseBody</span></span><br><span class="line"><span class="meta">@RequestMapping(&quot;park&quot;)</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">park</span><span class="params">()</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line">  <span class="comment">// 获取信号量（停车场）</span></span><br><span class="line">  RSemaphore park = redisson.getSemaphore(<span class="string">&quot;park&quot;</span>);</span><br><span class="line">  <span class="comment">// 获取一个信号（停车位）</span></span><br><span class="line">  park.acquire();</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="string">&quot;OK&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>再定义一个离开车位的方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 释放车位</span></span><br><span class="line"><span class="comment"> * 总共 3 个车位</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@ResponseBody</span></span><br><span class="line"><span class="meta">@RequestMapping(&quot;leave&quot;)</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">leave</span><span class="params">()</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line">    <span class="comment">// 获取信号量（停车场）</span></span><br><span class="line">    RSemaphore park = redisson.getSemaphore(<span class="string">&quot;park&quot;</span>);</span><br><span class="line">    <span class="comment">// 释放一个信号（停车位）</span></span><br><span class="line">    park.release();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;OK&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>为了简便，我用 Redis 客户端添加了一个 key：“park”，值等于 3，代表信号量为 park，总共有三个值。</p>
+<center><img src="/images/b6255fb25a0e6ee160662eaf4c20815a.png" style="width:300px;"></img></center> 
+<p>然后用 postman 发送 park 请求占用一个停车位。</p>
+<center><img src="/images/8225617d9888d82976669f111430c6f0.png" style="width:500px;"></img></center> 
+<p>然后在 redis 客户端查看 park 的值，发现已经改为 2 了。继续调用两次，发现 park 的等于 0，当调用第四次的时候，会发现请求一直处于<code>等待中</code>，说明车位不够了。如果想要不阻塞，可以用 tryAcquire 或 tryAcquireAsync。</p>
+<p>我们再调用离开车位的方法，park 的值变为了 1，代表车位剩余 1 个。</p>
+<p><strong>注意</strong>：多次执行释放信号量操作，剩余信号量会一直增加，而不是到 3 后就封顶了。</p>
+<p>其他分布式锁：</p>
+<ul>
+<li>公平锁（Fair Lock）</li>
+<li>联锁（MultiLock）</li>
+<li>红锁（RedLock）</li>
+<li>读写锁（ReadWriteLock）</li>
+<li>可过期性信号量（PermitExpirableSemaphore）</li>
+<li>闭锁（CountDownLatch）</li>
+</ul>
+<center><img src="/images/5ff46640dfbb70677199ebd19a569c29.png" style="width:400px;"></img></center> 
+<p>还有其他分布式锁就不在本篇展开了，感兴趣的同学可以查看官方文档。</p>
+ 
+      <!-- reward -->
+      
+      <div id="reword-out">
+        <div id="reward-btn">
+          打赏
+        </div>
+      </div>
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <div class="declare">
+      <ul class="post-copyright">
+        <li>
+          <i class="ri-copyright-line"></i>
+          <strong>版权声明： </strong>
+          
+          本博客所有文章除特别声明外，著作权归作者所有。转载请注明出处！
+          
+        </li>
+      </ul>
+    </div>
+    
+    <footer class="article-footer">
+       
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<!--<div class="wx-share-modal">-->
+<!--    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>-->
+<!--    <p>扫一扫，分享到微信</p>-->
+<!--    <div class="wx-qrcode">-->
+<!--      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://rookieyin.github.io/524795742ef5/" alt="微信分享二维码">-->
+<!--    </div>-->
+<!--</div>-->
+
+<div id="share-mask"></div>
+  
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Redis/" rel="tag">Redis</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F/" rel="tag">分布式</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%90%8E%E7%AB%AF/" rel="tag">后端</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+  <nav class="article-nav">
+    
+      <a href="/89003babc13d/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            聊聊定时任务的实现方式
+          
+        </div>
+      </a>
+    
+    
+      <a href="/c727a3d2828a/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">分布式锁概述</div>
+      </a>
+    
+  </nav>
+
+   
+<!-- valine评论 -->
+<div id="vcomments-box">
+  <div id="vcomments"></div>
+</div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js"></script>
+<script>
+  new Valine({
+    el: "#vcomments",
+    app_id: "f9XmUV7HVprPCNptggBNBhWR-gzGzoHsz",
+    app_key: "H73Viqo3lADopEFgshq3XrXs",
+    path: window.location.pathname,
+    avatar: "monsterid",
+    placeholder: "给我的文章加点评论吧~",
+    recordIP: true,
+  });
+  const infoEle = document.querySelector("#vcomments .info");
+  if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+    infoEle.childNodes.forEach(function (item) {
+      item.parentNode.removeChild(item);
+    });
+  }
+</script>
+<style>
+  #vcomments-box {
+    padding: 5px 30px;
+  }
+
+  @media screen and (max-width: 800px) {
+    #vcomments-box {
+      padding: 5px 0px;
+    }
+  }
+
+  #vcomments-box #vcomments {
+    background-color: #fff;
+  }
+
+  .v .vlist .vcard .vh {
+    padding-right: 20px;
+  }
+
+  .v .vlist .vcard {
+    padding-left: 10px;
+  }
+</style>
+
+ 
+   
+     
+</article>
+
+</section>
+        <footer class="footer">
+  <div class="outer">
+    <ul>
+      <li>
+        Copyrights &copy;
+        2021-2022
+        <i class="ri-heart-fill heart_icon"></i> Yin Peng
+      </li>
+    </ul>
+    <ul>
+      <li>引擎:
+        <a style="color: #0681d0" target="_blank" rel="noopener" href="https://hexo.io/zh-cn/">Hexo</a>
+        &nbsp;&nbsp;|&nbsp;&nbsp;主题:修改自
+        <a style="color: #0681d0" target="_blank" rel="noopener" href="https://shen-yu.gitee.io/">Ayer</a>
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        <span>
+  <span><i class="ri-user-3-fill"></i>访问人数:<span id="busuanzi_value_site_uv"></span></span>
+  <span class="division">|</span>
+  <span><i class="ri-eye-fill"></i>浏览次数:<span id="busuanzi_value_page_pv"></span></span>
+</span>
+        
+      </li>
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      <li>
+        <!-- cnzz统计 -->
+        
+        <script type="text/javascript" src='https://s9.cnzz.com/z_stat.php?id=1278069914&amp;web_id=1278069914'></script>
+        
+      </li>
+    </ul>
+  </div>
+</footer>
+
+        <div class="float_btns">
+            <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+
+<div class="todark" id="todark">
+  <i class="ri-moon-line"></i>
+</div>
+
+        </div>
+    </main>
+
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/alipay.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/wxpay.png">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-2.0.3.min.js"></script>
+ 
+<script src="/js/lazyload.min.js"></script>
+
+<!-- Tocbot -->
+ 
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  tocbot.init({
+    tocSelector: ".tocbot",
+    contentSelector: ".article-entry",
+    headingSelector: "h1, h2, h3, h4, h5, h6",
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: "main",
+    positionFixedSelector: ".tocbot",
+    positionFixedClass: "is-position-fixed",
+    fixedSidebarOffset: "auto",
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.js"></script>
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.css"
+/>
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js"></script>
+
+<script src="/dist/main.js"></script>
+
+<!-- ImageViewer -->
+ <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css">
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script> 
+<!-- MathJax -->
+
+<!-- Katex -->
+
+<!-- busuanzi  -->
+ 
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+ 
+<!-- ClickLove -->
+ 
+<script src="/js/clickLove.js"></script>
+ 
+<!-- ClickBoom1 -->
+
+<!-- ClickBoom2 -->
+
+<!-- CodeCopy -->
+ 
+<link rel="stylesheet" href="/css/clipboard.css">
+ <script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="ri-file-copy-2-line"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-checkbox-circle-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-checkbox-circle-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-time-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-time-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+ 
+<!-- CanvasBackground -->
+
+<script>
+  if (window.mermaid) {
+    mermaid.initialize({ theme: "forest" });
+  }
+</script>
+
+
+    
+</div>
+</body>
+
+</html>

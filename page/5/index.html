@@ -185,7 +185,7 @@
     
     
     <article
-  id="post-2 后端/Redis/Redis数据类型"
+  id="post-2 后端/Redis/Redis主从复制"
   class="article article-type-post"
   itemscope
   itemprop="blogPost"
@@ -196,8 +196,8 @@
     <header class="article-header">
        
 <h2 itemprop="name">
-  <a class="article-title" href="/cca58972b6b1/"
-    >Redis数据类型</a> 
+  <a class="article-title" href="/0a87fbe80a6b/"
+    >Redis主从复制</a> 
 </h2>
  
 
@@ -205,8 +205,8 @@
     </header>
      
     <div class="article-meta">
-      <a href="/cca58972b6b1/" class="article-date">
-  <time datetime="2022-03-06T05:43:43.000Z" itemprop="datePublished">2022-03-06</time>
+      <a href="/0a87fbe80a6b/" class="article-date">
+  <time datetime="2022-03-11T14:34:58.000Z" itemprop="datePublished">2022-03-11</time>
 </a> 
   <div class="article-category">
     <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a> / <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/Redis/">Redis</a>
@@ -217,8 +217,15 @@
       
     <div class="article-entry" itemprop="articleBody">
        
-  <p>Redis所有key都是字符串，存储值有5种基本数据结构：string，list，hash，set和zset（有序集合），3种特殊数据结构：HyperLogLogs（基数统计），Bitmaps（位图）和Geospatial（地理位置），Redis 5.0中还增加了Stream类型，借鉴了kafka的设计，是一个强大的支持多播的可持久化消息队列。</p> 
-      <a class="article-more-link" href="/cca58972b6b1/"
+  <p>主从复制，是指将一台Redis服务器的数据，复制到其他的Redis服务器。前者称为主节点(master)，后者称为从节点(slave)；数据的复制是单向的，只能由主节点到从节点。</p>
+<p>主从复制的目的在于：</p>
+<ol>
+<li><strong>数据冗余</strong>：从节点备份主节点数据，持久化之外的另一种数据冗余方式。</li>
+<li><strong>故障恢复</strong>：主节点出现问题，从节点顶上，实现快速故障恢复。</li>
+<li><strong>负载均衡</strong>：主节点写，从节点读，提高系统并发能力。</li>
+<li><strong>高可用基石</strong>： 主从复制还是哨兵和集群能够实施的基础</li>
+</ol> 
+      <a class="article-more-link" href="/0a87fbe80a6b/"
         >阅读更多...</a
       >
        
@@ -243,7 +250,7 @@
 
     
     <article
-  id="post-6 设计模式/创建型——工厂模式"
+  id="post-2 后端/Redis/Redis数据结构底层原理"
   class="article article-type-post"
   itemscope
   itemprop="blogPost"
@@ -254,8 +261,8 @@
     <header class="article-header">
        
 <h2 itemprop="name">
-  <a class="article-title" href="/b2e275c3967c/"
-    >创建型——工厂模式</a> 
+  <a class="article-title" href="/67952895de8b/"
+    >Redis数据结构底层原理</a> 
 </h2>
  
 
@@ -263,8 +270,136 @@
     </header>
      
     <div class="article-meta">
-      <a href="/b2e275c3967c/" class="article-date">
-  <time datetime="2022-03-05T07:08:10.000Z" itemprop="datePublished">2022-03-05</time>
+      <a href="/67952895de8b/" class="article-date">
+  <time datetime="2022-03-11T14:34:55.000Z" itemprop="datePublished">2022-03-11</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a> / <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/Redis/">Redis</a>
+  </div>
+
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <blockquote>
+<p>声明：本文大部分内容都来自<a target="_blank" rel="noopener" href="https://pdai.tech/md/db/nosql-redis/db-redis-x-redis-ds.html">Java全站知识体系</a></p>
+</blockquote>
+<p>Redis的每种对象其实都由<strong>对象结构(redisObject)</strong> 与 <strong>对应编码的数据结构</strong>组合而成, 本文主要介绍<strong>底层数据结构</strong> 部分。</p>
+<p>Redis底层包括SDS、QuickList、ZipList、HashTable、IntSet、ZSkipList和Redis Tree of listpack。这些结构和上层数据类型之间的映射关系如下图所示：</p>
+<center><img src="/images/db-redis-object-2-3.png" style="width:700px;"></img></center> 
+      <a class="article-more-link" href="/67952895de8b/"
+        >阅读更多...</a
+      >
+       
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/redis/" rel="tag">redis</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%90%8E%E7%AB%AF/" rel="tag">后端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="tag">数据库</a></li></ul>
+
+    </footer>
+  </div>
+
+    
+ 
+    
+</article>
+
+    
+    <article
+  id="post-2 后端/Java/JVM/1 Java内存空间"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/57edbfaf4ec4/"
+    >Java内存空间</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/57edbfaf4ec4/" class="article-date">
+  <time datetime="2022-03-11T14:34:49.000Z" itemprop="datePublished">2022-03-11</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a> / <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/Java/">Java</a> / <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/Java/JVM/">JVM</a>
+  </div>
+
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h2 id="1-概述">1 概述</h2>
+<p>Java虚拟机在执行Java程序时会将它所管理的内存划分成若干个不同的数据区域。</p>
+<p>下图是JVM的整体结构，中间部分就是Java虚拟机定义的各种运行时数据区域。这些内存区域可以分为两类：</p>
+<ul>
+<li><strong>线程私有</strong>：程序计数器、虚拟机栈、本地方法栈</li>
+<li><strong>线程共享</strong>：堆、方法区、堆外内存（Java7的永久代，JDK8的元空间、代码缓存）</li>
+</ul>
+<center><img src="/images/0082zybply1gc6fz21n8kj30u00wpn5v.jpg" style="width:600px;"></img></center> 
+      <a class="article-more-link" href="/57edbfaf4ec4/"
+        >阅读更多...</a
+      >
+       
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JVM/" rel="tag">JVM</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%90%8E%E7%AB%AF/" rel="tag">后端</a></li></ul>
+
+    </footer>
+  </div>
+
+    
+ 
+    
+</article>
+
+    
+    <article
+  id="post-6 设计模式/行为型——命令模式"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/e875640894b9/"
+    >行为型——命令模式</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/e875640894b9/" class="article-date">
+  <time datetime="2022-03-11T07:08:10.000Z" itemprop="datePublished">2022-03-11</time>
 </a> 
   <div class="article-category">
     <a class="article-category-link" href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a>
@@ -275,8 +410,9 @@
       
     <div class="article-entry" itemprop="articleBody">
        
-  <p>本文介绍一下设计模式中的工厂模式。工厂，在现实生活中是用来生产产品的，在OO编程中，对象就是产品，也就是用来生产对象的。和工厂相关的设计模式主要有三种：简单工厂模式、工厂方法模式和抽象工厂模式。下面，我们分别叫啥下这三种模式。</p> 
-      <a class="article-more-link" href="/b2e275c3967c/"
+  <h2 id="概述">概述</h2>
+<p>所谓“命令模式”，简单解释就是：<strong>把命令封装成对象</strong>，当客户需要执行某条命令时，直接new一个该命令对应的对象，然后调用命令对象中的excute方法即可。这种设计下，命令调用者无需关心命令具体是怎样执行的，<strong>达到命令调用者和命令执行者之间解耦的目的</strong>。</p> 
+      <a class="article-more-link" href="/e875640894b9/"
         >阅读更多...</a
       >
        
@@ -301,7 +437,7 @@
 
     
     <article
-  id="post-6 设计模式/创建型——单例模式"
+  id="post-6 设计模式/行为型——观察者模式"
   class="article article-type-post"
   itemscope
   itemprop="blogPost"
@@ -312,8 +448,8 @@
     <header class="article-header">
        
 <h2 itemprop="name">
-  <a class="article-title" href="/3a62052bd839/"
-    >创建型——单例模式</a> 
+  <a class="article-title" href="/8ae23491da19/"
+    >行为型——观察者模式</a> 
 </h2>
  
 
@@ -321,8 +457,8 @@
     </header>
      
     <div class="article-meta">
-      <a href="/3a62052bd839/" class="article-date">
-  <time datetime="2022-03-04T07:08:10.000Z" itemprop="datePublished">2022-03-04</time>
+      <a href="/8ae23491da19/" class="article-date">
+  <time datetime="2022-03-10T07:08:10.000Z" itemprop="datePublished">2022-03-10</time>
 </a> 
   <div class="article-category">
     <a class="article-category-link" href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a>
@@ -333,17 +469,323 @@
       
     <div class="article-entry" itemprop="articleBody">
        
-  <h2 id="概述">概述</h2>
-<p>这里我们通过几个问题，来简单了解下单例模式。</p>
-<ol>
-<li>
-<p><strong>什么是单例模式？</strong></p>
-<p>所谓单例模式，顾名思义就是：一个类只有一个实例，且这个实例是有该类自己创建的一种模式。</p>
+  <h2 id="什么是观察者模式">什么是观察者模式</h2>
+<p><strong>观察者模式</strong>：定义了对象之间的一对多依赖，这样一来，当一个对象改变状态时，它的所有依赖者都会受到通知并自动更新。类似一种订阅发布模式，用户订阅某主题，当该主题有更新后会主动通知订阅者。</p> 
+      <a class="article-more-link" href="/8ae23491da19/"
+        >阅读更多...</a
+      >
+       
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" rel="tag">设计模式</a></li></ul>
+
+    </footer>
+  </div>
+
+    
+ 
+    
+</article>
+
+    
+    <article
+  id="post-6 设计模式/行为型——策略模式"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/7a1bbf9ffc6c/"
+    >结构型——策略模式</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/7a1bbf9ffc6c/" class="article-date">
+  <time datetime="2022-03-09T07:08:10.000Z" itemprop="datePublished">2022-03-09</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a>
+  </div>
+
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h2 id="什么是策略模式">什么是策略模式</h2>
+<p>在软件开发过程中，某些行为可能具有不同的实现方式，比如，对于排序这一行为，其具体实现可能包括堆排序、插入排序、选择排序、希尔排序、快速排序等等，这些实现方式有着各自的应用场景。在软件运行过程中，对于某种行为，我们希望能够动态选择具体实现方式。这时候就需要用到策略模式了。</p> 
+      <a class="article-more-link" href="/7a1bbf9ffc6c/"
+        >阅读更多...</a
+      >
+       
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" rel="tag">设计模式</a></li></ul>
+
+    </footer>
+  </div>
+
+    
+ 
+    
+</article>
+
+    
+    <article
+  id="post-2 后端/Redis/Redis事务"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/47bd1b89eebf/"
+    >Redis事务</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/47bd1b89eebf/" class="article-date">
+  <time datetime="2022-03-08T12:38:32.000Z" itemprop="datePublished">2022-03-08</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a> / <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/Redis/">Redis</a>
+  </div>
+
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h2 id="何为事务">何为事务</h2>
+<p>Redis 事务的本质是一组命令的集合。事务支持一次执行多个命令，一个事务中所有命令都会被序列化。在事务执行过程，会按照顺序串行化执行队列中的命令，其他客户端提交的命令请求不会插入到事务执行命令序列中。</p>
+<p>总结说：redis事务就是一次性、顺序性、排他性的执行一个队列中的一系列命令。</p> 
+      <a class="article-more-link" href="/47bd1b89eebf/"
+        >阅读更多...</a
+      >
+       
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/redis/" rel="tag">redis</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%90%8E%E7%AB%AF/" rel="tag">后端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="tag">数据库</a></li></ul>
+
+    </footer>
+  </div>
+
+    
+ 
+    
+</article>
+
+    
+    <article
+  id="post-2 后端/Redis/Redis过期与内存淘汰机制"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/c4ebbd2dc215/"
+    >Redis过期与内存淘汰机制</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/c4ebbd2dc215/" class="article-date">
+  <time datetime="2022-03-08T12:38:24.000Z" itemprop="datePublished">2022-03-08</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a> / <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/Redis/">Redis</a>
+  </div>
+
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h2 id="redis数据过期">Redis数据过期</h2>
+<p>我们知道Redis中的key可以设置过期时间，如果设置1批key只能存活1分钟，那么1分钟后，Redis是怎么对这批key进行删除的呢？</p>
+<p>常用过期策略有三种：</p>
+<ul>
+<li><strong>定时过期</strong>：每个设置过期时间的key都创建一个定时器，到期后立即清除。
+<ul>
+<li>优点：到期后立即清除数据，对内存友好。</li>
+<li>缺点：创建大量定时器，占用过多系统资源，对CPU不友好。</li>
+</ul>
 </li>
-<li>
-<p><strong>为什么要有单例模式？</strong></p>
-<p>在实际应用中，很多对象其实我们只需要一个，比如：线程池、缓存、对话框、注册表对象、日志对象等等。往往这些类对象只能有一个实例，否则可能出现很多问题，例如：程序的行为异常、资源浪费或者不一致的结果等。</p> 
-      <a class="article-more-link" href="/3a62052bd839/"
+<li><strong>惰性过期</strong>：取出key的时候对数据过期时间进行检查。
+<ul>
+<li>优点：对CPU友好。</li>
+<li>缺点：造成太多过期key没有删除，对内存不友好。</li>
+</ul>
+</li>
+<li><strong>定期过期</strong>：每隔一段时间抽取一批key执行删除过期key操作，可以看做是定时和惰性的一种折中方案。</li>
+</ul>
+<p>在Redis中同时使用了<strong>定期删除+惰性删除</strong>。</p> 
+      <a class="article-more-link" href="/c4ebbd2dc215/"
+        >阅读更多...</a
+      >
+       
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/redis/" rel="tag">redis</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%90%8E%E7%AB%AF/" rel="tag">后端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="tag">数据库</a></li></ul>
+
+    </footer>
+  </div>
+
+    
+ 
+    
+</article>
+
+    
+    <article
+  id="post-2 后端/Redis/Redis持久化"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/b4a3dfa7f75c/"
+    >Redis持久化</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/b4a3dfa7f75c/" class="article-date">
+  <time datetime="2022-03-08T12:38:14.000Z" itemprop="datePublished">2022-03-08</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a> / <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/Redis/">Redis</a>
+  </div>
+
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <p>为了防止数据丢失以及服务重启时能够恢复数据，Redis支持数据的持久化（和Memcached的主要区别之一），主要分为两种方式，分别是RDB和AOF。当然实际场景下还会使用这两种的混合模式。</p> 
+      <a class="article-more-link" href="/b4a3dfa7f75c/"
+        >阅读更多...</a
+      >
+       
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/redis/" rel="tag">redis</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%90%8E%E7%AB%AF/" rel="tag">后端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="tag">数据库</a></li></ul>
+
+    </footer>
+  </div>
+
+    
+ 
+    
+</article>
+
+    
+    <article
+  id="post-6 设计模式/结构型——享元模式"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/7cfcf24ee979/"
+    >结构型——享元模式</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/7cfcf24ee979/" class="article-date">
+  <time datetime="2022-03-08T07:08:10.000Z" itemprop="datePublished">2022-03-08</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a>
+  </div>
+
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h2 id="什么是享元模式">什么是享元模式</h2>
+<h3 id="享元模式的定义">享元模式的定义</h3>
+<p>享元模式定义为：<strong>通过共享技术来实现细粒度对象的复用</strong>。“享”即共享，“元”即对象，通过复用一些共享对象，避免创建大量重复对象，减小内存开销。 享元模式的本质是<strong>缓存共享对象</strong>，<strong>降低内存消耗</strong>。</p>
+<p>享元模式尝试重用现有的同类对象，如果未找到匹配的对象，则创建新对象。 比如对于Circle对象，有5种不同的颜色，如果需要50个Circle实例。如果不使用享元模式，我们需要创建50个对象。但是如果使用享元模式，可以创建一个Map，key为颜色，value为Circle实例，需要什么颜色的circle就去map里面取，这样最多只需要创建5个对象即可。</p> 
+      <a class="article-more-link" href="/7cfcf24ee979/"
         >阅读更多...</a
       >
        
@@ -357,424 +799,6 @@
     <footer class="article-footer">
        
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" rel="tag">设计模式</a></li></ul>
-
-    </footer>
-  </div>
-
-    
- 
-    
-</article>
-
-    
-    <article
-  id="post-2 后端/Java/Java并发/12 Java中的Unsafe类"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/e15edccb26c1/"
-    >Java中的Unsafe类</a> 
-</h2>
- 
-
-      
-    </header>
-     
-    <div class="article-meta">
-      <a href="/e15edccb26c1/" class="article-date">
-  <time datetime="2022-02-13T14:34:49.000Z" itemprop="datePublished">2022-02-13</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a> / <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/Java/">Java</a> / <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/Java/Java%E5%B9%B6%E5%8F%91/">Java并发</a>
-  </div>
-
-   
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <p>本文转自：<a target="_blank" rel="noopener" href="https://tech.meituan.com/2019/02/14/talk-about-java-magic-class-unsafe.html">Java魔法类：Unsafe应用解析</a></p>
-<h2 id="unsafe概述">Unsafe概述</h2>
-<h3 id="什么是unsafe">什么是Unsafe</h3>
-<p>Unsafe是位于sun.misc包下的一个类，主要提供一些用于执行低级别、不安全操作的方法，如直接访问系统内存资源、自主管理内存资源等，这些方法在提升Java运行效率、增强Java语言底层资源操作能力方面起到了很大的作用。但由于Unsafe类使Java语言拥有了类似C语言指针一样操作内存空间的能力，这无疑也增加了程序发生相关指针问题的风险。在程序中过度、不正确使用Unsafe类会使得程序出错的概率变大，使得Java这种安全的语言变得不再“安全”，因此对Unsafe的使用一定要慎重。</p> 
-      <a class="article-more-link" href="/e15edccb26c1/"
-        >阅读更多...</a
-      >
-       
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%90%8E%E7%AB%AF/" rel="tag">后端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" rel="tag">多线程</a></li></ul>
-
-    </footer>
-  </div>
-
-    
- 
-    
-</article>
-
-    
-    <article
-  id="post-2 后端/Java/Java并发/11 Java中的Atomic类"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/dae3554cec93/"
-    >Java中的Atomic类</a> 
-</h2>
- 
-
-      
-    </header>
-     
-    <div class="article-meta">
-      <a href="/dae3554cec93/" class="article-date">
-  <time datetime="2022-02-12T14:34:49.000Z" itemprop="datePublished">2022-02-12</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a> / <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/Java/">Java</a> / <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/Java/Java%E5%B9%B6%E5%8F%91/">Java并发</a>
-  </div>
-
-   
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <h2 id="概述">概述</h2>
-<p>Atomic 翻译成中文是原子的意思。在化学上，我们知道原子是构成一般物质的最小单位，在化学反应中是不可分割的。在我们这里 Atomic 是指一个操作是不可中断的。即使是在多个线程一起执行的时候，一个操作一旦开始，就不会被其他线程干扰。</p> 
-      <a class="article-more-link" href="/dae3554cec93/"
-        >阅读更多...</a
-      >
-       
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%90%8E%E7%AB%AF/" rel="tag">后端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" rel="tag">多线程</a></li></ul>
-
-    </footer>
-  </div>
-
-    
- 
-    
-</article>
-
-    
-    <article
-  id="post-2 后端/Java/Java并发/10 JUC锁之ReentrantLock"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/1ec85058707f/"
-    >JUC锁之ReentrantLock</a> 
-</h2>
- 
-
-      
-    </header>
-     
-    <div class="article-meta">
-      <a href="/1ec85058707f/" class="article-date">
-  <time datetime="2022-02-11T14:34:49.000Z" itemprop="datePublished">2022-02-11</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a> / <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/Java/">Java</a> / <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/Java/Java%E5%B9%B6%E5%8F%91/">Java并发</a>
-  </div>
-
-   
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <p>前面，我们介绍了Java中非常重要的同步器框架AQS，本文将介绍Java类库中基于AQS实现的一个同步器ReentrantLock。同样地，我们还是循着：它是什么？它有什么用？它底层怎么实现的？怎么使用它？这些问题，来深入了解ReentrantLock。</p> 
-      <a class="article-more-link" href="/1ec85058707f/"
-        >阅读更多...</a
-      >
-       
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%90%8E%E7%AB%AF/" rel="tag">后端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" rel="tag">多线程</a></li></ul>
-
-    </footer>
-  </div>
-
-    
- 
-    
-</article>
-
-    
-    <article
-  id="post-2 后端/Java/Java并发/9 JUC锁之AQS"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/7ed9e0093845/"
-    >JUC锁之AQS</a> 
-</h2>
- 
-
-      
-    </header>
-     
-    <div class="article-meta">
-      <a href="/7ed9e0093845/" class="article-date">
-  <time datetime="2022-02-10T14:34:49.000Z" itemprop="datePublished">2022-02-10</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a> / <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/Java/">Java</a> / <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/Java/Java%E5%B9%B6%E5%8F%91/">Java并发</a>
-  </div>
-
-   
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <p>学习一个新技术比较好的一个路线就是去尝试回答四个问题：它是什么？它有什么用？它底层是怎么实现的？怎么用？</p>
-<p>本文也同样沿着这个路线，一探AQS的真面目！</p>
-<p><em>注：本文对AQS中的condition相关知识没有进行过多介绍，感兴趣的同学可以查阅其他资料。</em></p> 
-      <a class="article-more-link" href="/7ed9e0093845/"
-        >阅读更多...</a
-      >
-       
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%90%8E%E7%AB%AF/" rel="tag">后端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" rel="tag">多线程</a></li></ul>
-
-    </footer>
-  </div>
-
-    
- 
-    
-</article>
-
-    
-    <article
-  id="post-2 后端/Java/Java并发/8 Java中常见的锁"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/1ecc1ddc27d3/"
-    >Java中常见的锁</a> 
-</h2>
- 
-
-      
-    </header>
-     
-    <div class="article-meta">
-      <a href="/1ecc1ddc27d3/" class="article-date">
-  <time datetime="2022-02-09T14:34:49.000Z" itemprop="datePublished">2022-02-09</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a> / <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/Java/">Java</a> / <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/Java/Java%E5%B9%B6%E5%8F%91/">Java并发</a>
-  </div>
-
-   
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <p>本文转自：<a target="_blank" rel="noopener" href="https://tech.meituan.com/2018/11/15/java-lock.html">不可不说的Java“锁”事</a></p>
-<h2 id="概述">概述</h2>
-<p>Java提供了种类丰富的锁，每种锁因其特性的不同，在适当的场景下能够展现出非常高的效率。本文旨在对锁相关源码（本文中的源码来自JDK 8和Netty 3.10.6）、使用场景进行举例，为读者介绍主流锁的知识点，以及不同的锁的适用场景。</p> 
-      <a class="article-more-link" href="/1ecc1ddc27d3/"
-        >阅读更多...</a
-      >
-       
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%90%8E%E7%AB%AF/" rel="tag">后端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" rel="tag">多线程</a></li></ul>
-
-    </footer>
-  </div>
-
-    
- 
-    
-</article>
-
-    
-    <article
-  id="post-2 后端/Java/Java并发/7 Java 线程池之ThreadPoolExecutor"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/d4fa1f097a58/"
-    >Java线程池之ThreadPoolExecutor</a> 
-</h2>
- 
-
-      
-    </header>
-     
-    <div class="article-meta">
-      <a href="/d4fa1f097a58/" class="article-date">
-  <time datetime="2022-02-08T14:34:49.000Z" itemprop="datePublished">2022-02-08</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a> / <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/Java/">Java</a> / <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/Java/Java%E5%B9%B6%E5%8F%91/">Java并发</a>
-  </div>
-
-   
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <p>如下图所示，ThreadPoolExecutor实现的顶层接口是Executor ，本文主要介绍了如何创建线程池、线程池底层原理等内容，其中重点内容是线程的生命周期。</p>
-<center><img src="/images/912883e51327e0c7a9d753d11896326511272.png" style="width:200px;"></img></center>
-<p>关于ThreadPoolExecutor的具体方法和属性，本文不作详细介绍，可以直接查阅<a target="_blank" rel="noopener" href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/concurrent/ThreadPoolExecutor.html">Java官方API文档</a>。ThreadPoolExecutor中比较特殊的一个字段是<code>ctl</code>。它是一个复合属性，保存两部分信息： 线程池的运行状态 (runState) 和线程池内有效线程的数量 (workerCount)，这里可以看到，使用了Integer类型来保存，高3位保存runState，低29位保存workerCount。COUNT_BITS 就是29，CAPACITY就是1左移29位减1（29个1），这个常量表示workerCount的上限值，大约是5亿。</p> 
-      <a class="article-more-link" href="/d4fa1f097a58/"
-        >阅读更多...</a
-      >
-       
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%90%8E%E7%AB%AF/" rel="tag">后端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" rel="tag">多线程</a></li></ul>
-
-    </footer>
-  </div>
-
-    
- 
-    
-</article>
-
-    
-    <article
-  id="post-2 后端/Java/Java并发/6 Java线程池概述"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/b486854617ea/"
-    >Java线程池概述</a> 
-</h2>
- 
-
-      
-    </header>
-     
-    <div class="article-meta">
-      <a href="/b486854617ea/" class="article-date">
-  <time datetime="2022-02-07T14:34:49.000Z" itemprop="datePublished">2022-02-07</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a> / <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/Java/">Java</a> / <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/Java/Java%E5%B9%B6%E5%8F%91/">Java并发</a>
-  </div>
-
-   
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <h2 id="什么是线程池">什么是线程池</h2>
-<p>线程池（Thread Pool）是一种<strong>基于池化思想</strong>管理线程的工具，经常出现在多线程服务器中，如MySQL。</p>
-<p><em>注： 池化，顾名思义，是为了最大化收益并最小化风险，而将资源统一在一起管理的一种思想。</em></p> 
-      <a class="article-more-link" href="/b486854617ea/"
-        >阅读更多...</a
-      >
-       
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%90%8E%E7%AB%AF/" rel="tag">后端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" rel="tag">多线程</a></li></ul>
 
     </footer>
   </div>
@@ -791,7 +815,7 @@
   
   <nav class="page-nav">
     
-    <a class="extend prev" rel="prev" href="/page/4/">上一页</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><span class="space">&hellip;</span><a class="page-number" href="/page/15/">15</a><a class="extend next" rel="next" href="/page/6/">下一页</a>
+    <a class="extend prev" rel="prev" href="/page/4/">上一页</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><span class="space">&hellip;</span><a class="page-number" href="/page/17/">17</a><a class="extend next" rel="next" href="/page/6/">下一页</a>
   </nav>
   
 </section>

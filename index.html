@@ -608,7 +608,7 @@
 
     
     <article
-  id="post-2 后端/Redis/Redis集群"
+  id="post-2 后端/其他/5 ES概述"
   class="article article-type-post"
   itemscope
   itemprop="blogPost"
@@ -619,8 +619,8 @@
     <header class="article-header">
        
 <h2 itemprop="name">
-  <a class="article-title" href="/621962d42a8e/"
-    >Redis集群</a> 
+  <a class="article-title" href="/66cb4eac165c/"
+    >ES概述</a> 
 </h2>
  
 
@@ -628,11 +628,11 @@
     </header>
      
     <div class="article-meta">
-      <a href="/621962d42a8e/" class="article-date">
-  <time datetime="2022-05-16T12:38:14.000Z" itemprop="datePublished">2022-05-16</time>
+      <a href="/66cb4eac165c/" class="article-date">
+  <time datetime="2022-05-28T05:43:55.000Z" itemprop="datePublished">2022-05-28</time>
 </a> 
   <div class="article-category">
-    <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a> / <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/Redis/">Redis</a>
+    <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a> / <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/%E5%85%B6%E4%BB%96/">其他</a>
   </div>
 
    
@@ -640,14 +640,8 @@
       
     <div class="article-entry" itemprop="articleBody">
        
-  <p>本文内容基本全部来自：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/kismetv/p/9853040.html">https://www.cnblogs.com/kismetv/p/9853040.html</a></p>
-<p>集群，即Redis Cluster，是Redis 3.0开始引入的分布式存储方案。</p>
-<p>集群由多个节点(Node)组成，Redis的数据分布在这些节点中。集群中的节点分为主节点和从节点：只有主节点负责读写请求和集群信息的维护；从节点只进行主节点数据和状态信息的复制。集群的作用主要有两点：</p>
-<ol>
-<li><strong>数据分区</strong>：将数据分散到多个节点，一方面突破Redis单机内存大小限制，另一方面可以做读写负载均衡，大大提高集群响应能力。</li>
-<li><strong>高可用</strong>：Redis集群支持主从复制和自动故障转移，当任意节点发生故障时，集群仍能够对外提供服务。</li>
-</ol> 
-      <a class="article-more-link" href="/621962d42a8e/"
+  <p>文章转自<a target="_blank" rel="noopener" href="https://whb1990.github.io/posts/67a89a08.html">这里</a></p> 
+      <a class="article-more-link" href="/66cb4eac165c/"
         >阅读更多...</a
       >
        
@@ -660,7 +654,7 @@
     
     <footer class="article-footer">
        
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/redis/" rel="tag">redis</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%90%8E%E7%AB%AF/" rel="tag">后端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="tag">数据库</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ElasticSearch/" rel="tag">ElasticSearch</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%90%8E%E7%AB%AF/" rel="tag">后端</a></li></ul>
 
     </footer>
   </div>
@@ -672,7 +666,7 @@
 
     
     <article
-  id="post-2 后端/Redis/Redis哨兵"
+  id="post-2 后端/其他/2 内存屏障是个啥"
   class="article article-type-post"
   itemscope
   itemprop="blogPost"
@@ -683,8 +677,8 @@
     <header class="article-header">
        
 <h2 itemprop="name">
-  <a class="article-title" href="/feac293ea536/"
-    >Redis哨兵</a> 
+  <a class="article-title" href="/e11f4fa067fe/"
+    >内存屏障是个啥</a> 
 </h2>
  
 
@@ -692,11 +686,11 @@
     </header>
      
     <div class="article-meta">
-      <a href="/feac293ea536/" class="article-date">
-  <time datetime="2022-05-15T12:38:14.000Z" itemprop="datePublished">2022-05-15</time>
+      <a href="/e11f4fa067fe/" class="article-date">
+  <time datetime="2022-05-27T05:43:55.000Z" itemprop="datePublished">2022-05-27</time>
 </a> 
   <div class="article-category">
-    <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a> / <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/Redis/">Redis</a>
+    <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a> / <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/%E5%85%B6%E4%BB%96/">其他</a>
   </div>
 
    
@@ -704,8 +698,9 @@
       
     <div class="article-entry" itemprop="articleBody">
        
-  <p>Redis主从复制的作用有数据热备、负载均衡、故障恢复等；但主从复制存在的一个问题是故障恢复无法自动化。本文将要介绍的哨兵，它基于Redis主从复制，主要作用便是<strong>解决主节点故障恢复的自动化问题</strong>，进一步提高系统的高可用性。</p> 
-      <a class="article-more-link" href="/feac293ea536/"
+  <p>文章转自：<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/2ab5e3d7e510">https://www.jianshu.com/p/2ab5e3d7e510</a></p>
+<p>关于内存屏障，还可以参考：<a target="_blank" rel="noopener" href="https://www.cxyzjd.com/article/qfanmingyiq/107449052%E5%92%8Chttps://gorden5566.com/post/1020.html">https://www.cxyzjd.com/article/qfanmingyiq/107449052和https://gorden5566.com/post/1020.html</a></p> 
+      <a class="article-more-link" href="/e11f4fa067fe/"
         >阅读更多...</a
       >
        
@@ -718,7 +713,7 @@
     
     <footer class="article-footer">
        
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/redis/" rel="tag">redis</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%90%8E%E7%AB%AF/" rel="tag">后端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="tag">数据库</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%86%85%E5%AD%98%E5%B1%8F%E9%9A%9C/" rel="tag">内存屏障</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%90%8E%E7%AB%AF/" rel="tag">后端</a></li></ul>
 
     </footer>
   </div>
@@ -730,7 +725,7 @@
 
     
     <article
-  id="post-5 分布式/raft算法是个啥"
+  id="post-2 后端/其他/1 聊聊定时任务的实现方式"
   class="article article-type-post"
   itemscope
   itemprop="blogPost"
@@ -741,8 +736,8 @@
     <header class="article-header">
        
 <h2 itemprop="name">
-  <a class="article-title" href="/c601abda57b3/"
-    >raft算法是个啥</a> 
+  <a class="article-title" href="/89003babc13d/"
+    >聊聊定时任务的实现方式</a> 
 </h2>
  
 
@@ -750,11 +745,11 @@
     </header>
      
     <div class="article-meta">
-      <a href="/c601abda57b3/" class="article-date">
-  <time datetime="2022-05-13T12:38:14.000Z" itemprop="datePublished">2022-05-13</time>
+      <a href="/89003babc13d/" class="article-date">
+  <time datetime="2022-05-26T05:43:55.000Z" itemprop="datePublished">2022-05-26</time>
 </a> 
   <div class="article-category">
-    <a class="article-category-link" href="/categories/%E5%88%86%E5%B8%83%E5%BC%8F/">分布式</a>
+    <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a> / <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/%E5%85%B6%E4%BB%96/">其他</a>
   </div>
 
    
@@ -762,9 +757,10 @@
       
     <div class="article-entry" itemprop="articleBody">
        
-  <p>之前学Redis集群相关知识时候遇到过Raft算法，今天系统的学习一下Raft算法的一些细节。</p>
-<p>在继续往下阅读之前可以，先看一个<a target="_blank" rel="noopener" href="http://thesecretlivesofdata.com/raft/">动画</a>，简单了解下Raft算法。或者通过<a target="_blank" rel="noopener" href="https://raft.github.io/raftscope/index.html">这个</a>实操一下！</p> 
-      <a class="article-more-link" href="/c601abda57b3/"
+  <h2 id="利用jdk实现">利用JDK实现</h2>
+<h3 id="thread-sleep">Thread Sleep</h3>
+<p>创建一个线程，把任务放到while循环中，每次执行完任务后sleep指定时间。方法简单，但是能够实现的功能十分有限。</p> 
+      <a class="article-more-link" href="/89003babc13d/"
         >阅读更多...</a
       >
        
@@ -777,7 +773,7 @@
     
     <footer class="article-footer">
        
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F/" rel="tag">分布式</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%90%8E%E7%AB%AF/" rel="tag">后端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%90%8E%E7%AB%AF/" rel="tag">后端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1/" rel="tag">定时任务</a></li></ul>
 
     </footer>
   </div>
@@ -794,7 +790,7 @@
   
   <nav class="page-nav">
     
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/15/">15</a><a class="extend next" rel="next" href="/page/2/">下一页</a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/17/">17</a><a class="extend next" rel="next" href="/page/2/">下一页</a>
   </nav>
   
 </section>

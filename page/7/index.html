@@ -185,7 +185,7 @@
     
     
     <article
-  id="post-2 后端/Java/Java容器/5. Map接口"
+  id="post-2 后端/Java/Java并发/9 JUC锁之AQS"
   class="article article-type-post"
   itemscope
   itemprop="blogPost"
@@ -196,8 +196,8 @@
     <header class="article-header">
        
 <h2 itemprop="name">
-  <a class="article-title" href="/04f89728d40f/"
-    >Map接口</a> 
+  <a class="article-title" href="/7ed9e0093845/"
+    >JUC锁之AQS</a> 
 </h2>
  
 
@@ -205,11 +205,11 @@
     </header>
      
     <div class="article-meta">
-      <a href="/04f89728d40f/" class="article-date">
-  <time datetime="2022-01-27T14:34:49.000Z" itemprop="datePublished">2022-01-27</time>
+      <a href="/7ed9e0093845/" class="article-date">
+  <time datetime="2022-02-10T14:34:49.000Z" itemprop="datePublished">2022-02-10</time>
 </a> 
   <div class="article-category">
-    <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a> / <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/Java/">Java</a> / <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/Java/Java%E5%AE%B9%E5%99%A8/">Java容器</a>
+    <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a> / <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/Java/">Java</a> / <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/Java/Java%E5%B9%B6%E5%8F%91/">Java并发</a>
   </div>
 
    
@@ -217,10 +217,10 @@
       
     <div class="article-entry" itemprop="articleBody">
        
-  <p>本文主要介绍Map接口下的HashMap，TreeMap，HashTable，LinkedHashMap，ConcurrentHashMap五个类。</p>
-<p>对比这5种Map结构，其中HashMap和ConcurrentHashMap最为常用，前者用于单线程，后者用于多线程。</p>
-<p>TreeMap和LinkedHashMap可以看做两种有特殊用途的Map结构，前者是基于红黑树构造的有序Map，后者在HashMap的基础上多维护了一个双向链表，记录Map中元素顺序（有插入顺序和访问顺序两种，可用于实现LRUCache之类的需求）。</p> 
-      <a class="article-more-link" href="/04f89728d40f/"
+  <p>学习一个新技术比较好的一个路线就是去尝试回答四个问题：它是什么？它有什么用？它底层是怎么实现的？怎么用？</p>
+<p>本文也同样沿着这个路线，一探AQS的真面目！</p>
+<p><em>注：本文对AQS中的condition相关知识没有进行过多介绍，感兴趣的同学可以查阅其他资料。</em></p> 
+      <a class="article-more-link" href="/7ed9e0093845/"
         >阅读更多...</a
       >
        
@@ -233,7 +233,7 @@
     
     <footer class="article-footer">
        
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%90%8E%E7%AB%AF/" rel="tag">后端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%AE%B9%E5%99%A8/" rel="tag">容器</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%90%8E%E7%AB%AF/" rel="tag">后端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" rel="tag">多线程</a></li></ul>
 
     </footer>
   </div>
@@ -245,7 +245,7 @@
 
     
     <article
-  id="post-2 后端/Java/Java容器/4. Collection子接口之Queue"
+  id="post-2 后端/Java/Java并发/8 Java中常见的锁"
   class="article article-type-post"
   itemscope
   itemprop="blogPost"
@@ -256,8 +256,8 @@
     <header class="article-header">
        
 <h2 itemprop="name">
-  <a class="article-title" href="/b00da1522087/"
-    >Collection子接口之Queue</a> 
+  <a class="article-title" href="/1ecc1ddc27d3/"
+    >Java中常见的锁</a> 
 </h2>
  
 
@@ -265,11 +265,11 @@
     </header>
      
     <div class="article-meta">
-      <a href="/b00da1522087/" class="article-date">
-  <time datetime="2022-01-26T14:34:49.000Z" itemprop="datePublished">2022-01-26</time>
+      <a href="/1ecc1ddc27d3/" class="article-date">
+  <time datetime="2022-02-09T14:34:49.000Z" itemprop="datePublished">2022-02-09</time>
 </a> 
   <div class="article-category">
-    <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a> / <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/Java/">Java</a> / <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/Java/Java%E5%AE%B9%E5%99%A8/">Java容器</a>
+    <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a> / <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/Java/">Java</a> / <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/Java/Java%E5%B9%B6%E5%8F%91/">Java并发</a>
   </div>
 
    
@@ -277,9 +277,10 @@
       
     <div class="article-entry" itemprop="articleBody">
        
-  <p>Queue是单端队列，只能从一端插入元素，另一端删除元素，实现上一般遵循 <strong>先进先出（FIFO）</strong> 规则。 Queue接口下面又一个子接口Deque，是双端队列， 在队列的两端均可以插入或删除元素。</p>
-<p>ArrayDeque和LinkedList实现了Deque接口，PriorityQueue和LinkedList实现了Queue接口。下面主要介绍ArrayDeque和PriorityQueue两个类。</p> 
-      <a class="article-more-link" href="/b00da1522087/"
+  <p>本文转自：<a target="_blank" rel="noopener" href="https://tech.meituan.com/2018/11/15/java-lock.html">不可不说的Java“锁”事</a></p>
+<h2 id="概述">概述</h2>
+<p>Java提供了种类丰富的锁，每种锁因其特性的不同，在适当的场景下能够展现出非常高的效率。本文旨在对锁相关源码（本文中的源码来自JDK 8和Netty 3.10.6）、使用场景进行举例，为读者介绍主流锁的知识点，以及不同的锁的适用场景。</p> 
+      <a class="article-more-link" href="/1ecc1ddc27d3/"
         >阅读更多...</a
       >
        
@@ -292,7 +293,7 @@
     
     <footer class="article-footer">
        
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%90%8E%E7%AB%AF/" rel="tag">后端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%AE%B9%E5%99%A8/" rel="tag">容器</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%90%8E%E7%AB%AF/" rel="tag">后端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" rel="tag">多线程</a></li></ul>
 
     </footer>
   </div>
@@ -304,7 +305,7 @@
 
     
     <article
-  id="post-2 后端/Java/Java容器/3. Collection子接口之Set"
+  id="post-2 后端/Java/Java并发/7 Java 线程池之ThreadPoolExecutor"
   class="article article-type-post"
   itemscope
   itemprop="blogPost"
@@ -315,8 +316,8 @@
     <header class="article-header">
        
 <h2 itemprop="name">
-  <a class="article-title" href="/e633493f51d0/"
-    >Collection子接口之Set</a> 
+  <a class="article-title" href="/d4fa1f097a58/"
+    >Java线程池之ThreadPoolExecutor</a> 
 </h2>
  
 
@@ -324,11 +325,11 @@
     </header>
      
     <div class="article-meta">
-      <a href="/e633493f51d0/" class="article-date">
-  <time datetime="2022-01-25T14:34:49.000Z" itemprop="datePublished">2022-01-25</time>
+      <a href="/d4fa1f097a58/" class="article-date">
+  <time datetime="2022-02-08T14:34:49.000Z" itemprop="datePublished">2022-02-08</time>
 </a> 
   <div class="article-category">
-    <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a> / <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/Java/">Java</a> / <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/Java/Java%E5%AE%B9%E5%99%A8/">Java容器</a>
+    <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a> / <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/Java/">Java</a> / <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/Java/Java%E5%B9%B6%E5%8F%91/">Java并发</a>
   </div>
 
    
@@ -336,8 +337,10 @@
       
     <div class="article-entry" itemprop="articleBody">
        
-  <p>Set接口下的三种类HashSet、LinkedHashSet、TreeSet和Map接口中的HashMap、LinkedHashMap、TreeMap是一一对应的。前者基本上都是对后者的包装。</p> 
-      <a class="article-more-link" href="/e633493f51d0/"
+  <p>如下图所示，ThreadPoolExecutor实现的顶层接口是Executor ，本文主要介绍了如何创建线程池、线程池底层原理等内容，其中重点内容是线程的生命周期。</p>
+<center><img src="/images/912883e51327e0c7a9d753d11896326511272.png" style="width:200px;"></img></center>
+<p>关于ThreadPoolExecutor的具体方法和属性，本文不作详细介绍，可以直接查阅<a target="_blank" rel="noopener" href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/concurrent/ThreadPoolExecutor.html">Java官方API文档</a>。ThreadPoolExecutor中比较特殊的一个字段是<code>ctl</code>。它是一个复合属性，保存两部分信息： 线程池的运行状态 (runState) 和线程池内有效线程的数量 (workerCount)，这里可以看到，使用了Integer类型来保存，高3位保存runState，低29位保存workerCount。COUNT_BITS 就是29，CAPACITY就是1左移29位减1（29个1），这个常量表示workerCount的上限值，大约是5亿。</p> 
+      <a class="article-more-link" href="/d4fa1f097a58/"
         >阅读更多...</a
       >
        
@@ -350,7 +353,7 @@
     
     <footer class="article-footer">
        
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%90%8E%E7%AB%AF/" rel="tag">后端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%AE%B9%E5%99%A8/" rel="tag">容器</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%90%8E%E7%AB%AF/" rel="tag">后端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" rel="tag">多线程</a></li></ul>
 
     </footer>
   </div>
@@ -362,7 +365,7 @@
 
     
     <article
-  id="post-2 后端/Java/Java容器/2. Collection子接口之List"
+  id="post-2 后端/Java/Java并发/6 Java线程池概述"
   class="article article-type-post"
   itemscope
   itemprop="blogPost"
@@ -373,8 +376,8 @@
     <header class="article-header">
        
 <h2 itemprop="name">
-  <a class="article-title" href="/88548635ce75/"
-    >Collection子接口之List</a> 
+  <a class="article-title" href="/b486854617ea/"
+    >Java线程池概述</a> 
 </h2>
  
 
@@ -382,11 +385,11 @@
     </header>
      
     <div class="article-meta">
-      <a href="/88548635ce75/" class="article-date">
-  <time datetime="2022-01-24T14:34:49.000Z" itemprop="datePublished">2022-01-24</time>
+      <a href="/b486854617ea/" class="article-date">
+  <time datetime="2022-02-07T14:34:49.000Z" itemprop="datePublished">2022-02-07</time>
 </a> 
   <div class="article-category">
-    <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a> / <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/Java/">Java</a> / <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/Java/Java%E5%AE%B9%E5%99%A8/">Java容器</a>
+    <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a> / <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/Java/">Java</a> / <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/Java/Java%E5%B9%B6%E5%8F%91/">Java并发</a>
   </div>
 
    
@@ -394,9 +397,10 @@
       
     <div class="article-entry" itemprop="articleBody">
        
-  <p>本文主要介绍List接口下的<code>ArrayList</code>和<code>LinkedList</code>两个类。至于<code>Vector</code>类，其实现和<code>ArrayList</code>十分相似，底层都是<code>Object[]</code>，主要区别在于<code>Vector</code>是线程安全的，里面所有方法都被<code>synchronized</code>修饰。</p>
-<p>尽量减少使用<code>Vector</code>，尽管它是线程安全的，但是和<code>ArrayList</code>相比，效率大大降低。</p> 
-      <a class="article-more-link" href="/88548635ce75/"
+  <h2 id="什么是线程池">什么是线程池</h2>
+<p>线程池（Thread Pool）是一种<strong>基于池化思想</strong>管理线程的工具，经常出现在多线程服务器中，如MySQL。</p>
+<p><em>注： 池化，顾名思义，是为了最大化收益并最小化风险，而将资源统一在一起管理的一种思想。</em></p> 
+      <a class="article-more-link" href="/b486854617ea/"
         >阅读更多...</a
       >
        
@@ -409,7 +413,7 @@
     
     <footer class="article-footer">
        
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%90%8E%E7%AB%AF/" rel="tag">后端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%AE%B9%E5%99%A8/" rel="tag">容器</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%90%8E%E7%AB%AF/" rel="tag">后端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" rel="tag">多线程</a></li></ul>
 
     </footer>
   </div>
@@ -421,7 +425,7 @@
 
     
     <article
-  id="post-2 后端/Java/Java容器/1. Java集合概述"
+  id="post-2 后端/Java/Java并发/5 深入ThreadLocal"
   class="article article-type-post"
   itemscope
   itemprop="blogPost"
@@ -432,8 +436,8 @@
     <header class="article-header">
        
 <h2 itemprop="name">
-  <a class="article-title" href="/38694dd49f4c/"
-    >Java集合概述</a> 
+  <a class="article-title" href="/c935ab160905/"
+    >深入ThreadLocal</a> 
 </h2>
  
 
@@ -441,11 +445,11 @@
     </header>
      
     <div class="article-meta">
-      <a href="/38694dd49f4c/" class="article-date">
-  <time datetime="2022-01-23T14:34:49.000Z" itemprop="datePublished">2022-01-23</time>
+      <a href="/c935ab160905/" class="article-date">
+  <time datetime="2022-02-06T14:34:49.000Z" itemprop="datePublished">2022-02-06</time>
 </a> 
   <div class="article-category">
-    <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a> / <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/Java/">Java</a> / <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/Java/Java%E5%AE%B9%E5%99%A8/">Java容器</a>
+    <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a> / <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/Java/">Java</a> / <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/Java/Java%E5%B9%B6%E5%8F%91/">Java并发</a>
   </div>
 
    
@@ -453,9 +457,14 @@
       
     <div class="article-entry" itemprop="articleBody">
        
-  <p>Java集合，也叫作容器，主要由<code>Collection</code>和<code>Map</code>两大顶层接口转化而来，其中<code>Collection</code>下面又有<code>List</code>，<code>Queue</code>和<code>Set</code>三大接口。Java集合框架图如下图所示：</p>
-<center><img src="/images/java_collections_overview.png" style="width:900px;"></img></center> 
-      <a class="article-more-link" href="/38694dd49f4c/"
+  <p>我们知道 线程安全(是指广义上的共享资源访问安全性，因为线程隔离是通过副本保证本线程访问资源安全性，它不保证线程之间还存在共享关系的狭义上的安全性)的解决思路有：</p>
+<ul>
+<li>互斥同步： synchronized 和 ReentrantLock 等。</li>
+<li>非阻塞同步： CAS, AtomicXXXX 。</li>
+<li>无同步方案： 栈封闭，本地存储(Thread Local)，可重入代码 。</li>
+</ul>
+<p>其中“无同步方案”中的ThreadLocal就是本文的主角。</p> 
+      <a class="article-more-link" href="/c935ab160905/"
         >阅读更多...</a
       >
        
@@ -468,7 +477,7 @@
     
     <footer class="article-footer">
        
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%90%8E%E7%AB%AF/" rel="tag">后端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%AE%B9%E5%99%A8/" rel="tag">容器</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%90%8E%E7%AB%AF/" rel="tag">后端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" rel="tag">多线程</a></li></ul>
 
     </footer>
   </div>
@@ -480,7 +489,7 @@
 
     
     <article
-  id="post-2 后端/Java/Java基础知识/1 Java抽象类与接口"
+  id="post-2 后端/Java/Java并发/4 Final关键字"
   class="article article-type-post"
   itemscope
   itemprop="blogPost"
@@ -491,8 +500,8 @@
     <header class="article-header">
        
 <h2 itemprop="name">
-  <a class="article-title" href="/bffbbbcd67c3/"
-    >Java抽象类与接口</a> 
+  <a class="article-title" href="/d2695845d35c/"
+    >Final关键字</a> 
 </h2>
  
 
@@ -500,11 +509,11 @@
     </header>
      
     <div class="article-meta">
-      <a href="/bffbbbcd67c3/" class="article-date">
-  <time datetime="2022-01-22T14:34:49.000Z" itemprop="datePublished">2022-01-22</time>
+      <a href="/d2695845d35c/" class="article-date">
+  <time datetime="2022-02-05T14:34:49.000Z" itemprop="datePublished">2022-02-05</time>
 </a> 
   <div class="article-category">
-    <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a> / <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/Java/">Java</a> / <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/Java/Java%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/">Java基础知识</a>
+    <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a> / <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/Java/">Java</a> / <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/Java/Java%E5%B9%B6%E5%8F%91/">Java并发</a>
   </div>
 
    
@@ -512,130 +521,200 @@
       
     <div class="article-entry" itemprop="articleBody">
        
-  <p>抽象类和接口都是OOP的抽象表现。两者有相似的地方，也有非常本质的区别，本文简单介绍下Java中的抽象类和接口。</p> 
-      <a class="article-more-link" href="/bffbbbcd67c3/"
-        >阅读更多...</a
-      >
-       
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%90%8E%E7%AB%AF/" rel="tag">后端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%8A%BD%E8%B1%A1%E7%B1%BB/" rel="tag">抽象类</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%8E%A5%E5%8F%A3/" rel="tag">接口</a></li></ul>
-
-    </footer>
-  </div>
-
-    
- 
-    
-</article>
-
-    
-    <article
-  id="post-2 后端/Java/Java基础知识/2 Java泛型"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/b28795f96353/"
-    >Java泛型</a> 
-</h2>
- 
-
-      
-    </header>
-     
-    <div class="article-meta">
-      <a href="/b28795f96353/" class="article-date">
-  <time datetime="2022-01-21T14:34:49.000Z" itemprop="datePublished">2022-01-21</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a> / <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/Java/">Java</a> / <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/Java/Java%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/">Java基础知识</a>
-  </div>
-
-   
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <h2 id="泛型是个啥">泛型是个啥</h2>
-<p>所谓泛型，“泛”即宽泛，也就是宽泛的类型，专业一点也叫作“参数化类型”。当使用泛型的时候，意味着我们的代码对类型没有严格要求，可以是Integer，可以是String，也可以是任意其他类型，通常用个<code>T</code>表示。</p> 
-      <a class="article-more-link" href="/b28795f96353/"
-        >阅读更多...</a
-      >
-       
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%90%8E%E7%AB%AF/" rel="tag">后端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%B3%9B%E5%9E%8B/" rel="tag">泛型</a></li></ul>
-
-    </footer>
-  </div>
-
-    
- 
-    
-</article>
-
-    
-    <article
-  id="post-2 后端/Java/Java基础知识/3 Java基本数据类型"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/a6ecc8595f35/"
-    >Java基本数据类型</a> 
-</h2>
- 
-
-      
-    </header>
-     
-    <div class="article-meta">
-      <a href="/a6ecc8595f35/" class="article-date">
-  <time datetime="2022-01-20T14:34:49.000Z" itemprop="datePublished">2022-01-20</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a> / <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/Java/">Java</a> / <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/Java/Java%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/">Java基础知识</a>
-  </div>
-
-   
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <p>本文简单聊一聊Java中基本数据类型的相关知识，主要包括：</p>
+  <h2 id="final的功能">final的功能</h2>
+<p>final关键字可以用于多个场景，且在不同场景中具有不同的作用。</p>
 <ol>
-<li>Java中基本数据类型的基础知识，包括种类、占用字节数、范围等</li>
-<li>基本类型对应的包装类型</li>
-<li>不同数据类型之间的转换</li>
+<li>
+<p><strong>修饰类</strong></p>
+<p>当某个类的整体定义为final时， 这个类禁止被继承。 因此final类中的所有方法都隐式为final，因为无法覆盖他们，所以在final类中给任何方法添加final关键字是没有任何意义的。</p> 
+      <a class="article-more-link" href="/d2695845d35c/"
+        >阅读更多...</a
+      >
+       
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%90%8E%E7%AB%AF/" rel="tag">后端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" rel="tag">多线程</a></li></ul>
+
+    </footer>
+  </div>
+
+    
+ 
+    
+</article>
+
+    
+    <article
+  id="post-2 后端/Java/Java并发/3 Volatile关键字"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/97a7e424d2a5/"
+    >Volite关键字</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/97a7e424d2a5/" class="article-date">
+  <time datetime="2022-02-04T14:34:49.000Z" itemprop="datePublished">2022-02-04</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a> / <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/Java/">Java</a> / <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/Java/Java%E5%B9%B6%E5%8F%91/">Java并发</a>
+  </div>
+
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h2 id="并发3特性">并发3特性</h2>
+<ol>
+<li>
+<p><strong>原子性</strong></p>
+<p>原子性：即一个操作或者多个操作 要么全部执行并且执行的过程不会被任何因素打断，要么就都不执行。</p>
+<p>Java中，基本数据类型的访问、读写都是具备原子性的，例外就是long和double的非原子性协定，但是一般无需在意这个。另外如果要实现更大范围操作的原子性，可以通过synchronized和Lock来实现。</p> 
+      <a class="article-more-link" href="/97a7e424d2a5/"
+        >阅读更多...</a
+      >
+       
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%90%8E%E7%AB%AF/" rel="tag">后端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" rel="tag">多线程</a></li></ul>
+
+    </footer>
+  </div>
+
+    
+ 
+    
+</article>
+
+    
+    <article
+  id="post-2 后端/Java/Java并发/2 Synchronized关键字"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/e920947d370d/"
+    >Synchronized关键字</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/e920947d370d/" class="article-date">
+  <time datetime="2022-02-03T14:34:49.000Z" itemprop="datePublished">2022-02-03</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a> / <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/Java/">Java</a> / <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/Java/Java%E5%B9%B6%E5%8F%91/">Java并发</a>
+  </div>
+
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <p>在Java中除了提供Lock API外还在语法层面上提供了synchronized关键字来实现互斥同步原语，可以保证同步对象的<strong>原子性、可见性和有序性</strong>（ 加上synchronized后，依然会发生重排序，只不过，我们有同步代码块，可以保证只有一个线程执行同步代码快中的代码，从而保证有序性）。</p>
+<p>不过需要注意的是，这里保证可见性和volatile保证可见性有一定区别。volatile保证绝对的可见性，synchronized是通过获取锁时强制从主存取数据保证的，如果访问变量时没有获取锁，就不保证可见性。</p> 
+      <a class="article-more-link" href="/e920947d370d/"
+        >阅读更多...</a
+      >
+       
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%90%8E%E7%AB%AF/" rel="tag">后端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" rel="tag">多线程</a></li></ul>
+
+    </footer>
+  </div>
+
+    
+ 
+    
+</article>
+
+    
+    <article
+  id="post-2 后端/Java/Java并发/1 初识Java多线程编程"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/b8b0651f57b7/"
+    >初识Java多线程编程</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/b8b0651f57b7/" class="article-date">
+  <time datetime="2022-02-02T14:34:49.000Z" itemprop="datePublished">2022-02-02</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a> / <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/Java/">Java</a> / <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/Java/Java%E5%B9%B6%E5%8F%91/">Java并发</a>
+  </div>
+
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <p>本文主要介绍下线程的相关概念，以及Java中关于多线程的标准类库java.lang.Thread的相关知识。</p>
+<p>我们知道进程是程序的运行实例，当我们在操作系统上运行一个程序时，相当于新建了一个进程。那线程是什么呢？线程是操作系统能够进行运算调度的最小单位，一个进程可以包含多个线程。</p>
+<p>线程和进程的区别如下：</p>
+<ol>
+<li>进程是程序向操作系统<strong>申请资源</strong>（如内存空间和文件句柄）的基本单位。线程（Thread）是进程中<strong>可独立执行</strong>的最小单位。</li>
+<li>一个进程可以包含多个线程。</li>
+<li>同一个进程中的所有线程共享该进程中的资源，如内存空间、文件句柄等。</li>
 </ol> 
-      <a class="article-more-link" href="/a6ecc8595f35/"
+      <a class="article-more-link" href="/b8b0651f57b7/"
         >阅读更多...</a
       >
        
@@ -648,7 +727,7 @@
     
     <footer class="article-footer">
        
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%90%8E%E7%AB%AF/" rel="tag">后端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" rel="tag">数据类型</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%90%8E%E7%AB%AF/" rel="tag">后端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" rel="tag">多线程</a></li></ul>
 
     </footer>
   </div>
@@ -660,7 +739,7 @@
 
     
     <article
-  id="post-2 后端/Java/Java基础知识/4 Java日期类总结"
+  id="post-2 后端/Java/Java容器/10.ConcurrentHashMap源码解读"
   class="article article-type-post"
   itemscope
   itemprop="blogPost"
@@ -671,8 +750,8 @@
     <header class="article-header">
        
 <h2 itemprop="name">
-  <a class="article-title" href="/5b5e534ec125/"
-    >Java日期类总结</a> 
+  <a class="article-title" href="/455d24388919/"
+    >ConcurrentHashMap源码解读</a> 
 </h2>
  
 
@@ -680,11 +759,11 @@
     </header>
      
     <div class="article-meta">
-      <a href="/5b5e534ec125/" class="article-date">
-  <time datetime="2022-01-19T14:34:49.000Z" itemprop="datePublished">2022-01-19</time>
+      <a href="/455d24388919/" class="article-date">
+  <time datetime="2022-02-01T14:34:49.000Z" itemprop="datePublished">2022-02-01</time>
 </a> 
   <div class="article-category">
-    <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a> / <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/Java/">Java</a> / <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/Java/Java%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/">Java基础知识</a>
+    <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a> / <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/Java/">Java</a> / <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/Java/Java%E5%AE%B9%E5%99%A8/">Java容器</a>
   </div>
 
    
@@ -692,10 +771,8 @@
       
     <div class="article-entry" itemprop="articleBody">
        
-  <h2 id="jdk8之前-旧时间日期类">JDK8之前——旧时间日期类</h2>
-<h3 id="java-lang-system类">java.lang.System类</h3>
-<p>System类提供了一个公共的静态方法<code>currentTimesMillis()</code>来返回当前时间距离1970年1月1日0时0分0秒之间以毫秒为单位的时间差，也叫时间戳。</p> 
-      <a class="article-more-link" href="/5b5e534ec125/"
+  <p>ConcurrentHashMap是线程安全的HashMap，JDK8之后，采用volatile+自旋锁+Synchronized（锁桶）方式实现并发控制，并发性能非常高。下面介绍下ConcurrentHashMap的具体细节。</p> 
+      <a class="article-more-link" href="/455d24388919/"
         >阅读更多...</a
       >
        
@@ -708,65 +785,7 @@
     
     <footer class="article-footer">
        
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%90%8E%E7%AB%AF/" rel="tag">后端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%97%A5%E6%9C%9F/" rel="tag">日期</a></li></ul>
-
-    </footer>
-  </div>
-
-    
- 
-    
-</article>
-
-    
-    <article
-  id="post-2 后端/Java/Java基础知识/5 Java字符串"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/50afd504dd87/"
-    >Java字符串</a> 
-</h2>
- 
-
-      
-    </header>
-     
-    <div class="article-meta">
-      <a href="/50afd504dd87/" class="article-date">
-  <time datetime="2022-01-18T14:34:49.000Z" itemprop="datePublished">2022-01-18</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a> / <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/Java/">Java</a> / <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/Java/Java%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/">Java基础知识</a>
-  </div>
-
-   
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <p>本文大部分内容转自：<a target="_blank" rel="noopener" href="https://dunwu.github.io/javacore/basics/java-string.html#_1-string-%E7%9A%84%E4%B8%8D%E5%8F%AF%E5%8F%98%E6%80%A7">深入理解Java String类型</a></p> 
-      <a class="article-more-link" href="/50afd504dd87/"
-        >阅读更多...</a
-      >
-       
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/String/" rel="tag">String</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%90%8E%E7%AB%AF/" rel="tag">后端</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%90%8E%E7%AB%AF/" rel="tag">后端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%AE%B9%E5%99%A8/" rel="tag">容器</a></li></ul>
 
     </footer>
   </div>
@@ -783,7 +802,7 @@
   
   <nav class="page-nav">
     
-    <a class="extend prev" rel="prev" href="/page/6/">上一页</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/">8</a><a class="page-number" href="/page/9/">9</a><span class="space">&hellip;</span><a class="page-number" href="/page/15/">15</a><a class="extend next" rel="next" href="/page/8/">下一页</a>
+    <a class="extend prev" rel="prev" href="/page/6/">上一页</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/">8</a><a class="page-number" href="/page/9/">9</a><span class="space">&hellip;</span><a class="page-number" href="/page/17/">17</a><a class="extend next" rel="next" href="/page/8/">下一页</a>
   </nav>
   
 </section>

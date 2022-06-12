@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+
+
+<html lang="zh-CN">
+  
+
+    <head>
+      <meta name="baidu-site-verification" content="code-rk2CNV4xgj" />
+      <meta charset="utf-8" />
+        
+      <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1"
+      />
+      <title>Spring事务管理 |  RookieYin&#39;s Note</title>
+  <meta name="generator" content="hexo-theme-ayer">
+      
+      <link rel="shortcut icon" href="/images/2.jpg" />
+       
+<link rel="stylesheet" href="/dist/main.css">
+
+      <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/Shen-Yu/cdn/css/remixicon.min.css"
+      />
+      
+<link rel="stylesheet" href="/css/custom.css">
+ 
+      <script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+       
+ 
+
+      <!-- mermaid -->
+      
+    <link rel="alternate" href="/atom.xml" title="RookieYin's Note" type="application/atom+xml">
+<link href="https://cdn.bootcss.com/KaTeX/0.11.1/katex.min.css" rel="stylesheet" /></head>
+  </html>
+</html>
+
+
+<body>
+<div id="app">
+    
+    
+    <div class="sidebar">
+        <!--<button class="navbar-toggle"></button>-->
+<nav class="navbar">
+  <div class="logo">
+    <a href="/">
+      <img src="/images/2.jpg"
+           style="border-radius: 50%;max-width: none;">
+    </a>
+  </div>
+  <div class = nav-title style="font-size: 2.5rem;color: #ffffff;margin-left: 4rem;font-weight: bold;min-width: 23rem">
+    RookieYin's Note
+  </div>
+  <div class="nav nav-main">
+    
+    <div class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </div>
+    
+    <div class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </div>
+    
+    <div class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </div>
+    
+    <div class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </div>
+    
+    <div class="nav-item">
+      <a class="nav-item-link" href="/friends">友链</a>
+    </div>
+    
+    <div class="nav-item">
+      <a class="nav-item-link" href="/about-me/2021">关于我</a>
+    </div>
+    
+      <div class="nav-item">
+        <div class="nav-item-link navbar-menu-wrap">
+          <div class="navbar-menu"></div>
+        </div>
+      </div>
+    <div class = "nav-item">
+      <a class="nav-item-link nav-item-search"  title="搜索">
+        <i class="ri-search-line"></i>
+      </a>
+    </div>
+  </div>
+</nav>
+<nav class="navbar2">
+  <div style="position: relative;">
+      <div style="height: 4.8rem;display: inline-block;margin-top:1rem;margin-left:1rem;">
+        <a href="/">
+          <img src="/images/2.jpg"
+               style="border-radius: 50%;max-width: none;width:4.8rem">
+        </a>
+      </div>
+    <div class="navbar-title2" style="font-size: 2.5rem;color: #ffffff;margin-left: 4rem;font-weight: bold;margin-top:1rem;
+    min-width: 23rem;height: 4.8rem;overflow: hidden;">
+      <span style="line-height: 4.8rem;">RookieYin's Note</span>
+    </div>
+    <div style="display: inline-block;position: absolute;top:50%;height:50%;transform:translate(-50%,-50%);right:4rem;margin-top: 1rem;">
+      <div class="navbar-menu-wrap">
+        <div class="navbar-menu"></div>
+      </div>
+    </div>
+    <div style="display: inline-block;position: absolute;top:50%;height:50%;transform:translate(-50%,-50%);right:0;">
+      <a class="nav-item-search"  title="搜索">
+        <i class="ri-search-line"></i>
+      </a>
+    </div>
+  </div>
+  <div style="display: inline-block;text-align: center;width: 100%;padding-bottom: 1rem;">
+    
+    <div class="nav-item2">
+      <a class="nav-item-link2" href="/">主页</a>
+    </div>
+    
+    <div class="nav-item2">
+      <a class="nav-item-link2" href="/archives">归档</a>
+    </div>
+    
+    <div class="nav-item2">
+      <a class="nav-item-link2" href="/categories">分类</a>
+    </div>
+    
+    <div class="nav-item2">
+      <a class="nav-item-link2" href="/tags">标签</a>
+    </div>
+    
+    <div class="nav-item2">
+      <a class="nav-item-link2" href="/friends">友链</a>
+    </div>
+    
+    <div class="nav-item2">
+      <a class="nav-item-link2" href="/about-me/2021">关于我</a>
+    </div>
+    
+  </div>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+
+    </div>
+    <main class="content">
+        <section class="outer">
+  <article
+  id="post-2 后端/Spring/Spring事务管理"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  Spring事务管理
+</h1>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/16c8d0988ee3/" class="article-date">
+  <time datetime="2022-03-26T14:34:49.000Z" itemprop="datePublished">2022-03-26</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a> / <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/Spring/">Spring</a>
+  </div>
+
+  
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> 字数统计:</span>
+            <span class="post-count">3.1k</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> 阅读时长≈</span>
+            <span class="post-count">11 分钟</span>
+        </span>
+    </span>
+</div>
+ 
+    </div>
+      
+    <div class="tocbot"></div>
+
+
+
+
+  
+    <div class="article-entry" itemprop="articleBody">
+       
+  <p>推荐看<a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000040130617">这篇文章</a>，写的很好！</p>
+<a id="more"></a>
+<h2 id="基本概念">基本概念</h2>
+<p>Spring事务的本质其实就是<a target="_blank" rel="noopener" href="https://cloud.tencent.com/solution/database?from=10680">数据库</a>对事务的支持，没有数据库的事务支持，spring是无法提供事务功能的。对于纯JDBC操作数据库，想要用到事务，可以按照以下步骤进行：</p>
+<ol>
+<li>获取连接 Connection con = DriverManager.getConnection()</li>
+<li>开启事务con.setAutoCommit(true/false);</li>
+<li>执行CRUD</li>
+<li>提交事务/回滚事务 con.commit() / con.rollback();</li>
+<li>关闭连接 conn.close();</li>
+</ol>
+<p>使用Spring的事务管理功能后，我们可以不再写步骤 2 和 4 的代码，而是由Spirng 自动完成。那么Spring是如何在我们书写的 CRUD  之前和之后开启事务和关闭事务的呢？解决这个问题，也就可以从整体上理解Spring的事务管理实现原理了。</p>
+<h3 id="事务管理器模型">事务管理器模型</h3>
+<p>统一一致的事务抽象是Spring框架的一大优势，无论是全局事务还是本地事务，JTA、JDBC、Hibernate还是JPA，Spring都使用统一的编程模型，使得应用程序可以很容易地在全局事务与本地事务，或者不同的事务框架之间进行切换。下图是Spring事务抽象的核心类图：</p>
+<center><img src="/images/v2-ff9900cb40f07db75d1190628f464564_720w.png" style="width:500px;"></img></center>
+<ul>
+<li><code>PlatformTransactionManager</code>：事务管理器，只有三个功能接口：
+<ul>
+<li><strong>获取事务资源</strong>，<code>getTransaction</code>，资源可以是任意的，比如jdbc connection/hibernate mybatis session之类，然后绑定并存储</li>
+<li><strong>提交事务</strong> ，<code>commit</code>提交指定的事务资源</li>
+<li><strong>回滚事务</strong>，<code>rollback</code>回滚指定的事务资源</li>
+</ul>
+</li>
+<li><code>TransactionDefinition</code>：事务的定义信息，包括隔离级别、传播机制、是否只读等等</li>
+<li><code>TransactionStatus</code>：存储事务的状态，比如回滚状态、是否是新事务、事务是否已经完成等等</li>
+</ul>
+<h4 id="获取事务">获取事务</h4>
+<p>事务管理器的第一步，就是根据事务定义来获取/创建资源了，这一步最麻烦的是要区分传播行为，不同传播行为下的逻辑不太一样。</p>
+<p>“默认的传播行为下，使用当前事务”，怎么算有当前事务呢？</p>
+<p>把事务资源存起来嘛，只要已经存在那就是有当前事务，直接获取已存储的事务资源就行。文中开头的例子也演示了，如果想让多个方法无感的使用同一个事务，可以用 ThreadLocal 存储起来，简单粗暴。</p>
+<p>Spring 也是这么做的，不过它实现的更复杂一些，抽象了一层<strong>事务资源同步管理器 - TransactionSynchronizationManager（本文后面会简称 TxSyncMgr）</strong>，在这个同步管理器里使用 ThreadLocal 存储了事务资源（本文为了方便理解，尽可能的不贴非关键源码）。</p>
+<p>剩下的就是根据不同传播行为，执行不同的策略了，分类之后只有 3 个条件分支：</p>
+<ol>
+<li>当前有事务 - 根据不同传播行为处理不同</li>
+<li>当前没事务，但需要开启新事务</li>
+<li>彻底不用事务 - 这个很少用</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> TransactionStatus <span class="title">getTransaction</span><span class="params">(TransactionDefinition definition)</span> </span>&#123;</span><br><span class="line">    <span class="comment">//创建事务资源 - 比如 Connection</span></span><br><span class="line">    Object transaction = doGetTransaction();</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> (isExistingTransaction(transaction)) &#123;</span><br><span class="line">        <span class="comment">// 处理当前已有事务的场景</span></span><br><span class="line">        <span class="keyword">return</span> handleExistingTransaction(def, transaction, debugEnabled);</span><br><span class="line">    &#125;<span class="keyword">else</span> <span class="keyword">if</span> (def.getPropagationBehavior() == TransactionDefinition.PROPAGATION_REQUIRED ||</span><br><span class="line">                def.getPropagationBehavior() == TransactionDefinition.PROPAGATION_REQUIRES_NEW ||</span><br><span class="line">                def.getPropagationBehavior() == TransactionDefinition.PROPAGATION_NESTED)&#123;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 开启新事务</span></span><br><span class="line">        <span class="keyword">return</span> startTransaction(def, transaction, debugEnabled, suspendedResources);</span><br><span class="line">    &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">// 彻底不用事务</span></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>先介绍一下<strong>分支 2 - 当前没事务，但需要开启新事务</strong>，这个逻辑相对简单一些。只需要新建事务资源，然后绑定到 ThreadLocal 即可：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> TransactionStatus <span class="title">startTransaction</span><span class="params">(TransactionDefinition definition, Object transaction,</span></span></span><br><span class="line"><span class="function"><span class="params">            <span class="keyword">boolean</span> debugEnabled, SuspendedResourcesHolder suspendedResources)</span> </span>&#123;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 创建事务</span></span><br><span class="line">        DefaultTransactionStatus status = newTransactionStatus(</span><br><span class="line">                definition, transaction, <span class="keyword">true</span>, newSynchronization, debugEnabled, suspendedResources);</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 开启事务（beginTx或者setAutoCommit之类的操作）</span></span><br><span class="line">        <span class="comment">// 然后将事务资源绑定到事务资源管理器 TransactionSynchronizationManager</span></span><br><span class="line">        doBegin(transaction, definition);</span><br></pre></td></tr></table></figure>
+<p>现在回到分支 <strong>1 - 当前有事务 - 根据不同传播行为处理不同</strong>，这个就稍微有点麻烦了。因为有子方法独立事务的需求，可是 TransactionSynchronizationManager 却只能存一个事务资源。</p>
+<h4 id="挂起和恢复">挂起和恢复</h4>
+<p>Spring 采用了一种**挂起（Suspend） - 恢复（Resume）**的设计来解决这个嵌套资源处理的问题。当子方法需要独立事务时，就将当前事务挂起，从 TxSyncMgr 中移除当前事务资源，创建新事务的状态时，将挂起的事务资源保存至新的事务状态 TransactionStatus 中；在子方法结束时，只需要再从子方法的事务状态中，再次拿出挂起的事务资源，重新绑定至 TxSyncMgr 即可完成恢复的操作。</p>
+<p>整个挂起 - 恢复的流程，如下图所示：</p>
+<center><img src="/images/4147119349-fc2831dd28044224_fix732.png" style="width:500px;"></img></center>
+<p><strong>注意：挂起操作是在获取事务资源这一步做的，而恢复的操作是在子方法结束时（提交或者回滚）中进行的。</strong></p>
+<p>这样一来，每个 TransactionStatus 都会保存挂起的前置事务资源，如果方法调用链很长，每次都是新事务的话，那这个 TransactionStatus 看起来就会像一个链表：</p>
+<center><img src="/images/57472479-9b1c7ad0f276fbc8_fix732.png" style="width:500px;"></img></center>
+<h4 id="提交事务">提交事务</h4>
+<p>获取资源、操作完毕后来到了提交事务这一步，这个提交操作比较简单，只有两步：</p>
+<ol>
+<li>当前是新事务才提交</li>
+<li>处理挂起资源</li>
+</ol>
+<p>怎么知道是新事务？</p>
+<p>每经过一次事务嵌套，都会创建一个新的 TransactionStatus，这个事务状态里会记录当前是否是新事务。如果多个子方法都使用一个事务资源，那么除了第一个创建事务资源的 TransactionStatus 之外，其他都不是新事务。</p>
+<p>如下图所示，A -&gt; B -&gt; C 时，由于 BC 都使用当前事务，那么虽然 ABC 所使用的事务资源是一样的，但是只有 A 的 TransactionStatus 是新事务，BC 并不是；那么在 BC 提交事务时，就不会真正的调用提交，只有回到 A 执行 commit 操作时，才会真正的调用提交操作。</p>
+<center><img src="/images/2469358247-96dc2bb2644a4206_fix732-1653915732451.png" style="width:500px;"></img></center>
+<h4 id="回滚事务">回滚事务</h4>
+<p>除了提交，还有回滚呢，回滚事务的逻辑和提交事务类似：</p>
+<ol>
+<li>如果是新事务才回滚，原因上面已经介绍过了</li>
+<li>如果不是新事务则只设置回滚标记</li>
+<li>处理挂起资源</li>
+</ol>
+<p><strong>注意：事务管理器是不包含回滚策略这个东西的，回滚策略是 AOP 版的事务管理增强的功能，但这个功能并不属于核心的事务管理器</strong></p>
+<h3 id="事务隔离级别">事务隔离级别</h3>
+<p>① ISOLATION_DEFAULT：这是个 PlatfromTransactionManager 默认的隔离级别，使用数据库默认的事务隔离级别。</p>
+<p>② ISOLATION_READ_UNCOMMITTED：读未提交，允许事务在执行过程中，读取其他事务未提交的数据。</p>
+<p>③ ISOLATION_READ_COMMITTED：读已提交，允许事务在执行过程中，读取其他事务已经提交的数据。</p>
+<p>④ ISOLATION_REPEATABLE_READ：可重复读，在同一个事务内，任意时刻的查询结果都是一致的。</p>
+<p>⑤ ISOLATION_SERIALIZABLE：所有事务逐个依次执行。</p>
+<h3 id="事务的传播机制">事务的传播机制</h3>
+<p>spring事务的传播机制说的是，当多个事务同时存在的时候，spring如何处理这些事务的行为。事务传播机制实际上是使用简单的ThreadLocal实现的，所以，如果调用的方法是在新线程调用的，事务传播实际上是会失效的。</p>
+<p>① PROPAGATION_REQUIRED：（默认传播行为）如果当前没有事务，就创建一个新事务；如果当前存在事务，就加入该事务。</p>
+<p>② PROPAGATION_REQUIRES_NEW：无论当前存不存在事务，都创建新事务进行执行。</p>
+<p>③ PROPAGATION_SUPPORTS：如果当前存在事务，就加入该事务；如果当前不存在事务，就以非事务执行。‘</p>
+<p>④ PROPAGATION_NOT_SUPPORTED：以非事务方式执行操作，如果当前存在事务，就把当前事务挂起。</p>
+<p>⑤ PROPAGATION_NESTED：如果当前存在事务，则在嵌套事务内执行；如果当前没有事务，则按REQUIRED属性执行。</p>
+<p>⑥ PROPAGATION_MANDATORY：如果当前存在事务，就加入该事务；如果当前不存在事务，就抛出异常。</p>
+<p>⑦ PROPAGATION_NEVER：以非事务方式执行，如果当前存在事务，则抛出异常。</p>
+<p>总结来说，就3种：</p>
+<ul>
+<li>如果存在事务，用存在的事务或创建新事务</li>
+<li>如果不存在事务，就创建事务</li>
+<li>不适用任何事务</li>
+</ul>
+<h2 id="事务实现方式">事务实现方式</h2>
+<p>spring支持编程式事务管理和声明式事务管理两种方式：</p>
+<ul>
+<li>
+<p>编程式事务管理使用TransactionTemplate。</p>
+<ul>
+<li>编程式事务操作更加复杂，但是更加灵活，可控性更好。</li>
+</ul>
+</li>
+<li>
+<p>声明式事务管理建立在AOP之上的。其本质是通过AOP功能，对方法前后进行拦截，将事务处理的功能编织到拦截的方法中，也就是在目标方法开始之前启动一个事务，在执行完目标方法之后根据执行情况提交或者回滚事务。</p>
+<ul>
+<li>声明式事务最大的优点就是不需要在业务逻辑代码中掺杂事务管理的代码，只需在配置文件中做相关的事务规则声明或通过@Transactional注解的方式，便可以将事务规则应用到业务逻辑中，减少业务代码的污染。</li>
+</ul>
+</li>
+</ul>
+<h3 id="声明式事务">声明式事务</h3>
+<p>Spring对方法的增强有五种方式：</p>
+<ul>
+<li>前置增强（<code>org.springframework.aop.BeforeAdvice</code>）：在目标方法执行之前进行增强；</li>
+<li>后置增强（<code>org.springframework.aop.AfterReturningAdvice</code>）：在目标方法执行之后进行增强；</li>
+<li>环绕增强（<code>org.aopalliance.intercept.MethodInterceptor</code>）：在目标方法执行前后都执行增强；</li>
+<li>异常抛出增强（<code>org.springframework.aop.ThrowsAdvice</code>）：在目标方法抛出异常后执行增强；</li>
+<li>引介增强（<code>org.springframework.aop.IntroductionInterceptor</code>）：为目标类添加新的方法和属性。</li>
+</ul>
+<p>声明式事务的实现就是通过环绕增强的方式。spring 中的事务实现从原理上说比较简单，通过 aop 在方法执行前后增加数据库事务的操作。</p>
+<p>1、在方法开始时判断是否开启新事务，需要开启事务则设置事务手动提交 set autocommit=0;</p>
+<p>2、在方法执行完成后手动提交事务 commit;</p>
+<p>3、在方法抛出指定异常后调用 rollback 回滚事务</p>
+<p>声明式事务实现起来非常简单，只需要使用@Transactional注解就可以，比如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Transactional(propagation=propagation.PROPAGATION_REQUIRED)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> someMethod &#123;</span><br><span class="line">    <span class="comment">//do something</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我们通常可以用@Transactional来修饰类和方法：</p>
+<ol>
+<li><strong>方法</strong> ：推荐将注解使用于方法上，不过需要注意的是：<strong>该注解只能应用到 public 方法上，否则不生效。</strong></li>
+<li><strong>类</strong> ：如果这个注解使用在类上的话，表明该注解对该类中所有的 public 方法都生效。</li>
+</ol>
+<h3 id="编程式事务">编程式事务</h3>
+<p>编程式事务需要依赖<code>TransactionTemplate</code>来实现，下面是一个简单例子：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">Integer rows = <span class="keyword">new</span> TransactionTemplate((PlatformTransactionManager) transactionManager,</span><br><span class="line">                                       <span class="keyword">new</span> DefaultTransactionDefinition(TransactionDefinition.ISOLATION_READ_UNCOMMITTED))</span><br><span class="line">    .execute(<span class="keyword">new</span> TransactionCallback&lt;Integer&gt;() &#123;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> Integer <span class="title">doInTransaction</span><span class="params">(TransactionStatus status)</span> </span>&#123;</span><br><span class="line">            <span class="comment">// update 0</span></span><br><span class="line">            <span class="keyword">int</span> rows0 = jdbcTemplate.update(...);</span><br><span class="line">            </span><br><span class="line">            <span class="comment">// update 1</span></span><br><span class="line">            <span class="keyword">int</span> rows1 = jdbcTemplate.update(...);</span><br><span class="line">            <span class="keyword">return</span> rows0 + rows1;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">Integer rows2 = <span class="keyword">new</span> TransactionTemplate((PlatformTransactionManager) transactionManager,</span><br><span class="line">                                        <span class="keyword">new</span> DefaultTransactionDefinition(TransactionDefinition.ISOLATION_READ_UNCOMMITTED))</span><br><span class="line">    .execute(<span class="keyword">new</span> TransactionCallback&lt;Integer&gt;() &#123;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> Integer <span class="title">doInTransaction</span><span class="params">(TransactionStatus status)</span> </span>&#123;</span><br><span class="line">            </span><br><span class="line">            <span class="comment">// update 2</span></span><br><span class="line">            <span class="keyword">int</span> rows2 = jdbcTemplate.update(...);</span><br><span class="line">            <span class="keyword">return</span> rows2;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br></pre></td></tr></table></figure>
+<h3 id="事务失效场景总结">事务失效场景总结</h3>
+<ul>
+<li>
+<p>数据库是否支持事务(Mysql的MyIsam不支持事务) ，行锁才支持事务</p>
+</li>
+<li>
+<p>是否发生多线程调用？因为事务底层依赖于ThreadLocal，不同线程获取到的数据库连接不一样</p>
+</li>
+<li>
+<p>注解所在类是否被加载成Bean</p>
+</li>
+<li>
+<p>入口函数是否是public的</p>
+<ul>
+<li>private方法不会生效，JDK中必须是接口，接口中不可能有private方法，protect方法的话，也不生效。原因是spring内部判断方法修饰符如果不是public不生成事务拦截代理类。</li>
+</ul>
+</li>
+<li>
+<p>方法是否是final？</p>
+<ul>
+<li>spring事务底层使用了aop，也就是通过jdk动态代理或者cglib，帮我们生成了代理类，在代理类中实现的事务功能。  但如果某个方法用final修饰了，那么在它的代理类中，就无法重写该方法，而添加事务功能。</li>
+<li>如果某个方法是static的，同样无法通过动态代理，变成事务方法。</li>
+</ul>
+</li>
+<li>
+<p>是否发生了自调用</p>
+<ul>
+<li>
+<p>发生自调用时，不会经过代理类，事务自然也就失效了</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">OrderServiceImpl</span> <span class="keyword">implements</span> <span class="title">OrderService</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Transactional</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">update</span><span class="params">(Order order)</span> </span>&#123;</span><br><span class="line">        updateOrder(order);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Transactional(propagation = Propagation.REQUIRES_NEW)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">updateOrder</span><span class="params">(Order order)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// update order</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li>
+<p>所有数据源是否加载了事务管理器</p>
+</li>
+<li>
+<p>@Transactional的传播策略是否配置正确</p>
+</li>
+<li>
+<p>异常有没有被正常抛出，是不是被子方法吃掉了</p>
+</li>
+</ul>
+ 
+      <!-- reward -->
+      
+      <div id="reword-out">
+        <div id="reward-btn">
+          打赏
+        </div>
+      </div>
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <div class="declare">
+      <ul class="post-copyright">
+        <li>
+          <i class="ri-copyright-line"></i>
+          <strong>版权声明： </strong>
+          
+          本博客所有文章除特别声明外，著作权归作者所有。转载请注明出处！
+          
+        </li>
+      </ul>
+    </div>
+    
+    <footer class="article-footer">
+       
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<!--<div class="wx-share-modal">-->
+<!--    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>-->
+<!--    <p>扫一扫，分享到微信</p>-->
+<!--    <div class="wx-qrcode">-->
+<!--      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://rookieyin.github.io/16c8d0988ee3/" alt="微信分享二维码">-->
+<!--    </div>-->
+<!--</div>-->
+
+<div id="share-mask"></div>
+  
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spring/" rel="tag">Spring</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%90%8E%E7%AB%AF/" rel="tag">后端</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+  <nav class="article-nav">
+    
+      <a href="/78f2dc72cab6/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            谈谈一致性哈希算法
+          
+        </div>
+      </a>
+    
+    
+      <a href="/c374e129c8f0/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">Spring MVC</div>
+      </a>
+    
+  </nav>
+
+   
+<!-- valine评论 -->
+<div id="vcomments-box">
+  <div id="vcomments"></div>
+</div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js"></script>
+<script>
+  new Valine({
+    el: "#vcomments",
+    app_id: "f9XmUV7HVprPCNptggBNBhWR-gzGzoHsz",
+    app_key: "H73Viqo3lADopEFgshq3XrXs",
+    path: window.location.pathname,
+    avatar: "monsterid",
+    placeholder: "给我的文章加点评论吧~",
+    recordIP: true,
+  });
+  const infoEle = document.querySelector("#vcomments .info");
+  if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+    infoEle.childNodes.forEach(function (item) {
+      item.parentNode.removeChild(item);
+    });
+  }
+</script>
+<style>
+  #vcomments-box {
+    padding: 5px 30px;
+  }
+
+  @media screen and (max-width: 800px) {
+    #vcomments-box {
+      padding: 5px 0px;
+    }
+  }
+
+  #vcomments-box #vcomments {
+    background-color: #fff;
+  }
+
+  .v .vlist .vcard .vh {
+    padding-right: 20px;
+  }
+
+  .v .vlist .vcard {
+    padding-left: 10px;
+  }
+</style>
+
+ 
+   
+     
+</article>
+
+</section>
+        <footer class="footer">
+  <div class="outer">
+    <ul>
+      <li>
+        Copyrights &copy;
+        2021-2022
+        <i class="ri-heart-fill heart_icon"></i> Yin Peng
+      </li>
+    </ul>
+    <ul>
+      <li>引擎:
+        <a style="color: #0681d0" target="_blank" rel="noopener" href="https://hexo.io/zh-cn/">Hexo</a>
+        &nbsp;&nbsp;|&nbsp;&nbsp;主题:修改自
+        <a style="color: #0681d0" target="_blank" rel="noopener" href="https://shen-yu.gitee.io/">Ayer</a>
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        <span>
+  <span><i class="ri-user-3-fill"></i>访问人数:<span id="busuanzi_value_site_uv"></span></span>
+  <span class="division">|</span>
+  <span><i class="ri-eye-fill"></i>浏览次数:<span id="busuanzi_value_page_pv"></span></span>
+</span>
+        
+      </li>
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      <li>
+        <!-- cnzz统计 -->
+        
+        <script type="text/javascript" src='https://s9.cnzz.com/z_stat.php?id=1278069914&amp;web_id=1278069914'></script>
+        
+      </li>
+    </ul>
+  </div>
+</footer>
+
+        <div class="float_btns">
+            <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+
+<div class="todark" id="todark">
+  <i class="ri-moon-line"></i>
+</div>
+
+        </div>
+    </main>
+
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/alipay.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/wxpay.png">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-2.0.3.min.js"></script>
+ 
+<script src="/js/lazyload.min.js"></script>
+
+<!-- Tocbot -->
+ 
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  tocbot.init({
+    tocSelector: ".tocbot",
+    contentSelector: ".article-entry",
+    headingSelector: "h1, h2, h3, h4, h5, h6",
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: "main",
+    positionFixedSelector: ".tocbot",
+    positionFixedClass: "is-position-fixed",
+    fixedSidebarOffset: "auto",
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.js"></script>
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.css"
+/>
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js"></script>
+
+<script src="/dist/main.js"></script>
+
+<!-- ImageViewer -->
+ <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css">
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script> 
+<!-- MathJax -->
+
+<!-- Katex -->
+
+<!-- busuanzi  -->
+ 
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+ 
+<!-- ClickLove -->
+ 
+<script src="/js/clickLove.js"></script>
+ 
+<!-- ClickBoom1 -->
+
+<!-- ClickBoom2 -->
+
+<!-- CodeCopy -->
+ 
+<link rel="stylesheet" href="/css/clipboard.css">
+ <script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="ri-file-copy-2-line"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-checkbox-circle-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-checkbox-circle-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-time-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-time-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+ 
+<!-- CanvasBackground -->
+
+<script>
+  if (window.mermaid) {
+    mermaid.initialize({ theme: "forest" });
+  }
+</script>
+
+
+    
+</div>
+</body>
+
+</html>

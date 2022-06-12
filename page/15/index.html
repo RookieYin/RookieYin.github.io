@@ -185,7 +185,7 @@
     
     
     <article
-  id="post-5.你真的了解Softmax吗？"
+  id="post-3 论文笔记/小样本图学习/12.Graph Prototypical Networks for Few-shot Learning on Attributed Networks"
   class="article article-type-post"
   itemscope
   itemprop="blogPost"
@@ -196,8 +196,8 @@
     <header class="article-header">
        
 <h2 itemprop="name">
-  <a class="article-title" href="/09a1698381db/"
-    >你真的了解Softmax吗？</a> 
+  <a class="article-title" href="/eb45e1654185/"
+    >Graph Prototypical Networks for Few-shot Learning on Attributed Networks</a> 
 </h2>
  
 
@@ -205,196 +205,7 @@
     </header>
      
     <div class="article-meta">
-      <a href="/09a1698381db/" class="article-date">
-  <time datetime="2021-06-04T07:08:10.000Z" itemprop="datePublished">2021-06-04</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E5%85%B6%E4%BB%96/">其他</a>
-  </div>
-
-   
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <h1>2. 逻辑回归</h1>
-<p>Logistic回归主要用于二分类任务，其本质是假设数据服从某个分布，然后使用极大似然估计做参数估计。</p>
-<h2 id="2-1-对比线性回归">2.1 对比线性回归</h2>
-<p>逻辑回归和线性回归都是一种广义线性模型。看下面这个例子：</p>
-<p>对于Tumor的良性和恶性这个二分类问题，0表示负类为良性，1表示正类为恶性。下图展示了在这8个训练样本下，使用线性回归模型<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>h</mi><mi>θ</mi></msub><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo>=</mo><msup><mi mathvariant="normal">Θ</mi><mi>T</mi></msup><mi>x</mi></mrow><annotation encoding="application/x-tex">h_\theta(x)=\Theta^Tx</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathdefault">h</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.33610799999999996em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.02778em;">θ</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathdefault">x</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.8413309999999999em;vertical-align:0em;"></span><span class="mord"><span class="mord">Θ</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8413309999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.13889em;">T</span></span></span></span></span></span></span></span><span class="mord mathdefault">x</span></span></span></span>可能拟合出下图中的红线。</p>
-<center><img src="/images/QQ截图20210104194514.png" style="height:200px;"></img></center>
-<p>此时我们可以正确判别肿瘤是良性还是恶性的：根据这条直线可以找到一个阈值，比如 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>h</mi><mi>θ</mi></msub><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo>=</mo><mn>0.5</mn></mrow><annotation encoding="application/x-tex">h_\theta(x)=0.5</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathdefault">h</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.33610799999999996em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.02778em;">θ</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathdefault">x</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span><span class="mord">.</span><span class="mord">5</span></span></span></span>，当<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>h</mi><mi>θ</mi></msub><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo>≥</mo><mn>0.5</mn></mrow><annotation encoding="application/x-tex">h_\theta(x)\geq0.5</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathdefault">h</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.33610799999999996em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.02778em;">θ</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathdefault">x</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≥</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span><span class="mord">.</span><span class="mord">5</span></span></span></span>时预测<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">y=1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span>为恶性，当<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>h</mi><mi>θ</mi></msub><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo>&lt;</mo><mn>0.5</mn></mrow><annotation encoding="application/x-tex">h_\theta(x)&lt;0.5</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathdefault">h</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.33610799999999996em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.02778em;">θ</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathdefault">x</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&lt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span><span class="mord">.</span><span class="mord">5</span></span></span></span>时预测<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">y=0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span></span></span></span>为良性。</p> 
-      <a class="article-more-link" href="/09a1698381db/"
-        >阅读更多...</a
-      >
-       
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Softmax/" rel="tag">Softmax</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" rel="tag">机器学习</a></li></ul>
-
-    </footer>
-  </div>
-
-    
- 
-    
-</article>
-
-    
-    <article
-  id="post-3 论文笔记/图学习/2.Simple and Deep Graph Convolutional Networks"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/8c3ac9ec967d/"
-    >Simple and Deep Graph Convolutional Networks</a> 
-</h2>
- 
-
-      
-    </header>
-     
-    <div class="article-meta">
-      <a href="/8c3ac9ec967d/" class="article-date">
-  <time datetime="2021-06-04T07:08:10.000Z" itemprop="datePublished">2021-06-04</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/">论文笔记</a> / <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/%E5%9B%BE%E5%AD%A6%E4%B9%A0/">图学习</a>
-  </div>
-
-   
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <p><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2007.02133">https://arxiv.org/abs/2007.02133</a></p>
-<p><a target="_blank" rel="noopener" href="https://github.com/chennnM/GCNII">https://github.com/chennnM/GCNII</a></p>
-<p>Simple and Deep Graph Convolutional Networks</p>
-<p><strong>我的启发：</strong></p>
-<ol>
-<li>这个方法存不存在什么弊端？</li>
-<li>收敛速度和节点度的关系今后能不能利用上？</li>
-</ol> 
-      <a class="article-more-link" href="/8c3ac9ec967d/"
-        >阅读更多...</a
-      >
-       
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/GCN/" rel="tag">GCN</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%9B%BE%E5%AD%A6%E4%B9%A0/" rel="tag">图学习</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%BF%87%E5%B9%B3%E6%BB%91/" rel="tag">过平滑</a></li></ul>
-
-    </footer>
-  </div>
-
-    
- 
-    
-</article>
-
-    
-    <article
-  id="post-3 论文笔记/图学习/6.Why Do Attributes Propagate in Graph Convolutional Neural Networks"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/400ef1348239/"
-    >Why Do Attributes Propagate in Graph Convolutional Neural Networks</a> 
-</h2>
- 
-
-      
-    </header>
-     
-    <div class="article-meta">
-      <a href="/400ef1348239/" class="article-date">
-  <time datetime="2021-06-04T07:08:10.000Z" itemprop="datePublished">2021-06-04</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/">论文笔记</a> / <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/%E5%9B%BE%E5%AD%A6%E4%B9%A0/">图学习</a>
-  </div>
-
-   
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <p><a target="_blank" rel="noopener" href="https://yangliang.github.io/pdf/aaai21.pdf">https://yangliang.github.io/pdf/aaai21.pdf</a></p>
-<p>Why Do Attributes Propagate in Graph Convolutional Neural Networks，2021，AAAI</p>
-<p><span style="font-size:18px;font-weight:bold;">总结：</span>本文偏理论一点，作者提出了一个图表示学习框架GRL，并基于此从数值优化角度（梯度下降和高阶近似）对GCN及其各种变体做出了解释。最后受共轭梯度法性能优于梯度下降法的启发，提出了图共轭卷积模型。</p> 
-      <a class="article-more-link" href="/400ef1348239/"
-        >阅读更多...</a
-      >
-       
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/GCN/" rel="tag">GCN</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%BF%87%E5%B9%B3%E6%BB%91/" rel="tag">过平滑</a></li></ul>
-
-    </footer>
-  </div>
-
-    
- 
-    
-</article>
-
-    
-    <article
-  id="post-3 论文笔记/小样本图学习/1.Few-Shot Learning on Graphs via Superclasses Based on Graph Spectral Measures"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/a59b92da0529/"
-    >FEW-SHOT LEARNING ON GRAPHS VIA SUPER-CLASSES BASED ON GRAPH SPECTRAL MEASURES</a> 
-</h2>
- 
-
-      
-    </header>
-     
-    <div class="article-meta">
-      <a href="/a59b92da0529/" class="article-date">
+      <a href="/eb45e1654185/" class="article-date">
   <time datetime="2021-06-04T07:08:10.000Z" itemprop="datePublished">2021-06-04</time>
 </a> 
   <div class="article-category">
@@ -406,15 +217,72 @@
       
     <div class="article-entry" itemprop="articleBody">
        
-  <p><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2002.12815">https://arxiv.org/abs/2002.12815</a></p>
-<p><a target="_blank" rel="noopener" href="https://github.com/chauhanjatin10/GraphsFewShot">https://github.com/chauhanjatin10/GraphsFewShot</a></p>
-<p>FEW-SHOT LEARNING ON GRAPHS VIA SUPER-CLASSES BASED ON GRAPH SPECTRAL MEASURES</p>
-<p><strong>个人见解：</strong></p>
-<ol>
-<li>小样本在图领域的应用暂时还是个比较新的方向，可能主要有两个方向：一是将已经成熟的小样本训练方法（比如元学习、半监督等等）缝合到最近一些比较好的图学习方法中；二是对图学习方法进行改造，使其适合小样本场景。</li>
-<li>本文作者一方面将小样本中的一种训练策略“initialization based strategy”引入到图学习中，另一方面对图学习算法进行改进，作者认为某个样本类别数量很少时，在做消息传播时，如果图神经网络层数比较浅，那么该类别样本很难影响到大范围的其他节点，因此作者提出了一种计算超类并生成超图的方案使得图神经网络更适用于小样本场景。</li>
-</ol> 
-      <a class="article-more-link" href="/a59b92da0529/"
+  <p><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2006.12739">https://arxiv.org/pdf/2006.12739</a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/kaize0409/GPN">https://github.com/kaize0409/GPN</a></p>
+<p>Graph Prototypical Networks for Few-shot Learning on Attributed Networks，CIKM，2020</p>
+<p><span style="font-size:18px;font-weight:bold;">总结：</span>整个思想是原型网络+GNN，将元学习中的原型网络拓展到属性网络中。另外，对原型网络中原型计算方法针对属性网络做了改进，即计算节点对其所属类别的重要程度z作为计算类别原型时的权重。本文实验部分还比较充实，作为图学习领域为数不多的小样本学习方法，总体来说还可以。</p> 
+      <a class="article-more-link" href="/eb45e1654185/"
+        >阅读更多...</a
+      >
+       
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/GNN/" rel="tag">GNN</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%8E%9F%E5%9E%8B%E7%BD%91%E7%BB%9C/" rel="tag">原型网络</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%9B%BE%E5%AD%A6%E4%B9%A0/" rel="tag">图学习</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%B0%8F%E6%A0%B7%E6%9C%AC/" rel="tag">小样本</a></li></ul>
+
+    </footer>
+  </div>
+
+    
+ 
+    
+</article>
+
+    
+    <article
+  id="post-3 论文笔记/小样本图学习/13.High-order structure preserving graph neural network for few-shot learning"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/a6fe6734d0b6/"
+    >High-order structure preserving graph neural network for few-shot learning</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/a6fe6734d0b6/" class="article-date">
+  <time datetime="2021-06-04T07:08:10.000Z" itemprop="datePublished">2021-06-04</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/">论文笔记</a> / <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/%E5%B0%8F%E6%A0%B7%E6%9C%AC%E5%9B%BE%E5%AD%A6%E4%B9%A0/">小样本图学习</a>
+  </div>
+
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <p><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2005.14415">https://arxiv.org/pdf/2005.14415</a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/yangfeifei02/HOSP">https://github.com/yangfeifei02/HOSP</a></p>
+<p>High-order structure preserving graph neural network for few-shot learning，2020</p>
+<p><span style="font-size:18px;font-weight:bold;">总结：</span>文章提出的HOSP-GNN是对EGNN模型的改进，创新点在于将高阶结构引入GNN中，近似统一了不同任务中的度量标准，提高了小样本元学习算法的准确度。另外在GNN逐层迭代的过程中增加了流行结构约束，进一步提高了模型性能。</p> 
+      <a class="article-more-link" href="/a6fe6734d0b6/"
         >阅读更多...</a
       >
        
@@ -439,7 +307,7 @@
 
     
     <article
-  id="post-3 论文笔记/小样本图学习/5.Node Classification on Graphs with Few-Shot Novel Labels via Meta Transformed Network Embedding"
+  id="post-3 论文笔记/小样本图学习/14.Few-Shot Knowledge Graph Completion"
   class="article article-type-post"
   itemscope
   itemprop="blogPost"
@@ -450,8 +318,8 @@
     <header class="article-header">
        
 <h2 itemprop="name">
-  <a class="article-title" href="/7bc0ee17a8f5/"
-    >Node Classification on Graphs with Few-Shot Novel Labels via Meta Transformed Network Embedding</a> 
+  <a class="article-title" href="/3ec77d34ddfd/"
+    >Few-Shot Knowledge Graph Completion</a> 
 </h2>
  
 
@@ -459,7 +327,7 @@
     </header>
      
     <div class="article-meta">
-      <a href="/7bc0ee17a8f5/" class="article-date">
+      <a href="/3ec77d34ddfd/" class="article-date">
   <time datetime="2021-06-04T07:08:10.000Z" itemprop="datePublished">2021-06-04</time>
 </a> 
   <div class="article-category">
@@ -471,12 +339,195 @@
       
     <div class="article-entry" itemprop="articleBody">
        
-  <p><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2007.02914">https://arxiv.org/pdf/2007.02914</a></p>
-<p><a target="_blank" rel="noopener" href="https://github.com/llan-ml/MetaTNE">https://github.com/llan-ml/MetaTNE</a></p>
-<p>Node Classification on Graphs with Few-Shot Novel Labels via Meta Transformed Network Embedding，NIPS，2020</p>
-<p><span style="font-size:18px;font-weight:bold;">总结：</span>最大的创新点就是嵌入转换函数，利用自注意力机制对节点嵌入进行调整使其task-specific。针对小样本设置还是利用元学习思想，学习不同类别间统一的内在模式，提高目标任务上的分类准确度。</p>
-<p>目前图上的小样本问题大多都是针对有标签节点数量较少，且基本都是利用元学习思想来做，可以尝试着用小样本学习中的其他方法比如基于生成等等。另外可以探索一下关系或者属性在小样本场景下该如何做。</p> 
-      <a class="article-more-link" href="/7bc0ee17a8f5/"
+  <p><a target="_blank" rel="noopener" href="http://www.meng-jiang.com/pubs/fsrl-aaai20/fsrl-aaai20-paper.pdf">http://www.meng-jiang.com/pubs/fsrl-aaai20/fsrl-aaai20-paper.pdf</a></p>
+<p>Few-Shot Knowledge Graph Completion ，AAAI，2020</p> 
+      <a class="article-more-link" href="/3ec77d34ddfd/"
+        >阅读更多...</a
+      >
+       
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/GNN/" rel="tag">GNN</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%9B%BE%E5%AD%A6%E4%B9%A0/" rel="tag">图学习</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%B0%8F%E6%A0%B7%E6%9C%AC/" rel="tag">小样本</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%BC%82%E6%9E%84%E7%BD%91%E7%BB%9C/" rel="tag">异构网络</a></li></ul>
+
+    </footer>
+  </div>
+
+    
+ 
+    
+</article>
+
+    
+    <article
+  id="post-3 论文笔记/小样本图学习/2. Graph Few-shot Learning via Knowledge Transfer"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/c45493e889ef/"
+    >Graph Few-shot Learning via Knowledge Transfer</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/c45493e889ef/" class="article-date">
+  <time datetime="2021-06-04T07:08:10.000Z" itemprop="datePublished">2021-06-04</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/">论文笔记</a> / <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/%E5%B0%8F%E6%A0%B7%E6%9C%AC%E5%9B%BE%E5%AD%A6%E4%B9%A0/">小样本图学习</a>
+  </div>
+
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <p><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/1910.03053">https://arxiv.org/pdf/1910.03053</a></p>
+<p>Graph Few-shot Learning via Knowledge Transfer，2020，AAAI</p>
+<p><span style="font-size:18px;font-weight:bold;">总结：</span>本文利用FSL中元学习思想，随机采样一系列图（等同于元学习中的一系列任务），提出的GFL模型主要背靠原型网络，计算每个类别的原型，然后根据节点和类别原型之间的距离判断节点所属类别。然后在这个基础上做了很多缝合和优化工作：</p>
+<ul>
+<li>借鉴Diffpool方法，学习图的层级表示，并融合到PGNN参数中，使得每个图都有独特的<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>ϕ</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">\phi_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord"><span class="mord mathdefault">ϕ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></li>
+<li>在初始节点嵌入的基础上，在属于同一个类别的所以节点之间构造关系结构R，弥补原始节点嵌入只聚合了距离较近的邻居信息这一缺陷</li>
+<li>在损失函数中引入图自编码器损失，来提高训练的稳定性和节点表示的质量</li>
+</ul> 
+      <a class="article-more-link" href="/c45493e889ef/"
+        >阅读更多...</a
+      >
+       
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/GNN/" rel="tag">GNN</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%8E%9F%E5%9E%8B%E7%BD%91%E7%BB%9C/" rel="tag">原型网络</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%9B%BE%E5%AD%A6%E4%B9%A0/" rel="tag">图学习</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%B0%8F%E6%A0%B7%E6%9C%AC/" rel="tag">小样本</a></li></ul>
+
+    </footer>
+  </div>
+
+    
+ 
+    
+</article>
+
+    
+    <article
+  id="post-3 论文笔记/小样本图学习/3.Heterogeneous graph neural networks for noisy few-shot relation"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/7a5512915802/"
+    >Heterogeneous graph neural networks for noisy few-shot relation classification</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/7a5512915802/" class="article-date">
+  <time datetime="2021-06-04T07:08:10.000Z" itemprop="datePublished">2021-06-04</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/">论文笔记</a> / <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/%E5%B0%8F%E6%A0%B7%E6%9C%AC%E5%9B%BE%E5%AD%A6%E4%B9%A0/">小样本图学习</a>
+  </div>
+
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <p><a target="_blank" rel="noopener" href="https://reader.elsevier.com/reader/sd/pii/S0950705120300447">https://reader.elsevier.com/reader/sd/pii/S0950705120300447</a></p>
+<p>Heterogeneous graph neural networks for noisy few-shot relation classification</p>
+<h1>未完待续</h1> 
+      <a class="article-more-link" href="/7a5512915802/"
+        >阅读更多...</a
+      >
+       
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/GNN/" rel="tag">GNN</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%9B%BE%E5%AD%A6%E4%B9%A0/" rel="tag">图学习</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%B0%8F%E6%A0%B7%E6%9C%AC/" rel="tag">小样本</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%BC%82%E6%9E%84%E7%BD%91%E7%BB%9C/" rel="tag">异构网络</a></li></ul>
+
+    </footer>
+  </div>
+
+    
+ 
+    
+</article>
+
+    
+    <article
+  id="post-3 论文笔记/小样本图学习/6.Meta-Graph Few Shot Link Prediction Via Meta Learning"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/3c8b6460d9e9/"
+    >Meta-Graph Few Shot Link Prediction Via Meta Learning</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/3c8b6460d9e9/" class="article-date">
+  <time datetime="2021-06-04T07:08:10.000Z" itemprop="datePublished">2021-06-04</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/">论文笔记</a> / <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/%E5%B0%8F%E6%A0%B7%E6%9C%AC%E5%9B%BE%E5%AD%A6%E4%B9%A0/">小样本图学习</a>
+  </div>
+
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <p><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/1912.09867">https://arxiv.org/pdf/1912.09867</a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/joeybose/Meta-Graph">https://github.com/joeybose/Meta-Graph</a></p>
+<p>Meta-Graph Few Shot Link Prediction Via Meta Learning，2019，arxiv e-preprint</p>
+<p><span style="font-size:18px;font-weight:bold;">总结：</span>基于梯度的元学习+图签名函数，采用VGAE作为链路预测模型。基于梯度的元学习在多个任务之间学习一个共享参数使得使得新图上的VGAE具有一个较好的初始参数；图签名函数（GCN实现）为每个图学习一个图签名融合到VGAE模型使得每个图的VGAE模型graph specific化。</p> 
+      <a class="article-more-link" href="/3c8b6460d9e9/"
         >阅读更多...</a
       >
        
@@ -501,7 +552,7 @@
 
     
     <article
-  id="post-3 论文笔记/小样本图学习/7.Graph Meta Leraning via Local Subgraphs"
+  id="post-3 论文笔记/小样本图学习/9.Meta-GNN On Few-shot Node Classfication in Graph Meta-Learning"
   class="article article-type-post"
   itemscope
   itemprop="blogPost"
@@ -512,8 +563,8 @@
     <header class="article-header">
        
 <h2 itemprop="name">
-  <a class="article-title" href="/84c11eb2e587/"
-    >Graph Meta Learning via Local Subgraphs</a> 
+  <a class="article-title" href="/58fc871ab75a/"
+    >Meta-GNN: On Few-shot Node Classification in Graph Meta-learning</a> 
 </h2>
  
 
@@ -521,7 +572,7 @@
     </header>
      
     <div class="article-meta">
-      <a href="/84c11eb2e587/" class="article-date">
+      <a href="/58fc871ab75a/" class="article-date">
   <time datetime="2021-06-04T07:08:10.000Z" itemprop="datePublished">2021-06-04</time>
 </a> 
   <div class="article-category">
@@ -533,16 +584,11 @@
       
     <div class="article-entry" itemprop="articleBody">
        
-  <p><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2006.07889">https://arxiv.org/pdf/2006.07889</a></p>
-<p><a target="_blank" rel="noopener" href="https://github.com/mims-harvard/G-Meta">https://github.com/mims-harvard/G-Meta</a></p>
-<p>Graph Meta Learning via Local Subgraphs ，NIPS，2020</p>
-<p><span style="font-size:18px;font-weight:bold;">总结：</span>本文算法上没有太大的创新，将MAML拓展到图学习领域，基于度量学习判别样本标签。</p>
-<ol>
-<li>在元任务上学习一个GNN参数，将其代入目标任务的GNN中进行微调</li>
-<li>使用子图学习每个节点的嵌入，利用局部子图实现元学习（这块理论证明比较充分）</li>
-</ol>
-<p>还有一点就是文章故事讲的很好，完整的定义了图上的元学习以及常见的三种类型的元学习任务，然后提出了可以同时适用这三种类型问题的模型，而其他模型通常只能解决其中一种。</p> 
-      <a class="article-more-link" href="/84c11eb2e587/"
+  <p><a target="_blank" rel="noopener" href="https://dl.acm.org/doi/pdf/10.1145/3357384.3358106">https://dl.acm.org/doi/pdf/10.1145/3357384.3358106</a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/ChengtaiCao/Meta-GNN">https://github.com/ChengtaiCao/Meta-GNN</a></p>
+<p>Meta-GNN: On Few-shot Node Classification in Graph Meta-learning，CIKM，2019</p>
+<p><span style="font-size:18px;font-weight:bold;">总结：</span>本篇文章非常简单，单纯的将MAML和GNN相结合解决图小样本节点分类问题。工作做得非常浅，论文正文只有3页多，但是胜在是第一篇将元学习拓展到图小样本学习领域的文章，所以文章也能发在CIKM上。另一点就是本文提供了实验源码可以参考一下。</p> 
+      <a class="article-more-link" href="/58fc871ab75a/"
         >阅读更多...</a
       >
        
@@ -555,7 +601,7 @@
     
     <footer class="article-footer">
        
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/GNN/" rel="tag">GNN</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%85%83%E5%AD%A6%E4%B9%A0/" rel="tag">元学习</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%9B%BE%E5%AD%A6%E4%B9%A0/" rel="tag">图学习</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%AD%90%E5%9B%BE/" rel="tag">子图</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%B0%8F%E6%A0%B7%E6%9C%AC/" rel="tag">小样本</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/GNN/" rel="tag">GNN</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%85%83%E5%AD%A6%E4%B9%A0/" rel="tag">元学习</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%9B%BE%E5%AD%A6%E4%B9%A0/" rel="tag">图学习</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%B0%8F%E6%A0%B7%E6%9C%AC/" rel="tag">小样本</a></li></ul>
 
     </footer>
   </div>
@@ -567,7 +613,7 @@
 
     
     <article
-  id="post-3.网络嵌入综述"
+  id="post-3 论文笔记/小样本学习/1.Few-Shot Lifelong Learning"
   class="article article-type-post"
   itemscope
   itemprop="blogPost"
@@ -578,8 +624,8 @@
     <header class="article-header">
        
 <h2 itemprop="name">
-  <a class="article-title" href="/2fe36ae34ad3/"
-    >网络嵌入综述</a> 
+  <a class="article-title" href="/7a615dfbd4a4/"
+    >Few-shot Lifelong Learning</a> 
 </h2>
  
 
@@ -587,11 +633,11 @@
     </header>
      
     <div class="article-meta">
-      <a href="/2fe36ae34ad3/" class="article-date">
+      <a href="/7a615dfbd4a4/" class="article-date">
   <time datetime="2021-06-04T07:08:10.000Z" itemprop="datePublished">2021-06-04</time>
 </a> 
   <div class="article-category">
-    <a class="article-category-link" href="/categories/%E5%85%B6%E4%BB%96/">其他</a>
+    <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/">论文笔记</a> / <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/%E5%B0%8F%E6%A0%B7%E6%9C%AC%E5%AD%A6%E4%B9%A0/">小样本学习</a>
   </div>
 
    
@@ -599,14 +645,10 @@
       
     <div class="article-entry" itemprop="articleBody">
        
-  <p><a target="_blank" rel="noopener" href="https://link.springer.com/article/10.1007/s00521-020-04908-5">https://link.springer.com/article/10.1007/s00521-020-04908-5</a></p>
-<p>Network representation learning: a systematic literature review</p>
-<h1>1.概述</h1>
-<h2 id="1-1-背景">1.1 背景</h2>
-<p><strong>Data Representation</strong>：用一系列符号或者数字也就是特征向量来描述某个对象，它能反映所描述对象的特征、结构以及分布信息。一个好的数据表示通常能大大减小数据的体量，同时保持原始数据的基本特征以及对噪声的鲁棒性。表示学习近些年来在模式识别和机器学习领域是一个非常重要的研究热点，在很多顶级期刊会议，如TPAMI、TNNLS、TKDE、KDD、NIPS、ICML、AAAI、IJCAI以及ICLR等，都有很多相关文章。</p>
-<p><strong>表示学习可以直接从原始低维感知数据中学习到高维抽象特征，这更有利于后续的数据分析和处理</strong>。深度学习是表示学习的一种典型方法，它能自动提取适当的特征或者从数据中获取到对个级别的表示。深度学习技术已经成功应用在语音识别、信号处理、图像识别、对象识别等领域，尤其是在自然语言处理领域。</p>
-<p>在表示学习的浪潮中，网络表示学习（又称网络嵌入）也在蓬勃发展。因为从网络数据中提取结构信息的传统方法通常取决于拓扑统计信息、聚合系数或者设计精良的人工特征，这带来了很多弊端。因此受成功应用在NLP领域的表示学习的启发，<strong>网络表示学习旨在从给定网络数据中学习到低维向量空间中的一些特征，但是编码了各种列结构和语义信息</strong>。获取到数据向量表示后，可以通过现成的机器学习方法直接解决网络挖掘问题。网络表示学习已经被证明可用于许多数据挖掘和机器学习任务，比如链路预测、节点分类、网络重构、推荐、可视化以及社区发现等等。下图展示了2010年~2020年网络表示相关论文数量：</p> 
-      <a class="article-more-link" href="/2fe36ae34ad3/"
+  <p><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2103.00991">https://arxiv.org/pdf/2103.00991</a></p>
+<p>Few-shot Lifelong Learning，AAAI，2021</p>
+<p><span style="font-size:18px;font-weight:bold;">总结：</span>针对小样本下的class increatmental，或者称之为continual  learning场景，作者提出了FSLL模型。为了模拟calss increatmental，作者设定了多个session，每个session类别集合都不相交。在session 1， 每个类别都有大量样本，按照常规小样本学习方式进行训练（即预训练模型）。在之后t&gt;1的每个session，每个数据集只包含C各类别，每个类别只有K个样本。为了实现continual learning，防止灾难遗忘并提高模型精确度，作者采取了四个措施：1. 部分更新参数，2.正则化，3.最大化原型距离，4.添加自监督辅助任务。</p> 
+      <a class="article-more-link" href="/7a615dfbd4a4/"
         >阅读更多...</a
       >
        
@@ -619,7 +661,129 @@
     
     <footer class="article-footer">
        
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%9B%BE%E5%AD%A6%E4%B9%A0/" rel="tag">图学习</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%A1%A8%E7%A4%BA%E5%AD%A6%E4%B9%A0/" rel="tag">表示学习</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/" rel="tag">图像分类</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%B0%8F%E6%A0%B7%E6%9C%AC/" rel="tag">小样本</a></li></ul>
+
+    </footer>
+  </div>
+
+    
+ 
+    
+</article>
+
+    
+    <article
+  id="post-3 论文笔记/小样本学习/2.Free Lunch For Few-Shot Learning Distribution Calibration"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/c4fbf25419fc/"
+    >Free Lunch For Few-Shot Learning: Distribution Calibration</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/c4fbf25419fc/" class="article-date">
+  <time datetime="2021-06-04T07:08:10.000Z" itemprop="datePublished">2021-06-04</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/">论文笔记</a> / <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/%E5%B0%8F%E6%A0%B7%E6%9C%AC%E5%AD%A6%E4%B9%A0/">小样本学习</a>
+  </div>
+
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <p><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2101.06395v2.pdf">https://arxiv.org/pdf/2101.06395v2.pdf</a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/ShuoYang-1998/Few_Shot_Distribution_Calibration">https://github.com/ShuoYang-1998/Few_Shot_Distribution_Calibration</a></p>
+<p>Free Lunch For Few-Shot Learning: Distribution Calibration，ICLR，2021</p>
+<p><span style="font-size:18px;font-weight:bold;">总结：</span>迁移学习比较类似，从有充足样本的基类中学习特征分布，迁移到新类数据集，修正新类数据集特征分布，再从修正后的分布中做采样，生成大量样本用于分类器的训练。从迁移特征分布这个角度切入，再进行样本生成，感觉角度找的很好。</p> 
+      <a class="article-more-link" href="/c4fbf25419fc/"
+        >阅读更多...</a
+      >
+       
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%B0%8F%E6%A0%B7%E6%9C%AC/" rel="tag">小样本</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%A0%B7%E6%9C%AC%E7%94%9F%E6%88%90/" rel="tag">样本生成</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%BF%81%E7%A7%BB%E5%AD%A6%E4%B9%A0/" rel="tag">迁移学习</a></li></ul>
+
+    </footer>
+  </div>
+
+    
+ 
+    
+</article>
+
+    
+    <article
+  id="post-3 论文笔记/图学习/异构网络/1. Heterogeneous Graph Neural Network"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/3b1aeb046948/"
+    >Heterogeneous Graph Neural Network</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/3b1aeb046948/" class="article-date">
+  <time datetime="2021-06-04T07:08:10.000Z" itemprop="datePublished">2021-06-04</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/">论文笔记</a> / <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/%E5%9B%BE%E5%AD%A6%E4%B9%A0/">图学习</a> / <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/%E5%9B%BE%E5%AD%A6%E4%B9%A0/%E5%BC%82%E6%9E%84%E7%BD%91%E7%BB%9C/">异构网络</a>
+  </div>
+
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <p><a target="_blank" rel="noopener" href="https://dl.acm.org/doi/pdf/10.1145/3292500.3330961">https://dl.acm.org/doi/pdf/10.1145/3292500.3330961</a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/chuxuzhang/KDD2019_HetGNN">https://github.com/chuxuzhang/KDD2019_HetGNN</a></p>
+<p>Heterogeneous Graph Neural Network，KDD，2019</p>
+<p><span style="font-size:18px;font-weight:bold;">总结：</span>解决异构网络嵌入中存在的三个挑战：（1）如何为每个节点采样高相关性的邻居？（2）如何设计一个node content编码器，解决不同节点携带的信息是异构这一问题？（3）如何考虑节点类型的影响，整合不同类型邻居节点的信息？针对这三个问题作者分别提出了解决方案：（1）采用RWR采样，按照出现频率选取前10各节点作为目标节点v的邻居，这样可以保证每个节点邻居数量相同，且高相关性邻居被采样到；（2）采用双向LSTM对节点内容信息进行编码，将文本、图像等多模态特征整合成一个特征向量；（3）将节点邻居按类型分类，计算每个类型邻居节点的信息，再通过注意力机制聚合所有类型邻居节点的信息。</p> 
+      <a class="article-more-link" href="/3b1aeb046948/"
+        >阅读更多...</a
+      >
+       
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/GNN/" rel="tag">GNN</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%9B%BE%E5%AD%A6%E4%B9%A0/" rel="tag">图学习</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%BC%82%E6%9E%84%E7%BD%91%E7%BB%9C/" rel="tag">异构网络</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E9%9A%8F%E6%9C%BA%E9%87%87%E6%A0%B7/" rel="tag">随机采样</a></li></ul>
 
     </footer>
   </div>
@@ -636,7 +800,7 @@
   
   <nav class="page-nav">
     
-    <a class="extend prev" rel="prev" href="/page/14/">上一页</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/13/">13</a><a class="page-number" href="/page/14/">14</a><span class="page-number current">15</span>
+    <a class="extend prev" rel="prev" href="/page/14/">上一页</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/13/">13</a><a class="page-number" href="/page/14/">14</a><span class="page-number current">15</span><a class="page-number" href="/page/16/">16</a><a class="page-number" href="/page/17/">17</a><a class="extend next" rel="next" href="/page/16/">下一页</a>
   </nav>
   
 </section>

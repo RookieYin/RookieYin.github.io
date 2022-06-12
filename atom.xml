@@ -201,6 +201,306 @@
   </entry>
   
   <entry>
+    <title>ES概述</title>
+    <link href="http://rookieyin.github.io/66cb4eac165c/"/>
+    <id>http://rookieyin.github.io/66cb4eac165c/</id>
+    <published>2022-05-28T05:43:55.000Z</published>
+    <updated>2022-06-12T14:19:05.017Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;文章转自&lt;a href=&quot;https://whb1990.github.io/posts/67a89a08.html&quot;&gt;这里&lt;/a&gt;&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="后端" scheme="http://rookieyin.github.io/categories/%E5%90%8E%E7%AB%AF/"/>
+    
+    <category term="其他" scheme="http://rookieyin.github.io/categories/%E5%90%8E%E7%AB%AF/%E5%85%B6%E4%BB%96/"/>
+    
+    
+    <category term="后端" scheme="http://rookieyin.github.io/tags/%E5%90%8E%E7%AB%AF/"/>
+    
+    <category term="ElasticSearch" scheme="http://rookieyin.github.io/tags/ElasticSearch/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>内存屏障是个啥</title>
+    <link href="http://rookieyin.github.io/e11f4fa067fe/"/>
+    <id>http://rookieyin.github.io/e11f4fa067fe/</id>
+    <published>2022-05-27T05:43:55.000Z</published>
+    <updated>2022-06-12T14:20:05.740Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;文章转自：&lt;a href=&quot;https://www.jianshu.com/p/2ab5e3d7e510&quot;&gt;https://www.jianshu.com/p/2ab5e3d7e510&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;关于内存屏障，还可以参考：&lt;a href=&quot;https://www.cxyzjd.com/article/qfanmingyiq/107449052%E5%92%8Chttps://gorden5566.com/post/1020.html&quot;&gt;https://www.cxyzjd.com/article/qfanmingyiq/107449052和https://gorden5566.com/post/1020.html&lt;/a&gt;&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="后端" scheme="http://rookieyin.github.io/categories/%E5%90%8E%E7%AB%AF/"/>
+    
+    <category term="其他" scheme="http://rookieyin.github.io/categories/%E5%90%8E%E7%AB%AF/%E5%85%B6%E4%BB%96/"/>
+    
+    
+    <category term="后端" scheme="http://rookieyin.github.io/tags/%E5%90%8E%E7%AB%AF/"/>
+    
+    <category term="内存屏障" scheme="http://rookieyin.github.io/tags/%E5%86%85%E5%AD%98%E5%B1%8F%E9%9A%9C/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>聊聊定时任务的实现方式</title>
+    <link href="http://rookieyin.github.io/89003babc13d/"/>
+    <id>http://rookieyin.github.io/89003babc13d/</id>
+    <published>2022-05-26T05:43:55.000Z</published>
+    <updated>2022-06-12T14:04:19.711Z</updated>
+    
+    
+    <summary type="html">&lt;h2 id=&quot;利用jdk实现&quot;&gt;利用JDK实现&lt;/h2&gt;
+&lt;h3 id=&quot;thread-sleep&quot;&gt;Thread Sleep&lt;/h3&gt;
+&lt;p&gt;创建一个线程，把任务放到while循环中，每次执行完任务后sleep指定时间。方法简单，但是能够实现的功能十分有限。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="后端" scheme="http://rookieyin.github.io/categories/%E5%90%8E%E7%AB%AF/"/>
+    
+    <category term="其他" scheme="http://rookieyin.github.io/categories/%E5%90%8E%E7%AB%AF/%E5%85%B6%E4%BB%96/"/>
+    
+    
+    <category term="后端" scheme="http://rookieyin.github.io/tags/%E5%90%8E%E7%AB%AF/"/>
+    
+    <category term="定时任务" scheme="http://rookieyin.github.io/tags/%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Redisson概述</title>
+    <link href="http://rookieyin.github.io/524795742ef5/"/>
+    <id>http://rookieyin.github.io/524795742ef5/</id>
+    <published>2022-05-25T12:38:14.000Z</published>
+    <updated>2022-06-12T13:57:37.181Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;文章转自&lt;a href=&quot;https://my.oschina.net/u/4499317/blog/5039486&quot;&gt;这里&lt;/a&gt;。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="分布式" scheme="http://rookieyin.github.io/categories/%E5%88%86%E5%B8%83%E5%BC%8F/"/>
+    
+    
+    <category term="后端" scheme="http://rookieyin.github.io/tags/%E5%90%8E%E7%AB%AF/"/>
+    
+    <category term="分布式" scheme="http://rookieyin.github.io/tags/%E5%88%86%E5%B8%83%E5%BC%8F/"/>
+    
+    <category term="Redis" scheme="http://rookieyin.github.io/tags/Redis/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>分布式锁概述</title>
+    <link href="http://rookieyin.github.io/c727a3d2828a/"/>
+    <id>http://rookieyin.github.io/c727a3d2828a/</id>
+    <published>2022-05-24T12:38:14.000Z</published>
+    <updated>2022-06-12T13:58:00.740Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;文章转自&lt;a href=&quot;https://juejin.cn/post/6844903688088059912&quot;&gt;这里&lt;/a&gt;。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="分布式" scheme="http://rookieyin.github.io/categories/%E5%88%86%E5%B8%83%E5%BC%8F/"/>
+    
+    
+    <category term="后端" scheme="http://rookieyin.github.io/tags/%E5%90%8E%E7%AB%AF/"/>
+    
+    <category term="分布式" scheme="http://rookieyin.github.io/tags/%E5%88%86%E5%B8%83%E5%BC%8F/"/>
+    
+    <category term="锁" scheme="http://rookieyin.github.io/tags/%E9%94%81/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>内存管理</title>
+    <link href="http://rookieyin.github.io/7adcc9586fb9/"/>
+    <id>http://rookieyin.github.io/7adcc9586fb9/</id>
+    <published>2022-05-23T14:34:49.000Z</published>
+    <updated>2022-06-12T13:50:13.709Z</updated>
+    
+    
+    <summary type="html">&lt;h2 id=&quot;内存管理概述&quot;&gt;内存管理概述&lt;/h2&gt;
+&lt;p&gt;CPU能直接访问的通用存储只有内存和处理器内置的寄存器，进程要想被执行，首先要把执行过程中所需要的数据加载到内存中。&lt;/p&gt;
+&lt;p&gt;我们先从简单的入手，一步步深入，看看如何设计一个安全高效的内存管理系统。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;先考虑单道程序系统，如何实现内存管理？&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;这个简单，我们可以直接把程序全部加载到内存中，CPU要用到什么数据，直接拿地址去访问内存就好了。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;这个方案非常简单，在某些场景下是可行的。&lt;strong&gt;但是如果内存空间有限，放不下整个进程怎么办呢？&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;略加思考，我们就能想到动态加载技术！程序运行过程中并不需要访问程序的所有代码和数据，我们只需要把一部分代码和数据加载到内存，然后程序用到什么就加载什么，如果内存不够了，把暂时用不到的数据先踢出内存，腾出一些空间给新加载进来的数据。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;前面的场景中，考虑的都是单道程序，&lt;strong&gt;如果操作系统中同时运行多个进程呢？&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;唉呀，有多个程序同时运行就不太好办了！此时，我们不仅要把内存划分成多个区域，每个进程分配一个独立的区域，还要保证每个进程不能越界访问其他进程的内存空间。再考虑动态加载过程中可能存在的问题，那就更麻烦了！此时就需要用到虚拟内存技术了。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;下面我们详细介绍下在操作系统的发展历程中，用到的4种内存管理机制。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="计算机基础" scheme="http://rookieyin.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/"/>
+    
+    <category term="操作系统" scheme="http://rookieyin.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
+    
+    
+    <category term="操作系统" scheme="http://rookieyin.github.io/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
+    
+    <category term="内存" scheme="http://rookieyin.github.io/tags/%E5%86%85%E5%AD%98/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>进程与线程</title>
+    <link href="http://rookieyin.github.io/0451b9009da7/"/>
+    <id>http://rookieyin.github.io/0451b9009da7/</id>
+    <published>2022-05-22T14:34:49.000Z</published>
+    <updated>2022-06-12T13:48:27.189Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;本文内容基本来自&lt;a href=&quot;https://xiaolincoding.com/os/4_process/multithread_sync.html#%E7%94%9F%E4%BA%A7%E8%80%85-%E6%B6%88%E8%B4%B9%E8%80%85%E9%97%AE%E9%A2%98&quot;&gt;小林coding&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&quot;什么是进程&quot;&gt;什么是进程&lt;/h2&gt;
+&lt;p&gt;进程，简单来说就是“一个运行中的程序”。为什么会出现“进程”这个概念呢？&lt;/p&gt;
+&lt;p&gt;早期的计算机系统一次只允许执行一个程序，这个程序拥有系统的所有资源。但是现代计算机系统允许将多个程序调入内存并发执行，这就要求对各种程序提供更严格的控制和更好的划分，从而产生了“进程”的概念，即执行中的程序。系统可以看作由一组进程组成：操作系统进程执行系统代码，用户进程执行用户代码。通过CPU多路复用，所有进程可以并发执行。通过进程之间的切换，操作系统能使计算机更为高效。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="计算机基础" scheme="http://rookieyin.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/"/>
+    
+    <category term="操作系统" scheme="http://rookieyin.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
+    
+    
+    <category term="操作系统" scheme="http://rookieyin.github.io/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
+    
+    <category term="进程" scheme="http://rookieyin.github.io/tags/%E8%BF%9B%E7%A8%8B/"/>
+    
+    <category term="线程" scheme="http://rookieyin.github.io/tags/%E7%BA%BF%E7%A8%8B/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Cookie、Session和Token</title>
+    <link href="http://rookieyin.github.io/e89afa94e460/"/>
+    <id>http://rookieyin.github.io/e89afa94e460/</id>
+    <published>2022-05-21T14:34:49.000Z</published>
+    <updated>2022-06-12T13:34:34.412Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;本文重在对比cookie、session和token，并介绍它们的由来，不具体介绍这三个技术更深层次的细节。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="计算机基础" scheme="http://rookieyin.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/"/>
+    
+    <category term="计算机网络" scheme="http://rookieyin.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/"/>
+    
+    
+    <category term="计算机网络" scheme="http://rookieyin.github.io/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>输入一条URL后的那些事</title>
+    <link href="http://rookieyin.github.io/62b22a6b76c8/"/>
+    <id>http://rookieyin.github.io/62b22a6b76c8/</id>
+    <published>2022-05-20T14:34:49.000Z</published>
+    <updated>2022-06-12T13:34:39.334Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;本文简单介绍一下：浏览器中输入URL地址，到显示网页期间发生了什么。&lt;/p&gt;
+&lt;center&gt;&lt;img src=&quot;/images/url输入到展示出来的过程.jpg&quot; style=&quot;width:600px;&quot;&gt;&lt;/img&gt;&lt;/center&gt;</summary>
+    
+    
+    
+    <category term="计算机基础" scheme="http://rookieyin.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/"/>
+    
+    <category term="计算机网络" scheme="http://rookieyin.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/"/>
+    
+    
+    <category term="计算机网络" scheme="http://rookieyin.github.io/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>TCP协议</title>
+    <link href="http://rookieyin.github.io/6b13a81e4596/"/>
+    <id>http://rookieyin.github.io/6b13a81e4596/</id>
+    <published>2022-05-19T14:34:49.000Z</published>
+    <updated>2022-06-12T13:31:54.618Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;TCP协议是运输层面向连接的、可靠的端到端信息传输协议。在介绍TCP协议之前，我们先看下如何一步步设计出一个可靠数据传输协议。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="计算机基础" scheme="http://rookieyin.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/"/>
+    
+    <category term="计算机网络" scheme="http://rookieyin.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/"/>
+    
+    
+    <category term="计算机网络" scheme="http://rookieyin.github.io/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/"/>
+    
+    <category term="TCP" scheme="http://rookieyin.github.io/tags/TCP/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>HTTP协议</title>
+    <link href="http://rookieyin.github.io/87be9444017b/"/>
+    <id>http://rookieyin.github.io/87be9444017b/</id>
+    <published>2022-05-18T14:34:49.000Z</published>
+    <updated>2022-06-12T13:29:41.542Z</updated>
+    
+    
+    <summary type="html">&lt;h2 id=&quot;http协议概述&quot;&gt;HTTP协议概述&lt;/h2&gt;
+&lt;p&gt;HTTP 协议，全称超文本传输协议（Hypertext Transfer Protocol）， &lt;strong&gt;是一个在计算机世界里专门在「两点」之间「传输」文字、图片、音频、视频等「超文本」数据的「约定和规范」。&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;HTTP 是一个无状态（stateless）协议，也就是说服务器不维护任何有关客户端过去所发请求的消息。这其实是一种懒政，有状态协议会更加复杂，需要维护状态（历史信息），而且如果客户或服务器失效，会产生状态的不一致，解决这种不一致的代价更高。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="计算机基础" scheme="http://rookieyin.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/"/>
+    
+    <category term="计算机网络" scheme="http://rookieyin.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/"/>
+    
+    
+    <category term="计算机网络" scheme="http://rookieyin.github.io/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/"/>
+    
+    <category term="HTTP" scheme="http://rookieyin.github.io/tags/HTTP/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>网络分层模型</title>
+    <link href="http://rookieyin.github.io/2cb48d963c94/"/>
+    <id>http://rookieyin.github.io/2cb48d963c94/</id>
+    <published>2022-05-17T14:34:49.000Z</published>
+    <updated>2022-06-12T13:36:02.733Z</updated>
+    
+    
+    <summary type="html">&lt;h2 id=&quot;osi-7层模型&quot;&gt;OSI 7层模型&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;OSI 七层模型&lt;/strong&gt; 是国际标准化组织提出一个网络分层模型，其大体结构以及每一层提供的功能如下图所示：&lt;/p&gt;
+&lt;center&gt;&lt;img src=&quot;/images/osi七层模型.png&quot; style=&quot;width:600px;&quot;&gt;&lt;/img&gt;&lt;/center&gt;</summary>
+    
+    
+    
+    <category term="计算机基础" scheme="http://rookieyin.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/"/>
+    
+    <category term="计算机网络" scheme="http://rookieyin.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/"/>
+    
+    
+    <category term="计算机网络" scheme="http://rookieyin.github.io/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Redis集群</title>
     <link href="http://rookieyin.github.io/621962d42a8e/"/>
     <id>http://rookieyin.github.io/621962d42a8e/</id>
@@ -228,307 +528,6 @@
     <category term="数据库" scheme="http://rookieyin.github.io/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
     
     <category term="redis" scheme="http://rookieyin.github.io/tags/redis/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Redis哨兵</title>
-    <link href="http://rookieyin.github.io/feac293ea536/"/>
-    <id>http://rookieyin.github.io/feac293ea536/</id>
-    <published>2022-05-15T12:38:14.000Z</published>
-    <updated>2022-06-11T13:36:16.158Z</updated>
-    
-    
-    <summary type="html">&lt;p&gt;Redis主从复制的作用有数据热备、负载均衡、故障恢复等；但主从复制存在的一个问题是故障恢复无法自动化。本文将要介绍的哨兵，它基于Redis主从复制，主要作用便是&lt;strong&gt;解决主节点故障恢复的自动化问题&lt;/strong&gt;，进一步提高系统的高可用性。&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="后端" scheme="http://rookieyin.github.io/categories/%E5%90%8E%E7%AB%AF/"/>
-    
-    <category term="Redis" scheme="http://rookieyin.github.io/categories/%E5%90%8E%E7%AB%AF/Redis/"/>
-    
-    
-    <category term="后端" scheme="http://rookieyin.github.io/tags/%E5%90%8E%E7%AB%AF/"/>
-    
-    <category term="数据库" scheme="http://rookieyin.github.io/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
-    
-    <category term="redis" scheme="http://rookieyin.github.io/tags/redis/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>raft算法是个啥</title>
-    <link href="http://rookieyin.github.io/c601abda57b3/"/>
-    <id>http://rookieyin.github.io/c601abda57b3/</id>
-    <published>2022-05-13T12:38:14.000Z</published>
-    <updated>2022-06-01T14:29:19.467Z</updated>
-    
-    
-    <summary type="html">&lt;p&gt;之前学Redis集群相关知识时候遇到过Raft算法，今天系统的学习一下Raft算法的一些细节。&lt;/p&gt;
-&lt;p&gt;在继续往下阅读之前可以，先看一个&lt;a href=&quot;http://thesecretlivesofdata.com/raft/&quot;&gt;动画&lt;/a&gt;，简单了解下Raft算法。或者通过&lt;a href=&quot;https://raft.github.io/raftscope/index.html&quot;&gt;这个&lt;/a&gt;实操一下！&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="分布式" scheme="http://rookieyin.github.io/categories/%E5%88%86%E5%B8%83%E5%BC%8F/"/>
-    
-    
-    <category term="算法" scheme="http://rookieyin.github.io/tags/%E7%AE%97%E6%B3%95/"/>
-    
-    <category term="后端" scheme="http://rookieyin.github.io/tags/%E5%90%8E%E7%AB%AF/"/>
-    
-    <category term="分布式" scheme="http://rookieyin.github.io/tags/%E5%88%86%E5%B8%83%E5%BC%8F/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>rand(7)模拟rand(10)的背后</title>
-    <link href="http://rookieyin.github.io/f85e1f123fb5/"/>
-    <id>http://rookieyin.github.io/f85e1f123fb5/</id>
-    <published>2022-05-07T05:39:48.000Z</published>
-    <updated>2022-06-01T12:47:15.748Z</updated>
-    
-    
-    <summary type="html">&lt;p&gt;刷LeetCode遇到这样一道题：&lt;a href=&quot;https://leetcode.cn/problems/implement-rand10-using-rand7/&quot;&gt;用 Rand7() 实现 Rand10()&lt;/a&gt;，本文以这题为引子，深入探讨一下其背后的一些知识。&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;题目描述如下：&lt;/strong&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;给定方法 rand7 可生成 [1,7] 范围内的均匀随机整数，试写一个方法 rand10 生成 [1,10] 范围内的均匀随机整数。&lt;/p&gt;
-&lt;p&gt;你只能调用 rand7() 且不能调用其他方法。请不要使用系统的 Math.random() 方法。每个测试用例将有一个内部参数 n，即你实现的函数 rand10() 在测试时将被调用的次数。请注意，这不是传递给 rand10() 的参数。&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;</summary>
-    
-    
-    
-    <category term="算法" scheme="http://rookieyin.github.io/categories/%E7%AE%97%E6%B3%95/"/>
-    
-    
-    <category term="算法" scheme="http://rookieyin.github.io/tags/%E7%AE%97%E6%B3%95/"/>
-    
-    <category term="随机化" scheme="http://rookieyin.github.io/tags/%E9%9A%8F%E6%9C%BA%E5%8C%96/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>B-树</title>
-    <link href="http://rookieyin.github.io/1ffc37519baa/"/>
-    <id>http://rookieyin.github.io/1ffc37519baa/</id>
-    <published>2022-05-06T05:39:48.000Z</published>
-    <updated>2022-06-01T12:39:37.612Z</updated>
-    
-    
-    <summary type="html">&lt;h2 id=&quot;b-树&quot;&gt;B-树&lt;/h2&gt;
-&lt;p&gt;B-树，这里的 B 表示 balance( 平衡的意思),B-树是一种多路自平衡的搜索树（B树是&lt;strong&gt;一颗多路平衡查找树&lt;/strong&gt;）&lt;br&gt;
-。它类似普通的平衡二叉树，不同的一点是B-树允许每个节点有更多的子节点。下图是 B-树的简化图：&lt;/p&gt;
-&lt;center&gt;&lt;img src=&quot;/images/1446087-bc023e47bc74cfa1.webp&quot; style=&quot;width:800px;&quot;&gt;&lt;/img&gt;&lt;/center&gt;</summary>
-    
-    
-    
-    <category term="算法" scheme="http://rookieyin.github.io/categories/%E7%AE%97%E6%B3%95/"/>
-    
-    
-    <category term="算法" scheme="http://rookieyin.github.io/tags/%E7%AE%97%E6%B3%95/"/>
-    
-    <category term="树" scheme="http://rookieyin.github.io/tags/%E6%A0%91/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>洗牌算法</title>
-    <link href="http://rookieyin.github.io/8d739821694e/"/>
-    <id>http://rookieyin.github.io/8d739821694e/</id>
-    <published>2022-05-05T05:39:48.000Z</published>
-    <updated>2022-06-01T12:39:00.404Z</updated>
-    
-    
-    <summary type="html">&lt;p&gt;所谓“洗牌算法”，就是把一组序列完全打乱，怎样才算乱呢？需要满足这样一个条件：&lt;strong&gt;对于包含n个元素的序列，每个元素出现在每个位置的概率都是&lt;span class=&quot;katex&quot;&gt;&lt;span class=&quot;katex-mathml&quot;&gt;&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;mn&gt;1&lt;/mn&gt;&lt;mi mathvariant=&quot;normal&quot;&gt;/&lt;/mi&gt;&lt;mi&gt;n&lt;/mi&gt;&lt;/mrow&gt;&lt;annotation encoding=&quot;application/x-tex&quot;&gt;1/n&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&quot;katex-html&quot; aria-hidden=&quot;true&quot;&gt;&lt;span class=&quot;base&quot;&gt;&lt;span class=&quot;strut&quot; style=&quot;height:1em;vertical-align:-0.25em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mord&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;mord&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;mord mathdefault&quot;&gt;n&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;。&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;一种直白的方法就是，统计序列的全排列，然后在全排列集合中随机选取一各排列出来。这种方法虽然简单，但是无论是空间还是时间复杂度都太高了，有没有其他性能更高的算法呢？当然有，本文简单总结下集中常用的洗牌算法。&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="算法" scheme="http://rookieyin.github.io/categories/%E7%AE%97%E6%B3%95/"/>
-    
-    
-    <category term="算法" scheme="http://rookieyin.github.io/tags/%E7%AE%97%E6%B3%95/"/>
-    
-    <category term="随机化" scheme="http://rookieyin.github.io/tags/%E9%9A%8F%E6%9C%BA%E5%8C%96/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>拓扑排序</title>
-    <link href="http://rookieyin.github.io/3da51d7b8480/"/>
-    <id>http://rookieyin.github.io/3da51d7b8480/</id>
-    <published>2022-05-04T05:39:48.000Z</published>
-    <updated>2022-06-01T12:38:02.867Z</updated>
-    
-    
-    <summary type="html">&lt;h2 id=&quot;概述&quot;&gt;概述&lt;/h2&gt;
-&lt;p&gt;拓扑排序，我的理解就是：&lt;strong&gt;有向图&lt;/strong&gt;中所有节点的&lt;strong&gt;一种排列&lt;/strong&gt;，这个排列需要满足下面两个条件：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;序列包含图中所有节点，且每个节点只出现一次；&lt;/li&gt;
-&lt;li&gt;若A在序列中排在B的前面，则图中不存在从B到A的路径。&lt;/li&gt;
-&lt;/ul&gt;</summary>
-    
-    
-    
-    <category term="算法" scheme="http://rookieyin.github.io/categories/%E7%AE%97%E6%B3%95/"/>
-    
-    
-    <category term="算法" scheme="http://rookieyin.github.io/tags/%E7%AE%97%E6%B3%95/"/>
-    
-    <category term="排序" scheme="http://rookieyin.github.io/tags/%E6%8E%92%E5%BA%8F/"/>
-    
-    <category term="图" scheme="http://rookieyin.github.io/tags/%E5%9B%BE/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>平衡二叉树</title>
-    <link href="http://rookieyin.github.io/325f8721ea9c/"/>
-    <id>http://rookieyin.github.io/325f8721ea9c/</id>
-    <published>2022-05-03T05:39:48.000Z</published>
-    <updated>2022-06-01T12:37:18.002Z</updated>
-    
-    
-    <summary type="html">&lt;p&gt;平衡二叉树（Balanced Binary Tree）具有以下性质：它是一棵空树或它的左右两个子树的高度差的绝对值不超过1，并且左右两个子树都是一棵平衡二叉树。平衡二叉树的常用实现方法有红黑树、AVL、替罪羊树、Treap、伸展树等。 最小二叉平衡树的节点的公式如下 F(n)=F(n-1)+F(n-2)+1 这个类似于一个递归的数列，可以参考Fibonacci数列，1是根节点，F(n-1)是左子树的节点数量，F(n-2)是右子树的节点数量。&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="算法" scheme="http://rookieyin.github.io/categories/%E7%AE%97%E6%B3%95/"/>
-    
-    
-    <category term="算法" scheme="http://rookieyin.github.io/tags/%E7%AE%97%E6%B3%95/"/>
-    
-    <category term="二叉树" scheme="http://rookieyin.github.io/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/"/>
-    
-    <category term="排序" scheme="http://rookieyin.github.io/tags/%E6%8E%92%E5%BA%8F/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>并查集</title>
-    <link href="http://rookieyin.github.io/14bdfa95fb86/"/>
-    <id>http://rookieyin.github.io/14bdfa95fb86/</id>
-    <published>2022-05-03T05:39:48.000Z</published>
-    <updated>2022-06-01T12:33:14.785Z</updated>
-    
-    
-    <summary type="html">&lt;p&gt;并查集，是一种高级数据结构，常用于&lt;strong&gt;数据分组&lt;/strong&gt;问题。本文简单介绍一下并查集相关概念以及实现方法，并附带一些leetcode练习题。&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="算法" scheme="http://rookieyin.github.io/categories/%E7%AE%97%E6%B3%95/"/>
-    
-    
-    <category term="算法" scheme="http://rookieyin.github.io/tags/%E7%AE%97%E6%B3%95/"/>
-    
-    <category term="并查集" scheme="http://rookieyin.github.io/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>链表排序</title>
-    <link href="http://rookieyin.github.io/f106f4426061/"/>
-    <id>http://rookieyin.github.io/f106f4426061/</id>
-    <published>2022-05-02T05:39:48.000Z</published>
-    <updated>2022-06-01T12:25:22.060Z</updated>
-    
-    
-    <summary type="html">&lt;p&gt;&lt;a href=&quot;https://leetcode.cn/problems/sort-list/&quot;&gt;148. 排序链表&lt;/a&gt;的最优方法应该是归并排序，鉴于面试时候经常会问链表快排，本文简单总结下链表排序的归并和快排方法。至于插入排序或者冒泡排序什么的，比较简单，本文不作介绍。&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="算法" scheme="http://rookieyin.github.io/categories/%E7%AE%97%E6%B3%95/"/>
-    
-    
-    <category term="算法" scheme="http://rookieyin.github.io/tags/%E7%AE%97%E6%B3%95/"/>
-    
-    <category term="排序" scheme="http://rookieyin.github.io/tags/%E6%8E%92%E5%BA%8F/"/>
-    
-    <category term="链表" scheme="http://rookieyin.github.io/tags/%E9%93%BE%E8%A1%A8/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>01背包问题总结</title>
-    <link href="http://rookieyin.github.io/a66897223478/"/>
-    <id>http://rookieyin.github.io/a66897223478/</id>
-    <published>2022-04-19T05:39:48.000Z</published>
-    <updated>2022-06-01T12:31:08.799Z</updated>
-    
-    
-    <summary type="html">&lt;p&gt;最近刷leetcode过程中遇到了很多背包问题，趁此机会总结下如何用动态规划解决背包问题及其各种变体。&lt;/p&gt;
-&lt;h4 id=&quot;写在前面：&quot;&gt;&lt;strong&gt;写在前面：&lt;/strong&gt;&lt;/h4&gt;
-&lt;p&gt;本文适合有一定dp基础的读者阅读，用来复习回顾背包相关问题，遇到类似问题可快速秒掉。&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="算法" scheme="http://rookieyin.github.io/categories/%E7%AE%97%E6%B3%95/"/>
-    
-    
-    <category term="算法" scheme="http://rookieyin.github.io/tags/%E7%AE%97%E6%B3%95/"/>
-    
-    <category term="动态规划" scheme="http://rookieyin.github.io/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/"/>
-    
-    <category term="01背包" scheme="http://rookieyin.github.io/tags/01%E8%83%8C%E5%8C%85/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>谈谈一致性哈希算法</title>
-    <link href="http://rookieyin.github.io/8a4e41d05d43/"/>
-    <id>http://rookieyin.github.io/8a4e41d05d43/</id>
-    <published>2022-04-08T12:38:14.000Z</published>
-    <updated>2022-06-01T14:28:00.157Z</updated>
-    
-    
-    <summary type="html">&lt;p&gt;这篇文章主要搬运自&lt;a href=&quot;https://segmentfault.com/a/1190000021199728&quot;&gt;这里&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;之前学习Redis集群的数据分区方案时，了解到“一致性hash算法”，今天来详细探究一下一致性hash背后的事儿！&lt;/p&gt;
-&lt;p&gt;一致性hash算法主要用于解决分布式环境下的数据分区和负载均衡问题：&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;分布式环境下，如何确定那个key存储在那个节点上呢？&lt;/li&gt;
-&lt;li&gt;如何保证数据或者请求分布均衡呢？也就是我们常说的负载均衡？&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;利用一致性hash就能很好的解决上面两个问题。&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="分布式" scheme="http://rookieyin.github.io/categories/%E5%88%86%E5%B8%83%E5%BC%8F/"/>
-    
-    
-    <category term="算法" scheme="http://rookieyin.github.io/tags/%E7%AE%97%E6%B3%95/"/>
-    
-    <category term="后端" scheme="http://rookieyin.github.io/tags/%E5%90%8E%E7%AB%AF/"/>
-    
-    <category term="分布式" scheme="http://rookieyin.github.io/tags/%E5%88%86%E5%B8%83%E5%BC%8F/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>三色标记</title>
-    <link href="http://rookieyin.github.io/2bc0970c0089/"/>
-    <id>http://rookieyin.github.io/2bc0970c0089/</id>
-    <published>2022-03-17T14:34:49.000Z</published>
-    <updated>2022-06-11T13:24:55.026Z</updated>
-    
-    
-    <summary type="html">&lt;p&gt;本文转自：&lt;a href=&quot;https://www.modb.pro/db/128997&quot;&gt;你对JVM三色标记的理解嘛？&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;三色标记法是一种垃圾回收法，它可以让JVM不发生或仅短时间发生STW(Stop The World)，从而达到清除JVM内存垃圾的目的。JVM中的&lt;strong&gt;CMS、G1垃圾回收器&lt;/strong&gt;所使用垃圾回收算法即为三色标记法。&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="后端" scheme="http://rookieyin.github.io/categories/%E5%90%8E%E7%AB%AF/"/>
-    
-    <category term="Java" scheme="http://rookieyin.github.io/categories/%E5%90%8E%E7%AB%AF/Java/"/>
-    
-    <category term="JVM" scheme="http://rookieyin.github.io/categories/%E5%90%8E%E7%AB%AF/Java/JVM/"/>
-    
-    
-    <category term="后端" scheme="http://rookieyin.github.io/tags/%E5%90%8E%E7%AB%AF/"/>
-    
-    <category term="Java" scheme="http://rookieyin.github.io/tags/Java/"/>
-    
-    <category term="JVM" scheme="http://rookieyin.github.io/tags/JVM/"/>
     
   </entry>
   
