@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+
+
+<html lang="zh-CN">
+  
+
+    <head>
+      <meta name="baidu-site-verification" content="code-rk2CNV4xgj" />
+      <meta charset="utf-8" />
+        
+      <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1"
+      />
+      <title>MySQL事务 |  RookieYin&#39;s Note</title>
+  <meta name="generator" content="hexo-theme-ayer">
+      
+      <link rel="shortcut icon" href="/images/2.jpg" />
+       
+<link rel="stylesheet" href="/dist/main.css">
+
+      <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/Shen-Yu/cdn/css/remixicon.min.css"
+      />
+      
+<link rel="stylesheet" href="/css/custom.css">
+ 
+      <script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+       
+ 
+
+      <!-- mermaid -->
+      
+    <link rel="alternate" href="/atom.xml" title="RookieYin's Note" type="application/atom+xml">
+<link href="https://cdn.bootcss.com/KaTeX/0.11.1/katex.min.css" rel="stylesheet" /></head>
+  </html>
+</html>
+
+
+<body>
+<div id="app">
+    
+    
+    <div class="sidebar">
+        <!--<button class="navbar-toggle"></button>-->
+<nav class="navbar">
+  <div class="logo">
+    <a href="/">
+      <img src="/images/2.jpg"
+           style="border-radius: 50%;max-width: none;">
+    </a>
+  </div>
+  <div class = nav-title style="font-size: 2.5rem;color: #ffffff;margin-left: 4rem;font-weight: bold;min-width: 23rem">
+    RookieYin's Note
+  </div>
+  <div class="nav nav-main">
+    
+    <div class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </div>
+    
+    <div class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </div>
+    
+    <div class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </div>
+    
+    <div class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </div>
+    
+    <div class="nav-item">
+      <a class="nav-item-link" href="/friends">友链</a>
+    </div>
+    
+    <div class="nav-item">
+      <a class="nav-item-link" href="/about-me/2021">关于我</a>
+    </div>
+    
+      <div class="nav-item">
+        <div class="nav-item-link navbar-menu-wrap">
+          <div class="navbar-menu"></div>
+        </div>
+      </div>
+    <div class = "nav-item">
+      <a class="nav-item-link nav-item-search"  title="搜索">
+        <i class="ri-search-line"></i>
+      </a>
+    </div>
+  </div>
+</nav>
+<nav class="navbar2">
+  <div style="position: relative;">
+      <div style="height: 4.8rem;display: inline-block;margin-top:1rem;margin-left:1rem;">
+        <a href="/">
+          <img src="/images/2.jpg"
+               style="border-radius: 50%;max-width: none;width:4.8rem">
+        </a>
+      </div>
+    <div class="navbar-title2" style="font-size: 2.5rem;color: #ffffff;margin-left: 4rem;font-weight: bold;margin-top:1rem;
+    min-width: 23rem;height: 4.8rem;overflow: hidden;">
+      <span style="line-height: 4.8rem;">RookieYin's Note</span>
+    </div>
+    <div style="display: inline-block;position: absolute;top:50%;height:50%;transform:translate(-50%,-50%);right:4rem;margin-top: 1rem;">
+      <div class="navbar-menu-wrap">
+        <div class="navbar-menu"></div>
+      </div>
+    </div>
+    <div style="display: inline-block;position: absolute;top:50%;height:50%;transform:translate(-50%,-50%);right:0;">
+      <a class="nav-item-search"  title="搜索">
+        <i class="ri-search-line"></i>
+      </a>
+    </div>
+  </div>
+  <div style="display: inline-block;text-align: center;width: 100%;padding-bottom: 1rem;">
+    
+    <div class="nav-item2">
+      <a class="nav-item-link2" href="/">主页</a>
+    </div>
+    
+    <div class="nav-item2">
+      <a class="nav-item-link2" href="/archives">归档</a>
+    </div>
+    
+    <div class="nav-item2">
+      <a class="nav-item-link2" href="/categories">分类</a>
+    </div>
+    
+    <div class="nav-item2">
+      <a class="nav-item-link2" href="/tags">标签</a>
+    </div>
+    
+    <div class="nav-item2">
+      <a class="nav-item-link2" href="/friends">友链</a>
+    </div>
+    
+    <div class="nav-item2">
+      <a class="nav-item-link2" href="/about-me/2021">关于我</a>
+    </div>
+    
+  </div>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+
+    </div>
+    <main class="content">
+        <section class="outer">
+  <article
+  id="post-2 后端/MySQL/4. MySQL事务"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  MySQL事务
+</h1>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/06aa555bdbf7/" class="article-date">
+  <time datetime="2021-12-11T12:38:14.000Z" itemprop="datePublished">2021-12-11</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a> / <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/MySQL/">MySQL</a>
+  </div>
+
+  
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> 字数统计:</span>
+            <span class="post-count">3.8k</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> 阅读时长≈</span>
+            <span class="post-count">13 分钟</span>
+        </span>
+    </span>
+</div>
+ 
+    </div>
+      
+    <div class="tocbot"></div>
+
+
+
+
+  
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h1>MySQL事务</h1>
+<p>何为事务？事务即一组操作，这组操作要么都执行，要么都不执行。事务是数据库区别文件系统的重要特性之一。数据库中引入事务的主要目的在于：<strong>事务会把数据库从一种一致状态转换为另一种一致状态。在数据库提交工作时，可以确保所有修改都已经保存，或者所有修改都不被保存</strong>。</p>
+<a id="more"></a>
+<h2 id="1-事务概述">1 事务概述</h2>
+<h3 id="1-1-acid特性">1.1 ACID特性</h3>
+<p>关系型数据库（例如：<code>MySQL</code>、<code>SQL Server</code>、<code>Oracle</code> 等）事务都有 <strong>ACID</strong> 特性：</p>
+<ol>
+<li><strong>原子性</strong>（<code>Atomicity</code>） ： 事务是最小的执行单位，不允许分割。事务的原子性确保动作要么全部完成，要么完全不起作用；</li>
+<li><strong>一致性</strong>（<code>Consistency</code>）： 执行事务前后，数据保持一致，例如转账业务中，无论事务是否成功，转账者和收款人的总额应该是不变的；</li>
+<li><strong>隔离性</strong>（<code>Isolation</code>）： 并发访问数据库时，一个用户的事务不被其他事务所干扰，各并发事务之间数据库是独立的；</li>
+<li><strong>持久性</strong>（<code>Durability</code>）： 一个事务被提交之后。它对数据库中数据的改变是持久的，即使数据库发生故障也不应该对其有任何影响。</li>
+</ol>
+<h3 id="1-2-事务分类">1.2 事务分类</h3>
+<ul>
+<li><strong>扁平事务</strong>：所有操作处于同一层次，其所有操作都是原子的，要么都执行，要么都回滚。它是最简单，但是实际生产环境中使用最频繁的事务。</li>
+<li><strong>带有保存点的扁平事务</strong>：在扁平事务中指定一些保存点，允许每次回滚到某个保存点。</li>
+<li><strong>链式事务</strong>：可以看作保存点事务的一种变体，相当于把原来带若干个保存点的扁平事务，从保存点拆分成若干个小事务，然后把这些小事务链到一起。其本质是：将提交事务和下一个事务的开始合并成一个原子操作，这样系统崩溃时，可以回滚到最近执行完的小事务时的状态。
+<ul>
+<li>目的：解决带保存点扁平事务，保存点不能持久化的问题；</li>
+<li>和保存点扁平事务的区别：链式事务只能回滚到最近一次保存点（相当于小事务），而带保存点的扁平事务可以回滚到任意保存点。</li>
+</ul>
+</li>
+<li><strong>嵌套事务</strong>：在一个根事务中调用子事务，同样子事务中可以调用子子事务，以此类推。需要注意的是，InnoDB不支持该类型事务。</li>
+<li><strong>分布式事务</strong>：事务中的操作需要访问不同网络节点。比如将“ATM机上从招行储蓄卡向工行储蓄卡转账”看做一个事务，那么该事务设计到ATM、招行数据库、工行数据库三个不同节点。</li>
+</ul>
+<h2 id="2-事务隔离级别">2 事务隔离级别</h2>
+<h3 id="2-1-并发事务带来的问题">2.1 并发事务带来的问题</h3>
+<p>在典型的应用程序中，多个事务并发运行，经常会操作相同的数据来完成各自的任务（多个用户对同一数据进行操作）。并发虽然是必须的，但可能会导致以下的问题：</p>
+<ol>
+<li>
+<p><strong>脏读</strong>：<strong>使用未提交数据</strong>。当一个事务正在访问数据并且对数据进行了修改，而这种修改还没有提交到数据库中，这时另外一个事务也访问了这个数据，然后使用了这个数据。因为这个数据是还没有提交的数据，那么另外一个事务读到的这个数据是“脏数据”，依据“脏数据”所做的操作可能是不正确的。</p>
+</li>
+<li>
+<p><strong>丢失修改</strong>：同时写。指在一个事务读取一个数据时，另外一个事务也访问了该数据，那么在第一个事务中修改了这个数据后，第二个事务也修改了这个数据。这样第一个事务内的修改结果就被丢失，因此称为丢失修改。 例如：事务 1 读取某表中的数据 A=20，事务 2 也读取 A=20，事务 1 修改 A=A-1，事务 2 也修改 A=A-1，最终结果 A=19，事务 1 的修改被丢失。</p>
+</li>
+<li>
+<p><strong>不可重复读</strong>： 读的过程中数据被修改。指在一个事务内多次读同一数据。在这个事务还没有结束时，另一个事务也访问该数据。那么，在第一个事务中的两次读数据之间，由于第二个事务的修改导致第一个事务两次读取的数据可能不太一样。这就发生了在一个事务内两次读到的数据是不一样的情况，因此称为不可重复读。</p>
+</li>
+<li>
+<p><strong>幻读</strong>： 幻读与不可重复读类似， 指当事务不是独立执行时发生的一种现象。例如第一个事务对一个表中的数据进行了修改，比如这种修改涉及到表中的“全部数据行”。同时，第二个事务也修改这个表中的数据，这种修改是向表中<strong>插入</strong>“一行新数据”。那么，以后就会发生操作第一个事务的用户发现表中还存在没有修改的数据行，就好象发生了幻觉一样.一般解决幻读的方法是增加范围锁RangeS，锁定检索范围为只读，这样就避免了幻读。</p>
+<p><em>注：注意幻读和不可重复读的区分，幻读指 <strong>前后多次读取，数据总量不一致</strong> ，不可重复读指 <strong>前后多次读取，数据内容不一致</strong> 。</em></p>
+</li>
+</ol>
+<h3 id="2-2-隔离级别">2.2 隔离级别</h3>
+<p>SQL标准定义了4中隔离级别：</p>
+<ul>
+<li><strong>READ-UNCOMMITTED</strong> ： 最低的隔离级别，允许读取尚未提交的数据变更，<strong>可能会导致脏读、幻读或不可重复读</strong>。</li>
+<li><strong>READ-COMMITTED</strong> ： 允许读取并发事务已经提交的数据，<strong>可以阻止脏读，但是幻读或不可重复读仍有可能发生</strong>。</li>
+<li><strong>REPEATABLE-READ</strong>： 对同一字段的多次读取结果都是一致的，除非数据是被本身事务自己所修改，<strong>可以阻止脏读和不可重复读，但幻读仍有可能发生</strong>。</li>
+<li><strong>SERIALIZABLE</strong> ： 最高的隔离级别，完全服从 ACID 的隔离级别。所有的事务依次逐个执行，这样事务之间就完全不可能产生干扰，也就是说，<strong>该级别可以防止脏读、不可重复读以及幻读</strong>。</li>
+</ul>
+<p>InnoDB默认支持的隔离级别是<strong>REPEATABLE-READ</strong>，但是与标准SQL不同的是，InNoDB存储引擎在<strong>REPEATABLE-READ</strong>事务隔离级别下，使用<strong>Next-Key Lock锁</strong>算法，因此<strong>避免幻读</strong>的产生。所以说，InNoDB在默认的<strong>REPEATABLE-READ</strong>下的事务隔离级别已经达到了SQL标准的 <strong>SERIALIZABLE</strong>隔离级别。</p>
+<h2 id="3-事务实现原理">3 事务实现原理</h2>
+<p>以MySQL的InnoDB为例：</p>
+<ul>
+<li>使用 <strong>redo log(重做日志)</strong> 保证事务的<strong>持久性</strong> ；</li>
+<li>使用 <strong>undo log(回滚日志)</strong> 来保证事务的<strong>原子性</strong>；</li>
+<li>通过 <strong>锁机制</strong>、<strong>MVCC</strong> 等手段来保证事务的<strong>隔离性</strong>（ 默认支持的隔离级别是 <strong><code>REPEATABLE-READ</code></strong> ）。</li>
+</ul>
+<p>保证了事务的持久性、原子性、隔离性之后，一致性才能得到保障。</p>
+<h3 id="3-1-redo-log">3.1 redo log</h3>
+<h4 id="3-1-1-redo概述">3.1.1 redo概述</h4>
+<p>重做日志用来实现事务的持久性，由两部分组成：一是内存中的<strong>重做日志缓存</strong>，它是易失的；二是<strong>重做日志文件</strong>，它是持久的。当 <code>MySQL</code> 实例挂了或宕机了，重启时，<code>InnoDB</code>存储引擎会使用<code>redo log</code>恢复数据，保证数据的持久性与完整性。</p>
+<p><code>MySQL</code> 中数据是以页为单位，你查询一条记录，会从硬盘把一页的数据加载出来，加载出来的数据叫数据页，会放入到 <code>Buffer Pool</code> 中。后续的查询都是先从 <code>Buffer Pool</code> 中找，没有命中再去硬盘加载，减少硬盘 <code>IO</code> 开销，提升性能。更新表数据的时候，也是如此，发现 <code>Buffer Pool</code> 里存在要更新的数据，就直接在 <code>Buffer Pool</code> 里更新。然后会把“在某个数据页上做了什么修改”记录到重做日志缓存（<code>redo log buffer</code>）里，接着刷盘到 <code>redo log file</code> 里。</p>
+<center><img src="/images/03.png" style="width:500px;"></img></center>
+<p>如上图所示，每提交一个事务，buffer都应该执行一次fsync操作，将缓存中的数据写入file中。但是InnoDB允许用户手工设置非持久性的情况发生，以提高数据库的性能。即当事务提交时，日志不写入重做日志文件，而是等待一个时间周期后再执行fsync操作。下面介绍下redo的刷盘策略。</p>
+<h4 id="3-1-2-刷盘策略">3.1.2 刷盘策略</h4>
+<p>InnoDB存储引擎为刷盘策略提供了参数<code> innodb_flush_log_at_trx_commit</code>，它支持3种策略：</p>
+<ul>
+<li><strong>0</strong> ：设置为 0 的时候，表示每次事务提交时不进行刷盘操作，这个操作仅在master thread中完成，而在master thread中每1秒进行一次重做日志文件的fsync操作。</li>
+<li><strong>1</strong> ：设置为 1 的时候，表示每次事务提交时都将进行刷盘操作（默认值）。</li>
+<li><strong>2</strong> ：设置为 2 的时候，表示每次事务提交时都只把 redo log buffer 内容写入文件系统的缓存中，不进行fsync。这种情况下数据库宕机不会丢失数据，操作系统宕机会丢失文件系统cache中的数据。</li>
+</ul>
+<p><em>注： 当 <code>redo log buffer</code> 占用的空间即将达到 <code>innodb_log_buffer_size</code> 一半的时候，后台线程会主动刷盘。</em></p>
+<h4 id="3-1-3-对比binlog">3.1.3 对比binlog</h4>
+<p>binlog和redo log看起来都是记录了对于数据库操作的日志，但是两者存在很多区别：</p>
+<ol>
+<li>binglog是MySQL数据库上层产生的，redo log是InnoDB存储引擎中产生的；</li>
+<li>binlog记录的时SQL语句（逻辑日志），redo log记录的是页更改信息（物理日志）；</li>
+<li>binlog只在事务提交完成后进行一次写入，而redo log是随着事务的进行而不断写入。</li>
+</ol>
+<h4 id="3-1-4-log-block">3.1.4 log block</h4>
+<p>在InnoDB存储引擎中，重做日志（包括缓存和文件）都是以512字节大小的块方式进行存储的，称之为重做日志块。若一个页中产生的重做日志数量大于512字节，就需要分割成多个重做日志块进行存储。每个存储块包含3个部分：日志块头（12字节）、日志块尾（8字节）和日志数据（492字节）。</p>
+<h4 id="3-1-5-log-group">3.1.5 log group</h4>
+<p>硬盘上存储的 <code>redo log</code> 日志文件不只一个，而是以一个<strong>日志文件组</strong>的形式出现的，每个的<code>redo</code>日志文件大小都是一样的。 文件组只是1个逻辑上的概念，并没有1个实际物理文件来表示log group信息。</p>
+<h4 id="3-1-6-lsn">3.1.6 LSN</h4>
+<p>LSN（Log Sequence Number），代表日志序列号。在InnoDB中，LSN占用8个字节，且单调递增，它可以表示3中含义：</p>
+<ul>
+<li>
+<p><strong>重做日志写入的总量</strong></p>
+<p>比如当前重做日志LSN的值为1000，有1个事务写入了100字节的日志，那么LSN的值变成1100。</p>
+</li>
+<li>
+<p><strong>checkpoint的位置</strong></p>
+<p>表示已经刷新到磁盘页上的LSN。</p>
+</li>
+<li>
+<p><strong>页的版本</strong></p>
+<p>在每个页的头部，有一个值FIL_PAGE_LSN，记录了该页的LSN。在页中，LSN表示该页最后刷新时LSN的大小</p>
+</li>
+</ul>
+<p>通过SHOW ENGINE INNODB STATUS可以查看LSN的情况。</p>
+<p>LSN的一个重要功能就是用于数据恢复。InnoDB存储引擎在启动时不管上次数据库连接是否正常关闭，都会尝试进行恢复操作。具体做法就是：对比checkpoint（即磁盘页上的LSN）和重做日志上的LSN，如果两者不一致，比如checkpoint为1000，而重做日志LSN为1300，则恢复1000~1300之间的数据。</p>
+<h3 id="3-2-undo-log">3.2 undo log</h3>
+<p>undo log是回滚日志，用于事务执行失败或者用户发起ROLLBACK时的会滚操作。所有事务的修改操作都会先记录到这个回滚日志中，然后再进行操作。undo log具有以下特性：</p>
+<ol>
+<li>undo log是<strong>逻辑日志</strong>，只能将数据库逻辑地恢复到原来的样子，但是数据库的页结构可能发生了很大变化。在回滚时，InnoDB执行的其实是一个相反操作，比如要回滚一条INSERT语句时，会执行一条DELETE语句。</li>
+<li>undo log存放在数据库内部的<strong>一个特殊段</strong>，称之为undo segment，它位于共享表空间内。</li>
+<li>在使用undo log进行回滚时，也会产生redo log。</li>
+</ol>
+<p>undo log可以分为两种：insert undo和undate undo。insert undo log只对产生该条记录的事务可见，事务commit后即可删除，而undate undo 则不行。因为undate undo是对delete和update操作产生的日志，该日志可能需要提供MVCC机制，因此不能在事务提交后立即删除，而是由purge线程进行最后删除。</p>
+<p><em>注：对于delete操作产生的undo log其实是将该条数据的del_flag字段置为1；对于update操作，是将该条数据的del_flag操作置为1，再插入一条新数据。</em></p>
+<h3 id="3-3-两阶段提交">3.3 两阶段提交</h3>
+<p>两阶段提交是为了解决binglog和redo log之间一致性问题而提出的一种方案。</p>
+<h4 id="3-3-1-数据不一致问题">3.3.1 数据不一致问题</h4>
+<p>在执行更新语句过程，会记录<code>redo log</code>与<code>binlog</code>两块日志，以基本的事务为单位，<code>redo log</code>在事务执行过程中可以不断写入，而<code>binlog</code>只有在提交事务时才写入，所以<code>redo log</code>与<code>binlog</code>的写入时机不一样。</p>
+<p>我们以<code>update</code>语句为例，假设<code>id=2</code>的记录，字段<code>c</code>值是<code>0</code>，把字段<code>c</code>值更新成<code>1</code>，<code>SQL</code>语句为<code>update T set c=1 where id=2</code>。</p>
+<p>假设执行过程中写完<code>redo log</code>日志后，<code>binlog</code>日志写期间发生了异常，会出现什么情况呢？</p>
+<p>由于<code>binlog</code>没写完就异常，这时候<code>binlog</code>里面没有对应的修改记录。因此，之后用<code>binlog</code>日志恢复数据时，就会少这一次更新，恢复出来的这一行<code>c</code>值是<code>0</code>，而原库因为<code>redo log</code>日志恢复，这一行<code>c</code>值是<code>1</code>，最终数据不一致。</p>
+<center><img src="/images/03-20220305235104445.png" style="width:500px;"></img></center>
+<h4 id="3-3-2-解决方案">3.3.2 解决方案</h4>
+<p>为了解决两份日志之间的逻辑一致问题，<code>InnoDB</code>存储引擎使用<strong>两阶段提交</strong>方案。</p>
+<p>原理很简单，将<code>redo log</code>的写入拆成了两个步骤<code>prepare</code>和<code>commit</code>，这就是<strong>两阶段提交</strong>。</p>
+<center><img src="/images/04-20220305234956774.png" style="width:500px;"></img></center>
+<p>使用<strong>两阶段提交</strong>后，写入<code>binlog</code>时发生异常也不会有影响，因为<code>MySQL</code>根据<code>redo log</code>日志恢复数据时，发现<code>redo log</code>还处于<code>prepare</code>阶段，并且没有对应<code>binlog</code>日志，就会回滚该事务。</p>
+<p><em>注：如果redo log阶段更新出错，是否会回滚？不会，因为MySQL发现该事务存在于binlog中，即使redo log处于准备阶段，也不会进行回滚。</em></p>
+ 
+      <!-- reward -->
+      
+      <div id="reword-out">
+        <div id="reward-btn">
+          打赏
+        </div>
+      </div>
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <div class="declare">
+      <ul class="post-copyright">
+        <li>
+          <i class="ri-copyright-line"></i>
+          <strong>版权声明： </strong>
+          
+          本博客所有文章除特别声明外，著作权归作者所有。转载请注明出处！
+          
+        </li>
+      </ul>
+    </div>
+    
+    <footer class="article-footer">
+       
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<!--<div class="wx-share-modal">-->
+<!--    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>-->
+<!--    <p>扫一扫，分享到微信</p>-->
+<!--    <div class="wx-qrcode">-->
+<!--      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://rookieyin.github.io/06aa555bdbf7/" alt="微信分享二维码">-->
+<!--    </div>-->
+<!--</div>-->
+
+<div id="share-mask"></div>
+  
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MySQL/" rel="tag">MySQL</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%90%8E%E7%AB%AF/" rel="tag">后端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="tag">数据库</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+  <nav class="article-nav">
+    
+      <a href="/f7547b80614e/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            InnoDB中的MVCC
+          
+        </div>
+      </a>
+    
+    
+      <a href="/f4457fe10c6c/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">InnoDB数据的存储</div>
+      </a>
+    
+  </nav>
+
+   
+<!-- valine评论 -->
+<div id="vcomments-box">
+  <div id="vcomments"></div>
+</div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js"></script>
+<script>
+  new Valine({
+    el: "#vcomments",
+    app_id: "f9XmUV7HVprPCNptggBNBhWR-gzGzoHsz",
+    app_key: "H73Viqo3lADopEFgshq3XrXs",
+    path: window.location.pathname,
+    avatar: "monsterid",
+    placeholder: "给我的文章加点评论吧~",
+    recordIP: true,
+  });
+  const infoEle = document.querySelector("#vcomments .info");
+  if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+    infoEle.childNodes.forEach(function (item) {
+      item.parentNode.removeChild(item);
+    });
+  }
+</script>
+<style>
+  #vcomments-box {
+    padding: 5px 30px;
+  }
+
+  @media screen and (max-width: 800px) {
+    #vcomments-box {
+      padding: 5px 0px;
+    }
+  }
+
+  #vcomments-box #vcomments {
+    background-color: #fff;
+  }
+
+  .v .vlist .vcard .vh {
+    padding-right: 20px;
+  }
+
+  .v .vlist .vcard {
+    padding-left: 10px;
+  }
+</style>
+
+ 
+   
+     
+</article>
+
+</section>
+        <footer class="footer">
+  <div class="outer">
+    <ul>
+      <li>
+        Copyrights &copy;
+        2021-2022
+        <i class="ri-heart-fill heart_icon"></i> Yin Peng
+      </li>
+    </ul>
+    <ul>
+      <li>引擎:
+        <a style="color: #0681d0" target="_blank" rel="noopener" href="https://hexo.io/zh-cn/">Hexo</a>
+        &nbsp;&nbsp;|&nbsp;&nbsp;主题:修改自
+        <a style="color: #0681d0" target="_blank" rel="noopener" href="https://shen-yu.gitee.io/">Ayer</a>
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        <span>
+  <span><i class="ri-user-3-fill"></i>访问人数:<span id="busuanzi_value_site_uv"></span></span>
+  <span class="division">|</span>
+  <span><i class="ri-eye-fill"></i>浏览次数:<span id="busuanzi_value_page_pv"></span></span>
+</span>
+        
+      </li>
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      <li>
+        <!-- cnzz统计 -->
+        
+        <script type="text/javascript" src='https://s9.cnzz.com/z_stat.php?id=1278069914&amp;web_id=1278069914'></script>
+        
+      </li>
+    </ul>
+  </div>
+</footer>
+
+        <div class="float_btns">
+            <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+
+<div class="todark" id="todark">
+  <i class="ri-moon-line"></i>
+</div>
+
+        </div>
+    </main>
+
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/alipay.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/wxpay.png">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-2.0.3.min.js"></script>
+ 
+<script src="/js/lazyload.min.js"></script>
+
+<!-- Tocbot -->
+ 
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  tocbot.init({
+    tocSelector: ".tocbot",
+    contentSelector: ".article-entry",
+    headingSelector: "h1, h2, h3, h4, h5, h6",
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: "main",
+    positionFixedSelector: ".tocbot",
+    positionFixedClass: "is-position-fixed",
+    fixedSidebarOffset: "auto",
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.js"></script>
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.css"
+/>
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js"></script>
+
+<script src="/dist/main.js"></script>
+
+<!-- ImageViewer -->
+ <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css">
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script> 
+<!-- MathJax -->
+
+<!-- Katex -->
+
+<!-- busuanzi  -->
+ 
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+ 
+<!-- ClickLove -->
+ 
+<script src="/js/clickLove.js"></script>
+ 
+<!-- ClickBoom1 -->
+
+<!-- ClickBoom2 -->
+
+<!-- CodeCopy -->
+ 
+<link rel="stylesheet" href="/css/clipboard.css">
+ <script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="ri-file-copy-2-line"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-checkbox-circle-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-checkbox-circle-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-time-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-time-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+ 
+<!-- CanvasBackground -->
+
+<script>
+  if (window.mermaid) {
+    mermaid.initialize({ theme: "forest" });
+  }
+</script>
+
+
+    
+</div>
+</body>
+
+</html>

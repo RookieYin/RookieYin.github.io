@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+
+
+<html lang="zh-CN">
+  
+
+    <head>
+      <meta name="baidu-site-verification" content="code-rk2CNV4xgj" />
+      <meta charset="utf-8" />
+        
+      <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1"
+      />
+      <title>InnoDB数据的存储 |  RookieYin&#39;s Note</title>
+  <meta name="generator" content="hexo-theme-ayer">
+      
+      <link rel="shortcut icon" href="/images/2.jpg" />
+       
+<link rel="stylesheet" href="/dist/main.css">
+
+      <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/Shen-Yu/cdn/css/remixicon.min.css"
+      />
+      
+<link rel="stylesheet" href="/css/custom.css">
+ 
+      <script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+       
+ 
+
+      <!-- mermaid -->
+      
+    <link rel="alternate" href="/atom.xml" title="RookieYin's Note" type="application/atom+xml">
+<link href="https://cdn.bootcss.com/KaTeX/0.11.1/katex.min.css" rel="stylesheet" /></head>
+  </html>
+</html>
+
+
+<body>
+<div id="app">
+    
+    
+    <div class="sidebar">
+        <!--<button class="navbar-toggle"></button>-->
+<nav class="navbar">
+  <div class="logo">
+    <a href="/">
+      <img src="/images/2.jpg"
+           style="border-radius: 50%;max-width: none;">
+    </a>
+  </div>
+  <div class = nav-title style="font-size: 2.5rem;color: #ffffff;margin-left: 4rem;font-weight: bold;min-width: 23rem">
+    RookieYin's Note
+  </div>
+  <div class="nav nav-main">
+    
+    <div class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </div>
+    
+    <div class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </div>
+    
+    <div class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </div>
+    
+    <div class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </div>
+    
+    <div class="nav-item">
+      <a class="nav-item-link" href="/friends">友链</a>
+    </div>
+    
+    <div class="nav-item">
+      <a class="nav-item-link" href="/about-me/2021">关于我</a>
+    </div>
+    
+      <div class="nav-item">
+        <div class="nav-item-link navbar-menu-wrap">
+          <div class="navbar-menu"></div>
+        </div>
+      </div>
+    <div class = "nav-item">
+      <a class="nav-item-link nav-item-search"  title="搜索">
+        <i class="ri-search-line"></i>
+      </a>
+    </div>
+  </div>
+</nav>
+<nav class="navbar2">
+  <div style="position: relative;">
+      <div style="height: 4.8rem;display: inline-block;margin-top:1rem;margin-left:1rem;">
+        <a href="/">
+          <img src="/images/2.jpg"
+               style="border-radius: 50%;max-width: none;width:4.8rem">
+        </a>
+      </div>
+    <div class="navbar-title2" style="font-size: 2.5rem;color: #ffffff;margin-left: 4rem;font-weight: bold;margin-top:1rem;
+    min-width: 23rem;height: 4.8rem;overflow: hidden;">
+      <span style="line-height: 4.8rem;">RookieYin's Note</span>
+    </div>
+    <div style="display: inline-block;position: absolute;top:50%;height:50%;transform:translate(-50%,-50%);right:4rem;margin-top: 1rem;">
+      <div class="navbar-menu-wrap">
+        <div class="navbar-menu"></div>
+      </div>
+    </div>
+    <div style="display: inline-block;position: absolute;top:50%;height:50%;transform:translate(-50%,-50%);right:0;">
+      <a class="nav-item-search"  title="搜索">
+        <i class="ri-search-line"></i>
+      </a>
+    </div>
+  </div>
+  <div style="display: inline-block;text-align: center;width: 100%;padding-bottom: 1rem;">
+    
+    <div class="nav-item2">
+      <a class="nav-item-link2" href="/">主页</a>
+    </div>
+    
+    <div class="nav-item2">
+      <a class="nav-item-link2" href="/archives">归档</a>
+    </div>
+    
+    <div class="nav-item2">
+      <a class="nav-item-link2" href="/categories">分类</a>
+    </div>
+    
+    <div class="nav-item2">
+      <a class="nav-item-link2" href="/tags">标签</a>
+    </div>
+    
+    <div class="nav-item2">
+      <a class="nav-item-link2" href="/friends">友链</a>
+    </div>
+    
+    <div class="nav-item2">
+      <a class="nav-item-link2" href="/about-me/2021">关于我</a>
+    </div>
+    
+  </div>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+
+    </div>
+    <main class="content">
+        <section class="outer">
+  <article
+  id="post-2 后端/MySQL/3. InnoDB数据的存储"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  InnoDB数据的存储
+</h1>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/f4457fe10c6c/" class="article-date">
+  <time datetime="2021-12-10T12:38:14.000Z" itemprop="datePublished">2021-12-10</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a> / <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/MySQL/">MySQL</a>
+  </div>
+
+  
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> 字数统计:</span>
+            <span class="post-count">3.4k</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> 阅读时长≈</span>
+            <span class="post-count">12 分钟</span>
+        </span>
+    </span>
+</div>
+ 
+    </div>
+      
+    <div class="tocbot"></div>
+
+
+
+
+  
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h1>InnoDB数据的存储</h1>
+<p>我们知道MySQL可以分成两层，数据的读取和写入工作是由底层存储引擎负责的。本文主要介绍InnoDB底层是如何存放数据的。</p>
+<a id="more"></a>
+<h2 id="1-innodb逻辑存储结构">1 InnoDB逻辑存储结构</h2>
+<p>如下图所示，InnoDB中所有数据都被逻辑地存放在一个空间，称之为表空间。表空间又由段、区、页组成。</p>
+<center><img src="/images/1062001-20180806105300673-894487905.png" style="width:600px;"></img></center>
+<ul>
+<li>
+<p><strong>表空间</strong></p>
+<p>默认情况下，InnoDB将所有表都放在同一个表空间，也可以通过参数<code>innodb_file_per_table</code>，将每张表放到一个单独表空间。</p>
+</li>
+<li>
+<p><strong>段</strong></p>
+<p>表空间由各个段组成，常见的段有数据段、索引段、回滚段等。在InnoDB中，数据是存放在主键B+树索引的叶子节点中，因此数据段即为B+树索引叶子节点，索引段即为B+树索引非叶子节点。</p>
+</li>
+<li>
+<p><strong>区</strong></p>
+<p>区是由<strong>连续页</strong>组成的空间，任何情况下区的大小都<strong>固定为1MB</strong>。默认情况下InnoDB页大小为16KB，因此1个区有64个连续页。需要注意的一点是，在每个段开始的时候，先用32个页大小的碎片页来存放数据，在使用完这些碎片页之后才申请64个连续页。这样做的目的在于，对于一些小表来说，可以节省磁盘空间。</p>
+</li>
+<li>
+<p><strong>页</strong></p>
+<p>页是InnoDB磁盘管理的最小单位，InnoDB中每个页默认大小为16KB。InnoDB中常见的页类型有：数据页、undo页、系统页、事务缓存页、插入缓冲位图页、插入缓冲空闲列表页、未压缩的二进制大对象页、压缩的二进制大对象页。</p>
+</li>
+<li>
+<p><strong>行</strong></p>
+<p>InnoDB是面向行存储的，即页中的数据是逻辑上一行接一行排列的，实际上是通过链表相连。</p>
+</li>
+</ul>
+<h2 id="2-innodb行记录格式">2 InnoDB行记录格式</h2>
+<p>InnoDB提供Compact和Redundant两种格式来存放行记录数据。Redundant是为了兼容以前版本而保留的，在MySQL5.1之后默认的行格式是Compact。</p>
+<h3 id="2-1-compact行记录格式">2.1 Compact行记录格式</h3>
+<p>Compact是MySQL5.0中引入的，其设计目标在于高效地存储数据（一个页中存放的行数据越多，越高效）。</p>
+<center><img src="/images/96fac352c7a4ad8b1f53a6c3689c661c.png" style="width:600px;"></img></center>
+<ul>
+<li>
+<p>变长字段长度列表**：列长度小于255字节，用1字节表示，若大于255字节，用2字节表示。它有一下特点：</p>
+<ul>
+<li><strong>逆序存放</strong>，比如值为<code>01 04 03</code>分别表示第3、2、1列边长字段占用字节数为1、4、3个字节。</li>
+<li>变长字段的值为<strong>NULL</strong>，长度列表里面不会记录其字节数为0。</li>
+</ul>
+<p>问题：怎么知道什么时候1字节表示1列，什么时候2字节表示1列？</p>
+<p>详情可看文末。</p>
+</li>
+<li>
+<p><strong>NULL标志位</strong>：通常大小为1字节，将所有没有被NOT NULL修饰的列放到一起（节约空间），然后和标志位二进制值一一对应，二进制值为1，代表该列值为NULL，为0，代表不为NULL。需要注意的是，这里也是<strong>逆序存放</strong>。下面看一个例子：一张表有4列，第2列被NOT NULL修饰，此时他们和NULL标志位的对应关系如下图所示：</p>
+<center><img src="/images/image-20220327150544224.png" style="width:600px;"></img></center>
+</li>
+<li>
+<p><strong>记录头信息</strong>：一共占用40字节空间，如下表所示：</p>
+<center><img src="/images/image-20220327150907640.png" style="width:600px;"></img></center>
+</li>
+<li>
+<p><strong>真实数据列</strong></p>
+<ul>
+<li>
+<p><strong>隐藏列</strong>：InnoDB的每张表都默认被添加了一些隐藏列：db_row_id，db_trx_id和db_roll_ptr，分别表示行ID，事务ID和回滚指针。如果用户建表时指定了表主键，则不会创建db_row_id隐藏列。这3个隐藏列放在真实数据列的最前面。</p>
+</li>
+<li>
+<p><strong>NULL值</strong>：如果某字段数据为NULL，则不被存储。</p>
+</li>
+<li>
+<p><strong>char(M)</strong>：指定字符数的字段，如果真实数据长度不够，会用<code>0x20</code>填充。还需要注意的一点是，如果char字段采用的是变长编码字符集时，该列占用的字节数会被加到变长字段长度列表，并且char(M)至少占用M个字节，即char(10)使用utf8字节符集时，该列存储的数据占用的字节长度范围为10~30。</p>
+<p>即使我们向该列中存储一个空字符串也会占用10 字节，这主要是希望在将来更新该列时， 在新值的字节长度大于旧值的字节长度但不大于10 个字节时，可以在该记录处直接更新，而不是在存储空间中再重新分配一个新的记录空间，导致原有的记录空间成为所谓的碎片。</p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="2-2-redundant-行记录格式">2.2 Redundant 行记录格式</h3>
+<p>Redundant是MySQL5.0之前使用的一种行格式，其结构如下图所示：</p>
+<center><img src="/images/images.png" style="width:600px;"></img></center>
+<ul>
+<li>
+<p><strong>字段长度偏移列表</strong>：1个或2个字节长度，它和Compact相比有2处不同：</p>
+<ul>
+<li>没有“变长”两个字，也就是说所有列的长度信息都会存储在这里</li>
+<li>多了“偏移”两个字，它存储的时各个字段的偏移量，字段长度需要计算两个偏移量之间的差值获取</li>
+</ul>
+<p><strong>问题：什么时候1个字节，什么时候2个字节？</strong></p>
+<ul>
+<li>
+<p>当记录的真实数据占用的字节数不大于127，每个列对应的偏移量占1个字节</p>
+<p>为什么是127，不是225？因为最高位被看作NULL标志位，如果为1，表示该列为NULL。</p>
+</li>
+<li>
+<p>当记录的真实数据占用的字节数大于127，不大于32767，每个列对应的偏移量占2个字节</p>
+</li>
+<li>
+<p>有没有记录的真实数据大于3 2767 的情况呢？有， 不过此时记录的一部分已经存放到了所谓的溢出页中。</p>
+</li>
+</ul>
+<p><strong>问题：那怎么知道用的是1字节表示长度还是2字节表示长度呢？</strong></p>
+<p>记录头中有一个1byte_offs_flag属性，1表示使用1字节，0表示使用2字节。</p>
+</li>
+<li>
+<p><strong>记录头信息</strong>：一共48个字节</p>
+<center><img src="/images/f0d64f6e69d64c5f8fcd647f9cebe3fe_tplv-k3u1fbpfcp-zoom-in-crop-mark_1304_0_0_0.awebp" style="width:800px;"></img></center>
+</li>
+<li>
+<p><strong>真实数据</strong></p>
+<ul>
+<li>Null值的处理：varchar不占用空间，char占用，用0x00填充。</li>
+<li>char(M)：无论是定长字符集还是变长字符集，char(M)占用的空间是M乘以该字符集下每个字符最多占用字节数。比如对于utf8字符集，char(10)直接占用30字节空间。</li>
+</ul>
+</li>
+</ul>
+<h3 id="2-3-行溢出数据的存储">2.3 行溢出数据的存储</h3>
+<p>InnoDB的页大小是16KB，也就是16384个字节，如果一行记录中某列占用字节数大于16284，那么这一页空间连一行数据都存不下。因此，对于占用存储空间非常多的列需要单独存储。对于Compact和Redundant类型，溢出列的记录方式如下图所示：</p>
+<center><img src="/images/image-20220327160640257.png" style="width:800px;"></img></center>
+<p>如上图所示，该行记录只存储溢出列前768个字节，其余数据放到其他页中存储，然后用20字节的指针指向页地址。</p>
+<p>那么什么时候列会产生溢出呢？通过简单的计算可以得出溢出的临界点为8099，即列空间大小小于8099不会溢出，如果大于等于8099就会溢出。</p>
+<h3 id="2-4-compressed和dynamic行记录格式">2.4 Compressed和Dynamic行记录格式</h3>
+<p>我现在使用的MySQL 版本是5.7，其默认行格式就是DYNAMIC 。 这两个行格式与COMPACT 行格式挺像，只不过在处理溢出列的数据时有点儿分歧：它们不会在记录的真实数据处存储该溢出列真实数据的前768 字节，而是把该列的所有真实数据都存储到溢出页中，只在记录的真实数据处存储20 字节大小的指向溢出页的地址(当然，这20 字节还包括真实数据占用的字节数)。如下图所示：</p>
+<center><img src="/images/image-20220327155752281.png" style="width:400px;"></img></center>
+<p>总之，Redundant是一种比较原始的行格式，它是非紧凑的，而compact、dynamic和compressed行格式是较新的，它们是紧凑的（即占用空间小）。</p>
+<h2 id="3-innodb数据页结构">3 InnoDB数据页结构</h2>
+<center><img src="/images/1ACHqlVSda.png" style="width:400px;"></img></center>
+<p>如上图所示，一个InnoDB数据页大致可以分成7个部分，下表简单描述了这些部分的大致功能：</p>
+<center><img src="/images/image-20220327162443786.png" style="width:600px;"></img></center>
+<h3 id="3-1-file-header">3.1 File Header</h3>
+<p>File Header用来记录页的一些头信息，8个部分，共占用38个字节。</p>
+<center><img src="/images/20191202201133744.png" style="width:600px;"></img></center>
+<h3 id="3-2-page-header">3.2 Page Header</h3>
+<p>Page Header里面存放一些页的状态信息，有14个部分，共占用56个字节。</p>
+<center><img src="/images/20191202201207635.png" style="width:600px;"></img></center>
+<h3 id="3-3-infimum和supremurm记录">3.3 Infimum和Supremurm记录</h3>
+<p>在InnoDB中，每各页中会有两个虚拟记录，<strong>用来限定记录的边界</strong>，即最小、最大记录。页面中任何记录的主键值都大于Infimum记录，都小于suprememurm记录。因此这两条伪记录分别处于记录链表的头部和尾部。</p>
+<h3 id="3-4-user-record和free-space">3.4 User Record和Free Space</h3>
+<ul>
+<li>
+<p>User Record：即存储行记录的内容，所有记录链表相连</p>
+</li>
+<li>
+<p>Free Space：即空闲空间，所有空闲空间也是个链表数据结构。一条记录被删除后，该空间会被加入到空闲列表中。</p>
+<p>下图展示了页中每条记录的存放方式：</p>
+<center><img src="/images/image-20220327195408065.png" style="width:800px;"></img></center>
+</li>
+</ul>
+<p>从上图可以看出，记录按照主键从小到大形成了一个单向链表。</p>
+<h3 id="3-5-page-directory">3.5 Page directory</h3>
+<p>从名字就可以看出来，这部分存放的时一个目录。从前面我们知道，所有记录是通过链表主键递增顺序一个个串在一起的，因此要查找某个记录，就需要顺序遍历链表。</p>
+<p>Page目录存在的目的就是，帮助我们根据行记录的逐渐，快速定位该条记录所在位置。</p>
+<p>Page 目录中存在很多指向页中记录的指针，这个指针称之为槽，如下图所示：</p>
+<center><img src="/images/image-20220327200504290.png" style="width:800px;"></img></center>
+<p>上图中有2个槽，槽将所有记录分成了两组，槽指向的是分组中主键值最大的那条记录，即分组的最后一条记录。关于槽，有以下几点需要注意：</p>
+<ul>
+<li>槽中记录的时地址偏移量，而不是绝对地址。</li>
+<li>槽指向的记录中<code>n_owned</code>数值为该分组中记录总数，分组中其余记录的<code>n_owned</code>值为0。</li>
+<li>每个槽占用2字节，按照对应记录的大小顺序排列。槽对应记录的主键越小，它的位置越靠近File Trailer。</li>
+</ul>
+<p>下图展示了一个记录数更多的示例：</p>
+<center><img src="/images/image-20220327201141826.png" style="width:800px;"></img></center>
+<p>当需要查找某条记录时，先通过二分法确定该记录所在分组对应的槽，然后遍历该分组中的记录。</p>
+<h3 id="3-6-file-trailer">3.6 File Trailer</h3>
+<p>InnoDB的数据是存储在磁盘上的，但是磁盘速度太慢了，需要以页为单位把数据加载到内存中处理。如果该页在内存中被修改了，那么在修改后的某个时间还需要把数据刷新到磁盘中。</p>
+<p>但是，如果刷新过程中，断电了咋办？为了检测页的完整性，InnoDB在页的末尾增加了File Trailer部分（8个字节），可以分成2部分：</p>
+<ul>
+<li>
+<p><strong>前4个字节</strong>：代表页的校验和。</p>
+<p>这个部分与File Header 中的校验和相对应.每当一个页面在内存中发生修改时，在刷新之前就要把页面的校验和算出来。因为File Header 在页面的前边，所以File Header 中的校验和会被首先刷新到磁盘，当完全写完后，校验和也会被写到页的尾部.如果页面刷新成功，则页首和页尾的校验和应该是一致的。如果刷新了一部分后断电了，那么File Header 中的校验和就代表着己经修改过的页，而Fi1e Trai1er 中的校验和代表着原先的页， 二者不同则意味着刷新期间发生了错误。</p>
+</li>
+<li>
+<p><strong>后4个字节</strong>：最后修改时对应的LSN的后4个字节。正常情况下应该与File Header 部分的FIL_PAGE_LSN 的后4 字节相同。</p>
+</li>
+</ul>
+<h2 id="4-拓展问题">4 拓展问题</h2>
+<ol>
+<li>
+<p><strong>Compact行记录格式下，如何确定“变长字段长度列表”长度是1字节还是2字节？</strong></p>
+<p>用1字节还是2字节来表示变长字段的真实数据占用的字节数， InnoDB 有它的一套规则。为了更清楚的描述这套规则，我们引入W、M和L这几个符号：</p>
+<ul>
+<li>W：表示所使用的字符集中，一个字符最多占用W个字节。对于utf8字符集，W就是3；对于gbk字符集，W就是2；对于ascii字符集，W就是1。</li>
+<li>M：字段类型VARCHAR(M)中的M，表示最多存储M个字符。</li>
+<li>L：该字段实际存储的字符串占用的字节数。</li>
+</ul>
+<p>判断1字节还是2字节的规则如下：</p>
+<ul>
+<li>
+<p>如果<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>M</mi><mo>×</mo><mi>W</mi><mo>≤</mo><mn>255</mn></mrow><annotation encoding="application/x-tex">M\times W\leq 255</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.76666em;vertical-align:-0.08333em;"></span><span class="mord mathdefault" style="margin-right:0.10903em;">M</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.8193em;vertical-align:-0.13597em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">W</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">2</span><span class="mord">5</span><span class="mord">5</span></span></span></span>，那么使用1字节</p>
+</li>
+<li>
+<p>如果<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>M</mi><mo>×</mo><mi>W</mi><mo>&gt;</mo><mn>255</mn></mrow><annotation encoding="application/x-tex">M\times W &gt; 255</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.76666em;vertical-align:-0.08333em;"></span><span class="mord mathdefault" style="margin-right:0.10903em;">M</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.72243em;vertical-align:-0.0391em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">W</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&gt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">2</span><span class="mord">5</span><span class="mord">5</span></span></span></span>，分两种情况</p>
+<ul>
+<li>如果<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>L</mi><mo>≤</mo><mn>127</mn></mrow><annotation encoding="application/x-tex">L\leq 127</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8193em;vertical-align:-0.13597em;"></span><span class="mord mathdefault">L</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord">2</span><span class="mord">7</span></span></span></span>，则用1字节来表示真实数据占用的字节数</li>
+<li>如果<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>L</mi><mo>&gt;</mo><mn>127</mn></mrow><annotation encoding="application/x-tex">L&gt;127</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.72243em;vertical-align:-0.0391em;"></span><span class="mord mathdefault">L</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&gt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord">2</span><span class="mord">7</span></span></span></span>，则用2字节来表示真实数据占用的字节数</li>
+</ul>
+<p>问什么是127？因为如果用2字节表示长度，对于某个字节怎么知道它是一个字段长度还是半个字段长度？如果该字节第一位为0，说明该字节表示的是完整字节段长度，否则说明它表示的是半个字段长度。</p>
+</li>
+</ul>
+<p>**总之：**如果变长字段允许存储的最大字节数<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>M</mi><mo>×</mo><mi>W</mi></mrow><annotation encoding="application/x-tex">M\times W</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.76666em;vertical-align:-0.08333em;"></span><span class="mord mathdefault" style="margin-right:0.10903em;">M</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">W</span></span></span></span>超过255，并且真实数据占用的字节数L超过127，则使用2字节表示真实数据占用的字节数，否则使用1字节。</p>
+</li>
+</ol>
+ 
+      <!-- reward -->
+      
+      <div id="reword-out">
+        <div id="reward-btn">
+          打赏
+        </div>
+      </div>
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <div class="declare">
+      <ul class="post-copyright">
+        <li>
+          <i class="ri-copyright-line"></i>
+          <strong>版权声明： </strong>
+          
+          本博客所有文章除特别声明外，著作权归作者所有。转载请注明出处！
+          
+        </li>
+      </ul>
+    </div>
+    
+    <footer class="article-footer">
+       
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<!--<div class="wx-share-modal">-->
+<!--    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>-->
+<!--    <p>扫一扫，分享到微信</p>-->
+<!--    <div class="wx-qrcode">-->
+<!--      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://rookieyin.github.io/f4457fe10c6c/" alt="微信分享二维码">-->
+<!--    </div>-->
+<!--</div>-->
+
+<div id="share-mask"></div>
+  
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MySQL/" rel="tag">MySQL</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%90%8E%E7%AB%AF/" rel="tag">后端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="tag">数据库</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+  <nav class="article-nav">
+    
+      <a href="/06aa555bdbf7/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            MySQL事务
+          
+        </div>
+      </a>
+    
+    
+      <a href="/87c401808af7/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">MySQL数据类型</div>
+      </a>
+    
+  </nav>
+
+   
+<!-- valine评论 -->
+<div id="vcomments-box">
+  <div id="vcomments"></div>
+</div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js"></script>
+<script>
+  new Valine({
+    el: "#vcomments",
+    app_id: "f9XmUV7HVprPCNptggBNBhWR-gzGzoHsz",
+    app_key: "H73Viqo3lADopEFgshq3XrXs",
+    path: window.location.pathname,
+    avatar: "monsterid",
+    placeholder: "给我的文章加点评论吧~",
+    recordIP: true,
+  });
+  const infoEle = document.querySelector("#vcomments .info");
+  if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+    infoEle.childNodes.forEach(function (item) {
+      item.parentNode.removeChild(item);
+    });
+  }
+</script>
+<style>
+  #vcomments-box {
+    padding: 5px 30px;
+  }
+
+  @media screen and (max-width: 800px) {
+    #vcomments-box {
+      padding: 5px 0px;
+    }
+  }
+
+  #vcomments-box #vcomments {
+    background-color: #fff;
+  }
+
+  .v .vlist .vcard .vh {
+    padding-right: 20px;
+  }
+
+  .v .vlist .vcard {
+    padding-left: 10px;
+  }
+</style>
+
+ 
+   
+     
+</article>
+
+</section>
+        <footer class="footer">
+  <div class="outer">
+    <ul>
+      <li>
+        Copyrights &copy;
+        2021-2022
+        <i class="ri-heart-fill heart_icon"></i> Yin Peng
+      </li>
+    </ul>
+    <ul>
+      <li>引擎:
+        <a style="color: #0681d0" target="_blank" rel="noopener" href="https://hexo.io/zh-cn/">Hexo</a>
+        &nbsp;&nbsp;|&nbsp;&nbsp;主题:修改自
+        <a style="color: #0681d0" target="_blank" rel="noopener" href="https://shen-yu.gitee.io/">Ayer</a>
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        <span>
+  <span><i class="ri-user-3-fill"></i>访问人数:<span id="busuanzi_value_site_uv"></span></span>
+  <span class="division">|</span>
+  <span><i class="ri-eye-fill"></i>浏览次数:<span id="busuanzi_value_page_pv"></span></span>
+</span>
+        
+      </li>
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      <li>
+        <!-- cnzz统计 -->
+        
+        <script type="text/javascript" src='https://s9.cnzz.com/z_stat.php?id=1278069914&amp;web_id=1278069914'></script>
+        
+      </li>
+    </ul>
+  </div>
+</footer>
+
+        <div class="float_btns">
+            <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+
+<div class="todark" id="todark">
+  <i class="ri-moon-line"></i>
+</div>
+
+        </div>
+    </main>
+
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/alipay.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/wxpay.png">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-2.0.3.min.js"></script>
+ 
+<script src="/js/lazyload.min.js"></script>
+
+<!-- Tocbot -->
+ 
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  tocbot.init({
+    tocSelector: ".tocbot",
+    contentSelector: ".article-entry",
+    headingSelector: "h1, h2, h3, h4, h5, h6",
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: "main",
+    positionFixedSelector: ".tocbot",
+    positionFixedClass: "is-position-fixed",
+    fixedSidebarOffset: "auto",
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.js"></script>
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.css"
+/>
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js"></script>
+
+<script src="/dist/main.js"></script>
+
+<!-- ImageViewer -->
+ <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css">
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script> 
+<!-- MathJax -->
+
+<!-- Katex -->
+
+<!-- busuanzi  -->
+ 
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+ 
+<!-- ClickLove -->
+ 
+<script src="/js/clickLove.js"></script>
+ 
+<!-- ClickBoom1 -->
+
+<!-- ClickBoom2 -->
+
+<!-- CodeCopy -->
+ 
+<link rel="stylesheet" href="/css/clipboard.css">
+ <script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="ri-file-copy-2-line"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-checkbox-circle-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-checkbox-circle-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-time-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-time-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+ 
+<!-- CanvasBackground -->
+
+<script>
+  if (window.mermaid) {
+    mermaid.initialize({ theme: "forest" });
+  }
+</script>
+
+
+    
+</div>
+</body>
+
+</html>

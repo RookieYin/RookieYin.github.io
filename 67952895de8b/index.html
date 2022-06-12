@@ -1,0 +1,892 @@
+<!DOCTYPE html>
+
+
+<html lang="zh-CN">
+  
+
+    <head>
+      <meta name="baidu-site-verification" content="code-rk2CNV4xgj" />
+      <meta charset="utf-8" />
+        
+      <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1"
+      />
+      <title>Redis数据结构底层原理 |  RookieYin&#39;s Note</title>
+  <meta name="generator" content="hexo-theme-ayer">
+      
+      <link rel="shortcut icon" href="/images/2.jpg" />
+       
+<link rel="stylesheet" href="/dist/main.css">
+
+      <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/Shen-Yu/cdn/css/remixicon.min.css"
+      />
+      
+<link rel="stylesheet" href="/css/custom.css">
+ 
+      <script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+       
+ 
+
+      <!-- mermaid -->
+      
+    <link rel="alternate" href="/atom.xml" title="RookieYin's Note" type="application/atom+xml">
+<link href="https://cdn.bootcss.com/KaTeX/0.11.1/katex.min.css" rel="stylesheet" /></head>
+  </html>
+</html>
+
+
+<body>
+<div id="app">
+    
+    
+    <div class="sidebar">
+        <!--<button class="navbar-toggle"></button>-->
+<nav class="navbar">
+  <div class="logo">
+    <a href="/">
+      <img src="/images/2.jpg"
+           style="border-radius: 50%;max-width: none;">
+    </a>
+  </div>
+  <div class = nav-title style="font-size: 2.5rem;color: #ffffff;margin-left: 4rem;font-weight: bold;min-width: 23rem">
+    RookieYin's Note
+  </div>
+  <div class="nav nav-main">
+    
+    <div class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </div>
+    
+    <div class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </div>
+    
+    <div class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </div>
+    
+    <div class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </div>
+    
+    <div class="nav-item">
+      <a class="nav-item-link" href="/friends">友链</a>
+    </div>
+    
+    <div class="nav-item">
+      <a class="nav-item-link" href="/about-me/2021">关于我</a>
+    </div>
+    
+      <div class="nav-item">
+        <div class="nav-item-link navbar-menu-wrap">
+          <div class="navbar-menu"></div>
+        </div>
+      </div>
+    <div class = "nav-item">
+      <a class="nav-item-link nav-item-search"  title="搜索">
+        <i class="ri-search-line"></i>
+      </a>
+    </div>
+  </div>
+</nav>
+<nav class="navbar2">
+  <div style="position: relative;">
+      <div style="height: 4.8rem;display: inline-block;margin-top:1rem;margin-left:1rem;">
+        <a href="/">
+          <img src="/images/2.jpg"
+               style="border-radius: 50%;max-width: none;width:4.8rem">
+        </a>
+      </div>
+    <div class="navbar-title2" style="font-size: 2.5rem;color: #ffffff;margin-left: 4rem;font-weight: bold;margin-top:1rem;
+    min-width: 23rem;height: 4.8rem;overflow: hidden;">
+      <span style="line-height: 4.8rem;">RookieYin's Note</span>
+    </div>
+    <div style="display: inline-block;position: absolute;top:50%;height:50%;transform:translate(-50%,-50%);right:4rem;margin-top: 1rem;">
+      <div class="navbar-menu-wrap">
+        <div class="navbar-menu"></div>
+      </div>
+    </div>
+    <div style="display: inline-block;position: absolute;top:50%;height:50%;transform:translate(-50%,-50%);right:0;">
+      <a class="nav-item-search"  title="搜索">
+        <i class="ri-search-line"></i>
+      </a>
+    </div>
+  </div>
+  <div style="display: inline-block;text-align: center;width: 100%;padding-bottom: 1rem;">
+    
+    <div class="nav-item2">
+      <a class="nav-item-link2" href="/">主页</a>
+    </div>
+    
+    <div class="nav-item2">
+      <a class="nav-item-link2" href="/archives">归档</a>
+    </div>
+    
+    <div class="nav-item2">
+      <a class="nav-item-link2" href="/categories">分类</a>
+    </div>
+    
+    <div class="nav-item2">
+      <a class="nav-item-link2" href="/tags">标签</a>
+    </div>
+    
+    <div class="nav-item2">
+      <a class="nav-item-link2" href="/friends">友链</a>
+    </div>
+    
+    <div class="nav-item2">
+      <a class="nav-item-link2" href="/about-me/2021">关于我</a>
+    </div>
+    
+  </div>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+
+    </div>
+    <main class="content">
+        <section class="outer">
+  <article
+  id="post-2 后端/Redis/Redis数据结构底层原理"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  Redis数据结构底层原理
+</h1>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/67952895de8b/" class="article-date">
+  <time datetime="2022-03-11T14:34:55.000Z" itemprop="datePublished">2022-03-11</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a> / <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/Redis/">Redis</a>
+  </div>
+
+  
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> 字数统计:</span>
+            <span class="post-count">4.8k</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> 阅读时长≈</span>
+            <span class="post-count">17 分钟</span>
+        </span>
+    </span>
+</div>
+ 
+    </div>
+      
+    <div class="tocbot"></div>
+
+
+
+
+  
+    <div class="article-entry" itemprop="articleBody">
+       
+  <blockquote>
+<p>声明：本文大部分内容都来自<a target="_blank" rel="noopener" href="https://pdai.tech/md/db/nosql-redis/db-redis-x-redis-ds.html">Java全站知识体系</a></p>
+</blockquote>
+<p>Redis的每种对象其实都由<strong>对象结构(redisObject)</strong> 与 <strong>对应编码的数据结构</strong>组合而成, 本文主要介绍<strong>底层数据结构</strong> 部分。</p>
+<p>Redis底层包括SDS、QuickList、ZipList、HashTable、IntSet、ZSkipList和Redis Tree of listpack。这些结构和上层数据类型之间的映射关系如下图所示：</p>
+<center><img src="/images/db-redis-object-2-3.png" style="width:700px;"></img></center>
+<a id="more"></a>
+<h2 id="sds简单动态字符串">SDS简单动态字符串</h2>
+<h3 id="底层设计">底层设计</h3>
+<p>Redis 是用 C 语言写的，但是对于Redis的字符串，却不是 C 语言中的字符串（即以空字符’\0’结尾的字符数组），它是自己构建了一种名为 <strong>简单动态字符串（simple dynamic string,SDS</strong>）的抽象类型，并将 SDS 作为 Redis的默认字符串表示。</p>
+<p>SDS的结构如下图所示：</p>
+<center><img src="/images/db-redis-ds-x-3.png" style="width:500px;"></img></center>
+- 头部：sdshdr，SDS有5中类型头部，其中sdshdr5实际并未使用到
+  <center><img src="/images/db-redis-ds-x-2.png" style="width:700px;"></img></center>
+<ul>
+<li>数据：<code>buf</code>，用于存储用户数据，并且数据后面跟一个“\0”</li>
+</ul>
+<p>以sdshdr8为例，其底层代码如下：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> __<span class="title">attribute__</span> ((__<span class="title">packed__</span>)) <span class="title">sdshdr8</span> &#123;</span></span><br><span class="line">    <span class="keyword">uint8_t</span> len; <span class="comment">/* used */</span></span><br><span class="line">    <span class="keyword">uint8_t</span> alloc; <span class="comment">/* excluding the header and null terminator */</span></span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">char</span> flags; <span class="comment">/* 3 lsb of type, 5 unused bits */</span></span><br><span class="line">    <span class="keyword">char</span> buf[];</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>len</code>：保存SDS保存字符串的长度</li>
+<li><code>alloc</code>： 分别以uint8, uint16, uint32, uint64表示整个SDS, 除过头部与末尾的\0, 剩余的字节数</li>
+<li><code> flags</code>： 始终为一字节, 以低三位标示着头部的类型, 高5位未使用</li>
+<li><code>buf[]</code>：存字符串中所有字符</li>
+</ul>
+<h3 id="为什么使用sds？">为什么使用SDS？</h3>
+ <center><img src="/images/redis-ds-2.png" style="width:700px;"></img></center> 
+- **常数复杂度获取字符串长度**
+<p>直接通过<code>len</code>属性获取字符串长度</p>
+<ul>
+<li>
+<p><strong>杜绝缓冲区溢出</strong></p>
+<p>在 C 语言中使用 <code>strcat</code> 函数来进行两个字符串的拼接，一旦没有分配足够长度的内存空间，就会造成缓冲区溢出。  而对于 SDS 数据类型，在进行字符修改的时候，<strong>会首先根据记录的 len 属性检查内存空间是否满足需求</strong>，如果不满足，会进行相应的空间扩展，然后在进行修改操作，所以不会出现缓冲区溢出。</p>
+</li>
+<li>
+<p><strong>减少修改字符串的内存重新分配次数</strong></p>
+<p>C语言由于不记录字符串的长度，所以如果要修改字符串，必须要重新分配内存（先释放再申请），因为如果没有重新分配，字符串长度增大时会造成内存缓冲区溢出，字符串长度减小时会造成内存泄露。</p>
+<p>而对于SDS，由于<code>len</code>属性和<code>alloc</code>属性的存在，对于修改字符串SDS实现了<strong>空间预分配</strong>和<strong>惰性空间释放</strong>两种策略：</p>
+<p>1、<code>空间预分配</code>：对字符串进行空间扩展的时候，扩展的内存比实际需要的多，这样可以减少连续执行字符串增长操作所需的内存重分配次数。</p>
+<p>2、<code>惰性空间释放</code>：对字符串进行缩短操作时，程序不立即使用内存重新分配来回收缩短后多余的字节，而是使用 <code>alloc</code> 属性将这些字节的数量记录下来，等待后续使用。（当然SDS也提供了相应的API，当我们有需要时，也可以手动释放这些未使用的空间。）</p>
+</li>
+<li>
+<p><strong>二进制安全</strong></p>
+<p>C字符串以空字符作为字符串结束的标识，而对于一些二进制文件（如图片等），内容可能包括空字符串，因此C字符串无法正确存取；而所有 SDS 的API 都是以处理二进制的方式来处理 <code>buf</code> 里面的元素，并且 SDS 不是以空字符串来判断是否结束，而是以 len 属性表示的长度来判断字符串是否结束。</p>
+</li>
+<li>
+<p><strong>兼容部分C字符串函数</strong></p>
+<p>虽然 SDS 是二进制安全的，但是一样遵从每个字符串都是以空字符串结尾的惯例，这样可以重用 C 语言库<code>&lt;string.h&gt;</code>中的一部分函数。</p>
+</li>
+</ul>
+<h2 id="ziplist压缩列表">ZipList压缩列表</h2>
+<p>ziplist是为了提高存储效率而设计的一种特殊编码的<strong>双向链表</strong>。它可以存储字符串或者整数，存储整数时是采用整数的二进制而不是字符串形式存储。他能在O(1)的时间复杂度下完成list两端的push和pop操作。但是因为每次操作都需要重新分配ziplist的内存，所以实际复杂度和ziplist的内存使用量相关。</p>
+<p>实际上，ziplist充分体现了Redis对于存储效率的追求。**一个普通的双向链表，链表中每一项都占用独立的一块内存，各项之间用地址指针（或引用）连接起来。这种方式会带来大量的内存碎片，而且地址指针也会占用额外的内存。**而ziplist却是将表中每一项存放在前后连续的地址空间内，一个ziplist整体占用一大块内存。它是一个表（list），但其实不是一个链表（linked list），可以看做链表和数组的折中方案。</p>
+<h3 id="存储格式">存储格式</h3>
+<p>整个ziplist在内存中的存储格式如下：</p>
+ <center><img src="/images/db-redis-ds-x-6.png" style="width:700px;"></img></center> 
+- `zlbytes`字段的类型是uint32_t，这个字段中存储的是整个ziplist所占用的内存的字节数
+- `zltail`字段的类型是uint32_t，它指的是ziplist中最后一个entry的偏移量。用于快速定位最后一个entry，以快速完成pop等操作
+- `zllen`字段的类型是uint16_t，它指的是整个ziplit中entry的数量。这个值只占2bytes（16位）: 如果ziplist中entry的数目小于65535(2的16次方)，那么该字段中存储的就是实际entry的值。若等于或超过65535，那么该字段的值固定为65535，但实际数量需要一个个entry的去遍历所有entry才能得到。
+- `zlend`是一个终止字节, 其值为全F，即0xff。 ziplist保证任何情况下，一个entry的首字节都不会是255。
+<h3 id="entry结构">Entry结构</h3>
+<ul>
+<li>
+<p><strong>结构1：</strong> <code>&lt;prevlen&gt; &lt;encoding&gt; &lt;entry-data&gt; </code></p>
+<ul>
+<li>
+<p><code>prevlen</code>：前一个entry的大小</p>
+<p>当前一个元素长度小于254（255用于zlend）的时候，prevlen长度为1个字节，值即为前一个entry的长度，如果长度大于等于254的时候，prevlen用5个字节表示，第一字节设置为254，后面4个字节存储一个小端的无符号整型，表示前一个entry的长度。</p>
+</li>
+<li>
+<p><code>encoding</code>：不同情况值不同，表示当前entity的类型和长度</p>
+<p>encoding的长度和值根据保存的是int还是string，还有数据的长度而定。</p>
+<p>前两位用来表示类型，当为“11”时，表示entry存储的是int类型，其他表示存储的是string。</p>
+</li>
+<li>
+<p><code>entry-data</code>：用于存真正的数据</p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>结构2：</strong><code>&lt;prevlen&gt; &lt;encoding&gt;</code>，<code>entry-data</code>合并到了<code>encoding</code>中</p>
+</li>
+<li>
+<p>**源码：**源码中为了方便操作，还添加了几个其他属性。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* We use this function to receive information about a ziplist entry.</span></span><br><span class="line"><span class="comment"> * Note that this is not how the data is actually encoded, is just what we</span></span><br><span class="line"><span class="comment"> * get filled by a function in order to operate more easily. */</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">zlentry</span> &#123;</span></span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">int</span> prevrawlensize; <span class="comment">/* Bytes used to encode the previous entry len*/</span></span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">int</span> prevrawlen;     <span class="comment">/* Previous entry len. */</span></span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">int</span> lensize;        <span class="comment">/* Bytes used to encode this entry type/len.</span></span><br><span class="line"><span class="comment">                                    For example strings have a 1, 2 or 5 bytes</span></span><br><span class="line"><span class="comment">                                    header. Integers always use a single byte.*/</span></span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">int</span> len;            <span class="comment">/* Bytes used to represent the actual entry.</span></span><br><span class="line"><span class="comment">                                    For strings this is just the string length</span></span><br><span class="line"><span class="comment">                                    while for integers it is 1, 2, 3, 4, 8 or</span></span><br><span class="line"><span class="comment">                                    0 (for 4 bit immediate) depending on the</span></span><br><span class="line"><span class="comment">                                    number range. */</span></span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">int</span> headersize;     <span class="comment">/* prevrawlensize + lensize. */</span></span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">char</span> encoding;      <span class="comment">/* Set to ZIP_STR_* or ZIP_INT_* depending on</span></span><br><span class="line"><span class="comment">                                    the entry encoding. However for 4 bits</span></span><br><span class="line"><span class="comment">                                    immediate integers this can assume a range</span></span><br><span class="line"><span class="comment">                                    of values and must be range-checked. */</span></span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">char</span> *p;            <span class="comment">/* Pointer to the very start of the entry, that</span></span><br><span class="line"><span class="comment">                                    is, this points to prev-entry-len field. */</span></span><br><span class="line">&#125; zlentry;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="优缺点">优缺点</h3>
+<p>ZipList的优点从名字“压缩列表”就可以看出是节省空间（和普通list相比）。 如果是普通的数组，那么它每个元素占用的内存是一样的且取决于最大的那个元素（很明显它是需要预留空间的） 。</p>
+<p>ZipList的缺点就是：</p>
+<ul>
+<li>ziplist也不预留内存空间, 并且在移除结点后, 也是立即缩容, 这代表每次写操作都会进行内存分配操作。</li>
+<li>结点如果扩容，导致结点占用的内存增长, 并且超过254字节的话, 可能会导致链式反应：其后一个结点的entry.prevlen需要从一字节扩容至五字节。<strong>最坏情况下, 第一个结点的扩容, 会导致整个ziplist表中的后续所有结点的entry.prevlen字段扩容。</strong></li>
+</ul>
+<h2 id="quicklist快表">QuickList快表</h2>
+<p>QuickList 是一种以ziplist为结点的双端链表结构。 宏观上，quicklist是一个链表，微观上，链表中的每个结点都是一个ziplist。</p>
+<p>它的内存布局如下图所示：</p>
+ <center><img src="/images/db-redis-ds-x-4.png" style="width:700px;"></img></center> 
+Quicklist有自己的优点, 也有缺点，对于使用者来说，其使用体验类似于线性数据结构, list作为最传统的双链表, 结点通过指针持有数据, 指针字段会耗费大量内存. ziplist解决了耗费内存这个问题。但引入了新的问题：每次写操作整个ziplist的内存都需要重分配。**quicklist在两者之间做了一个平衡**。并且使用者可以通过自定义`quicklist.fill`，根据实际业务情况， 经验主义调参。
+<h2 id="dict哈希表">Dict哈希表</h2>
+<p>哈希表是由数组 table 组成，table 中每个元素都是指向 dict.h/dictEntry 结构，哈希表和dictEntry 结构定义如下：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">dictht</span>&#123;</span></span><br><span class="line">    dictEntry **table;<span class="comment">//哈希表数组</span></span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">long</span> size;<span class="comment">//哈希表大小</span></span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">long</span> sizemask;<span class="comment">//哈希表大小掩码，用于计算索引值，总是等于 size-1</span></span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">long</span> used;<span class="comment">//该哈希表已有节点的数量</span></span><br><span class="line">&#125;dictht</span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">dictEntry</span>&#123;</span></span><br><span class="line">     <span class="keyword">void</span> *key;<span class="comment">//键</span></span><br><span class="line">     <span class="class"><span class="keyword">union</span>&#123;</span></span><br><span class="line">          <span class="keyword">void</span> *val;</span><br><span class="line">          uint64_tu64;</span><br><span class="line">          int64_ts64;</span><br><span class="line">     &#125;v;<span class="comment">//值</span></span><br><span class="line">     <span class="class"><span class="keyword">struct</span> <span class="title">dictEntry</span> *<span class="title">next</span>;</span><span class="comment">//指向下一个哈希表节点，形成链表</span></span><br><span class="line">&#125;dictEntry</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>需要注意的是，dictEntry中还有一个指向下一个节点的指针。因为这里采用的时链地址法解决哈希冲突的问题，通过next指针可以将多个哈希值相同的键值对连接到一起。下面介绍hash表中几个重要知识点：</p>
+<ul>
+<li>
+<p>扩容和收缩： 当哈希表保存的键值对太多或者太少时，就要通过 rerehash(重新散列）来对哈希表进行相应的扩展或者收缩。</p>
+<ul>
+<li>x新建，扩容则创建2倍大小的新hash表，缩容则创建一半大小的新hash表；</li>
+<li>rehash，重新利用上面的哈希算法，计算索引值，然后将键值对放到对应位置；</li>
+<li>释放，所有键值对迁徙完毕后，释放旧hash表。</li>
+</ul>
+</li>
+<li>
+<p>触发扩容条件</p>
+<ul>
+<li>服务器目前没有执行 BGSAVE 命令或者 BGREWRITEAOF 命令，并且负载因子大于等于1。</li>
+<li>服务器目前正在执行 BGSAVE 命令或者 BGREWRITEAOF 命令，并且负载因子大于等于5。</li>
+</ul>
+<p>负载因子= 哈希表已保存节点数量 / 哈希表大小 。</p>
+</li>
+<li>
+<p>渐进式rehash</p>
+<p>什么叫渐进式 rehash？也就是说扩容和收缩操作不是一次性、集中式完成的，而是分多次、渐进式完成的。</p>
+<p>其目的在于防止键值对数量过多，导致rehash阻塞主线程时间过长。</p>
+<p>在进行渐进式rehash期间，字典的<strong>删除查找更新等操作可能会在两个哈希表上进行</strong>，第一个哈希表没有找到，就会去第二个哈希表上进行查找。但是进行<strong>增加操作，一定是在新的哈希表上进行的</strong>。</p>
+</li>
+</ul>
+<h2 id="intset整数集">IntSet整数集</h2>
+<p>整数集合（intset）是集合类型的底层实现之一，当一个集合只包含整数值元素，并且这个集合的元素数量不多时，Redis 就会使用整数集合作为集合键的底层实现。 intset的源码结构如下：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">intset</span> &#123;</span></span><br><span class="line">    <span class="keyword">uint32_t</span> encoding;</span><br><span class="line">    <span class="keyword">uint32_t</span> length;</span><br><span class="line">    <span class="keyword">int8_t</span> contents[];</span><br><span class="line">&#125; intset;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>encoding：4字节，表示编码方式，取值有三个<code>INTSET_ENC_INT16, INTSET_ENC_INT32, INTSET_ENC_INT64</code>。</li>
+<li>length：4字节，代表存储的整数个数</li>
+<li>contents： 指向实际存储数值的连续内存区域，就是一个数组。 各个项在数组中按值得大小<strong>从小到大有序排序</strong>，且数组中不包含任何重复项。</li>
+</ul>
+<p>需要注意的一点是，如果在一个int16类型的整数集合中插入一个int32类型的值，整个集合的所有元素都会转换成32类型。 分三步：</p>
+<ol>
+<li>
+<p>根据新元素的类型（比如int32），扩展整数集合底层数组的空间大小，并为新元素分配空间。</p>
+</li>
+<li>
+<p>将底层数组现有的所有元素都转换成与新元素相同的类型， 并将类型转换后的元素放置到正确的位上， 而且在放置元素的过程中， 需要继续维持底层数组的有序性质不变。</p>
+</li>
+<li>
+<p>最后改变encoding的值，length+1。</p>
+</li>
+</ol>
+<p>但是如果删掉刚刚加入的int32类型数据时，不会作降级操作。</p>
+<h2 id="zskiplist跳表">ZSkipList跳表</h2>
+<h3 id="通用skiplist">通用skiplist</h3>
+<p>在介绍redis中zskiplist之前，先看下通用的skip list是什么？有什么用？怎么实现的？</p>
+<p>skiplist，顾名思义，首先它是一个list。实际上，它是在有序链表的基础上发展起来的，其思想类似于二分查找。</p>
+<p>我们先来看一个有序链表，如下图（最左侧的灰色节点表示一个空的头结点）：</p>
+ <center><img src="/images/1760830-c2b8cbe1e8292159.webp" style="width:700px;"></img></center> 
+在这样一个列表里面，无论是查找、删除还是添加元素的时间复杂度都是O(n)。
+<p>假如我们每相邻两个节点增加一个指针，让指针指向下下个节点，如下图：</p>
+ <center><img src="/images/1760830-fbbe56dad4183a80.webp" style="width:700px;"></img></center> 
+这样增加的指针构成的新链表的节点数只有原来的一半。 现在当我们想查找数据的时候，可以先沿着这个新链表进行查找。当碰到比待查数据大的节点时，再回到原来的链表中进行查找。比如，我们想查找23，查找的路径是沿着下图中标红的指针所指向的方向进行的： 
+ <center><img src="/images/1760830-a31877d586edf878.webp" style="width:700px;"></img></center> 
+ 利用同样的方式，我们可以在上层新产生的链表上，继续为每相邻的两个节点增加一个指针，从而产生第三层链表。如下图： 
+ <center><img src="/images/1760830-b6dd4051d97a0242.webp" style="width:700px;"></img></center> 
+在这个新的三层链表结构上，如果我们还是查找23，那么沿着最上层链表首先要比较的是19，发现23比19大，接下来我们就知道只需要到19的后面去继续查找，从而一下子跳过了19前面的所有节点。可以想象，当链表足够长的时候，这种多层链表的查找方式能让我们跳过很多下层节点，大大加快查找的速度。
+<p>但是，这种方法在插入数据的时候有很大的问题。新插入一个节点之后，就会打乱上下相邻两层链表上节点个数严格的2:1的对应关系。如果要维持这种对应关系，就必须把新插入的节点后面的所有节点（也包括新插入的节点）重新进行调整，这会让时间复杂度重新蜕化成O(n)。删除数据也有同样的问题。</p>
+<p>kiplist为了避免这一问题，它不要求上下相邻两层链表之间的节点个数有严格的对应关系，而是为每个节点随机出一个层数(level)。比如，一个节点随机出的层数是3，那么就把它链入到第1层到第3层这三层链表中。为了表达清楚，下图展示了如何通过一步步的插入操作从而形成一个skiplist的过程：</p>
+ <center><img src="/images/1760830-b9ef556f8db2f0aa.webp" style="width:700px;"></img></center> 
+当然，这个过程中还有一个重要问题就是： 执行插入操作时计算随机数的过程，是一个很关键的过程，它对skiplist的统计特性有着很重要的影响。它的计算过程如下：
+<ol>
+<li>首先每个节点肯定都有第一层指针。 如果一个节点有第i层(i&gt;=1)指针，那么它有第(i+1)层指针的概率为p。</li>
+<li>节点最大的层数不允许超过一个最大值，记为MaxLevel。</li>
+</ol>
+<p>因此通过统计学计算可以得到，一个节点的平均层数<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi mathvariant="normal">/</mi><mrow><mn>1</mn><mo>−</mo><mi>p</mi></mrow></mrow><annotation encoding="application/x-tex">1/{1-p}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mord">/</span><span class="mord"><span class="mord">1</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord mathdefault">p</span></span></span></span></span>。</p>
+<h3 id="redis中的skiplist实现">Redis中的skiplist实现</h3>
+<p>和原版skiplist相比，redis中有如下设定：</p>
+<ul>
+<li>增加了<code>backward</code>指针，指向结点的前一个紧邻节点；</li>
+<li>MaxLevel设置为32，即每个节点最多有32层指针；</li>
+<li>p设置为<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi mathvariant="normal">/</mi><mn>4</mn></mrow><annotation encoding="application/x-tex">1/4</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mord">/</span><span class="mord">4</span></span></span></span>，，即每个节点平均有1.33个指针，比平衡树更有优势。</li>
+</ul>
+<p>zskiplist在内存中的布局如下图所示：</p>
+ <center><img src="/images/db-redis-ds-x-11.png" style="width:700px;"></img></center> 
+zskiplist的核心设计要点如下：
+<ul>
+<li>
+<p><strong>头节点</strong>不持有任何数据, 且其level[]的长度为32</p>
+</li>
+<li>
+<p><strong>每个结点</strong></p>
+<ul>
+<li><code>ele</code>字段，持有数据，是sds类型</li>
+<li><code>score</code>字段, 其标示着结点的得分, 结点之间凭借得分来判断先后顺序, 跳跃表中的结点按结点的得分升序排列.</li>
+<li><code>backward</code>指针, 这是原版跳跃表中所没有的. 该指针指向结点的前一个紧邻结点.</li>
+</ul>
+</li>
+<li>
+<p>level字段, 用以记录所有结点(除过头节点外)；每个结点中最多持有32个zskiplistLevel结构. 实际数量在结点创建时, 按幂次定律随机生成(不超过32). 每个zskiplistLevel中有两个字段</p>
+<ul>
+<li><code>forward</code>字段指向比自己得分高的某个结点(不一定是紧邻的), 并且, 若当前zskiplistLevel实例在level[]中的索引为X, 则其forward字段指向的结点, 其level[]字段的容量至少是X+1. 这也是上图中, 为什么forward指针总是画的水平的原因.</li>
+<li><code>span</code>字段代表forward字段指向的结点, 距离当前结点的距离. 紧邻的两个结点之间的距离定义为1</li>
+</ul>
+</li>
+</ul>
+<h3 id="平衡树-跳表和哈希表三者对比">平衡树、跳表和哈希表三者对比</h3>
+<ol>
+<li>skiplist和各种平衡树中的元素是有序的，而哈希表不是有序的。因此哈希表适合做单个key查找，不适合做范围查找。</li>
+<li><strong>平衡树的插入和删除操作可能引发子树的调整，逻辑复杂</strong>，而skiplist的插入和删除只需要修改相邻节点的指针，操作简单又快速。</li>
+<li>查找单个key，skiplist和平衡树的时间复杂度都为O(log n)，大体相当；而哈希表在保持较低的哈希值冲突概率的前提下，查找时间复杂度接近O(1)，性能更高一些。</li>
+<li>**内存占用上来说，skiplist比平衡树更灵活一些。**一般来说，平衡树每个节点包含2个指针（分别指向左右子树），而skiplist每个节点包含的指针数目平均为1/(1-p)，具体取决于参数p的大小。如果像Redis里的实现一样，<strong>取p=1/4，那么平均每个节点包含1.33个指针</strong>，比平衡树更有优势。</li>
+<li><strong>从算法实现难度上来比较，skiplist比平衡树要简单得多。</strong></li>
+</ol>
+<h2 id="参考资料">参考资料</h2>
+<ol>
+<li><a target="_blank" rel="noopener" href="https://pdai.tech/md/db/nosql-redis/db-redis-x-redis-ds.html">https://pdai.tech/md/db/nosql-redis/db-redis-x-redis-ds.html</a></li>
+<li><a target="_blank" rel="noopener" href="http://zhangtielei.com/posts/blog-redis-ziplist.html">http://zhangtielei.com/posts/blog-redis-ziplist.html</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/8ac45fd01548">https://www.jianshu.com/p/8ac45fd01548</a></li>
+</ol>
+ 
+      <!-- reward -->
+      
+      <div id="reword-out">
+        <div id="reward-btn">
+          打赏
+        </div>
+      </div>
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <div class="declare">
+      <ul class="post-copyright">
+        <li>
+          <i class="ri-copyright-line"></i>
+          <strong>版权声明： </strong>
+          
+          本博客所有文章除特别声明外，著作权归作者所有。转载请注明出处！
+          
+        </li>
+      </ul>
+    </div>
+    
+    <footer class="article-footer">
+       
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<!--<div class="wx-share-modal">-->
+<!--    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>-->
+<!--    <p>扫一扫，分享到微信</p>-->
+<!--    <div class="wx-qrcode">-->
+<!--      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://rookieyin.github.io/67952895de8b/" alt="微信分享二维码">-->
+<!--    </div>-->
+<!--</div>-->
+
+<div id="share-mask"></div>
+  
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/redis/" rel="tag">redis</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%90%8E%E7%AB%AF/" rel="tag">后端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="tag">数据库</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+  <nav class="article-nav">
+    
+      <a href="/0a87fbe80a6b/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            Redis主从复制
+          
+        </div>
+      </a>
+    
+    
+      <a href="/57edbfaf4ec4/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">Java内存空间</div>
+      </a>
+    
+  </nav>
+
+   
+<!-- valine评论 -->
+<div id="vcomments-box">
+  <div id="vcomments"></div>
+</div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js"></script>
+<script>
+  new Valine({
+    el: "#vcomments",
+    app_id: "f9XmUV7HVprPCNptggBNBhWR-gzGzoHsz",
+    app_key: "H73Viqo3lADopEFgshq3XrXs",
+    path: window.location.pathname,
+    avatar: "monsterid",
+    placeholder: "给我的文章加点评论吧~",
+    recordIP: true,
+  });
+  const infoEle = document.querySelector("#vcomments .info");
+  if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+    infoEle.childNodes.forEach(function (item) {
+      item.parentNode.removeChild(item);
+    });
+  }
+</script>
+<style>
+  #vcomments-box {
+    padding: 5px 30px;
+  }
+
+  @media screen and (max-width: 800px) {
+    #vcomments-box {
+      padding: 5px 0px;
+    }
+  }
+
+  #vcomments-box #vcomments {
+    background-color: #fff;
+  }
+
+  .v .vlist .vcard .vh {
+    padding-right: 20px;
+  }
+
+  .v .vlist .vcard {
+    padding-left: 10px;
+  }
+</style>
+
+ 
+   
+     
+</article>
+
+</section>
+        <footer class="footer">
+  <div class="outer">
+    <ul>
+      <li>
+        Copyrights &copy;
+        2021-2022
+        <i class="ri-heart-fill heart_icon"></i> Yin Peng
+      </li>
+    </ul>
+    <ul>
+      <li>引擎:
+        <a style="color: #0681d0" target="_blank" rel="noopener" href="https://hexo.io/zh-cn/">Hexo</a>
+        &nbsp;&nbsp;|&nbsp;&nbsp;主题:修改自
+        <a style="color: #0681d0" target="_blank" rel="noopener" href="https://shen-yu.gitee.io/">Ayer</a>
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        <span>
+  <span><i class="ri-user-3-fill"></i>访问人数:<span id="busuanzi_value_site_uv"></span></span>
+  <span class="division">|</span>
+  <span><i class="ri-eye-fill"></i>浏览次数:<span id="busuanzi_value_page_pv"></span></span>
+</span>
+        
+      </li>
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      <li>
+        <!-- cnzz统计 -->
+        
+        <script type="text/javascript" src='https://s9.cnzz.com/z_stat.php?id=1278069914&amp;web_id=1278069914'></script>
+        
+      </li>
+    </ul>
+  </div>
+</footer>
+
+        <div class="float_btns">
+            <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+
+<div class="todark" id="todark">
+  <i class="ri-moon-line"></i>
+</div>
+
+        </div>
+    </main>
+
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/alipay.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/wxpay.png">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-2.0.3.min.js"></script>
+ 
+<script src="/js/lazyload.min.js"></script>
+
+<!-- Tocbot -->
+ 
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  tocbot.init({
+    tocSelector: ".tocbot",
+    contentSelector: ".article-entry",
+    headingSelector: "h1, h2, h3, h4, h5, h6",
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: "main",
+    positionFixedSelector: ".tocbot",
+    positionFixedClass: "is-position-fixed",
+    fixedSidebarOffset: "auto",
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.js"></script>
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.css"
+/>
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js"></script>
+
+<script src="/dist/main.js"></script>
+
+<!-- ImageViewer -->
+ <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css">
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script> 
+<!-- MathJax -->
+
+<!-- Katex -->
+
+<!-- busuanzi  -->
+ 
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+ 
+<!-- ClickLove -->
+ 
+<script src="/js/clickLove.js"></script>
+ 
+<!-- ClickBoom1 -->
+
+<!-- ClickBoom2 -->
+
+<!-- CodeCopy -->
+ 
+<link rel="stylesheet" href="/css/clipboard.css">
+ <script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="ri-file-copy-2-line"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-checkbox-circle-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-checkbox-circle-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-time-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-time-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+ 
+<!-- CanvasBackground -->
+
+<script>
+  if (window.mermaid) {
+    mermaid.initialize({ theme: "forest" });
+  }
+</script>
+
+
+    
+</div>
+</body>
+
+</html>

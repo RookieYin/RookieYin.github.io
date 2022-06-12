@@ -1,0 +1,926 @@
+<!DOCTYPE html>
+
+
+<html lang="zh-CN">
+  
+
+    <head>
+      <meta name="baidu-site-verification" content="code-rk2CNV4xgj" />
+      <meta charset="utf-8" />
+        
+      <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1"
+      />
+      <title>MySQL锁机制 |  RookieYin&#39;s Note</title>
+  <meta name="generator" content="hexo-theme-ayer">
+      
+      <link rel="shortcut icon" href="/images/2.jpg" />
+       
+<link rel="stylesheet" href="/dist/main.css">
+
+      <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/Shen-Yu/cdn/css/remixicon.min.css"
+      />
+      
+<link rel="stylesheet" href="/css/custom.css">
+ 
+      <script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+       
+ 
+
+      <!-- mermaid -->
+      
+    <link rel="alternate" href="/atom.xml" title="RookieYin's Note" type="application/atom+xml">
+<link href="https://cdn.bootcss.com/KaTeX/0.11.1/katex.min.css" rel="stylesheet" /></head>
+  </html>
+</html>
+
+
+<body>
+<div id="app">
+    
+    
+    <div class="sidebar">
+        <!--<button class="navbar-toggle"></button>-->
+<nav class="navbar">
+  <div class="logo">
+    <a href="/">
+      <img src="/images/2.jpg"
+           style="border-radius: 50%;max-width: none;">
+    </a>
+  </div>
+  <div class = nav-title style="font-size: 2.5rem;color: #ffffff;margin-left: 4rem;font-weight: bold;min-width: 23rem">
+    RookieYin's Note
+  </div>
+  <div class="nav nav-main">
+    
+    <div class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </div>
+    
+    <div class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </div>
+    
+    <div class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </div>
+    
+    <div class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </div>
+    
+    <div class="nav-item">
+      <a class="nav-item-link" href="/friends">友链</a>
+    </div>
+    
+    <div class="nav-item">
+      <a class="nav-item-link" href="/about-me/2021">关于我</a>
+    </div>
+    
+      <div class="nav-item">
+        <div class="nav-item-link navbar-menu-wrap">
+          <div class="navbar-menu"></div>
+        </div>
+      </div>
+    <div class = "nav-item">
+      <a class="nav-item-link nav-item-search"  title="搜索">
+        <i class="ri-search-line"></i>
+      </a>
+    </div>
+  </div>
+</nav>
+<nav class="navbar2">
+  <div style="position: relative;">
+      <div style="height: 4.8rem;display: inline-block;margin-top:1rem;margin-left:1rem;">
+        <a href="/">
+          <img src="/images/2.jpg"
+               style="border-radius: 50%;max-width: none;width:4.8rem">
+        </a>
+      </div>
+    <div class="navbar-title2" style="font-size: 2.5rem;color: #ffffff;margin-left: 4rem;font-weight: bold;margin-top:1rem;
+    min-width: 23rem;height: 4.8rem;overflow: hidden;">
+      <span style="line-height: 4.8rem;">RookieYin's Note</span>
+    </div>
+    <div style="display: inline-block;position: absolute;top:50%;height:50%;transform:translate(-50%,-50%);right:4rem;margin-top: 1rem;">
+      <div class="navbar-menu-wrap">
+        <div class="navbar-menu"></div>
+      </div>
+    </div>
+    <div style="display: inline-block;position: absolute;top:50%;height:50%;transform:translate(-50%,-50%);right:0;">
+      <a class="nav-item-search"  title="搜索">
+        <i class="ri-search-line"></i>
+      </a>
+    </div>
+  </div>
+  <div style="display: inline-block;text-align: center;width: 100%;padding-bottom: 1rem;">
+    
+    <div class="nav-item2">
+      <a class="nav-item-link2" href="/">主页</a>
+    </div>
+    
+    <div class="nav-item2">
+      <a class="nav-item-link2" href="/archives">归档</a>
+    </div>
+    
+    <div class="nav-item2">
+      <a class="nav-item-link2" href="/categories">分类</a>
+    </div>
+    
+    <div class="nav-item2">
+      <a class="nav-item-link2" href="/tags">标签</a>
+    </div>
+    
+    <div class="nav-item2">
+      <a class="nav-item-link2" href="/friends">友链</a>
+    </div>
+    
+    <div class="nav-item2">
+      <a class="nav-item-link2" href="/about-me/2021">关于我</a>
+    </div>
+    
+  </div>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+
+    </div>
+    <main class="content">
+        <section class="outer">
+  <article
+  id="post-2 后端/MySQL/11. MySQL锁机制"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  MySQL锁机制
+</h1>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/fddcef8b88e0/" class="article-date">
+  <time datetime="2021-12-18T12:38:14.000Z" itemprop="datePublished">2021-12-18</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a> / <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/MySQL/">MySQL</a>
+  </div>
+
+  
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> 字数统计:</span>
+            <span class="post-count">5.5k</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> 阅读时长≈</span>
+            <span class="post-count">19 分钟</span>
+        </span>
+    </span>
+</div>
+ 
+    </div>
+      
+    <div class="tocbot"></div>
+
+
+
+
+  
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h1>MySQL锁机制</h1>
+<p>在“MySQL事务”一文中，我们知道并发事务下会带来脏读、脏写、不可重复读、幻读等问题。解决这些问题的方式有两种：</p>
+<ul>
+<li>
+<p>一致性非锁定读或者叫快照读：其实现方式就是我们常说的MVCC。</p>
+<p>所有普通的SELECT语句在已提交读和可重复读两种隔离级别下都是采用一致性非锁定读。</p>
+</li>
+<li>
+<p>锁定读：一般情况下，使用MVCC可以解决读-写操作并发执行时带来的问题，但是某些场景下，我们必须采用加锁的方式才能解决这些并发问题。</p>
+</li>
+</ul>
+<a id="more"></a>
+<h2 id="1-innodb中的锁">1 InnoDB中的锁</h2>
+<p>MySQL支持多种存储引擎，不同引擎对锁的支持也是不一样的。对于MyISAME、MEMORY和MERGE这些存储引擎来说，它们只支持表级锁，而且这些存储引擎并不支持事务，因此当使用这些存储引擎的表加锁时，在同一时刻只允许一个会话对表进行写操作。</p>
+<p>InnoDB和其他存储引擎相比，支持的锁功能要强大很多，同时支持表级锁和行级锁。</p>
+<ul>
+<li><strong>表级锁</strong>：占用资源少，但是一下子锁住了一张表，降低系统并发能力</li>
+<li><strong>行级锁</strong>：占用资源多，但是一次值锁住几条记录，并发能力强</li>
+</ul>
+<h3 id="1-1-多粒度锁">1.1 多粒度锁</h3>
+<p>我们知道锁有两种类型：共享锁（S锁）和排它锁（X锁），InnoDB中提供了多粒度锁的支持。所谓多粒度，就是说我们既可以给整个表加上S锁或者X锁，也可以给表中某几行记录加上S锁或者X锁。</p>
+<p>给<strong>行记录加锁</strong>很容易：</p>
+<ul>
+<li>如果行被某个事务加了S锁，那么其他事务可以加S锁，但是不能加X锁</li>
+<li>如果行被某个事物加了X锁，那么其他事务既不能加S锁，也不能加X锁</li>
+</ul>
+<p>给整个<strong>表加锁</strong>就比较复杂了：</p>
+<ul>
+<li>因为我们不仅需要判断表是否被加了表级锁，还需要判断表中是否有记录被加了锁。此时就需要遍历表中所有记录，代价显然是十分高昂的。</li>
+</ul>
+<p>为了解决这个问题，InnoDB中提出了<strong>意向锁</strong>的概念：</p>
+<ul>
+<li><strong>意向共享锁</strong>（IS）：事务想获得表中某几行的共享锁</li>
+<li><strong>意向排它锁</strong>（IX）：事务想获得表中某几行的排它锁</li>
+</ul>
+<p>也就是说：</p>
+<ul>
+<li>当事务想给表中某几条记录加共享锁的时候，先给这张表加IS锁，然后再给行记录加S锁</li>
+<li>当事务想给表中某几条记录加排它锁的时候，先给这张表加IX锁，然后再给行记录加X锁</li>
+</ul>
+<p>总之，意向锁存在的目的是：<strong>当我们想添加表级别S锁和X锁时，可以快速判断表中的记录是否有被加锁</strong>。因此意向锁之间都是兼容的，它只是用来帮助其他事务判断能否添加表级锁。</p>
+<h3 id="1-2-全局锁">1.2 全局锁</h3>
+<h4 id="1-2-1-使用方法">1.2.1 使用方法</h4>
+<p>全局锁，就是锁定整个数据库，执行下面这条命令，就可以让整个数据库处于只读状态：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flush tables <span class="keyword">with</span> read lock</span><br></pre></td></tr></table></figure>
+<p>这时其他所有线程的写、删除、更新操作都会被阻塞。执行下面命令，释放全局锁：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">unlock tables</span><br></pre></td></tr></table></figure>
+<h4 id="1-2-2-应用场景">1.2.2 应用场景</h4>
+<p>全局锁主要应用于做<strong>全库逻辑备份</strong>，这样在备份数据库期间，不会因为数据或表结构的更新，而出现备份文件的数据与预期的不一样。</p>
+<p>举个例子大家就知道了。</p>
+<p>在全库逻辑备份期间，假设不加全局锁的场景，看看会出现什么意外的情况。</p>
+<p>如果在全库逻辑备份期间，有用户购买了一件商品，一般购买商品的业务逻辑是会涉及到多张数据库表的更细，比如在用户表更新该用户的余额，然后在商品表更新被购买的商品的库存。</p>
+<p>那么，有可能出现这样的顺序：</p>
+<ol>
+<li>先备份了用户表的数据；</li>
+<li>然后有用户发起了购买商品的操作；</li>
+<li>接着再备份商品表的数据。</li>
+</ol>
+<p>也就是在备份用户表和商品表之间，有用户购买了商品。</p>
+<p>这种情况下，备份的结果是用户表中该用户的余额并没有扣除，反而商品表中该商品的库存被减少了，如果后面用这个备份文件恢复数据库数据的话，用户钱没少，而库存少了，等于用户白嫖了一件商品。</p>
+<p>所以，在全库逻辑备份期间，加上全局锁，就不会出现上面这种情况了。</p>
+<blockquote>
+<p>加全局锁又会带来什么缺点呢？</p>
+</blockquote>
+<p>加上全局锁，意味着整个数据库都是只读状态。</p>
+<p>那么如果数据库里有很多数据，备份就会花费很多的时间，关键是备份期间，业务只能读数据，而不能更新数据，这样会造成业务停滞。</p>
+<blockquote>
+<p>既然备份数据库数据的时候，使用全局锁会影响业务，那有什么其他方式可以避免？</p>
+</blockquote>
+<p>有的，如果数据库的引擎支持的事务支持<strong>可重复读的隔离级别</strong>，那么在备份数据库之前先开启事务，会先创建 Read View，然后整个事务执行期间都在用这个 Read View，而且由于 MVCC 的支持，备份期间业务依然可以对数据进行更新操作。</p>
+<p>因为在可重复读的隔离级别下，即使其他事务更新了表的数据，也不会影响备份数据库时的 Read View，这就是事务四大特性中的隔离性，这样备份期间备份的数据一直是在开启事务时的数据。</p>
+<p>备份数据库的工具是 mysqldump，在使用 mysqldump 时加上 <code>–single-transaction</code> 参数的时候，就会在备份数据库之前先开启事务。这种方法只适用于支持「可重复读隔离级别的事务」的存储引擎。</p>
+<p>InnoDB 存储引擎默认的事务隔离级别正是可重复读，因此可以采用这种方式来备份数据库。</p>
+<p>但是，对于 MyISAM 这种不支持事务的引擎，在备份数据库时就要使用全局锁的方法。</p>
+<h3 id="1-3-表级锁">1.3 表级锁</h3>
+<ul>
+<li>
+<p><strong>表级别的S锁、X锁</strong></p>
+<ul>
+<li>
+<p>在对某个表进行增删改查语句时，是不会对这个表添加S、X锁的。</p>
+</li>
+<li>
+<p>当对表执行如ALTER等DDL语句时，会添加锁，此时如果有其他增删改查事务请求会被阻塞。不过这里添加的表级锁并不是InnoDB中的表级S、X锁，而是在server层使用的一种元数据锁（MDL）。</p>
+</li>
+<li>
+<p>InooDB中的表级锁其实十分“鸡肋”，一般只会在一些特殊情况下用到，比如系统崩溃恢复时。InnoDB的厉害之处在于提供了更细粒度的行级锁。</p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>表级别IS、IX锁</strong></p>
+<p>前面也说过，当事务想向表中某些记录添加X或S锁时，会先给表添加IX或IS锁。</p>
+</li>
+<li>
+<p><strong>表级别AUTO-INC锁</strong></p>
+<p>自增锁。MySQL中可以给某个列设置自增属性，之后在插入记录时可以不指定该列的值。InnoDB实现递增的方式有两种：</p>
+<ul>
+<li>使用AUTO-INC锁：执行插入语句前加一个锁，语句执行结束后释放锁。</li>
+<li>采用轻量级锁：在为插入语句生成AUTO_INCREMENT 修饰的列的值时获取这个轻量级锁， 然后在生成本次插入语句需要用到的AUTO_INCREMENT 修饰的列的值之后，就把该轻量级锁释放掉， 而<strong>不需要等到整个插入语句执行完后才释放锁</strong>。</li>
+</ul>
+<p>当插入数据数量确定时使用轻量级锁，否则使用自增锁。</p>
+</li>
+<li>
+<p><strong>元数据锁MDL</strong></p>
+<p>元数据锁，顾名思义，它适合DDL相关的。我们不需要显示的使用MDL，数据库会自动给表加上MDL：</p>
+<ul>
+<li>对一张表进行 CRUD 操作时，加的是 <strong>MDL 读锁</strong>；</li>
+<li>对一张表做结构变更操作的时候，加的是 <strong>MDL 写锁</strong>。</li>
+</ul>
+<p>MDL保证用户在执行CRUD操作时，数据库结构不会发生改变，当事务结束后，自动释放MDL锁。</p>
+<p>不过需要注意的是如果数据库有一个长事务（所谓的长事务，就是开启了事务，但是一直还没提交），那在对表结构做变更操作的时候，可能会发生意想不到的事情，比如下面这个顺序的场景：</p>
+<ol>
+<li>首先，线程 A 先启用了事务（但是一直不提交），然后执行一条 select 语句，此时就先对该表加上 MDL 读锁；</li>
+<li>然后，线程 B 也执行了同样的 select 语句，此时并不会阻塞，因为「读读」并不冲突；</li>
+<li>接着，线程 C 修改了表字段，此时由于线程 A 的事务并没有提交，也就是 MDL 读锁还在占用着，这时线程 C 就无法申请到 MDL 写锁，就会被阻塞，</li>
+</ol>
+<p>那么在线程 C 阻塞后，后续有对该表的 select 语句，就都会被阻塞，如果此时有大量该表的 select 语句的请求到来，就会有大量的线程被阻塞住，这时数据库的线程很快就会爆满了。</p>
+<blockquote>
+<p>为什么线程 C 因为申请不到 MDL 写锁，而导致后续的申请读锁的查询操作也会被阻塞？</p>
+</blockquote>
+<p>这是因为申请 MDL 锁的操作会形成一个队列，队列中<strong>写锁获取优先级高于读锁</strong>，一旦出现 MDL 写锁等待，会阻塞后续该表的所有 CRUD 操作。</p>
+<p>所以为了能安全的对表结构进行变更，在对表结构变更前，先要看看数据库中的长事务，是否有事务已经对表加上了 MDL 读锁，如果可以考虑 kill 掉这个长事务，然后再做表结构的变更。</p>
+</li>
+</ul>
+<h3 id="1-4-行级锁">1.4 行级锁</h3>
+<ul>
+<li>
+<p><strong>Record Lock</strong></p>
+<p>也就是我们前面提到的记录锁，官方名称叫作<code>LOCK_REC_NOT_GAP</code>，这里称之为“正经记录锁”。</p>
+<p>正经记录锁是有S锁和X锁之分的，当一个事务获得S锁后，其他事务可以获得S锁，但是不能获得X锁。当一个事务获得X锁后，其他事务S、X锁都不能获得。</p>
+</li>
+<li>
+<p><strong>Gap Lock</strong></p>
+<p>我们知道MySQL在可重复读的隔离级别下可以在很大程度上解决幻读现象。解决方案有两种：MVCC和加锁。但是加锁方案有一个问题就是，在事务执行第一次读取操作时，那些幻影记录尚不存在，我们无法给这些记录加上正经记录锁。为此，InnoDB中设计了Gap Lock锁，这里称之为gap锁。下图展示了给number值为8的记录添加一个gap锁：</p>
+<center><img src="/images/image-20220328143549338.png" style="width:500px;"></img></center>
+<p>上图中的gap锁表明：number值在（3，8）之间的数据禁止被立即插入，需要等gap锁释放。那么很快我们发现如何禁止立即</p>
+<p>插入number值在区间20到正无穷的数据呢？这时候就要用到数据页中的两条伪记录了。</p>
+</li>
+<li>
+<p><strong>Next-Key Lock</strong></p>
+<p>Record Lock和Gap Lock的结合体，既能锁住当前记录，也能禁止立即插入间隙数据。如下图所示：</p>
+<center><img src="/images/image-20220328144016410.png" style="width:500px;"></img></center>
+</li>
+<li>
+<p><strong>Insert Intention Lock</strong></p>
+<p>一个事务在插入一条记录时，需要判断插入位置是否已经被别的事务加了gap锁。如果有的话，插入事务不仅要等待gap锁的释放，还需要在内存中生成一个锁结构，称之为Insert Intention Lock，插入意向锁。</p>
+</li>
+<li>
+<p><strong>隐式锁</strong></p>
+<p>正常情况下，执行Insert语句时不需要在内存中生成锁结构的（有gap锁除外），但是这可能导致脏读、脏写等问题。在InnoDB中，设计了一种非常巧妙的方法，不用加锁就可以避免这个问题。其底层是依赖于表的事务id隐藏列来实现的。</p>
+<ul>
+<li>场景1：对于聚簇索引记录来说，有一个trx_id隐藏列，该隐藏列记录着最后改动该记录的事务的事务id。在新插入一条记录后，这条记录trx_id的值就是当前插入事务的id。
+<ul>
+<li>如果新来一个事务T要读或者更新这条未被提交的记录，T事务首先会看一下该记录中trx_id值代表的事务是否处于活跃状态：
+<ul>
+<li>如果处于活跃状态，那么T事务会帮助插入事务创建一个X锁的锁结构，并且该锁的状态为进行中；然后再为自己创建一个锁结构，锁结构状态为阻塞，之后自己进入等待状态。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>场景2：对于二级索引记录来说，本身并没有trx_id隐藏列，但是二级索引页面的Page Header中有一个<code>PAGE_MAX_TRX_ID</code>属性，表示对该页面做改动的最大的事务id。如果<code>PAGE_MAX_TRX_ID</code>值小于当前活跃事务列表中的最小值，那么说明对当前页面的所有修改都已经提交了。否则需要在页面中定位到对应的二级索引记录，然后回表找到它对应的聚簇索引记录，在重复场景1的做法。</li>
+</ul>
+</li>
+</ul>
+<h2 id="2-锁的存储结构">2 锁的存储结构</h2>
+<p>对一条记录加锁的本质就是在内存中创建一个锁结构与之关联，不过为了节约空间，并不是每个锁都会单独分配一个内存结构。如果多个锁符合下面这些条件，就可以放到同一个锁结构中：</p>
+<ul>
+<li>在同一个事务中进行加锁操作</li>
+<li>被加锁的记录在同一个页面中</li>
+<li>加锁的类型是一样的</li>
+<li>等待状态是一样的</li>
+</ul>
+<p>下图展示了InnoDB中锁的结构：</p>
+<center><img src="/images/0a8c8f6e8e76bdfbae05948d4b85e2bc.png" style="width:500px;"></img></center>
+<p>关于锁每部分的详细信息，这里就不做过多介绍了。</p>
+<h2 id="3-死锁">3 死锁</h2>
+<p>这部分主要摘自<a target="_blank" rel="noopener" href="https://xiaolincoding.com/mysql/lock/deadlock.html#%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BC%9A%E4%BA%A7%E7%94%9F%E6%AD%BB%E9%94%81">这里</a></p>
+<h3 id="3-1-概述">3.1 概述</h3>
+<p>死锁是指：两个或两个以上的事务执行过程中，因争夺资源而造成一种互相等待的现象。</p>
+<p>比如T1事务占有第1行的X锁，T2事务占有第2行的X锁，然后T1事务希望申请第2行的S锁，T2事务希望申请第1行的S锁。此时，就会出现T1等待T2释放第2行X锁，T2等待T1释放第1行X锁这种相互等待的现象。</p>
+<ul>
+<li>
+<p><strong>超时机制</strong></p>
+<p>解决死锁的一种方案就是：超时，即事务被阻塞时间超过一定阈值后，对事务进行回滚。</p>
+<p>超时机制虽然简单，但是若超时事务已经更新了很多行，此时回滚代价就很大。</p>
+</li>
+<li>
+<p><strong>等待图</strong></p>
+<p>除了超时机制，当前数据库还都普遍采用等待图的方式进行死锁检测，InnoDB也是采用这种方法。</p>
+<p>wait-for graph要求数据库保存以下两种信息：</p>
+<ul>
+<li>锁的信息链表</li>
+<li>事务等待链表</li>
+</ul>
+<p>通过上述链表可以构造一张图，如果这个图中存在回路，就代表存在死锁。</p>
+<p>等待图是一种更为主动的死锁检测机制，在每个事务请求锁并发生等待时都会判断是否存在回路，如果存在则有死锁，通常来说InnoDB会选择回滚undo量最小的事务。</p>
+</li>
+</ul>
+<h3 id="3-2-死锁示例">3.2 死锁示例</h3>
+<p>创建一张订单表，其中 id 字段为主键索引，order_no 字段普通索引，也就是非唯一索引：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> `t_order` (</span><br><span class="line">  `id` <span class="type">int</span> <span class="keyword">NOT</span> <span class="keyword">NULL</span> AUTO_INCREMENT,</span><br><span class="line">  `order_no` <span class="type">int</span> <span class="keyword">DEFAULT</span> <span class="keyword">NULL</span>,</span><br><span class="line">  `create_date` datetime <span class="keyword">DEFAULT</span> <span class="keyword">NULL</span>,</span><br><span class="line">  <span class="keyword">PRIMARY</span> <span class="keyword">KEY</span> (`id`),</span><br><span class="line">  KEY `index_order` (`order_no`) <span class="keyword">USING</span> BTREE</span><br><span class="line">) ENGINE<span class="operator">=</span>InnoDB ;</span><br></pre></td></tr></table></figure>
+<p>然后，先 <code>t_order</code> 表里现在已经有了 6 条记录：</p>
+<center><img src="/images/54fc00f9f87a60ab7b5ba92d824a892d.png" style="width:500px;"></img></center>
+<p>假设这时有两事务，一个事务要插入订单 1007 ，另外一个事务要插入订单 1008，因为需要对订单做幂等性校验，所以两个事务先要查询该订单是否存在，不存在才插入记录，过程如下：</p>
+<center><img src="/images/90c1e01d0345de639e3426cea0390e80.png" style="width:600px;"></img></center>
+<p>可以看到，两个事务都陷入了等待状态（前提没有打开死锁检测），也就是发生了死锁，因为都在相互等待对方释放锁。</p>
+<p>这里在查询记录是否存在的时候，使用了 <code>select ... for update</code> 语句，目的为了防止事务执行的过程中，有其他事务插入了记录，而出现幻读的问题。</p>
+<p>如果没有使用 <code>select ... for update</code> 语句，而使用了单纯的 select 语句，如果是两个订单号一样的请求同时进来，就会出现两个重复的订单，有可能出现幻读，如下图：</p>
+<center><img src="/images/8ae18f10f1a89aac5e93f0e9794e469e.png" style="width:600px;"></img></center>
+<h3 id="3-3-为什么发生死锁">3.3 为什么发生死锁</h3>
+<p>可重复读隔离级别下，是存在幻读的问题。</p>
+<p><strong>Innodb 引擎为了解决「可重复读」隔离级别下的幻读问题，就引出了 next-key 锁</strong>，它是记录锁和间隙锁的组合。</p>
+<ul>
+<li>Record Loc，记录锁，锁的是记录本身；</li>
+<li>Gap Lock，间隙锁，锁的就是两个值之间的空隙，以防止其他事务在这个空隙间插入新的数据，从而避免幻读现象。</li>
+</ul>
+<p>普通的 select 语句是不会对记录加锁的，因为它是通过 MVCC 的机制实现的快照读，如果要在查询时对记录加行锁，可以使用下面这两个方式：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">begin</span>;</span><br><span class="line"><span class="operator">/</span><span class="operator">/</span>对读取的记录加共享锁</span><br><span class="line"><span class="keyword">select</span> ... lock <span class="keyword">in</span> share mode;</span><br><span class="line"><span class="keyword">commit</span>; <span class="operator">/</span><span class="operator">/</span>锁释放</span><br><span class="line"></span><br><span class="line"><span class="keyword">begin</span>;</span><br><span class="line"><span class="operator">/</span><span class="operator">/</span>对读取的记录加排他锁</span><br><span class="line"><span class="keyword">select</span> ... <span class="keyword">for</span> <span class="keyword">update</span>;</span><br><span class="line"><span class="keyword">commit</span>; <span class="operator">/</span><span class="operator">/</span>锁释放</span><br></pre></td></tr></table></figure>
+<p>行锁的释放时机是在事务提交（commit）后，锁就会被释放，并不是一条语句执行完就释放行锁。</p>
+<p>比如，下面事务 A 查询语句会锁住<code>(2, +∞]</code>范围的记录，然后期间如果有其他事务在这个锁住的范围插入数据就会被阻塞。</p>
+<center><img src="/images/8d1dfbab758fe7e4c58563fca9ccb6d4.png" style="width:400px;"></img></center>
+<p>next-key 锁的加锁规则其实挺复杂的，在一些场景下会退化成记录锁或间隙锁，我之前也写一篇加锁规则，详细可以看这篇「<a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzUxODAzNDg4NQ==&amp;mid=2247497197&amp;idx=1&amp;sn=9f82f73d876636944fb75348ef568c01&amp;scene=21#wechat_redirect">我做了一天的实验！ (opens new window)</a>」</p>
+<p>需要注意的是，如果 update 语句的 where 条件没有用到索引列，那么就会全表扫描，在一行行扫描的过程中，不仅给行加上了行锁，还给行两边的空隙也加上了间隙锁，相当于锁住整个表，然后直到事务结束才会释放锁。</p>
+<p>所以在线上千万不要执行没有带索引条件的 update 语句，不然会造成业务停滞，我有个读者就因为干了这个事情，然后被老板教育了一波，详细可以看这篇「<a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzUxODAzNDg4NQ==&amp;mid=2247497844&amp;idx=1&amp;sn=256a70fb347ed23b0e116d7cc208d426&amp;scene=21#wechat_redirect">完蛋，公司被一条 update 语句干趴了！ (opens new window)</a>」</p>
+<p>回到前面死锁的例子，在执行下面这条语句的时候：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> id <span class="keyword">from</span> t_order <span class="keyword">where</span> order_no <span class="operator">=</span> <span class="number">1008</span> <span class="keyword">for</span> <span class="keyword">update</span>;</span><br></pre></td></tr></table></figure>
+<p>因为 order_no 不是唯一索引，所以行锁的类型是间隙锁，于是间隙锁的范围是<code>（1006, +∞）</code>。那么，当事务 B 往间隙锁里插入 id = 1008 的记录就会被锁住。</p>
+<p>因为当我们执行以下插入语句时，会在插入间隙上再次获取插入意向锁。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> t_order (order_no, create_date) <span class="keyword">values</span> (<span class="number">1008</span>, now());</span><br></pre></td></tr></table></figure>
+<p>插入意向锁与间隙锁是冲突的，所以当其它事务持有该间隙的间隙锁时，需要等待其它事务释放间隙锁之后，才能获取到插入意向锁。而间隙锁与间隙锁之间是兼容的，所以所以两个事务中 <code>select ... for update</code> 语句并不会相互影响。</p>
+<p>案例中的事务 A 和事务 B 在执行完后 <code>select ... for update</code> 语句后都持有范围为<code>(1006,+∞）</code>的间隙锁，而接下来的插入操作为了获取到插入意向锁，都在等待对方事务的间隙锁释放，于是就造成了循环等待，导致死锁。</p>
+<h3 id="3-4-避免死锁">3.4 避免死锁</h3>
+<p>死锁的四个必要条件：<strong>互斥、占有且等待、不可强占用、循环等待</strong>。只要系统发生死锁，这些条件必然成立，但是只要破坏任意一个条件就死锁就不会成立。</p>
+<p>在数据库层面，有两种策略通过「打破循环等待条件」来解除死锁状态：</p>
+<ul>
+<li>
+<p><strong>设置事务等待锁的超时时间</strong>。当一个事务的等待时间超过该值后，就对这个事务进行回滚，于是锁就释放了，另一个事务就可以继续执行了。在 InnoDB 中，参数 <code>innodb_lock_wait_timeout</code> 是用来设置超时时间的，默认值时 50 秒。</p>
+<p>当发生超时后，就出现下面这个提示：</p>
+<center><img src="/images/c296c1889f0101d335699311b4ef20a8.png" style="width:600px;"></img></center>
+</li>
+<li>
+<p><strong>开启主动死锁检测</strong>。主动死锁检测在发现死锁后，主动回滚死锁链条中的某一个事务，让其他事务得以继续执行。将参数 <code>innodb_deadlock_detect</code> 设置为 on，表示开启这个逻辑，默认就开启。</p>
+<p>当检测到死锁后，就会出现下面这个提示：</p>
+<center><img src="/images/f380ef357d065498d8d54ad07f145e09.png" style="width:600px;"></img></center>
+</li>
+</ul>
+<p>上面这个两种策略是「当有死锁发生时」的避免方式。</p>
+<p>我们可以回归业务的角度来预防死锁，对订单做幂等性校验的目的是为了保证不会出现重复的订单，那我们可以直接将 order_no 字段设置为唯一索引列，利用它的唯一下来保证订单表不会出现重复的订单，不过有一点不好的地方就是在我们插入一个已经存在的订单记录时就会抛出异常。</p>
+ 
+      <!-- reward -->
+      
+      <div id="reword-out">
+        <div id="reward-btn">
+          打赏
+        </div>
+      </div>
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <div class="declare">
+      <ul class="post-copyright">
+        <li>
+          <i class="ri-copyright-line"></i>
+          <strong>版权声明： </strong>
+          
+          本博客所有文章除特别声明外，著作权归作者所有。转载请注明出处！
+          
+        </li>
+      </ul>
+    </div>
+    
+    <footer class="article-footer">
+       
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<!--<div class="wx-share-modal">-->
+<!--    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>-->
+<!--    <p>扫一扫，分享到微信</p>-->
+<!--    <div class="wx-qrcode">-->
+<!--      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://rookieyin.github.io/fddcef8b88e0/" alt="微信分享二维码">-->
+<!--    </div>-->
+<!--</div>-->
+
+<div id="share-mask"></div>
+  
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MySQL/" rel="tag">MySQL</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%90%8E%E7%AB%AF/" rel="tag">后端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="tag">数据库</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+  <nav class="article-nav">
+    
+      <a href="/20925e201721/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            九大排序算法总结
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2a06983ca4ed/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">undo log详解</div>
+      </a>
+    
+  </nav>
+
+   
+<!-- valine评论 -->
+<div id="vcomments-box">
+  <div id="vcomments"></div>
+</div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js"></script>
+<script>
+  new Valine({
+    el: "#vcomments",
+    app_id: "f9XmUV7HVprPCNptggBNBhWR-gzGzoHsz",
+    app_key: "H73Viqo3lADopEFgshq3XrXs",
+    path: window.location.pathname,
+    avatar: "monsterid",
+    placeholder: "给我的文章加点评论吧~",
+    recordIP: true,
+  });
+  const infoEle = document.querySelector("#vcomments .info");
+  if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+    infoEle.childNodes.forEach(function (item) {
+      item.parentNode.removeChild(item);
+    });
+  }
+</script>
+<style>
+  #vcomments-box {
+    padding: 5px 30px;
+  }
+
+  @media screen and (max-width: 800px) {
+    #vcomments-box {
+      padding: 5px 0px;
+    }
+  }
+
+  #vcomments-box #vcomments {
+    background-color: #fff;
+  }
+
+  .v .vlist .vcard .vh {
+    padding-right: 20px;
+  }
+
+  .v .vlist .vcard {
+    padding-left: 10px;
+  }
+</style>
+
+ 
+   
+     
+</article>
+
+</section>
+        <footer class="footer">
+  <div class="outer">
+    <ul>
+      <li>
+        Copyrights &copy;
+        2021-2022
+        <i class="ri-heart-fill heart_icon"></i> Yin Peng
+      </li>
+    </ul>
+    <ul>
+      <li>引擎:
+        <a style="color: #0681d0" target="_blank" rel="noopener" href="https://hexo.io/zh-cn/">Hexo</a>
+        &nbsp;&nbsp;|&nbsp;&nbsp;主题:修改自
+        <a style="color: #0681d0" target="_blank" rel="noopener" href="https://shen-yu.gitee.io/">Ayer</a>
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        <span>
+  <span><i class="ri-user-3-fill"></i>访问人数:<span id="busuanzi_value_site_uv"></span></span>
+  <span class="division">|</span>
+  <span><i class="ri-eye-fill"></i>浏览次数:<span id="busuanzi_value_page_pv"></span></span>
+</span>
+        
+      </li>
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      <li>
+        <!-- cnzz统计 -->
+        
+        <script type="text/javascript" src='https://s9.cnzz.com/z_stat.php?id=1278069914&amp;web_id=1278069914'></script>
+        
+      </li>
+    </ul>
+  </div>
+</footer>
+
+        <div class="float_btns">
+            <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+
+<div class="todark" id="todark">
+  <i class="ri-moon-line"></i>
+</div>
+
+        </div>
+    </main>
+
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/alipay.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/wxpay.png">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-2.0.3.min.js"></script>
+ 
+<script src="/js/lazyload.min.js"></script>
+
+<!-- Tocbot -->
+ 
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  tocbot.init({
+    tocSelector: ".tocbot",
+    contentSelector: ".article-entry",
+    headingSelector: "h1, h2, h3, h4, h5, h6",
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: "main",
+    positionFixedSelector: ".tocbot",
+    positionFixedClass: "is-position-fixed",
+    fixedSidebarOffset: "auto",
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.js"></script>
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.css"
+/>
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js"></script>
+
+<script src="/dist/main.js"></script>
+
+<!-- ImageViewer -->
+ <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css">
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script> 
+<!-- MathJax -->
+
+<!-- Katex -->
+
+<!-- busuanzi  -->
+ 
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+ 
+<!-- ClickLove -->
+ 
+<script src="/js/clickLove.js"></script>
+ 
+<!-- ClickBoom1 -->
+
+<!-- ClickBoom2 -->
+
+<!-- CodeCopy -->
+ 
+<link rel="stylesheet" href="/css/clipboard.css">
+ <script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="ri-file-copy-2-line"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-checkbox-circle-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-checkbox-circle-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-time-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-time-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+ 
+<!-- CanvasBackground -->
+
+<script>
+  if (window.mermaid) {
+    mermaid.initialize({ theme: "forest" });
+  }
+</script>
+
+
+    
+</div>
+</body>
+
+</html>

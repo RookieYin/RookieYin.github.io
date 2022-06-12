@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+
+
+<html lang="zh-CN">
+  
+
+    <head>
+      <meta name="baidu-site-verification" content="code-rk2CNV4xgj" />
+      <meta charset="utf-8" />
+        
+      <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1"
+      />
+      <title>平衡二叉树 |  RookieYin&#39;s Note</title>
+  <meta name="generator" content="hexo-theme-ayer">
+      
+      <link rel="shortcut icon" href="/images/2.jpg" />
+       
+<link rel="stylesheet" href="/dist/main.css">
+
+      <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/Shen-Yu/cdn/css/remixicon.min.css"
+      />
+      
+<link rel="stylesheet" href="/css/custom.css">
+ 
+      <script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+       
+ 
+
+      <!-- mermaid -->
+      
+    <link rel="alternate" href="/atom.xml" title="RookieYin's Note" type="application/atom+xml">
+<link href="https://cdn.bootcss.com/KaTeX/0.11.1/katex.min.css" rel="stylesheet" /></head>
+  </html>
+</html>
+
+
+<body>
+<div id="app">
+    
+    
+    <div class="sidebar">
+        <!--<button class="navbar-toggle"></button>-->
+<nav class="navbar">
+  <div class="logo">
+    <a href="/">
+      <img src="/images/2.jpg"
+           style="border-radius: 50%;max-width: none;">
+    </a>
+  </div>
+  <div class = nav-title style="font-size: 2.5rem;color: #ffffff;margin-left: 4rem;font-weight: bold;min-width: 23rem">
+    RookieYin's Note
+  </div>
+  <div class="nav nav-main">
+    
+    <div class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </div>
+    
+    <div class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </div>
+    
+    <div class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </div>
+    
+    <div class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </div>
+    
+    <div class="nav-item">
+      <a class="nav-item-link" href="/friends">友链</a>
+    </div>
+    
+    <div class="nav-item">
+      <a class="nav-item-link" href="/about-me/2021">关于我</a>
+    </div>
+    
+      <div class="nav-item">
+        <div class="nav-item-link navbar-menu-wrap">
+          <div class="navbar-menu"></div>
+        </div>
+      </div>
+    <div class = "nav-item">
+      <a class="nav-item-link nav-item-search"  title="搜索">
+        <i class="ri-search-line"></i>
+      </a>
+    </div>
+  </div>
+</nav>
+<nav class="navbar2">
+  <div style="position: relative;">
+      <div style="height: 4.8rem;display: inline-block;margin-top:1rem;margin-left:1rem;">
+        <a href="/">
+          <img src="/images/2.jpg"
+               style="border-radius: 50%;max-width: none;width:4.8rem">
+        </a>
+      </div>
+    <div class="navbar-title2" style="font-size: 2.5rem;color: #ffffff;margin-left: 4rem;font-weight: bold;margin-top:1rem;
+    min-width: 23rem;height: 4.8rem;overflow: hidden;">
+      <span style="line-height: 4.8rem;">RookieYin's Note</span>
+    </div>
+    <div style="display: inline-block;position: absolute;top:50%;height:50%;transform:translate(-50%,-50%);right:4rem;margin-top: 1rem;">
+      <div class="navbar-menu-wrap">
+        <div class="navbar-menu"></div>
+      </div>
+    </div>
+    <div style="display: inline-block;position: absolute;top:50%;height:50%;transform:translate(-50%,-50%);right:0;">
+      <a class="nav-item-search"  title="搜索">
+        <i class="ri-search-line"></i>
+      </a>
+    </div>
+  </div>
+  <div style="display: inline-block;text-align: center;width: 100%;padding-bottom: 1rem;">
+    
+    <div class="nav-item2">
+      <a class="nav-item-link2" href="/">主页</a>
+    </div>
+    
+    <div class="nav-item2">
+      <a class="nav-item-link2" href="/archives">归档</a>
+    </div>
+    
+    <div class="nav-item2">
+      <a class="nav-item-link2" href="/categories">分类</a>
+    </div>
+    
+    <div class="nav-item2">
+      <a class="nav-item-link2" href="/tags">标签</a>
+    </div>
+    
+    <div class="nav-item2">
+      <a class="nav-item-link2" href="/friends">友链</a>
+    </div>
+    
+    <div class="nav-item2">
+      <a class="nav-item-link2" href="/about-me/2021">关于我</a>
+    </div>
+    
+  </div>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+
+    </div>
+    <main class="content">
+        <section class="outer">
+  <article
+  id="post-4 算法/平衡二叉树"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  平衡二叉树
+</h1>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/325f8721ea9c/" class="article-date">
+  <time datetime="2022-05-03T05:39:48.000Z" itemprop="datePublished">2022-05-03</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+  </div>
+
+  
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> 字数统计:</span>
+            <span class="post-count">2k</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> 阅读时长≈</span>
+            <span class="post-count">7 分钟</span>
+        </span>
+    </span>
+</div>
+ 
+    </div>
+      
+    <div class="tocbot"></div>
+
+
+
+
+  
+    <div class="article-entry" itemprop="articleBody">
+       
+  <p>平衡二叉树（Balanced Binary Tree）具有以下性质：它是一棵空树或它的左右两个子树的高度差的绝对值不超过1，并且左右两个子树都是一棵平衡二叉树。平衡二叉树的常用实现方法有红黑树、AVL、替罪羊树、Treap、伸展树等。 最小二叉平衡树的节点的公式如下 F(n)=F(n-1)+F(n-2)+1 这个类似于一个递归的数列，可以参考Fibonacci数列，1是根节点，F(n-1)是左子树的节点数量，F(n-2)是右子树的节点数量。</p>
+<a id="more"></a>
+<h2 id="avl树">AVL树</h2>
+<p>AVL树是高度平衡的二叉树。它的特点是: AVL树中任何节点的两个子树的高度最大差别为1。</p>
+<h3 id="节点插入">节点插入</h3>
+<p>当插入节点导致二叉树失去平衡时，可以概括为4个状态：</p>
+<center><img src="/images/alg-tree-avl-2.jpg" style="width:800px;"></img></center>
+<ul>
+<li>LL：表示高度失衡节点的<strong>左子树</strong>的<strong>左孩子</strong>导致左子树比右子树高度大2，AVL树失去平衡；</li>
+<li>LR：表示高度失衡节点的<strong>左子树</strong>的<strong>右孩子</strong>导致左子树比右子树高度大2，AVL树失去平衡；</li>
+<li>RR：表示高度失衡节点的<strong>右子树</strong>的<strong>右孩子</strong>导致右子树比左子树高度大2，AVL树失去平衡；</li>
+<li>RL：表示高度失衡节点的<strong>右子树</strong>的<strong>左孩子</strong>导致右子树比左子树高度大2，AVL树失去平衡。</li>
+</ul>
+<p>当AVL树发生上述4中失衡时，需要对应使用4种类型旋转，调整AVL树，使其重新保持平衡状态：</p>
+<ul>
+<li>
+<p>LL单旋：树往右单旋</p>
+<center><img src="/images/alg-tree-avl-4.jpg" style="width:800px;"></img></center>
+</li>
+<li>
+<p>RR单旋：树往左单旋</p>
+<center><img src="/images/alg-tree-avl-5.jpg" style="width:800px;"></img></center>
+</li>
+<li>
+<p>LR双旋：先左子树RR单旋，然后整棵树LL单旋</p>
+<center><img src="/images/alg-tree-avl-6.jpg" style="width:800px;"></img></center>
+</li>
+<li>
+<p>RL双旋：先右子树LL单旋，然后整棵树RR单旋</p>
+<center><img src="/images/alg-tree-avl-7.jpg" style="width:800px;"></img></center>
+</li>
+</ul>
+<h3 id="节点删除">节点删除</h3>
+<p>AVL树删除节点的过程是，先找到该节点，然后进行删除。由于删除节点的位置不同，导致删除后节点进行移动的方式不同。删除节点的位置分为以下4类：</p>
+<ol>
+<li>叶子节点：直接删除即可，然后依次向上调整为AVL树</li>
+<li>只有左孩子的非叶子节点：该节点值替换为左孩子节点，删除左孩子，然后依次向上调整为AVL树</li>
+<li>只有右孩子的非叶子节点：该节点值替换为右孩子节点，删除右孩子，然后依次向上调整为AVL树</li>
+<li>有左右孩子的非叶子节点：该节点的值替换前驱（左孩子）节点，删除前驱节点（最终状态变成1、2、3中的一个）。</li>
+</ol>
+<h2 id="红黑树">红黑树</h2>
+<p>红黑树是一棵二叉搜索树，<strong>它在每个节点增加了一个存储位记录节点的颜色</strong>，可以是RED,也可以是BLACK；通过任意一条从根到叶子简单路径上颜色的约束，<strong>红黑树保证最长路径不超过最短路径的二倍，因而近似平衡</strong>。 它必须满足下面性质：</p>
+<ol>
+<li>根节点是黑色的；</li>
+<li>每个节点非红即黑；</li>
+<li>所有叶子节点都是（NIL），为黑色；</li>
+<li>如果1个节点红色的，那么它的两个子节点就是黑色的，即没有连续红节点；</li>
+<li>任意节点到其后代叶节点的简单路径上，均包含相同数目的黑色节点。</li>
+</ol>
+<h3 id="节点插入">节点插入</h3>
+<p>红黑树插入节点时需要遵循以下原则：</p>
+<ol>
+<li>插入的结点一定是红色的，如果为黑色，会破坏性质5；</li>
+<li>如果插入的是根节点，将颜色改为黑色；</li>
+<li>如果插入节点的父节点是黑色，则插入完成；</li>
+<li>如果插入节点的父节点是红色，则需要修复，且继续向上调整，直到为根或满足规则；</li>
+<li>如果根修改之后为红色，一定要改成黑色。</li>
+</ol>
+<p>因此，插入节点时最复杂的操作就是<strong>出现“红红”时</strong>（上述第4条）怎么<strong>修复</strong>红黑树。</p>
+<h4 id="修复方法">修复方法</h4>
+<ul>
+<li>
+<p><strong>前提条件</strong>： 插入的结点（cur）是红色，cur的父结点（parent）是红色的，这样的需要修复。</p>
+</li>
+<li>
+<p><strong>修复要点</strong>： 保证修复操作前和修复操作后的黑色结点的数量不变。</p>
+</li>
+<li>
+<p><strong>可推断出</strong>： cur 的祖父结点即父亲的父亲（grandpa）一定是黑色，否则插入当前结点之前已经违反了红黑树的规则</p>
+<center><img src="/images/20200407161859775.png" style="width:400px;"></img></center>
+</li>
+<li>
+<p>下面对cur节点的uncle节点进行分情况讨论</p>
+<ul>
+<li>
+<p><strong>情况1：uncle存在，并且uncle的颜色是红色</strong></p>
+<p>修复方法：grandpa 由黑变红，parent &amp; uncle 由红变黑 。如下图所示：</p>
+<center><img src="/images/20200407162019915.png" style="width:800px;"></img></center>
+</li>
+<li>
+<p>情况2：uncle不存在，或者uncle存在但是颜色为黑色**</p>
+<ul>
+<li>
+<p><strong>情况2.1：cur是parent的左孩子，且parent是grandpa的左孩子</strong></p>
+<p>修复方法： grandpa 右旋之后颜色变为红色，parent 的颜色变为黑色。如下图所示：</p>
+<center><img src="/images/20200407162212713.png" style="width:800px;"></img></center>
+</li>
+<li>
+<p>情况2.2：cur是parent的右孩子，且parent是grandpa的右孩子**</p>
+<p>修复方法：grandpa 左旋后颜色变为红色，parent 颜色变为黑色。如下图所示：</p>
+<center><img src="/images/20200407162258775.png" style="width:800px;"></img></center>
+</li>
+<li>
+<p><strong>情况2.3：cur是parent的右孩子，且parent是grandpa的左孩子</strong></p>
+<p>修复方法：对 parent 左旋之后将 parent 和 cur 的名称交换，再按照2.1的情况处理。如下图所示：</p>
+<center><img src="/images/20200407162350203.png" style="width:800px;"></img></center>
+</li>
+<li>
+<p><strong>情况2.4：cur是parent的左孩子，且parent是grandpa的右孩子</strong></p>
+<p>修复方法：对 parent 右旋之后将 parent 和 cur 的名称交换，再按照2.2的情况处理。如下图所示：</p>
+<center><img src="/images/20200407162603794.png" style="width:800px;"></img></center>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="节点删除">节点删除</h3>
+<p>和AVL树类似，红黑树删除节点也分三种情况：</p>
+<ol>
+<li>删除节点为叶子节点
+<ul>
+<li>节点为红色：无需修复，不会破坏红黑树任何性质。</li>
+<li>节点为黑色：需要修复，破坏红黑树性质5。</li>
+</ul>
+</li>
+<li>删除节点为非叶子节点
+<ul>
+<li>有1个子节点：将删除节点与子节点值交换，删除子节点，此时情况转变成第1种（删除叶子节点）</li>
+<li>有2个子节点：将删除节点值与其后继节点值（前驱也可以）交换，删除后继节点，此时有一下两种情况：
+<ul>
+<li>后继节点是叶子节点：情况转变成第1种</li>
+<li>后继节点有1个子节点：情况变成第2种下的第1种</li>
+<li>后继节点有2个子节点：情况变成第2种下的第2种</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<p>可以发现删除的所有情况最终都可以转变成第1种。在第1种情况下，节点为红色时无需修复，节点为黑色是需要修复，因此我们只需要关注这一种情况即可。</p>
+<h4 id="修复方法">修复方法</h4>
+<ul>
+<li>
+<p><strong>前提条件</strong>：删除节点为叶子节点，且颜色为黑色</p>
+</li>
+<li>
+<p><strong>修复要点</strong>：保证修复操作前和修复操作后的黑色结点的数量不变。</p>
+</li>
+<li>
+<p><strong>可推断出</strong>：被删除节点一定有兄弟节点</p>
+</li>
+<li>
+<p><strong>修复</strong>：下面对兄弟节点的颜色分情况讨论（下图中所有黑色方框null表示被删除节点）</p>
+<ul>
+<li>
+<p><strong>情况1：兄弟节点为黑色</strong></p>
+<ul>
+<li>
+<p><strong>情况1.1：兄弟节点为黑色，且有一个与其方向一致的红色子节点</strong></p>
+<center><img src="/images/20191011193031772.png" style="width:800px;"></img></center>
+</li>
+<li>
+<p><strong>情况1.2：兄弟节点为黑色，且有一个与其方向不一致的红色子节点</strong></p>
+<center><img src="/images/20191011193217935.png" style="width:800px;"></img></center>
+</li>
+<li>
+<p><strong>情况1.3：兄弟节点为黑色，且没有红色子节点（也不可能有黑色子节点，否则原红黑树不平衡）</strong></p>
+<center><img src="/images/20191011193316310.png" style="width:800px;"></img></center>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>情况2：兄弟节点为红色，则其父节点必为黑色（否则红红相连）</strong></p>
+<center><img src="/images/QQ截图20220322154646.png" style="width:800px;"></img></center>
+<p>图(i)中将brother和father旋转，重新上色后，变成了图(j)，新的brother（原来的son）变成了黑色，这样就变成了情况1。</p>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="参考资料">参考资料</h2>
+<ol>
+<li>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_21388535/article/details/105601270">https://blog.csdn.net/qq_21388535/article/details/105601270</a></p>
+</li>
+<li>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/jinking01/article/details/106020347">https://blog.csdn.net/jinking01/article/details/106020347</a></p>
+</li>
+<li>
+<p><a target="_blank" rel="noopener" href="https://pdai.tech/md/algorithm/alg-basic-tree-balance.html">https://pdai.tech/md/algorithm/alg-basic-tree-balance.html</a></p>
+</li>
+<li>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_40843865/article/details/102498310">https://blog.csdn.net/qq_40843865/article/details/102498310</a></p>
+</li>
+</ol>
+ 
+      <!-- reward -->
+      
+      <div id="reword-out">
+        <div id="reward-btn">
+          打赏
+        </div>
+      </div>
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <div class="declare">
+      <ul class="post-copyright">
+        <li>
+          <i class="ri-copyright-line"></i>
+          <strong>版权声明： </strong>
+          
+          本博客所有文章除特别声明外，著作权归作者所有。转载请注明出处！
+          
+        </li>
+      </ul>
+    </div>
+    
+    <footer class="article-footer">
+       
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<!--<div class="wx-share-modal">-->
+<!--    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>-->
+<!--    <p>扫一扫，分享到微信</p>-->
+<!--    <div class="wx-qrcode">-->
+<!--      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://rookieyin.github.io/325f8721ea9c/" alt="微信分享二维码">-->
+<!--    </div>-->
+<!--</div>-->
+
+<div id="share-mask"></div>
+  
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/" rel="tag">二叉树</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%8E%92%E5%BA%8F/" rel="tag">排序</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+  <nav class="article-nav">
+    
+      <a href="/3da51d7b8480/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            拓扑排序
+          
+        </div>
+      </a>
+    
+    
+      <a href="/14bdfa95fb86/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">并查集</div>
+      </a>
+    
+  </nav>
+
+   
+<!-- valine评论 -->
+<div id="vcomments-box">
+  <div id="vcomments"></div>
+</div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js"></script>
+<script>
+  new Valine({
+    el: "#vcomments",
+    app_id: "f9XmUV7HVprPCNptggBNBhWR-gzGzoHsz",
+    app_key: "H73Viqo3lADopEFgshq3XrXs",
+    path: window.location.pathname,
+    avatar: "monsterid",
+    placeholder: "给我的文章加点评论吧~",
+    recordIP: true,
+  });
+  const infoEle = document.querySelector("#vcomments .info");
+  if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+    infoEle.childNodes.forEach(function (item) {
+      item.parentNode.removeChild(item);
+    });
+  }
+</script>
+<style>
+  #vcomments-box {
+    padding: 5px 30px;
+  }
+
+  @media screen and (max-width: 800px) {
+    #vcomments-box {
+      padding: 5px 0px;
+    }
+  }
+
+  #vcomments-box #vcomments {
+    background-color: #fff;
+  }
+
+  .v .vlist .vcard .vh {
+    padding-right: 20px;
+  }
+
+  .v .vlist .vcard {
+    padding-left: 10px;
+  }
+</style>
+
+ 
+   
+     
+</article>
+
+</section>
+        <footer class="footer">
+  <div class="outer">
+    <ul>
+      <li>
+        Copyrights &copy;
+        2021-2022
+        <i class="ri-heart-fill heart_icon"></i> Yin Peng
+      </li>
+    </ul>
+    <ul>
+      <li>引擎:
+        <a style="color: #0681d0" target="_blank" rel="noopener" href="https://hexo.io/zh-cn/">Hexo</a>
+        &nbsp;&nbsp;|&nbsp;&nbsp;主题:修改自
+        <a style="color: #0681d0" target="_blank" rel="noopener" href="https://shen-yu.gitee.io/">Ayer</a>
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        <span>
+  <span><i class="ri-user-3-fill"></i>访问人数:<span id="busuanzi_value_site_uv"></span></span>
+  <span class="division">|</span>
+  <span><i class="ri-eye-fill"></i>浏览次数:<span id="busuanzi_value_page_pv"></span></span>
+</span>
+        
+      </li>
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      <li>
+        <!-- cnzz统计 -->
+        
+        <script type="text/javascript" src='https://s9.cnzz.com/z_stat.php?id=1278069914&amp;web_id=1278069914'></script>
+        
+      </li>
+    </ul>
+  </div>
+</footer>
+
+        <div class="float_btns">
+            <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+
+<div class="todark" id="todark">
+  <i class="ri-moon-line"></i>
+</div>
+
+        </div>
+    </main>
+
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/alipay.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/wxpay.png">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-2.0.3.min.js"></script>
+ 
+<script src="/js/lazyload.min.js"></script>
+
+<!-- Tocbot -->
+ 
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  tocbot.init({
+    tocSelector: ".tocbot",
+    contentSelector: ".article-entry",
+    headingSelector: "h1, h2, h3, h4, h5, h6",
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: "main",
+    positionFixedSelector: ".tocbot",
+    positionFixedClass: "is-position-fixed",
+    fixedSidebarOffset: "auto",
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.js"></script>
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.css"
+/>
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js"></script>
+
+<script src="/dist/main.js"></script>
+
+<!-- ImageViewer -->
+ <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css">
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script> 
+<!-- MathJax -->
+
+<!-- Katex -->
+
+<!-- busuanzi  -->
+ 
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+ 
+<!-- ClickLove -->
+ 
+<script src="/js/clickLove.js"></script>
+ 
+<!-- ClickBoom1 -->
+
+<!-- ClickBoom2 -->
+
+<!-- CodeCopy -->
+ 
+<link rel="stylesheet" href="/css/clipboard.css">
+ <script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="ri-file-copy-2-line"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-checkbox-circle-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-checkbox-circle-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-time-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-time-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+ 
+<!-- CanvasBackground -->
+
+<script>
+  if (window.mermaid) {
+    mermaid.initialize({ theme: "forest" });
+  }
+</script>
+
+
+    
+</div>
+</body>
+
+</html>

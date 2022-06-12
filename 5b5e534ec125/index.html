@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+
+
+<html lang="zh-CN">
+  
+
+    <head>
+      <meta name="baidu-site-verification" content="code-rk2CNV4xgj" />
+      <meta charset="utf-8" />
+        
+      <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1"
+      />
+      <title>Java日期类总结 |  RookieYin&#39;s Note</title>
+  <meta name="generator" content="hexo-theme-ayer">
+      
+      <link rel="shortcut icon" href="/images/2.jpg" />
+       
+<link rel="stylesheet" href="/dist/main.css">
+
+      <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/Shen-Yu/cdn/css/remixicon.min.css"
+      />
+      
+<link rel="stylesheet" href="/css/custom.css">
+ 
+      <script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+       
+ 
+
+      <!-- mermaid -->
+      
+    <link rel="alternate" href="/atom.xml" title="RookieYin's Note" type="application/atom+xml">
+<link href="https://cdn.bootcss.com/KaTeX/0.11.1/katex.min.css" rel="stylesheet" /></head>
+  </html>
+</html>
+
+
+<body>
+<div id="app">
+    
+    
+    <div class="sidebar">
+        <!--<button class="navbar-toggle"></button>-->
+<nav class="navbar">
+  <div class="logo">
+    <a href="/">
+      <img src="/images/2.jpg"
+           style="border-radius: 50%;max-width: none;">
+    </a>
+  </div>
+  <div class = nav-title style="font-size: 2.5rem;color: #ffffff;margin-left: 4rem;font-weight: bold;min-width: 23rem">
+    RookieYin's Note
+  </div>
+  <div class="nav nav-main">
+    
+    <div class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </div>
+    
+    <div class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </div>
+    
+    <div class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </div>
+    
+    <div class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </div>
+    
+    <div class="nav-item">
+      <a class="nav-item-link" href="/friends">友链</a>
+    </div>
+    
+    <div class="nav-item">
+      <a class="nav-item-link" href="/about-me/2021">关于我</a>
+    </div>
+    
+      <div class="nav-item">
+        <div class="nav-item-link navbar-menu-wrap">
+          <div class="navbar-menu"></div>
+        </div>
+      </div>
+    <div class = "nav-item">
+      <a class="nav-item-link nav-item-search"  title="搜索">
+        <i class="ri-search-line"></i>
+      </a>
+    </div>
+  </div>
+</nav>
+<nav class="navbar2">
+  <div style="position: relative;">
+      <div style="height: 4.8rem;display: inline-block;margin-top:1rem;margin-left:1rem;">
+        <a href="/">
+          <img src="/images/2.jpg"
+               style="border-radius: 50%;max-width: none;width:4.8rem">
+        </a>
+      </div>
+    <div class="navbar-title2" style="font-size: 2.5rem;color: #ffffff;margin-left: 4rem;font-weight: bold;margin-top:1rem;
+    min-width: 23rem;height: 4.8rem;overflow: hidden;">
+      <span style="line-height: 4.8rem;">RookieYin's Note</span>
+    </div>
+    <div style="display: inline-block;position: absolute;top:50%;height:50%;transform:translate(-50%,-50%);right:4rem;margin-top: 1rem;">
+      <div class="navbar-menu-wrap">
+        <div class="navbar-menu"></div>
+      </div>
+    </div>
+    <div style="display: inline-block;position: absolute;top:50%;height:50%;transform:translate(-50%,-50%);right:0;">
+      <a class="nav-item-search"  title="搜索">
+        <i class="ri-search-line"></i>
+      </a>
+    </div>
+  </div>
+  <div style="display: inline-block;text-align: center;width: 100%;padding-bottom: 1rem;">
+    
+    <div class="nav-item2">
+      <a class="nav-item-link2" href="/">主页</a>
+    </div>
+    
+    <div class="nav-item2">
+      <a class="nav-item-link2" href="/archives">归档</a>
+    </div>
+    
+    <div class="nav-item2">
+      <a class="nav-item-link2" href="/categories">分类</a>
+    </div>
+    
+    <div class="nav-item2">
+      <a class="nav-item-link2" href="/tags">标签</a>
+    </div>
+    
+    <div class="nav-item2">
+      <a class="nav-item-link2" href="/friends">友链</a>
+    </div>
+    
+    <div class="nav-item2">
+      <a class="nav-item-link2" href="/about-me/2021">关于我</a>
+    </div>
+    
+  </div>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+
+    </div>
+    <main class="content">
+        <section class="outer">
+  <article
+  id="post-2 后端/Java/Java基础知识/4 Java日期类总结"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  Java日期类总结
+</h1>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/5b5e534ec125/" class="article-date">
+  <time datetime="2022-01-19T14:34:49.000Z" itemprop="datePublished">2022-01-19</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a> / <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/Java/">Java</a> / <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/Java/Java%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/">Java基础知识</a>
+  </div>
+
+  
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> 字数统计:</span>
+            <span class="post-count">2.7k</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> 阅读时长≈</span>
+            <span class="post-count">11 分钟</span>
+        </span>
+    </span>
+</div>
+ 
+    </div>
+      
+    <div class="tocbot"></div>
+
+
+
+
+  
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h2 id="jdk8之前-旧时间日期类">JDK8之前——旧时间日期类</h2>
+<h3 id="java-lang-system类">java.lang.System类</h3>
+<p>System类提供了一个公共的静态方法<code>currentTimesMillis()</code>来返回当前时间距离1970年1月1日0时0分0秒之间以毫秒为单位的时间差，也叫时间戳。</p>
+<a id="more"></a>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">    <span class="keyword">long</span> time = System.currentTimeMillis();</span><br><span class="line">    System.out.println(time);<span class="comment">// 打印：1652875534552</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="java-util-date-和-java-sql-date">java.util.Date 和 java.sql.Date</h3>
+<h4 id="java-util-date">java.util.Date</h4>
+<p>java.util.Date的构造函数主要有下面4种：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">Date</span><span class="params">()</span> </span>&#123;&#125;<span class="comment">//系统当前时间戳</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">Date</span><span class="params">(<span class="keyword">long</span> date)</span> </span>&#123;&#125;<span class="comment">//从1970年1月1日0时开始的毫秒数</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">Date</span><span class="params">(<span class="keyword">int</span> year, <span class="keyword">int</span> month, <span class="keyword">int</span> date)</span></span>&#123;&#125;<span class="comment">//传入年（最小1900）月（0-11）日（1-31）参数</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">Date</span><span class="params">(<span class="keyword">int</span> year, <span class="keyword">int</span> month, <span class="keyword">int</span> date, <span class="keyword">int</span> hrs, <span class="keyword">int</span> min, <span class="keyword">int</span> sec)</span> </span>&#123;&#125;<span class="comment">//年月日时分秒，秒可选参数，同样都是从0开始</span></span><br></pre></td></tr></table></figure>
+<p>常用的方法有2个<code>toString()</code>和<code>getTime()</code>：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Date date = <span class="keyword">new</span> Date();</span><br><span class="line">System.out.println(date.toString());<span class="comment">// Wed May 18 20:17:23 CST 2022</span></span><br><span class="line">System.out.println(date.getTime());<span class="comment">// 1652876243161</span></span><br></pre></td></tr></table></figure>
+<h4 id="java-sql-date">java.sql.Date</h4>
+<p>除了java.sql.Date之外，还有java.sql.Time和java.sql.Timestamp。它们3个都是继承自java.util.Date类，主要用于处理数据库相关的日期格式，这里简单介绍下java.sql.Date。</p>
+<ol>
+<li>
+<p>java.sql.Date常用的构造器就是<code>public Date(long date)()</code>，传一个毫秒时间戳。</p>
+</li>
+<li>
+<p>java.sql.Date和java.util.Date最主要的区别就是，<strong>截取了时间信息，只保留日期信息</strong>：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">java.sql.Date date = <span class="keyword">new</span> java.sql.Date(<span class="number">1652876243161L</span>);<span class="comment">// 传入时间戳</span></span><br><span class="line">System.out.println(date.toString());<span class="comment">//2022-05-18</span></span><br><span class="line">System.out.println(date.getTime());<span class="comment">//1652876243161</span></span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>java.sql.Date和java.util.Date之间的转换？</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 方式一： 多态的做法，强转</span></span><br><span class="line">Date date1 = <span class="keyword">new</span> java.sql.Date(<span class="number">1652876243161L</span>);</span><br><span class="line">java.sql.Date date2 = (java.sql.Date)date1;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 方式二：构造函数传参</span></span><br><span class="line">Date date3 = <span class="keyword">new</span> Date();</span><br><span class="line">java.sql.Date date4 = <span class="keyword">new</span> java.sql.Date(date3.getTime());</span><br><span class="line">System.out.println(date4.toString());</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="java-text-simpledateformat类">java.text.SimpleDateFormat类</h3>
+<p>这个类主要用于日期的格式化和解析，即字符串和日期之间的相互转换。下面通过一个例子，看看如何创建SimpleDateFormat对象，以及如何解析和格式化日期。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 1.实例化：使用默认的构造器</span></span><br><span class="line">SimpleDateFormat sdf = <span class="keyword">new</span> SimpleDateFormat();</span><br><span class="line"><span class="comment">// 2.创建Date对象</span></span><br><span class="line">Date date = <span class="keyword">new</span> Date();</span><br><span class="line">System.out.println(date); <span class="comment">// Wed May 18 20:45:51 CST 2022</span></span><br><span class="line"><span class="comment">// 3.格式化</span></span><br><span class="line">String date2 = sdf.format(date); <span class="comment">//参数是Date类型的</span></span><br><span class="line">System.out.println(date2); <span class="comment">// 22-5-18 下午8:45</span></span><br><span class="line"><span class="comment">// 4.解析</span></span><br><span class="line">String str = <span class="string">&quot;22-5-18 下午8:45&quot;</span>;</span><br><span class="line">Date date3 = sdf.parse(str);</span><br><span class="line">System.out.println(date3);<span class="comment">//Wed May 18 20:45:00 CST 2022</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//***************************</span></span><br><span class="line"><span class="comment">//使用带参的构造器</span></span><br><span class="line"><span class="comment">//hh:mm:ss表示12小时制，HH:mm:ss表示24小时制</span></span><br><span class="line">SimpleDateFormat simpleDateFormat = <span class="keyword">new</span> SimpleDateFormat(<span class="string">&quot;yyyy-MM-dd hh:mm:ss&quot;</span>);</span><br><span class="line">String s = simpleDateFormat.format(<span class="keyword">new</span> Date());</span><br><span class="line">System.out.println(s);<span class="comment">//2022-05-18 08:45:51</span></span><br><span class="line"><span class="comment">//解析</span></span><br><span class="line">String s1 = <span class="string">&quot;2022-05-18 08:45:51&quot;</span>;</span><br><span class="line">Date date4 = simpleDateFormat.parse(s1);</span><br><span class="line">System.out.println(date4);<span class="comment">//Wed May 18 08:45:51 CST 2022</span></span><br></pre></td></tr></table></figure>
+<h3 id="java-util-calendar日历类">java.util.Calendar日历类</h3>
+<p>Calendar是一个抽象基类， 通过Calendar对象，我们可以像有个“日历”一样使用日期数据。比如，某个日期是那一年中的第几天？是那个月份的第几天？是那一周的第几天？等等。我们还可以通过Calendar对象实现一些简单的计算，比如add操作，给日期加几天或者减几天等等。</p>
+<p>因为Calendar是抽象类，我们不能直接new一个日历对象，需要通过<code>getInstance()</code>获取一个日历对象，该方法默认返回一个<code>GregorianCalendar</code>实例。下面我们通过一个例子，简单了解下Canlendar的使用。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//获取一个日历实例</span></span><br><span class="line">Calendar cal = Calendar.getInstance();   <span class="comment">// GregorianCalendar</span></span><br><span class="line">System.out.println(<span class="string">&quot;Calendar&#x27;s toString() is : &quot;</span> + cal + <span class="string">&quot;\n&quot;</span>);</span><br><span class="line">System.out.println(<span class="string">&quot;Time zone is: &quot;</span> + cal.getTimeZone() + <span class="string">&quot;\n&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//通过getTime获取时间戳，返回Date对象</span></span><br><span class="line">Date date = cal.getTime();</span><br><span class="line"><span class="comment">//Current date and time in Date&#x27;s toString() is : Wed May 18 21:07:49 CST 2022</span></span><br><span class="line">System.out.println(<span class="string">&quot;Current date and time in Date&#x27;s toString() is : &quot;</span> + date + <span class="string">&quot;\n&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 获取各种field信息</span></span><br><span class="line"><span class="comment">//Year  : 2022</span></span><br><span class="line">System.out.println(<span class="string">&quot;Year  : &quot;</span> + cal.get(Calendar.YEAR));</span><br><span class="line"><span class="comment">//Month : 4，注意月份是从0开始，4表示5月</span></span><br><span class="line">System.out.println(<span class="string">&quot;Month : &quot;</span> + cal.get(Calendar.MONTH));</span><br><span class="line"><span class="comment">//Day of Month : 18</span></span><br><span class="line">System.out.println(<span class="string">&quot;Day of Month : &quot;</span> + cal.get(Calendar.DAY_OF_MONTH));</span><br><span class="line"><span class="comment">//Day of Week  : 4，周日是1,4表示星期三</span></span><br><span class="line">System.out.println(<span class="string">&quot;Day of Week  : &quot;</span> + cal.get(Calendar.DAY_OF_WEEK));</span><br><span class="line"><span class="comment">//Day of Year  : 138</span></span><br><span class="line">System.out.println(<span class="string">&quot;Day of Year  : &quot;</span> + cal.get(Calendar.DAY_OF_YEAR));</span><br><span class="line"><span class="comment">//Week of Year : 21</span></span><br><span class="line">System.out.println(<span class="string">&quot;Week of Year : &quot;</span> + cal.get(Calendar.WEEK_OF_YEAR));</span><br><span class="line"><span class="comment">//Week of Month : 3</span></span><br><span class="line">System.out.println(<span class="string">&quot;Week of Month : &quot;</span> + cal.get(Calendar.WEEK_OF_MONTH));</span><br><span class="line"><span class="comment">//Day of the Week in Month : 3</span></span><br><span class="line">System.out.println(<span class="string">&quot;Day of the Week in Month : &quot;</span> + cal.get(Calendar.DAY_OF_WEEK_IN_MONTH));</span><br><span class="line"><span class="comment">//Hour  : 9，12小时制</span></span><br><span class="line">System.out.println(<span class="string">&quot;Hour  : &quot;</span> + cal.get(Calendar.HOUR));</span><br><span class="line"><span class="comment">//AM PM : 1</span></span><br><span class="line">System.out.println(<span class="string">&quot;AM PM : &quot;</span> + cal.get(Calendar.AM_PM));</span><br><span class="line"><span class="comment">//Hour of the Day : 21，24小时制</span></span><br><span class="line">System.out.println(<span class="string">&quot;Hour of the Day : &quot;</span> + cal.get(Calendar.HOUR_OF_DAY));</span><br><span class="line"><span class="comment">//Minute : 7</span></span><br><span class="line">System.out.println(<span class="string">&quot;Minute : &quot;</span> + cal.get(Calendar.MINUTE));</span><br><span class="line"><span class="comment">//Second : 49</span></span><br><span class="line">System.out.println(<span class="string">&quot;Second : &quot;</span> + cal.get(Calendar.SECOND));</span><br><span class="line"></span><br><span class="line"><span class="comment">// 加上若干天，可以是负数</span></span><br><span class="line">Calendar calTemp;</span><br><span class="line">calTemp = (Calendar) cal.clone();</span><br><span class="line">calTemp.add(Calendar.DAY_OF_YEAR, -<span class="number">365</span>);</span><br><span class="line"><span class="comment">//365 days ago, it was: Tue May 18 21:07:49 CST 2021</span></span><br><span class="line">System.out.println(<span class="string">&quot;365 days ago, it was: &quot;</span> + calTemp.getTime());</span><br><span class="line"></span><br><span class="line"><span class="comment">//加上若干个小时</span></span><br><span class="line">calTemp = (Calendar) cal.clone();</span><br><span class="line">calTemp.add(Calendar.HOUR_OF_DAY, <span class="number">11</span>);</span><br><span class="line"><span class="comment">//After 11 hours, it will be: Thu May 19 08:07:49 CST 2022</span></span><br><span class="line">System.out.println(<span class="string">&quot;After 11 hours, it will be: &quot;</span> + calTemp.getTime());</span><br><span class="line"></span><br><span class="line"><span class="comment">// Roll，回滚若干个小时</span></span><br><span class="line">calTemp = (Calendar) cal.clone();</span><br><span class="line">calTemp.roll(Calendar.HOUR_OF_DAY, <span class="number">11</span>);</span><br><span class="line">System.out.println(<span class="string">&quot;Roll 11 hours, it will be: &quot;</span> + calTemp.getTime());</span><br><span class="line">System.out.println();</span><br></pre></td></tr></table></figure>
+<h2 id="jdk8之后-新时间日期类">JDK8之后——新时间日期类</h2>
+<h3 id="为什么引进新日期类">为什么引进新日期类</h3>
+<p>JDK 1.0中包含了一个java.util.Date类，但是它的大多数方法已经在JDK 1.1引入Calendar类之后被弃用了。而Calendar并不比Date好多少。它们面临的问题是：</p>
+<ul>
+<li>可变性：像日期和时间这样的类应该是不可变的。</li>
+<li>偏移性：Date中的年份是从1900开始的，而月份都从0开始。</li>
+<li>格式化：格式化只对Date有用，Calendar则不行。</li>
+<li>此外，它们也不是线程安全的；不能处理闰秒等。</li>
+</ul>
+<p>JDK8中引进了新的时间API是<code>java.time</code>，新的 java.time 中包含了所有关于<code>本地日期（LocalDate）</code>、<code>本地时间（LocalTime）</code>、<code>本地日期时间（LocalDateTime）</code>、<code>时区（ZonedDateTime</code>）和<code>持续时间（Duration）</code>的类。历史悠久的 Date 类新增了 toInstant() 方法，用于把 Date 转换成新的表示形式。这些新增的本地化时间日期 API 大大简化了日期时间和本地化的管理。</p>
+<h3 id="localdate-localtime和localdatetime">LocalDate、LocalTime和LocalDateTime</h3>
+<p>LocalDate、LocalTime、LocalDateTime 类是其中较重要的几个类，它们的实例是不可变的对象，分别表示使用 ISO-8601日历系统的日期、时间、日期和时间。它们提供了简单的本地日期或时间，并不包含当前的时间信息，也不包含与时区相关的信息。</p>
+<ul>
+<li>LocalDate代表IOS格式（yyyy-MM-dd）的日期,可以存储 生日、纪念日等日期。</li>
+<li>LocalTime表示一个时间，而不是日期。</li>
+<li>LocalDateTime是用来表示日期和时间的，这是一个最常用的类之一。</li>
+</ul>
+<p>同样，使用一个类还是从如何实例化和有什么方法使用开始。常用方法如下：</p>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>now() / now(ZoneId zone)</td>
+<td>静态方法，根据当前时间创建对象或者指定时区</td>
+</tr>
+<tr>
+<td>of()</td>
+<td>静态方法，根据指定日期/时间创建对象</td>
+</tr>
+<tr>
+<td>getDayOfMonth()/getDayOfYear()</td>
+<td>获取所在月份中第几天（1~31）/所在年中第几天（1 ~ 366）</td>
+</tr>
+<tr>
+<td>getDayOfWeek()</td>
+<td>获得星期几，返回枚举值，比如“WEDNESDAY”，可以通过getValue()转成3</td>
+</tr>
+<tr>
+<td>getMonth()</td>
+<td>获得月份，返回枚举值，比如“MAY”，同样可以通过getValue()转成5</td>
+</tr>
+<tr>
+<td>getMonthValue()/getYear()</td>
+<td>获得月份的值，比如“18”，表示第18天</td>
+</tr>
+<tr>
+<td>getHour()/getMinute()/getSecond()</td>
+<td>返回小时、分钟和秒</td>
+</tr>
+<tr>
+<td>withDayOfMonth()/withDayOfYear()/withMonth()/withYear()</td>
+<td>将月份天数、年份天数、月份、年份修改为指定的值并返回新的对象</td>
+</tr>
+<tr>
+<td>plusDays()/plusWeeks()/plusMonths()/plusYears()/plusHours()</td>
+<td>向当前对象添加几天、几周、几个月、几年、几小时</td>
+</tr>
+<tr>
+<td>minusMonths()/minusWeeks()/minusDays()/minusYears()/minusHours()</td>
+<td>从当前对象减去几天、几周、几个月、几年、几小时</td>
+</tr>
+</tbody>
+</table>
+<h3 id="instant类">Instant类</h3>
+<p>Instant类类似于Date类， java.time包通过值类型Instant提供机器视图，不提供处理人类意义上的时间单位。Instant表示时间线上的一点，而不需要任何上下文信息，例如，时区。概念上讲，它只是简单的表示自1970年1月1日0时0分0秒（UTC）开始的秒数。因为java.time包是基于纳秒计算的，所以Instant的精度可以达到纳秒级。</p>
+<p>Instant的实例化和常用方法如下：</p>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>now()</code></td>
+<td>静态方法，返回默认UTC时区的Instant类的对象</td>
+</tr>
+<tr>
+<td><code>ofEpochMilli(long EpochMilli)</code></td>
+<td>静态方法，返回在1970-01-01 00:00:00基础上加上指定毫秒数之后的Instant类的对象</td>
+</tr>
+<tr>
+<td><code>atOffset(ZoneOffset offset)</code></td>
+<td>结合即时的偏移来创建一个 OffsetDateTime</td>
+</tr>
+<tr>
+<td><code>toEpochMilli()</code></td>
+<td>返回1970-01-01 00:00:00到当前时间的毫秒数，即为时间戳</td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test2</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="comment">// now()：获取本初子午线当地的标准时间</span></span><br><span class="line">    Instant instant = Instant.now();</span><br><span class="line">    System.out.println(instant); <span class="comment">// 2019-10-31T06:01:04.921252200Z</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 在UTC时区的基础上加上8个时区（北京时间）</span></span><br><span class="line">    OffsetDateTime offsetDateTime = instant.atOffset(ZoneOffset.ofHours(<span class="number">8</span>));</span><br><span class="line">    System.out.println(offsetDateTime); <span class="comment">// 2019-10-31T14:01:04.921252200+08:00</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 获取时间戳</span></span><br><span class="line">    System.out.println(instant.toEpochMilli()); <span class="comment">// 1572501664921</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// ofEpochMilli()：通过给定的时间戳，获取Instant的实例</span></span><br><span class="line">    Instant instant1 = Instant.ofEpochMilli(<span class="number">1572415933220L</span>);</span><br><span class="line">    System.out.println(instant1); <span class="comment">// 2019-10-30T06:12:13.220Z</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="datetimeformatter类">DateTimeFormatter类</h3>
+<p>DateTimeFormatter类类似于SimpleDateFormat类，用于格式化与解析日期或时间。<code>java.time.format.DateTimeFormatter</code> 类：该类提供了三种格式化方法：</p>
+<ul>
+<li>预定义的标准格式。如：<code>ISO_LOCAL_DATE_TIME;ISO_LOCAL_DATE;ISO_LOCAL_TIME</code></li>
+<li>本地化相关的格式。如：<code>ofLocalizedDateTime(FormatStyle.LONG)</code></li>
+<li>自定义的格式。如：<code>ofPattern(“yyyy-MM-dd HH:mm:ss”)</code>，常用是这种。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>方 法</th>
+<th>描 述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ofPattern(String pattern)</code></td>
+<td>静态方法，返回一个指定字符串格的DateTimeFormatter</td>
+</tr>
+<tr>
+<td><code>format(TemporalAccessor t)</code></td>
+<td>格式化一个日期、时间，返回字符串</td>
+</tr>
+<tr>
+<td><code>parse(CharSequence text)</code></td>
+<td>将指定格式的字符序列解析为一个日期、时间</td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testDateTimeFormatter</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="comment">// 实例化方式一 预定义的标准格式。如：`ISO_LOCAL_DATE_TIME;ISO_LOCAL_DATE;ISO_LOCAL_TIME`</span></span><br><span class="line">    DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME;</span><br><span class="line">    LocalDateTime localDateTime = LocalDateTime.now();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 格式化：将日期转换为字符串，需要传入一个TemporalAccessor类型的，而LocalDate、LocalTime和LocalDateTime都是</span></span><br><span class="line">    String str1 = formatter.format(localDateTime);</span><br><span class="line">    System.out.println(localDateTime); <span class="comment">// 2019-10-31T14:16:15.801854</span></span><br><span class="line">    System.out.println(str1); <span class="comment">// 2019-10-31T14:16:15.801854</span></span><br><span class="line">    <span class="comment">// 使用标准格式的格式化出来结果是：2019-10-31T14:16:15.801854</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 解析：解析的字符串也必须是标准格式的字符创</span></span><br><span class="line">    TemporalAccessor parse = formatter.parse(<span class="string">&quot;2020-10-31T14:16:15.801854&quot;</span>);</span><br><span class="line">    System.out.println(parse); <span class="comment">// &#123;&#125;,ISO resolved to 2020-10-31T14:16:15.801854</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 实例化方式二：本地化相关的格式</span></span><br><span class="line">    DateTimeFormatter formatter1 = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT);<span class="comment">// 使用FormatStyle.SHORT进行格式化</span></span><br><span class="line">    <span class="comment">// 格式化</span></span><br><span class="line">    String str2 = formatter1.format(localDateTime);</span><br><span class="line">    System.out.println(str2); <span class="comment">// 格式化后的格式：2019/10/31 下午2:22</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 实例化方式三：自定义格式</span></span><br><span class="line">    DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern(<span class="string">&quot;yyyy-MM-dd HH:mm:ss&quot;</span>);</span><br><span class="line">    <span class="comment">// 格式化</span></span><br><span class="line">    String str3 = formatter2.format(LocalDateTime.now());</span><br><span class="line">    System.out.println(str3);<span class="comment">//2022-05-18 22:10:32</span></span><br><span class="line">    <span class="comment">// 解析</span></span><br><span class="line">    TemporalAccessor parse1 = formatter2.parse(<span class="string">&quot;2019-10-31 02:30:29&quot;</span>);</span><br><span class="line">    System.out.println(parse1);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="参考资料">参考资料</h2>
+<ol>
+<li><a target="_blank" rel="noopener" href="https://www3.ntu.edu.sg/home/ehchua/programming/java/DateTimeCalendar.html">https://www3.ntu.edu.sg/home/ehchua/programming/java/DateTimeCalendar.html</a></li>
+<li><a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000020869634">https://segmentfault.com/a/1190000020869634</a></li>
+</ol>
+ 
+      <!-- reward -->
+      
+      <div id="reword-out">
+        <div id="reward-btn">
+          打赏
+        </div>
+      </div>
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <div class="declare">
+      <ul class="post-copyright">
+        <li>
+          <i class="ri-copyright-line"></i>
+          <strong>版权声明： </strong>
+          
+          本博客所有文章除特别声明外，著作权归作者所有。转载请注明出处！
+          
+        </li>
+      </ul>
+    </div>
+    
+    <footer class="article-footer">
+       
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<!--<div class="wx-share-modal">-->
+<!--    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>-->
+<!--    <p>扫一扫，分享到微信</p>-->
+<!--    <div class="wx-qrcode">-->
+<!--      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://rookieyin.github.io/5b5e534ec125/" alt="微信分享二维码">-->
+<!--    </div>-->
+<!--</div>-->
+
+<div id="share-mask"></div>
+  
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%90%8E%E7%AB%AF/" rel="tag">后端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%97%A5%E6%9C%9F/" rel="tag">日期</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+  <nav class="article-nav">
+    
+      <a href="/a6ecc8595f35/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            Java基本数据类型
+          
+        </div>
+      </a>
+    
+    
+      <a href="/50afd504dd87/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">Java字符串</div>
+      </a>
+    
+  </nav>
+
+   
+<!-- valine评论 -->
+<div id="vcomments-box">
+  <div id="vcomments"></div>
+</div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js"></script>
+<script>
+  new Valine({
+    el: "#vcomments",
+    app_id: "f9XmUV7HVprPCNptggBNBhWR-gzGzoHsz",
+    app_key: "H73Viqo3lADopEFgshq3XrXs",
+    path: window.location.pathname,
+    avatar: "monsterid",
+    placeholder: "给我的文章加点评论吧~",
+    recordIP: true,
+  });
+  const infoEle = document.querySelector("#vcomments .info");
+  if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+    infoEle.childNodes.forEach(function (item) {
+      item.parentNode.removeChild(item);
+    });
+  }
+</script>
+<style>
+  #vcomments-box {
+    padding: 5px 30px;
+  }
+
+  @media screen and (max-width: 800px) {
+    #vcomments-box {
+      padding: 5px 0px;
+    }
+  }
+
+  #vcomments-box #vcomments {
+    background-color: #fff;
+  }
+
+  .v .vlist .vcard .vh {
+    padding-right: 20px;
+  }
+
+  .v .vlist .vcard {
+    padding-left: 10px;
+  }
+</style>
+
+ 
+   
+     
+</article>
+
+</section>
+        <footer class="footer">
+  <div class="outer">
+    <ul>
+      <li>
+        Copyrights &copy;
+        2021-2022
+        <i class="ri-heart-fill heart_icon"></i> Yin Peng
+      </li>
+    </ul>
+    <ul>
+      <li>引擎:
+        <a style="color: #0681d0" target="_blank" rel="noopener" href="https://hexo.io/zh-cn/">Hexo</a>
+        &nbsp;&nbsp;|&nbsp;&nbsp;主题:修改自
+        <a style="color: #0681d0" target="_blank" rel="noopener" href="https://shen-yu.gitee.io/">Ayer</a>
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        <span>
+  <span><i class="ri-user-3-fill"></i>访问人数:<span id="busuanzi_value_site_uv"></span></span>
+  <span class="division">|</span>
+  <span><i class="ri-eye-fill"></i>浏览次数:<span id="busuanzi_value_page_pv"></span></span>
+</span>
+        
+      </li>
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      <li>
+        <!-- cnzz统计 -->
+        
+        <script type="text/javascript" src='https://s9.cnzz.com/z_stat.php?id=1278069914&amp;web_id=1278069914'></script>
+        
+      </li>
+    </ul>
+  </div>
+</footer>
+
+        <div class="float_btns">
+            <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+
+<div class="todark" id="todark">
+  <i class="ri-moon-line"></i>
+</div>
+
+        </div>
+    </main>
+
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/alipay.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/wxpay.png">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-2.0.3.min.js"></script>
+ 
+<script src="/js/lazyload.min.js"></script>
+
+<!-- Tocbot -->
+ 
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  tocbot.init({
+    tocSelector: ".tocbot",
+    contentSelector: ".article-entry",
+    headingSelector: "h1, h2, h3, h4, h5, h6",
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: "main",
+    positionFixedSelector: ".tocbot",
+    positionFixedClass: "is-position-fixed",
+    fixedSidebarOffset: "auto",
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.js"></script>
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.css"
+/>
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js"></script>
+
+<script src="/dist/main.js"></script>
+
+<!-- ImageViewer -->
+ <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css">
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script> 
+<!-- MathJax -->
+
+<!-- Katex -->
+
+<!-- busuanzi  -->
+ 
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+ 
+<!-- ClickLove -->
+ 
+<script src="/js/clickLove.js"></script>
+ 
+<!-- ClickBoom1 -->
+
+<!-- ClickBoom2 -->
+
+<!-- CodeCopy -->
+ 
+<link rel="stylesheet" href="/css/clipboard.css">
+ <script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="ri-file-copy-2-line"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-checkbox-circle-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-checkbox-circle-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-time-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-time-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+ 
+<!-- CanvasBackground -->
+
+<script>
+  if (window.mermaid) {
+    mermaid.initialize({ theme: "forest" });
+  }
+</script>
+
+
+    
+</div>
+</body>
+
+</html>

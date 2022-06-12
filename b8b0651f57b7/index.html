@@ -1,0 +1,999 @@
+<!DOCTYPE html>
+
+
+<html lang="zh-CN">
+  
+
+    <head>
+      <meta name="baidu-site-verification" content="code-rk2CNV4xgj" />
+      <meta charset="utf-8" />
+        
+      <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1"
+      />
+      <title>初识Java多线程编程 |  RookieYin&#39;s Note</title>
+  <meta name="generator" content="hexo-theme-ayer">
+      
+      <link rel="shortcut icon" href="/images/2.jpg" />
+       
+<link rel="stylesheet" href="/dist/main.css">
+
+      <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/Shen-Yu/cdn/css/remixicon.min.css"
+      />
+      
+<link rel="stylesheet" href="/css/custom.css">
+ 
+      <script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+       
+ 
+
+      <!-- mermaid -->
+      
+    <link rel="alternate" href="/atom.xml" title="RookieYin's Note" type="application/atom+xml">
+<link href="https://cdn.bootcss.com/KaTeX/0.11.1/katex.min.css" rel="stylesheet" /></head>
+  </html>
+</html>
+
+
+<body>
+<div id="app">
+    
+    
+    <div class="sidebar">
+        <!--<button class="navbar-toggle"></button>-->
+<nav class="navbar">
+  <div class="logo">
+    <a href="/">
+      <img src="/images/2.jpg"
+           style="border-radius: 50%;max-width: none;">
+    </a>
+  </div>
+  <div class = nav-title style="font-size: 2.5rem;color: #ffffff;margin-left: 4rem;font-weight: bold;min-width: 23rem">
+    RookieYin's Note
+  </div>
+  <div class="nav nav-main">
+    
+    <div class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </div>
+    
+    <div class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </div>
+    
+    <div class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </div>
+    
+    <div class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </div>
+    
+    <div class="nav-item">
+      <a class="nav-item-link" href="/friends">友链</a>
+    </div>
+    
+    <div class="nav-item">
+      <a class="nav-item-link" href="/about-me/2021">关于我</a>
+    </div>
+    
+      <div class="nav-item">
+        <div class="nav-item-link navbar-menu-wrap">
+          <div class="navbar-menu"></div>
+        </div>
+      </div>
+    <div class = "nav-item">
+      <a class="nav-item-link nav-item-search"  title="搜索">
+        <i class="ri-search-line"></i>
+      </a>
+    </div>
+  </div>
+</nav>
+<nav class="navbar2">
+  <div style="position: relative;">
+      <div style="height: 4.8rem;display: inline-block;margin-top:1rem;margin-left:1rem;">
+        <a href="/">
+          <img src="/images/2.jpg"
+               style="border-radius: 50%;max-width: none;width:4.8rem">
+        </a>
+      </div>
+    <div class="navbar-title2" style="font-size: 2.5rem;color: #ffffff;margin-left: 4rem;font-weight: bold;margin-top:1rem;
+    min-width: 23rem;height: 4.8rem;overflow: hidden;">
+      <span style="line-height: 4.8rem;">RookieYin's Note</span>
+    </div>
+    <div style="display: inline-block;position: absolute;top:50%;height:50%;transform:translate(-50%,-50%);right:4rem;margin-top: 1rem;">
+      <div class="navbar-menu-wrap">
+        <div class="navbar-menu"></div>
+      </div>
+    </div>
+    <div style="display: inline-block;position: absolute;top:50%;height:50%;transform:translate(-50%,-50%);right:0;">
+      <a class="nav-item-search"  title="搜索">
+        <i class="ri-search-line"></i>
+      </a>
+    </div>
+  </div>
+  <div style="display: inline-block;text-align: center;width: 100%;padding-bottom: 1rem;">
+    
+    <div class="nav-item2">
+      <a class="nav-item-link2" href="/">主页</a>
+    </div>
+    
+    <div class="nav-item2">
+      <a class="nav-item-link2" href="/archives">归档</a>
+    </div>
+    
+    <div class="nav-item2">
+      <a class="nav-item-link2" href="/categories">分类</a>
+    </div>
+    
+    <div class="nav-item2">
+      <a class="nav-item-link2" href="/tags">标签</a>
+    </div>
+    
+    <div class="nav-item2">
+      <a class="nav-item-link2" href="/friends">友链</a>
+    </div>
+    
+    <div class="nav-item2">
+      <a class="nav-item-link2" href="/about-me/2021">关于我</a>
+    </div>
+    
+  </div>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+
+    </div>
+    <main class="content">
+        <section class="outer">
+  <article
+  id="post-2 后端/Java/Java并发/1 初识Java多线程编程"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  初识Java多线程编程
+</h1>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/b8b0651f57b7/" class="article-date">
+  <time datetime="2022-02-02T14:34:49.000Z" itemprop="datePublished">2022-02-02</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a> / <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/Java/">Java</a> / <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/Java/Java%E5%B9%B6%E5%8F%91/">Java并发</a>
+  </div>
+
+  
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> 字数统计:</span>
+            <span class="post-count">6.6k</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> 阅读时长≈</span>
+            <span class="post-count">23 分钟</span>
+        </span>
+    </span>
+</div>
+ 
+    </div>
+      
+    <div class="tocbot"></div>
+
+
+
+
+  
+    <div class="article-entry" itemprop="articleBody">
+       
+  <p>本文主要介绍下线程的相关概念，以及Java中关于多线程的标准类库java.lang.Thread的相关知识。</p>
+<p>我们知道进程是程序的运行实例，当我们在操作系统上运行一个程序时，相当于新建了一个进程。那线程是什么呢？线程是操作系统能够进行运算调度的最小单位，一个进程可以包含多个线程。</p>
+<p>线程和进程的区别如下：</p>
+<ol>
+<li>进程是程序向操作系统<strong>申请资源</strong>（如内存空间和文件句柄）的基本单位。线程（Thread）是进程中<strong>可独立执行</strong>的最小单位。</li>
+<li>一个进程可以包含多个线程。</li>
+<li>同一个进程中的所有线程共享该进程中的资源，如内存空间、文件句柄等。</li>
+</ol>
+<a id="more"></a>
+<h2 id="java中的thread">Java中的Thread</h2>
+<p>java标准库类java.lang.Thread就是java平台对多线程的实现。Thread类或者其子类的一个实例就是一个线程。</p>
+<h3 id="线程的创建-启动与运行">线程的创建、启动与运行</h3>
+<ol>
+<li>
+<p><strong>创建：在java中创建一个线程就是要创建一个Thread类（或其子类）的一个实例</strong></p>
+<p>Thread类有两个常用构造器：Thread()和Thread(Runnable target)。因此创建线程的方式有两种：</p>
+<ul>
+<li>定义Thread类的子类：在子类中Override run方法，并实现线程任务处理逻辑；</li>
+<li>创建一个Runnable接口：new Thread(new RunnableImp())方式创建线程。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 定义Thread类的子类</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">WelcomeThread</span> <span class="keyword">extends</span> <span class="title">Thread</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">Thread t0 = <span class="keyword">new</span> WelcomeThread();</span><br><span class="line"><span class="comment">//实现Runnable接口</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">WelcomeTask</span> <span class="keyword">implements</span> <span class="title">Runnable</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">Thread t1 = <span class="keyword">new</span> Thread(<span class="keyword">new</span> WelcomTask());</span><br></pre></td></tr></table></figure>
+<p>从OOP角度来看，第一种方式基于继承技术，第二种方式基于组合技术。组合的耦合度低于继承，因此大多数情况下我们使用第二种方式创建线程。不过需要注意的一点是：<strong>使用组合方式创建线程，多个线程实例会共享同一个Runnable实例</strong>。</p>
+</li>
+<li>
+<p><strong>启动：要启动线程，需要调用Thread类中的run方法</strong></p>
+<p>调用<code>Thread.start()</code>方法即可启动线程，需要注意的是，启动线程后，线程可能不会立即执行，具体什么时候执行由线程调度器决定。</p>
+</li>
+<li>
+<p><strong>运行：线程具体何时能够运行是由线程调度器决定的</strong></p>
+<p>一旦线程的run方法执行完毕，相应的线程的运行也就结束了。虽然线程的run方法总是由Java虚拟机直接调用的，Java语言并不阻止我们直接通过Thread实例调用run方法。但是，多数情况下我们不能这样做，因为这样做有违创建线程（对象）的初衷。</p>
+</li>
+</ol>
+<h3 id="thread类中的属性">Thread类中的属性</h3>
+<p>线程的属性包括线程的编号（ID）、名称（Name）、线程类别（Daemon）和优先级（Priority），详情如下表所示：</p>
+<table>
+<thead>
+<tr>
+<th>属性</th>
+<th>属性类型及用途</th>
+<th>只读属性</th>
+<th>重要注意事项</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>编号（ID）</td>
+<td>long，用于表示不同线程，不同线程编号不同。</td>
+<td>是</td>
+<td>线程结束后，该线程的编号可能被其他后建线程使用。</td>
+</tr>
+<tr>
+<td>名称（Name）</td>
+<td>String，面向人，默认值与线程的编号有关，默认格式为：“Thread-线程编号”。</td>
+<td>否</td>
+<td>Java不禁止不同线程有相同的名称，但是为了便于调试，线程应当合理取名。</td>
+</tr>
+<tr>
+<td>线程类别（Daemon）</td>
+<td>boolean，true表示为守护线程，否则为用户线程，默认值继承自父线程。</td>
+<td>否</td>
+<td>该属性必须在线程启动之前设置，启动后修改该属性会抛出异常。</td>
+</tr>
+<tr>
+<td>优先级（Priority）</td>
+<td>int，给线程调度器用的。Java定义了 1~10优先级，一般默认为5。对于具体线程而言，其优先级的默认值与父线程相同。</td>
+<td>否</td>
+<td>一般使用默认优先级即可，设置不当可能出现问题。</td>
+</tr>
+</tbody>
+</table>
+<p>守护线程？用户线程？  所谓守护线程，是指在程序运行的时候在后台提供一种通用服务的线程，比如垃圾回收线程就是一个很称职的守护者，并且这种线程并<strong>不属于</strong>程序中<strong>不可或缺</strong>的部分。 两者的区别在于： 如果用户线程已经全部退出运行了，只剩下守护线程存在了，虚拟机也就退出了。因为没有了被守护者，守护线程也就没有工作可做了，也就没有继续运行程序的必要了。</p>
+<h3 id="thread类中的常用方法">Thread类中的常用方法</h3>
+<p>下表列出了Thread中的常用方法API：</p>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>功能</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>static Thread currentThread()</td>
+<td>返回当前线程，即当前代码的执行线程</td>
+<td>同一段代码调用该方法，返回值可能对应不同线程。</td>
+</tr>
+<tr>
+<td>void run()</td>
+<td>用于实现线程的任务处理逻辑</td>
+<td>有Java虚拟机直接调用，用户一般不应该调用。</td>
+</tr>
+<tr>
+<td>void start()</td>
+<td>启动相应线程</td>
+<td>一个Thread实例，只能调用一次start方法，多次调用会抛出异常。</td>
+</tr>
+<tr>
+<td>void join()</td>
+<td>等待相应线程运行结束</td>
+<td>若线程A调用线程B的join方法，那么线程A的运行会被暂停，直到线程B运行结束。</td>
+</tr>
+<tr>
+<td>static void yield()</td>
+<td>使当前线程主动放弃对处理器的占用</td>
+<td>这个方法是不可靠的。该方法被调用时当前线程可能仍然继续运行（视系统当前的运行状况而定）</td>
+</tr>
+<tr>
+<td>static void sleep(long millis)</td>
+<td>使当前线程休眠指定时间</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="线程进阶">线程进阶</h2>
+<h3 id="线程的层次关系">线程的层次关系</h3>
+<p>Java中的线程并不是孤立的，线程与线程之间总是存在一些联系。假设线程A所执行的代码创建了线程B，那么，习惯上我们称线程B为线程A的子线程， 相应地线程A就被称为线程B的父线程。</p>
+<p>当然，子线程所执行的代码中也可以创建其他线程，因此一个子线程也可以是其他线程的父线程。线程的这种父子关系就被称为线程的层次关系。下面我们总结了java中父子线程之间存在的一些关联：</p>
+<ol>
+<li>一个线程是否是守护线程，默认和其父线程一样。</li>
+<li>一个线程的默认优先级和其父进程一样。</li>
+<li>java平台没有提供API用于获取一个线程的父线程，或者获取一个线程的所有子线程。</li>
+<li>父子线程之间的运行周期没有必然的联系。比如父线程运行结束，子线程可以继续运行。</li>
+</ol>
+<h3 id="线程的生命周期">线程的生命周期</h3>
+<p>一个线程从其创建、启动到其运行结束的整个生命周期可能经历若干状态，如下图所示：</p>
+<center><img src="/images/20210301201459977.png" style="width:700px;"></img></center>
+<center><img src="/images/thread_state.image" style="width:700px;"></img></center>
+<p>Java线程的状态可以使用监控工具查看，也可以通过Thread.getState()调用来获取。Thread.getState() 的返回值类型Thread.State 是一个枚举类型（ Enum ） 。Thread.State所定义的线程状态包括以下几种：</p>
+<ul>
+<li><strong>NEW</strong>：一个创建而未启动的线程所处的状态。</li>
+<li><strong>RUNNABLE</strong>：该状态包含两个子状态：READY和RUNNING。前者表示线程可以被线程调度器进行调度而转变为RUNNING状态。后者表示线程正在运行。</li>
+<li><strong>BLOCKED</strong>：一个线程发起一个阻塞式IO操作后，或者申请一个由其他线程持有的独占资源（比如锁）时，相应的线程会处于该状态。</li>
+<li><strong>WAITING</strong>：一个线程执行了某些特定方法之后就会处于这种等待其他线程执行另外一些特定操作的状态。能够使其执行线程变更为WAITING 状态的方法包括：Object.wait() 、Thread.join() 和LockSupport.park(Object) 。能够使相应线程从<br>
+WAITING 变更为RUNNABLE 的相应方法包括： Object.notify()/notifyAll() 和LockSupport.unpark(Object))。</li>
+<li><strong>TIMED_WAITING</strong>：该状态和WAITING类似，差别在于处于该状态的线程并非无限制地等待其他线程执行特定操作，而是处于带<strong>有时间限制的等待状态</strong>。当其他线程没有在指定时间内执行该线程所期望的特定操作时，该线程的状态自动转换为RUNNABLE。</li>
+<li><strong>TERMINATED</strong>：已经执行结束的线程处于该状态。</li>
+</ul>
+<h3 id="java线程-vs-操作系统线程">Java线程 VS 操作系统线程</h3>
+<p>操作系统中进程（线程）的状态有：</p>
+<ul>
+<li>
+<p><strong>初始状态</strong>（NEW)</p>
+</li>
+<li>
+<p><strong>可运行状态</strong>（READY）</p>
+<p>对应 Java中的 <strong>RUNNBALE</strong> 状态</p>
+</li>
+<li>
+<p><strong>运行状态</strong>（RUNNING)</p>
+<p>对应 Java中的 <strong>RUNNBALE</strong> 状态</p>
+</li>
+<li>
+<p>等待状态（WAITING)</p>
+<p>该状态在 Java中被划分为了 <strong>BLOCKED</strong>，<strong>WAITING</strong>，<strong>TIMED_WAITING</strong> 三种状态</p>
+<p>当线程调用阻塞式 API时，<strong>进程(线程)进入等待状态，这里指的是操作系统层面的</strong>。从 JVM层面来说，<strong>Java线程仍然处于 RUNNABLE 状态</strong>。</p>
+<blockquote>
+<p>JVM 并不关心操作系统线程的实际状态，从 JVM 看来，等待CPU使用权（操作系统状态为可运行态）与等待 I/O（操作系统处于等待状态）没有区别，都是在等待某种资源，所以都归入RUNNABLE 状态</p>
+</blockquote>
+</li>
+<li>
+<p><strong>终止状态</strong> （TERMINATED）</p>
+</li>
+</ul>
+<p>下面是几个常见问题：</p>
+<ol>
+<li>Java线程有几种状态： 六种而不是五种容易漏掉TIMEWAITING状态，操作系统线程状态可以说是五种也可以说三种（排除新建和终止）</li>
+<li>线程sleep之后处于什么状态：timewaiting</li>
+<li>A线程被sychnolozy锁阻塞了，B线程被lock锁阻塞了 AB两个线程是否处于相同状态是什么状态：
+<ul>
+<li>sych锁是blocked状态，blocked状态只能从sych锁进入无其他方式</li>
+<li>lock锁的阻塞是waiting或timewaiting状态</li>
+</ul>
+</li>
+<li>当java线程发生IO阻塞时 线程处于什么状态：<br>
+rannable状态，当io阻塞时一定处于操作系统线程状态的waiting状态，操作系统的waiting状态的定义是：表示线程等待（或者说挂起），让出CPU资源给其他线程使用。java线程中 waiting、timewaiting、blocked都必然处于操作系统线程waiting状态、rannable则有可能处于waiting状态（调用阻塞式API）。IO阻塞在java的定义中就是rannable状态只不过让出了cpu资源。</li>
+</ol>
+<h2 id="多线程编程中的挑战">多线程编程中的挑战</h2>
+<p>多线程的目的在于将原本的串行计算改为并发乃至并行计算，提高程序运行效率。但是，在多线程编程中也存在很多挑战，下面对这些挑战进行简单介绍。</p>
+<h3 id="竞态">竞态</h3>
+<p>什么是竞态？竞态指多个线程共享某一资源，导致计算结果有时正确，有时错误的现象。</p>
+<p>导致竞态的常见因素是多个线程在没有采取任何控制措施的情况下并发地更新、读取同一个共享变量。</p>
+<p>竞态具有两种模式：read-modify-write(读-写-写)和check-then-act(检测后行动)。</p>
+<ul>
+<li>
+<p>read-modify-write：先读取共享变量的值，然后根据读到的数据作一些计算，接着更新共享变量的值。比如我们常见的“i++”c操作包含三条指令。</p>
+<center><img src="/images/image-20220402132941339.png" style="width:700px;"></img></center>
+</li>
+<li>
+<p>check-then-act：读取某个共享变量的值， 根据该变量的值决定下一步的动作是什么。</p>
+</li>
+</ul>
+<h3 id="原子性">原子性</h3>
+<p>原子（Atomic）的字面意思是不可分割的（Indivisible）。在多线程编程中，对于涉及共享变量访问的操作，若该操作从其执行线程以外的任意线程来看是不可分割的，那么该操作就是原子操作，相应地我们称该操作具有原子性 （Atomicity）。</p>
+<p>所谓“不可分割”，这里有两层含义：</p>
+<ul>
+<li>其中一个含义是指访问（读、写）某个共享变量的操作从其执行线程以外的任何线程来看，该操作要么已经执行结束要么尚未发生，即其他线程不会“看到”该操作执行了部分的中间效果。</li>
+<li>访问同一组共享变量的原子操作是不能够被交错的。</li>
+</ul>
+<p>Java中有两种方式来实现原子性：</p>
+<ul>
+<li>
+<p><strong>锁</strong>：锁具有排他性，可以保证同一时间只能有一个线程访问共享变量。</p>
+</li>
+<li>
+<p><strong>CAS</strong>：其实现方式与锁本质上是相同的，差别在于锁通常在软件这一层实现的，而CAS是直接在硬件这一层次实现的。</p>
+<p>CAS是一种乐观锁，通过CPU指令实现，可以以无锁+循环方式实现原子性读写操作。 CAS有三个操作数，旧值A，新值B，以及需要读取的内存值V，在更新一个变量时，当且仅当A=V相同时，CAS才会将内存值V修改为B，否则什么都不做。</p>
+<p>其优点是，相比较重量级锁synchronized，它性能更高，是轻量级的乐观锁。但是也有缺点：</p>
+<ul>
+<li>ABA问题： 线程C、D；线程D将A修改为B后又修改为A，此时C线程以为A没有改变过，java的原子类AtomicStampedReference，通过<strong>控制变量值的版本号</strong>来保证CAS的正确性。</li>
+<li>自旋时间过长： 如果资源竞争激烈，多线程自旋长时间消耗资源。</li>
+<li>只能保证一个变量的原子操作。</li>
+</ul>
+</li>
+</ul>
+<p>在Java中除了long和double外的所有其他基本类型的写操作都是原子的，对于任何变量的读操作都是原子的。</p>
+<h3 id="可见性">可见性</h3>
+<p>在多线程环境下，一个线程对某个共享变量进行更新之后，后续访问该变量的线程可能无法立刻读取到这个更新的结果，甚至永远也无法读取到这个更新的结果。这就是线程安全问题的另外一个表现形式：可见性（Visibility）。</p>
+<p>并发编程下，导致可见性问题的原因来自两方面：第一个是JIT编译器优化；第二个是计算机的存储系统。</p>
+<h4 id="编译器优化导致不可见">编译器优化导致不可见</h4>
+<p>看下面一个可见性的例子：启动一个线程，如果10秒钟后线程没有执行完，调用cancel（）方法取消线程。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">VisibilityDemo</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line">        TimeConsumingTask timeConsumingTask = <span class="keyword">new</span> TimeConsumingTask();</span><br><span class="line">        Thread thread = <span class="keyword">new</span> Thread(<span class="keyword">new</span> TimeConsumingTask());</span><br><span class="line">        thread.start();</span><br><span class="line">        <span class="comment">// 指定的时间内任务没有执行结束的话，就将其取消</span></span><br><span class="line">        Thread.sleep(<span class="number">10000</span>);</span><br><span class="line">        timeConsumingTask.cancel();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TimeConsumingTask</span> <span class="keyword">implements</span> <span class="title">Runnable</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">boolean</span> toCancel = <span class="keyword">false</span>;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">while</span> (! toCancel) &#123;</span><br><span class="line">            <span class="keyword">if</span> (doExecute()) &#123;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (toCancel) &#123;</span><br><span class="line">        	System.out.println(<span class="string">&quot;Task was canceled.&quot;</span>);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        	System.out.println(<span class="string">&quot;Task done.&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">boolean</span> <span class="title">doExecute</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">boolean</span> isDone = <span class="keyword">false</span>;</span><br><span class="line">        System.out.println(<span class="string">&quot;executing...&quot;</span>);</span><br><span class="line">        <span class="comment">// 模拟实际操作的时间消耗</span></span><br><span class="line">        Tools.randomPause(<span class="number">50</span>);</span><br><span class="line">        <span class="comment">// 省略其他代码</span></span><br><span class="line">        <span class="keyword">return</span> isDone;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">cancel</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        toCancel = <span class="keyword">true</span>;</span><br><span class="line">        System.out.println(<span class="keyword">this</span> + <span class="string">&quot; canceled.&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上述代码的运行结果可能是：线程一直在运行，没有打印“Task is canceled”。这种现象<strong>只有一种解释</strong>，那就是子线程thread所<br>
+读取到的<strong>toCancel变量值始终是false</strong>，尽管某个时刻main线程会将共享变量toCancel的值更新为true。可见，这里产生了可见性问题，即main线程对共享变量toCancel的更新对子线程thread而言<strong>不可见</strong>。</p>
+<p>上述例子中的可见性问题是因为代码没有给JIT编译器足够的提示而使得其认为状态变量toCancel只有一个线程对其进行访问，从而导致JIT编译器为了避免重复读取状态变量toCancel以提高代码的运行效率，而将TimeConsumingTask的run方法中的while循环优化成与如下代码等效的本地代码（机器码）：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (! toCancel) &#123;</span><br><span class="line">    <span class="keyword">while</span> (<span class="keyword">true</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (doExecute()) &#123;</span><br><span class="line">        	<span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>不幸的是，此时这种优化导致了死循环，也就是我们所看到的程序一直运行而没有退出。</p>
+<h4 id="存储系统导致不可见">存储系统导致不可见</h4>
+<p>每个处理器都有其寄存器，而一个处理器无法读取另外一个处理器上的寄存器中的内容。因此，如果两个线程分别运行在不同的处理器上，而这两个线程所共享的变量却被分配到寄存器上进行存储，那么可见性问题就会产生。</p>
+<p>另外，即便某个共享变量是被分配到主内存中进行存储的，也不能保证该变量的可见性。这是因为处理器对主内存的访问并不是直接访问，而是通过其高速缓存（Cache）子系统进行的。一个处理器上运行的线程对变量的更新可能只是更新到该处理器的写缓冲器（Store Buffer）中，还没有到达该处理器的高速缓存中，更不用说到主内存中了。而一个处理器的写缓冲器中的内容无法被另外一个处理器读取，因此运行在另外一个处理器上的线程无法看到这个线程对某个共享变量的更新。</p>
+<h3 id="有序性">有序性</h3>
+<p>有序性是指程序按照代码的先后顺序执行。但是一方面编译器在编译代码的时候，为了优化性能有时候会改变程序中语句的先后顺序。另一方面，处理器在执行指令的时候也有可能进行指令重排序。</p>
+<p>在单线程场景中，这种重排序不会导致程序运行结果的变化，但是在多线程场景中，重排序可能给程序带来意向不到的错误。</p>
+<p>我们可以将重排序划分成两类，如下表所示：</p>
+<center><img src="/images/image-20220402193258683.png" style="width:700px;"></img></center>
+<ul>
+<li>
+<p><strong>指令重排序</strong></p>
+<p>主要发生在三个地方：javac编译生成字节码文件，JIT编译字节码生成机器码，以及处理器执行机器码。一般重排序导致程序出错的概率很小，但是一旦出错，可能造成很大影响。</p>
+</li>
+<li>
+<p><strong>存储子系统重排序（又叫内存重排序）</strong></p>
+<p>主存相对于处理器是一个慢速设备，为了提高效率，处理器并不是直接访问主内存，而是通过高速缓存（Cache）访问主内存的，并且引入了写缓冲器以提高写告诉缓存操作的效率。这里将高速缓存和写缓冲器称之为存储子系统。</p>
+<p>存储子系统重排序是指：它是一种现象而不是一种动作，它并没有真正对指令执行顺序进行调整，而只是造成了一种指令的执行顺序像是被调整过一样的现象，其重排序的对象是内存操作的结果，因此又叫“内存重排序”。</p>
+<p>从处理器的角度来说，读内存操作的实质是从指定的RAM地址加载数据（通过高速缓存加载）到寄存器，因此读内存操作通常被称为Load，写内存操作的实质是将数据（可能作为操作数直接存储在指令中，也可能存储在寄存器中）存储到指定地址表示的RAM存储单元中，因此写内存操作通常被称为Store。所以，内存重排序实际上只有以下4种可能：</p>
+<table>
+<thead>
+<tr>
+<th>重排序类型</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>LoadLoad重排序（Loads reordered after loads）</td>
+<td>该重排序指一个处理器上先后执行两个读内存操作L1和L2，其他处理器对这两个内存操作的感知顺序可能是L2→L1 [10] ，即L1被重排序到L2之后</td>
+</tr>
+<tr>
+<td>StoreStore重排序（Stores reordered after stores）</td>
+<td>该重排序指一个处理器上先后执行两个写内存操作W1和W2，其他处理器对这两个内存操作的感知顺序可能是W2→W1，即W1被重排序到W2之后</td>
+</tr>
+<tr>
+<td>StoreStore重排序（Stores reordered after stores）</td>
+<td>该重排序指一个处理器上先后执行读内存操作L1和写内存操作W2，其他处理器对这两个内存操作的感知顺序可能是W2→L1，即L1被重排序到W2之后</td>
+</tr>
+<tr>
+<td>StoreLoad重排序（Stores reordered after loads）</td>
+<td>该重排序指一个处理器上先后执行写内存操作W1和读内存操作L2，其他处理器对这两个内存操作的感知顺序可能是L2→W1，即W1被重排序到L2之后</td>
+</tr>
+</tbody>
+</table>
+</li>
+</ul>
+<h3 id="上下文切换">上下文切换</h3>
+<h4 id="概念">概念</h4>
+<p>上下文切换（Context Switch）在某种程度上可以被看作多个线程共享同一个处理器的产物 [12] ，它是多线程编程中的一个重要概念。</p>
+<p>单处理器上的多线程其实就是通过这种时间片分配的方式实现的。时间片决定了一个线程可以连续占用处理器运行的时间长度。当一个进程中的一个线程由于其时间片用完或者其自身的原因（比如，它需要稍后再继续运行）被迫或者主动暂停其运行时，另外一个线程（可能是同一个进程或者其他进程中的一个线程）可以被操作系统（线程调度器）选中占用处理器开始或者继续其运行。这种一个线程被暂停，即被剥夺处理器的使用权，另外一个线程被选中开始或者继续运行的过程就<strong>叫作线程上下文切换</strong> 。</p>
+<p>从Java应用的角度来看，一个线程的<strong>生命周期状态在RUNNABLE状态与非RUNNABLE状态</strong>（包括BLOCKED、WAITING和TIMED_WAITING中的任意一个子状态）<strong>之间切换</strong>的过程就是一个上下文切换的过程。当一个线程的生命周期状态由RUNNABLE转换为非RUNNABLE时，我们称这个线程被暂停 。线程的暂停就是相应线程被切出的过程，这里操作系统会保存相应线程的上下<br>
+文，以便该线程稍后再次进入RUNNABLE状态时能够在之前执行进度的基础上进展。而一个线程的生命周期状态由非RUNNABLE 状态进入RUNNABLE 状态时， 我们就称这个线程被唤醒（Wakeup）。一个线程被唤醒仅代表该线程获得了一个继续运行的机会，而并不代表其立刻可以占用处理器运行。</p>
+<h4 id="分类">分类</h4>
+<p>按照导致上下文切换的因素进行划分，可以将上下文切换分为自发性上下文切换和非自发性上下文切换。</p>
+<ul>
+<li><strong>自发性上下文切换</strong>
+<ul>
+<li>从Java平台的角度来看，一个线程在其运行过程中执行下列任意一个方法都会引起自发性上下文切换：Thread.sleep，Object.wait()/wait(long timeout)/wait(long timeout, int nanos)，Thread.yield ()，Thread.join()/Thread.join(long timeout)，LockSupport.park ()。</li>
+<li>线程发起了I/O操作（如读取文件）或者等待其他线程持有的锁也会导致自发性上下文切换。</li>
+</ul>
+</li>
+<li><strong>非自发性上下文切换</strong>
+<ul>
+<li>非自发性上下文切换 指线程由于线程调度器的原因被迫切出。导致非自发性上下文切换的常见因素包括被切出线程的时间片用完或者有一个比被切出线程优先级更高的线程需要被运行。</li>
+<li>比如JVM中的垃圾会收可能导致非自发性上下文切换。</li>
+</ul>
+</li>
+</ul>
+<h3 id="活性故障">活性故障</h3>
+<p>由资源稀缺性或者程序自身的问题和缺陷导致线程一直处于非RUNNABLE状态，或者线程虽然处于RUNNABLE状态但是其要执行的任务却一直无法进展的现象就被称为线程<strong>活性故障</strong>。常见的活性故障包括以下几种：</p>
+<ul>
+<li><strong>死锁</strong>：死锁产生的典型场景是一个线程X持有资源A的时候等待另外一个线程释放资源B，而另外一个线程Y在持有资源B的时<br>
+候却等待线程X释放资源A。最终导致两个线程都处于非RUNNABLE状态。</li>
+<li><strong>锁死</strong>：锁死就好比睡美人的故事中睡美人醒来的前提是她要得到王子的亲吻，但是如果王子无法亲吻她（比如王子“挂了”……），那么睡美人将一直沉睡！</li>
+<li><strong>活锁</strong>：活锁好比小猫试图咬自己的尾巴，虽然它总是追着自己的尾巴咬，但却始终无法咬到。活锁的外在表现是线程可能处于RUNNABLE状态，但是线程所要执行的任务却丝毫没有进展，即线程可能一直在做无用功。</li>
+<li><strong>饥饿</strong>：饥饿好比母鸟给雏鸟喂食的情形，健壮的雏鸟总是抢先从母鸟的嘴中抢到食物，从而导致那些弱小的雏鸟总是挨饿。饥饿就是线程因无法获得其所需的资源而使得任务执行无法进展的现象。</li>
+</ul>
+<h3 id="资源争用">资源争用</h3>
+<p>由于资源的稀缺性或者资源本身的特性，我们往往需要在多个线程之间共享同一个资源。但是有些资源具有排他性，即一次只能被一个线程占用，比如处理器、数据库连接、文件等。</p>
+<p><strong>资源争用</strong>：指一个线程占用一个排他性资源进行访问而未释放其对资源所有权时，其他线程视图访问该资源的现象。</p>
+<p>既然存在资源争用，那么就会带来另外一个问题，即资源调度。当多个线程同时申请某个资源时，应该把资源分配给哪个线程呢？资源调度策略的一个常见特性就是它能否保证公平性。如果按照线程申请顺序，分配资源，那么这种策略被称为公平的，反之则不公平。</p>
+<ul>
+<li><strong>公平调度策略</strong>：一种常见策略就是排队
+<ul>
+<li>优点：线程申请资源所需的时间偏差较小，并且不会导致饥饿现象。</li>
+<li>缺点：吞吐率小，因为需要维护线程申请资源的顺序，开销较大。</li>
+</ul>
+</li>
+<li><strong>非公平调度策略</strong>：允许插队现象
+<ul>
+<li>优点：吞吐率高，是我们多数情况下首选的资源调度策略。</li>
+<li>缺点：资源申请者申请资源所需的时间偏差可能较大，并可能导致饥饿现象。</li>
+</ul>
+</li>
+</ul>
+ 
+      <!-- reward -->
+      
+      <div id="reword-out">
+        <div id="reward-btn">
+          打赏
+        </div>
+      </div>
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <div class="declare">
+      <ul class="post-copyright">
+        <li>
+          <i class="ri-copyright-line"></i>
+          <strong>版权声明： </strong>
+          
+          本博客所有文章除特别声明外，著作权归作者所有。转载请注明出处！
+          
+        </li>
+      </ul>
+    </div>
+    
+    <footer class="article-footer">
+       
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<!--<div class="wx-share-modal">-->
+<!--    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>-->
+<!--    <p>扫一扫，分享到微信</p>-->
+<!--    <div class="wx-qrcode">-->
+<!--      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://rookieyin.github.io/b8b0651f57b7/" alt="微信分享二维码">-->
+<!--    </div>-->
+<!--</div>-->
+
+<div id="share-mask"></div>
+  
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%90%8E%E7%AB%AF/" rel="tag">后端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" rel="tag">多线程</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+  <nav class="article-nav">
+    
+      <a href="/e920947d370d/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            Synchronized关键字
+          
+        </div>
+      </a>
+    
+    
+      <a href="/455d24388919/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">ConcurrentHashMap源码解读</div>
+      </a>
+    
+  </nav>
+
+   
+<!-- valine评论 -->
+<div id="vcomments-box">
+  <div id="vcomments"></div>
+</div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js"></script>
+<script>
+  new Valine({
+    el: "#vcomments",
+    app_id: "f9XmUV7HVprPCNptggBNBhWR-gzGzoHsz",
+    app_key: "H73Viqo3lADopEFgshq3XrXs",
+    path: window.location.pathname,
+    avatar: "monsterid",
+    placeholder: "给我的文章加点评论吧~",
+    recordIP: true,
+  });
+  const infoEle = document.querySelector("#vcomments .info");
+  if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+    infoEle.childNodes.forEach(function (item) {
+      item.parentNode.removeChild(item);
+    });
+  }
+</script>
+<style>
+  #vcomments-box {
+    padding: 5px 30px;
+  }
+
+  @media screen and (max-width: 800px) {
+    #vcomments-box {
+      padding: 5px 0px;
+    }
+  }
+
+  #vcomments-box #vcomments {
+    background-color: #fff;
+  }
+
+  .v .vlist .vcard .vh {
+    padding-right: 20px;
+  }
+
+  .v .vlist .vcard {
+    padding-left: 10px;
+  }
+</style>
+
+ 
+   
+     
+</article>
+
+</section>
+        <footer class="footer">
+  <div class="outer">
+    <ul>
+      <li>
+        Copyrights &copy;
+        2021-2022
+        <i class="ri-heart-fill heart_icon"></i> Yin Peng
+      </li>
+    </ul>
+    <ul>
+      <li>引擎:
+        <a style="color: #0681d0" target="_blank" rel="noopener" href="https://hexo.io/zh-cn/">Hexo</a>
+        &nbsp;&nbsp;|&nbsp;&nbsp;主题:修改自
+        <a style="color: #0681d0" target="_blank" rel="noopener" href="https://shen-yu.gitee.io/">Ayer</a>
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        <span>
+  <span><i class="ri-user-3-fill"></i>访问人数:<span id="busuanzi_value_site_uv"></span></span>
+  <span class="division">|</span>
+  <span><i class="ri-eye-fill"></i>浏览次数:<span id="busuanzi_value_page_pv"></span></span>
+</span>
+        
+      </li>
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      <li>
+        <!-- cnzz统计 -->
+        
+        <script type="text/javascript" src='https://s9.cnzz.com/z_stat.php?id=1278069914&amp;web_id=1278069914'></script>
+        
+      </li>
+    </ul>
+  </div>
+</footer>
+
+        <div class="float_btns">
+            <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+
+<div class="todark" id="todark">
+  <i class="ri-moon-line"></i>
+</div>
+
+        </div>
+    </main>
+
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/alipay.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/wxpay.png">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-2.0.3.min.js"></script>
+ 
+<script src="/js/lazyload.min.js"></script>
+
+<!-- Tocbot -->
+ 
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  tocbot.init({
+    tocSelector: ".tocbot",
+    contentSelector: ".article-entry",
+    headingSelector: "h1, h2, h3, h4, h5, h6",
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: "main",
+    positionFixedSelector: ".tocbot",
+    positionFixedClass: "is-position-fixed",
+    fixedSidebarOffset: "auto",
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.js"></script>
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.css"
+/>
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js"></script>
+
+<script src="/dist/main.js"></script>
+
+<!-- ImageViewer -->
+ <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css">
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script> 
+<!-- MathJax -->
+
+<!-- Katex -->
+
+<!-- busuanzi  -->
+ 
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+ 
+<!-- ClickLove -->
+ 
+<script src="/js/clickLove.js"></script>
+ 
+<!-- ClickBoom1 -->
+
+<!-- ClickBoom2 -->
+
+<!-- CodeCopy -->
+ 
+<link rel="stylesheet" href="/css/clipboard.css">
+ <script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="ri-file-copy-2-line"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-checkbox-circle-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-checkbox-circle-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-time-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-time-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+ 
+<!-- CanvasBackground -->
+
+<script>
+  if (window.mermaid) {
+    mermaid.initialize({ theme: "forest" });
+  }
+</script>
+
+
+    
+</div>
+</body>
+
+</html>

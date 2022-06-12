@@ -1,0 +1,14 @@
+.search-form-wrap {
+  right: 8rem;
+}
+@media (min-width: 768px) {
+  .outer,
+  .wrap {
+    width: 80rem !important;
+  }
+}
+@media (max-width: 1100px) {
+  .tocbot {
+    display: none !important;
+  }
+}

@@ -1,0 +1,916 @@
+<!DOCTYPE html>
+
+
+<html lang="zh-CN">
+  
+
+    <head>
+      <meta name="baidu-site-verification" content="code-rk2CNV4xgj" />
+      <meta charset="utf-8" />
+        
+      <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1"
+      />
+      <title>Synchronized关键字 |  RookieYin&#39;s Note</title>
+  <meta name="generator" content="hexo-theme-ayer">
+      
+      <link rel="shortcut icon" href="/images/2.jpg" />
+       
+<link rel="stylesheet" href="/dist/main.css">
+
+      <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/Shen-Yu/cdn/css/remixicon.min.css"
+      />
+      
+<link rel="stylesheet" href="/css/custom.css">
+ 
+      <script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+       
+ 
+
+      <!-- mermaid -->
+      
+    <link rel="alternate" href="/atom.xml" title="RookieYin's Note" type="application/atom+xml">
+<link href="https://cdn.bootcss.com/KaTeX/0.11.1/katex.min.css" rel="stylesheet" /></head>
+  </html>
+</html>
+
+
+<body>
+<div id="app">
+    
+    
+    <div class="sidebar">
+        <!--<button class="navbar-toggle"></button>-->
+<nav class="navbar">
+  <div class="logo">
+    <a href="/">
+      <img src="/images/2.jpg"
+           style="border-radius: 50%;max-width: none;">
+    </a>
+  </div>
+  <div class = nav-title style="font-size: 2.5rem;color: #ffffff;margin-left: 4rem;font-weight: bold;min-width: 23rem">
+    RookieYin's Note
+  </div>
+  <div class="nav nav-main">
+    
+    <div class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </div>
+    
+    <div class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </div>
+    
+    <div class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </div>
+    
+    <div class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </div>
+    
+    <div class="nav-item">
+      <a class="nav-item-link" href="/friends">友链</a>
+    </div>
+    
+    <div class="nav-item">
+      <a class="nav-item-link" href="/about-me/2021">关于我</a>
+    </div>
+    
+      <div class="nav-item">
+        <div class="nav-item-link navbar-menu-wrap">
+          <div class="navbar-menu"></div>
+        </div>
+      </div>
+    <div class = "nav-item">
+      <a class="nav-item-link nav-item-search"  title="搜索">
+        <i class="ri-search-line"></i>
+      </a>
+    </div>
+  </div>
+</nav>
+<nav class="navbar2">
+  <div style="position: relative;">
+      <div style="height: 4.8rem;display: inline-block;margin-top:1rem;margin-left:1rem;">
+        <a href="/">
+          <img src="/images/2.jpg"
+               style="border-radius: 50%;max-width: none;width:4.8rem">
+        </a>
+      </div>
+    <div class="navbar-title2" style="font-size: 2.5rem;color: #ffffff;margin-left: 4rem;font-weight: bold;margin-top:1rem;
+    min-width: 23rem;height: 4.8rem;overflow: hidden;">
+      <span style="line-height: 4.8rem;">RookieYin's Note</span>
+    </div>
+    <div style="display: inline-block;position: absolute;top:50%;height:50%;transform:translate(-50%,-50%);right:4rem;margin-top: 1rem;">
+      <div class="navbar-menu-wrap">
+        <div class="navbar-menu"></div>
+      </div>
+    </div>
+    <div style="display: inline-block;position: absolute;top:50%;height:50%;transform:translate(-50%,-50%);right:0;">
+      <a class="nav-item-search"  title="搜索">
+        <i class="ri-search-line"></i>
+      </a>
+    </div>
+  </div>
+  <div style="display: inline-block;text-align: center;width: 100%;padding-bottom: 1rem;">
+    
+    <div class="nav-item2">
+      <a class="nav-item-link2" href="/">主页</a>
+    </div>
+    
+    <div class="nav-item2">
+      <a class="nav-item-link2" href="/archives">归档</a>
+    </div>
+    
+    <div class="nav-item2">
+      <a class="nav-item-link2" href="/categories">分类</a>
+    </div>
+    
+    <div class="nav-item2">
+      <a class="nav-item-link2" href="/tags">标签</a>
+    </div>
+    
+    <div class="nav-item2">
+      <a class="nav-item-link2" href="/friends">友链</a>
+    </div>
+    
+    <div class="nav-item2">
+      <a class="nav-item-link2" href="/about-me/2021">关于我</a>
+    </div>
+    
+  </div>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+
+    </div>
+    <main class="content">
+        <section class="outer">
+  <article
+  id="post-2 后端/Java/Java并发/2 Synchronized关键字"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  Synchronized关键字
+</h1>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/e920947d370d/" class="article-date">
+  <time datetime="2022-02-03T14:34:49.000Z" itemprop="datePublished">2022-02-03</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a> / <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/Java/">Java</a> / <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/Java/Java%E5%B9%B6%E5%8F%91/">Java并发</a>
+  </div>
+
+  
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> 字数统计:</span>
+            <span class="post-count">7k</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> 阅读时长≈</span>
+            <span class="post-count">25 分钟</span>
+        </span>
+    </span>
+</div>
+ 
+    </div>
+      
+    <div class="tocbot"></div>
+
+
+
+
+  
+    <div class="article-entry" itemprop="articleBody">
+       
+  <p>在Java中除了提供Lock API外还在语法层面上提供了synchronized关键字来实现互斥同步原语，可以保证同步对象的<strong>原子性、可见性和有序性</strong>（ 加上synchronized后，依然会发生重排序，只不过，我们有同步代码块，可以保证只有一个线程执行同步代码快中的代码，从而保证有序性）。</p>
+<p>不过需要注意的是，这里保证可见性和volatile保证可见性有一定区别。volatile保证绝对的可见性，synchronized是通过获取锁时强制从主存取数据保证的，如果访问变量时没有获取锁，就不保证可见性。</p>
+<a id="more"></a>
+<h2 id="1-synchronized的使用">1 Synchronized的使用</h2>
+<p>synchronized可修饰的对象有以下几种：</p>
+<ol>
+<li>
+<p><strong>方法</strong></p>
+<p>被修饰的方法称为同步方法，其作用的范围是整个方法，作用的对象是调用这个方法的对象 。</p>
+</li>
+<li>
+<p><strong>静态方法</strong></p>
+<p>其作用的范围是整个静态方法，作用的对象是这个类的所有对象。</p>
+</li>
+<li>
+<p><strong>代码块</strong></p>
+<p>被修饰的代码块称为同步语句块，其作用的范围是大括号{}括起来的代码，作用的对象是调用这个代码块的对象。</p>
+</li>
+<li>
+<p><strong>类</strong></p>
+<p>其作用的范围是synchronized后面括号括起来的部分，作用的对象是这个类的所有对象。</p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ClassName</span> </span>&#123;</span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">method</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      <span class="keyword">synchronized</span>(ClassName.class) &#123;</span><br><span class="line">         <span class="comment">// todo</span></span><br><span class="line">      &#125;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>另外需要注意的一点是： <strong>synchronized具有锁重入功能</strong>，也就是说一个线程获得锁，再次请求是可以再次得到对象的锁的 。关于这部分的具体实验，可参考<a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000039755370">这篇博客</a>。</p>
+<h2 id="2-synchronized原理">2 Synchronized原理</h2>
+<h3 id="2-1-加-释放锁原理">2.1 加/释放锁原理</h3>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SynchronizedDemo2</span> </span>&#123;</span><br><span class="line">    Object object = <span class="keyword">new</span> Object();</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">method1</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">synchronized</span> (object) &#123;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">        method2();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">method2</span><span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>将上述代码用<code>javac</code>编译生成.class文件后，使用<code>javap</code>反编译查看.class文件信息如下：</p>
+<center><img src="/images/java-thread-x-key-schronized-x1.png" style="width:600px;"></img></center>
+<p>可以看出<code>synchronized</code>的底层原理在于<code>monitorenter</code>和<code>monitorexit</code>两条指令。 <code>Monitorenter</code>和<code>Monitorexit</code>指令可以让被执行对象的锁计数器加1或者减1。 每一个对象在同一时间只与一个monitor(锁)相关联，而一个monitor在同一时间只能被一个线程获得，一个对象在尝试获得与这个对象相关联的Monitor锁的所有权的时候，monitorenter指令会发生如下3中情况之一：</p>
+<ul>
+<li>
+<p>monitor计数器为0，意味着目前还没有被获得，那这个线程就会立刻获得然后把锁计数器+1，一旦+1，别的线程再想获取，就需要等待</p>
+</li>
+<li>
+<p>如果这个monitor已经拿到了这个锁的所有权，又重入了这把锁，那锁计数器就会累加，变成2，并且随着重入的次数，会一直累加</p>
+</li>
+<li>
+<p>这把锁已经被别的线程获取了，等待锁释放</p>
+</li>
+</ul>
+<p><code>monitorexit指令</code>：释放对于monitor的所有权，释放过程很简单，就是将monitor的计数器减1，如果减完以后，计数器不是0，则代表刚才是重入进来的，当前线程还继续持有这把锁的所有权，如果计数器变成0，则代表当前线程不再拥有该monitor的所有权，即释放锁。</p>
+<h3 id="2-2-可重入原理">2.2 可重入原理</h3>
+<p>上面的demo中在执行完同步代码块之后紧接着再会去执行一个静态同步方法，而这个方法锁的对象依然就这个类对象，那么这个正在执行的线程还需要获取该锁吗? 答案是不必的，从上图中就可以看出来，执行静态同步方法的时候就只有一条monitorexit指令，并没有monitorenter获取锁的指令。这就是锁的重入性，即在同一锁程中，线程不需要再次获取同一把锁。</p>
+<p>Synchronized先天具有重入性。每个对象拥有一个计数器，当线程获取该对象锁后，计数器就会加1，释放锁后就会将计数器减1。</p>
+<h3 id="2-3-可见性原理">2.3 可见性原理</h3>
+<p>synchronized规定，线程在加锁时，先清空工作内存→在主内存中拷贝最新变量的副本到工作内存→执行完代码→将更改后的共享变量的值刷新到主内存中→释放互斥锁。</p>
+<h2 id="3-锁升级">3 锁升级</h2>
+<h3 id="3-1-为什么要锁升级">3.1 为什么要锁升级</h3>
+<p>通过前面的介绍，我们知道Synchronized依赖于monitor，而monitor依赖于底层操作系统的mutex lock来实现，因此需要从用户态切换到内核态，而这一操作是重量级的。</p>
+<p>在JDK1.5之前，synchronized是重量级锁，1.6以后对其进行了优化，有了一个 无锁–&gt;偏向锁–&gt;自旋锁–&gt;重量级锁 的锁升级的过程，而不是一上来就是重量级锁了，为什么呢？因为重量级锁获取锁和释放锁需要经过操作系统，是一个重量级的操作。对于重量锁来说，一旦线程获取失败，就要陷入阻塞状态，并且是操作系统层面的阻塞，这个过程涉及用户态到核心态的切换，是一个开销非常大的操作。而研究表明，线程持有锁的时间是比较短暂的，也就是说，当前线程即使现在获取锁失败，但可能很快地将来就能够获取到锁，这种情况下将线程挂起是很不划算的行为。所以要对&quot;synchronized总是启用重量级锁&quot;这个机制进行优化。</p>
+<h3 id="3-2-锁升级原理">3.2 锁升级原理</h3>
+<p>在Java虚拟机中，普通对象在内存中分为三块区域：对象头、实例数据、对齐填充数据（数组对象比普通对象在对象头位置多一个数组长度）。</p>
+<ul>
+<li>对象头：包括markword（8字节）和类型指针（开启压缩指针4字节，不开启8字节，如果是32g以上内存，都是8字节）</li>
+<li>实例数据：就是对象的成员变量</li>
+<li>padding：就是为了保证对象的大小为8字节的倍数，将对象所占字节数补到能被8整除。</li>
+</ul>
+<p>和锁相关的信息就存储在对象头中。</p>
+<p>64位HotSpot JVM中，如下图所示，不同锁状态下，对象头存储不同的信息：</p>
+<center><img src="/images/877635a5c9044ce69abcb4fef40b6c12.png" style="width:600px;"></img></center>
+<p>目前锁状态一种有四种，从级别由低到高依次是：无锁、偏向锁，轻量级锁，重量级锁，锁状态只能升级，不能降级。</p>
+<p>下图总结了锁状态变化路线图：</p>
+<center><img src="/images/3659327584-61cbb29dc0cbe_fix732.png" style="width:800px;"></img></center>
+<p>可以看到上图多了一个“匿名偏向锁”：</p>
+<ol>
+<li>
+<p><strong>什么是匿名偏向锁？</strong></p>
+<p>匿名偏向锁，就是不偏向任何线程的偏向锁。JVM中有一个启动参数-XX:BiasedLockingStartupDelay，表示延时启动偏向锁的时间。即如果在延时时间内创建的对象，会进入无锁状态，延时时间外创建的对象处于匿名偏向锁状态。</p>
+</li>
+<li>
+<p><strong>为什么要有它？</strong></p>
+<p>JVM 内部的代码有很多地方用到了synchronized，如果直接开启偏向，产生竞争就要有锁升级，会带来额外的性能损耗，所以就有了延迟策略 ，这样启动后立刻创建的对象处于无锁状态，产生竞争后，直接进入轻量级锁，不使用偏向锁。</p>
+</li>
+</ol>
+<h3 id="3-3-无锁状态">3.3 无锁状态</h3>
+<p>无锁状态，标志位为 0 01，此时对象没有任何同步限制。</p>
+<h3 id="3-4-偏向锁">3.4 偏向锁</h3>
+<p>偏向锁状态，标志位为1 01。</p>
+<h4 id="3-4-1-为什么要有偏向锁">3.4.1 为什么要有偏向锁</h4>
+<p>有研究表明，其实在<strong>大部分场景都不会发生锁资源竞争</strong>，并且锁资源往往都是由一个线程获得的。如果这种情况下，同一个线程获取这个锁都需要进行一系列操作，比如说CAS自旋，那这个操作很明显是多余的。偏向锁就解决了这个问题。其核心思想就是：一个线程获取到了锁，那么锁就会进入偏向模式，当同一个线程再次请求该锁的时候，无需做任何同步，直接进行同步区域执行。这样就省去了大量有关锁申请的操作。所以，对于没有锁竞争的场合，偏向锁有很好的优化效果。</p>
+<h4 id="3-4-2-偏向撤销">3.4.2 偏向撤销</h4>
+<p>在了解偏向锁之前，需要先了解下偏向撤销的概念。可以参考<a target="_blank" rel="noopener" href="https://www.cnblogs.com/LemonFive/p/11248248.html">这个</a></p>
+<p>偏向锁撤销和偏向锁释放是两码事</p>
+<ol>
+<li>撤销：笼统的说就是多个线程竞争导致不能再使用偏向模式的时候，主要是告知这个锁对象不能再用偏向模式</li>
+<li>释放：和你的常规理解一样，对应的就是 synchronized 方法的退出或 synchronized 块的结束</li>
+</ol>
+<p>如果只是一个线程获取锁，再加上「偏心」的机制，是没有理由撤销偏向的，<strong>所以偏向的撤销只能发生在有竞争的情况下。</strong></p>
+<p>想要撤销偏向锁，还不能对持有偏向锁的线程有影响，所以就要等待持有偏向锁的线程到达一个 <code>safepoint 安全点</code> (这里的安全点是 JVM 为了保证在垃圾回收的过程中引用关系不会发生变化设置的一种安全状态，在这个状态上会暂停所有线程工作)， 在这个安全点会挂起获得偏向锁的线程。</p>
+<p>在这个安全点，线程可能还是处在不同状态的，先说结论（因为源码就是这么写的，可能有疑惑的地方会在后面解释）</p>
+<ol>
+<li>线程不存活或者活着的线程但退出了同步块，很简单，直接撤销偏向就好了</li>
+<li>活着的线程但仍在同步块之内，那就要升级成轻量级锁</li>
+</ol>
+<p>这个和 epoch 貌似还是没啥关系，因为这还不是全部场景。偏向锁是特定场景下提升程序效率的方案，可并不代表程序员写的程序都满足这些特定场景，比如这些场景（在开启偏向锁的前提下）：</p>
+<ol>
+<li>一个线程创建了大量对象并执行了初始的同步操作，之后在另一个线程中将这些对象作为锁进行之后的操作。这种case下，会导致大量的偏向锁撤销操作</li>
+<li>明知有多线程竞争（生产者/消费者队列），还要使用偏向锁，也会导致各种撤销</li>
+</ol>
+<p>很显然，这两种场景肯定会导致偏向撤销的，一个偏向撤销的成本无所谓，大量偏向撤销的成本是不能忽视的。那怎么办？既不想禁用偏向锁，还不想忍受大量撤销偏向增加的成本，JVM为我们提供了两重底线：批量重偏向和批量撤销，主要这两个措施是针对类的，而不是对象。</p>
+<p>1、批量重偏向和批量撤销是针对类的优化，和对象无关，对象进入轻量级锁后，就不会再使用偏向锁了。</p>
+<p>2、偏向锁重偏向一次之后不可再次重偏向。</p>
+<p>3、当某个类已经触发批量撤销机制后，JVM会默认当前类产生了严重的问题，剥夺了该类的新实例对象使用偏向锁的权利</p>
+<h5 id="一-批量重偏向">一、批量重偏向</h5>
+<p>重偏向：重新换个线程偏向。</p>
+<p>对于某个类，在A线程中创建了100个对象然后，并进入同步代码块，完成任务后退出。在B线程中，如果分别使用那100个对象进入临界区，因为此时这100个对象都是偏向A线程的，那么这100次操作都是直接获取轻量级锁，这会造成很多额外开销。</p>
+<p>如果设置重偏向阈值为20，那么对比B线程前19次操作都是获取轻量级锁，第20次发生重偏向，开始使用偏向锁。</p>
+<p>这是第一种场景的快速解决方案， 以 class 为单位，为每个 class 维护一个偏向锁撤销计数器，每一次该class的对象发生偏向撤销操作时，该计数器 +1，当这个值达到重偏向阈值（默认20）时：</p>
+<p>这是第一种场景的快速解决方案，以 class 为单位，为每个 class 维护一个偏向锁撤销计数器，每一次该class的对象发生偏向撤销操作时，该计数器 <code>+1</code>，当这个值达到重偏向阈值（默认20）时：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">BiasedLockingBulkRebiasThreshold = <span class="number">20</span></span><br></pre></td></tr></table></figure>
+<p>JVM 就认为该class的偏向锁有问题，因此会进行批量重偏向, 它的实现方式就用到了我们上面说的 <code>epoch</code>。</p>
+<p>每个 class 对象会有一个对应的<code>epoch</code>字段，每个<strong>处于偏向锁状态对象</strong>的<code>mark word</code> 中也有该字段，其初始值为创建该对象时 class 中的<code>epoch</code>的值（此时二者是相等的）。每次发生批量重偏向时，就将该值加1，同时遍历JVM中所有线程的栈</p>
+<ol>
+<li>找到该 class 所有<strong>正处于加锁状态</strong>的偏向锁对象，将其<code>epoch</code>字段改为新值</li>
+<li>class 中<strong>不处于加锁状态</strong>的偏向锁对象（没被任何线程持有，但之前是被线程持有过的，这种锁对象的 markword 肯定也是有偏向的），保持 <code>epoch</code> 字段值不变</li>
+</ol>
+<p>这样下次获得锁时，发现当前对象的<code>epoch</code>值和class的<code>epoch</code>不同，本着<strong>今朝不问前朝事</strong> 的原则（上一个纪元），那就算当前已经偏向了其他线程，也不会执行撤销操作，而是直接通过 CAS 操作将其<code>mark word</code>的线程 ID 改成当前线程 ID，这也算是一定程度的优化，毕竟没升级锁；</p>
+<p>如果 <code>epoch</code> 都一样，说明没有发生过批量重偏向, 如果 <code>markword</code> 有线程ID，还有其他锁来竞争，那锁自然是要升级的(如同前面举的例子 epoch=0)。</p>
+<p><strong>批量重偏向是第一阶梯底线，还有第二阶梯底线</strong></p>
+<h5 id="二-批量撤销">二、 批量撤销</h5>
+<p>当达到重偏向阈值后，假设该 class 计数器继续增长，当其达到批量撤销的阈值后（默认40）时，</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">BiasedLockingBulkRevokeThreshold = <span class="number">40</span></span><br></pre></td></tr></table></figure>
+<p>JVM就认为该 class 的使用场景存在多线程竞争，会标记该 class 为不可偏向。之后对于该 class 的锁，直接走轻量级锁的逻辑</p>
+<p>这就是第二阶梯底线，但是在第一阶梯到第二阶梯的过渡过程中，也就是在彻底禁用偏向锁之前，还给一次改过自新的机会，那就是另外一个计时器：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">BiasedLockingDecayTime = <span class="number">25000</span></span><br></pre></td></tr></table></figure>
+<ol>
+<li>如果在距离上次批量重偏向发生的 25 秒之内，并且累计撤销计数达到40，就会发生批量撤销（偏向锁彻底 game over）</li>
+<li>如果在距离上次批量重偏向发生超过 25 秒之外，那么就会重置在 <code>[20, 40)</code> 内的计数, 再给次机会</li>
+</ol>
+<p>大家有兴趣可以写代码测试一下临界点，观察锁对象 <code>markword</code> 的变化。</p>
+<p>至此，整个偏向锁的工作流程可以用一张图表示：</p>
+<center><img src="/images/1617697575-61cbb28d93c18_fix732.webp" style="width:800px;"></img></center>
+<p>下面看一个例子：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">    <span class="comment">//延时产生可偏向对象</span></span><br><span class="line">    Thread.sleep(<span class="number">5000</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//创造100个偏向线程t1的偏向锁</span></span><br><span class="line">    List&lt;MyThread&gt; listA = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">    Thread t1 = <span class="keyword">new</span> Thread(() -&gt; &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;<span class="number">100</span> ; i++) &#123;</span><br><span class="line">            MyThread a = <span class="keyword">new</span> MyThread();</span><br><span class="line">            <span class="keyword">synchronized</span> (a)&#123;</span><br><span class="line">                listA.add(a);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="comment">//为了防止JVM线程复用，在创建完对象后，保持线程t1状态为存活</span></span><br><span class="line">            Thread.sleep(<span class="number">100000000</span>);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">    t1.start();</span><br><span class="line"></span><br><span class="line">    <span class="comment">//睡眠3s钟保证线程t1创建对象完成</span></span><br><span class="line">    Thread.sleep(<span class="number">3000</span>);</span><br><span class="line">    System.out.println(<span class="string">&quot;打印t1线程，list中第20个对象的对象头：&quot;</span>);</span><br><span class="line">    System.out.println((ClassLayout.parseInstance(listA.get(<span class="number">19</span>)).toPrintable()));</span><br><span class="line"></span><br><span class="line">    <span class="comment">//创建线程t2竞争线程t1中已经退出同步块的锁</span></span><br><span class="line">    Thread t2 = <span class="keyword">new</span> Thread(() -&gt; &#123;</span><br><span class="line">        <span class="comment">//这里面只循环了40次！！！</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">40</span>; i++) &#123;</span><br><span class="line">            MyThread a =listA.get(i);</span><br><span class="line">            <span class="keyword">synchronized</span> (a)&#123;</span><br><span class="line">                <span class="comment">//分别打印第19次和第20次偏向锁重偏向结果</span></span><br><span class="line">                <span class="keyword">if</span>(i==<span class="number">18</span>||i==<span class="number">19</span>)&#123;</span><br><span class="line">                    System.out.println(<span class="string">&quot;第&quot;</span>+ ( i + <span class="number">1</span>) + <span class="string">&quot;次偏向结果&quot;</span>);</span><br><span class="line">                    System.out.println((ClassLayout.parseInstance(a).toPrintable()));</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            Thread.sleep(<span class="number">10000000</span>);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">    t2.start();</span><br><span class="line">    Thread.sleep(<span class="number">3000</span>);</span><br><span class="line">    System.out.println(<span class="string">&quot;打印list中第11个对象的对象头：&quot;</span>);</span><br><span class="line">    System.out.println((ClassLayout.parseInstance(listA.get(<span class="number">10</span>)).toPrintable()));</span><br><span class="line">    System.out.println(<span class="string">&quot;打印list中第26个对象的对象头：&quot;</span>);</span><br><span class="line">    System.out.println((ClassLayout.parseInstance(listA.get(<span class="number">25</span>)).toPrintable()));</span><br><span class="line">    System.out.println(<span class="string">&quot;打印list中第41个对象的对象头：&quot;</span>);</span><br><span class="line">    System.out.println((ClassLayout.parseInstance(listA.get(<span class="number">40</span>)).toPrintable()));</span><br><span class="line"></span><br><span class="line">    Thread t3 = <span class="keyword">new</span> Thread(() -&gt; &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">20</span>; i &lt; <span class="number">40</span>; i++) &#123;</span><br><span class="line">            MyThread a =listA.get(i);</span><br><span class="line">            <span class="keyword">synchronized</span> (a)&#123;</span><br><span class="line">                <span class="keyword">if</span>(i==<span class="number">20</span>||i==<span class="number">22</span>)&#123;</span><br><span class="line">                    System.out.println(<span class="string">&quot;thread3 第&quot;</span>+ i + <span class="string">&quot;次&quot;</span>);</span><br><span class="line">                    System.out.println((ClassLayout.parseInstance(a).toPrintable()));</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">    t3.start();</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    Thread.sleep(<span class="number">10000</span>);</span><br><span class="line">    System.out.println(<span class="string">&quot;重新输出新实例A&quot;</span>);</span><br><span class="line">    System.out.println((ClassLayout.parseInstance(<span class="keyword">new</span> MyThread()).toPrintable()));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>总结一下就是：</strong> 一开始100个对象偏向线程1，线程2中前19次执行，直接出发轻量级锁，到第20次，达到阈值，触发重偏向，第20~40个对象，发生重偏向，重新偏向线程2。在线程3中，由于达到阈值40，因此发生批量撤销，不会再次重偏向到线程3，而是直接触发轻量级锁。</p>
+<h4 id="3-4-3-偏向锁适用场景">3.4.3 偏向锁适用场景</h4>
+<p>使用与不常发生锁竞争的场景。</p>
+<p>始终只有一个线程在执行同步块，在它没有执行完释放锁之前，没有其它线程去执行同步块，在锁无竞争的情况下使用，一旦有了竞争就升级为轻量级锁，升级为轻量级锁的时候需要撤销偏向锁。在有锁的竞争时，偏向锁会多做很多额外操作，尤其是撤销偏向锁的时候会导致进入安全点，安全点会导致stw，导致性能下降，这种情况下应当禁用。所以一般JVM并不是一开始就开启偏向锁的，而是有一定的延迟，这也就是为什么会有无锁态的原因。可以使用-XX:BiasedLockingStartupDelay=0来关闭偏向锁的启动延迟, 也可以使用-XX:-UseBiasedLocking=false来关闭偏向锁。</p>
+<h3 id="3-5-轻量级锁">3.5 轻量级锁</h3>
+<p>当有另外一个线程竞争获取这个锁时，由于该锁已经是偏向锁，当发现对象头 Mark Word 中的线程 ID 不是自己的线程 ID，销偏向锁状态，将锁对象markWord中62位修改成指向自己线程栈中Lock Record的指针（CAS抢）执行在用户态，消耗CPU的资源（自旋锁不适合锁定时间长的场景、等待线程特别多的场景），此时锁标志位为：00。</p>
+<h4 id="3-5-1-自适策略">3.5.1 自适策略</h4>
+<p>JVM 提供了一种自旋锁，可以通过自旋方式不断尝试获取锁，从而避免线程被挂起阻塞。这是基于大多数情况下，线程持有锁的时间都不会太长，毕竟线程被挂起阻塞可能会得不偿失。</p>
+<p>JDK 1.6引入了更加聪明的自旋锁，叫做自适应自旋锁。他的自旋次数是会变的，我用大白话来讲一下，就是线程如果上次自旋成功了，那么这次自旋的次数会更加多，因为虚拟机认为既然上次成功了，那么这次自旋也很有可能会再次成功。反之，如果某个锁很少有自旋成功，那么以后的自旋的次数会减少甚至省略掉自旋过程，以免浪费处理器资源。</p>
+<h4 id="3-5-2-加锁过程">3.5.2 加锁过程</h4>
+<p>在代码进入同步块的时候：</p>
+<ol>
+<li>
+<p>如果同步对象锁状态为无锁状态（锁标志位为“01”状态，是否为偏向锁为“0”），虚拟机首先将在当前线程的栈帧中建立一个名为锁记录（Lock Record）的空间，用于存储锁对象目前的Mark Word的拷贝，官方称之为 Displaced Mark Word。</p>
+</li>
+<li>
+<p>拷贝对象头中的Mark Word复制到锁记录中；</p>
+</li>
+<li>
+<p>拷贝成功后，虚拟机将使用CAS操作尝试将对象的Mark Word中的62位更新为指向Lock Record的指针，并将Lock record里的owner指针指向object mark word。如果更新成功，则执行步骤4，否则执行步骤5。</p>
+</li>
+<li>
+<p>如果这个更新动作成功了，那么这个线程就拥有了该对象的锁，并且对象Mark Word的锁标志位设置为“00”，即表示此对象处于轻量级锁定状态。</p>
+</li>
+<li>
+<p>如果这个更新操作失败了，虚拟机首先会检查对象的Mark Word是否指向当前线程的栈帧，如果是就说明当前线程已经拥有了这个对象的锁，那就可以直接进入同步块继续执行。此时为了提高获取锁的效率，线程会不断地循环去获取锁, 这个循环是有次数限制的。</p>
+<ul>
+<li>
+<p>如果在循环结束之前CAS操作成功, 那么线程就获取到锁,</p>
+</li>
+<li>
+<p>如果循环结束依然获取不到锁, 则获取锁失败, 对象的MarkWord中的记录会被修改为指向互斥量（重量级锁）的指针，锁标志的状态值变为10，线程被挂起，后面来的线程也会直接被挂起。</p>
+</li>
+</ul>
+</li>
+</ol>
+<h4 id="3-5-3-释放锁">3.5.3 释放锁</h4>
+<p><strong>释放锁线程视角：</strong> 由轻量锁切换到重量锁，是发生在轻量锁释放锁的期间，之前在获取锁的时候它拷贝了锁对象头的markword，在释放锁的时候如果它发现在它持有锁的期间有其他线程来尝试获取锁了，并且该线程对markword做了修改，两者比对发现不一致，则切换到重量锁。因为重量级锁被修改了，所有display mark word和原来的markword不一样了。<br>
+怎么补救，就是进入mutex前，compare一下obj的markword状态。确认该markword是否被其他线程持有。此时如果线程已经释放了markword，那么通过CAS后就可以直接进入线程，无需进入mutex，就这个作用。</p>
+<p><strong>尝试获取锁线程视角：</strong> 如果线程尝试获取锁的时候，轻量锁正被其他线程占有，那么它就会修改markword，修改重量级锁，表示该进入重量锁了。</p>
+<p>从 JDK1.7 开始，自旋锁默认启用，自旋次数由 JVM 设置决定，这里我不建议设置的重试次数过多，因为 CAS 重试操作意味着长时间地占用 CPU。自旋锁重试之后如果抢锁依然失败，同步锁就会升级至重量级锁，锁标志位改为 10。在这个状态下，未抢到锁的线程都会进入 Monitor，之后会被阻塞在 _WaitSet 队列中。</p>
+<h3 id="3-6-重量级锁">3.6 重量级锁</h3>
+<p>此时锁标志位为：<strong>10</strong>。前面我们提到的markWord，若是重量锁，对象头中还会存在一个监视器对象，也就是Monitor对象。这个Monitor对象就是实现synchronized的一个关键。</p>
+<p>在Java虚拟机(HotSpot)中，Monitor对象其实就是ObjectMonitor对象，这个对象是一个C++对象，定义在虚拟机源码中。</p>
+<p>ObjectMonitor有比较多的属性，但是比较重要的属性有四个：</p>
+<ul>
+<li>_count：计数器。用来记录获取锁的次数。该属性主要用来实现重入锁机制。</li>
+<li>owner：记录着当前锁对象的持有者线程。</li>
+<li>_WaitSet：队列。当一个线程调用了wait方法后，它会释放锁资源，进入WaitSet队列等待被唤醒。</li>
+<li>EntryList：队列。里面存放着所有申请该锁对象的线程。</li>
+</ul>
+<p>所以一个线程获取锁对象的流程如下：</p>
+<ol>
+<li>判断锁对象的锁标志位是重量级锁，于是想要获取Monitor对象锁。</li>
+<li>如果Monitor中的_ count属性是0，说明当前锁可用，于是把 _ owner 属性设置为本线程，然后把 _ count 属性+1。这就成功地完成了锁的获取。</li>
+<li>如果Monitor中的_count属性不为0，再检查 _owner 属性，如果该属性指向了本线程，说明可以重入锁，于是把 _count 属性再加上1，实现锁的重入。</li>
+<li>如果 _owner 属性指向了其他线程，那么该线程进入 _EntryList 队列中等待锁资源的释放。</li>
+<li>如果线程在持有锁的过程中调用了wait()方法，那么线程释放锁对象，然后进入 _WaitSet 队列中等待被唤醒。</li>
+</ol>
+<h3 id="3-7-hashcode哪儿去了">3.7  Hashcode哪儿去了</h3>
+<p>从前文我们知道，只有无锁状态下，对象头才会存储hashcode。在其他状态下，我们要获取hashcode值该怎么办呢？</p>
+<p>首先要知道，hashcode 不是创建对象就帮我们写到对象头中的，而是要经过<strong>第一次</strong>调用 <code>Object::hashCode()</code> 或者<code>System::identityHashCode(Object)</code> 才会存储在对象头中的。第一次<strong>生成的 hashcode后，该值应该是一直保持不变的</strong>，但偏向锁又是来回更改锁对象的 markword，必定会对 hashcode 的生成有影响，那怎么办呢？</p>
+<ol>
+<li>即便初始化为可偏向状态的对象，一旦调用 <code>Object::hashCode()</code> 或者<code>System::identityHashCode(Object)</code> ，进入同步块就会直接使用轻量级锁</li>
+<li>已经生成hashcode，进入同步代码块，直接使用轻量级锁</li>
+<li>如果对象处在已偏向状态，生成 hashcode 后，就会直接升级成重量级锁</li>
+<li>wait 方法是互斥量（重量级锁）独有的，一旦调用该方法，就会升级成重量级锁（这个是面试可以说出的亮点内容哦）</li>
+</ol>
+<p><strong>轻量级锁：</strong> 获取锁后，会在栈帧中创建一个名为锁记录（Lock Record）的空间，用于存储锁对象目前的Mark Word的拷贝。释放锁后再将其换回去。</p>
+<p><strong>重量级锁：</strong> ObjectMonitor类里有字段可以记录非加锁状态下的mark word，其中可以存储identity hash code的值</p>
+<h2 id="4-锁优化">4 锁优化</h2>
+<p>以上介绍的锁不是我们代码中能够控制的，但是借鉴上面的思想，我们可以优化我们自己线程的加锁操作。</p>
+<ol>
+<li>
+<p><strong>锁消除</strong></p>
+<p>锁消除用大白话来讲，就是在一段程序里你用了锁，但是jvm检测到这段程序里不存在共享数据竞争问题，也就是变量没有逃逸出方法外，这个时候jvm就会把这个锁消除掉</p>
+<p>我们程序员写代码的时候自然是知道哪里需要上锁，哪里不需要，但是有时候我们虽然没有显示使用锁，但是我们不小心使了一些线程安全的API时，如StringBuffer、Vector、HashTable等，这个时候会隐形的加锁。</p>
+</li>
+<li>
+<p><strong>减少锁的时间</strong></p>
+<p>不需要同步执行的代码，能不放在同步快里面执行就不要放在同步快内，可以让锁尽快释放</p>
+</li>
+<li>
+<p><strong>减小锁的粒度</strong></p>
+<p>它的思想是将物理上的一个锁，拆成逻辑上的多个锁，增加并行度，从而降低锁竞争。它的思想也是用空间来换时间（如ConcurrentHashMap、LinkedBlockingQueue、LongAdder）；</p>
+</li>
+<li>
+<p><strong>锁粗化</strong></p>
+<p>大部分情况下我们是要让锁的粒度最小化，锁的粗化则是要增大锁的粒度; 在以下场景下需要粗化锁的粒度：<br>
+假如有一个循环，循环内的操作需要加锁，我们应该把锁放到循环外面，否则每次进出循环，都进出一次临界区，效率是非常差的；</p>
+</li>
+<li>
+<p><strong>使用读写锁</strong></p>
+<p>ReentrantReadWriteLock 是一个读写锁，读操作加读锁，可以<a target="_blank" rel="noopener" href="https://so.csdn.net/so/search?q=%E5%B9%B6%E5%8F%91&amp;spm=1001.2101.3001.7020">并发</a>读，写操作使用写锁，只能单线程写。</p>
+</li>
+</ol>
+<h2 id="参考资料">参考资料</h2>
+<ol>
+<li><a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000039755370">https://segmentfault.com/a/1190000039755370</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_40910372/article/details/107726978">https://blog.csdn.net/weixin_40910372/article/details/107726978</a></li>
+<li><a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000041194920">https://segmentfault.com/a/1190000041194920</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/LemonFive/p/11248248.html">https://www.cnblogs.com/LemonFive/p/11248248.html</a></li>
+</ol>
+ 
+      <!-- reward -->
+      
+      <div id="reword-out">
+        <div id="reward-btn">
+          打赏
+        </div>
+      </div>
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <div class="declare">
+      <ul class="post-copyright">
+        <li>
+          <i class="ri-copyright-line"></i>
+          <strong>版权声明： </strong>
+          
+          本博客所有文章除特别声明外，著作权归作者所有。转载请注明出处！
+          
+        </li>
+      </ul>
+    </div>
+    
+    <footer class="article-footer">
+       
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<!--<div class="wx-share-modal">-->
+<!--    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>-->
+<!--    <p>扫一扫，分享到微信</p>-->
+<!--    <div class="wx-qrcode">-->
+<!--      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://rookieyin.github.io/e920947d370d/" alt="微信分享二维码">-->
+<!--    </div>-->
+<!--</div>-->
+
+<div id="share-mask"></div>
+  
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%90%8E%E7%AB%AF/" rel="tag">后端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" rel="tag">多线程</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+  <nav class="article-nav">
+    
+      <a href="/97a7e424d2a5/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            Volite关键字
+          
+        </div>
+      </a>
+    
+    
+      <a href="/b8b0651f57b7/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">初识Java多线程编程</div>
+      </a>
+    
+  </nav>
+
+   
+<!-- valine评论 -->
+<div id="vcomments-box">
+  <div id="vcomments"></div>
+</div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js"></script>
+<script>
+  new Valine({
+    el: "#vcomments",
+    app_id: "f9XmUV7HVprPCNptggBNBhWR-gzGzoHsz",
+    app_key: "H73Viqo3lADopEFgshq3XrXs",
+    path: window.location.pathname,
+    avatar: "monsterid",
+    placeholder: "给我的文章加点评论吧~",
+    recordIP: true,
+  });
+  const infoEle = document.querySelector("#vcomments .info");
+  if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+    infoEle.childNodes.forEach(function (item) {
+      item.parentNode.removeChild(item);
+    });
+  }
+</script>
+<style>
+  #vcomments-box {
+    padding: 5px 30px;
+  }
+
+  @media screen and (max-width: 800px) {
+    #vcomments-box {
+      padding: 5px 0px;
+    }
+  }
+
+  #vcomments-box #vcomments {
+    background-color: #fff;
+  }
+
+  .v .vlist .vcard .vh {
+    padding-right: 20px;
+  }
+
+  .v .vlist .vcard {
+    padding-left: 10px;
+  }
+</style>
+
+ 
+   
+     
+</article>
+
+</section>
+        <footer class="footer">
+  <div class="outer">
+    <ul>
+      <li>
+        Copyrights &copy;
+        2021-2022
+        <i class="ri-heart-fill heart_icon"></i> Yin Peng
+      </li>
+    </ul>
+    <ul>
+      <li>引擎:
+        <a style="color: #0681d0" target="_blank" rel="noopener" href="https://hexo.io/zh-cn/">Hexo</a>
+        &nbsp;&nbsp;|&nbsp;&nbsp;主题:修改自
+        <a style="color: #0681d0" target="_blank" rel="noopener" href="https://shen-yu.gitee.io/">Ayer</a>
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        <span>
+  <span><i class="ri-user-3-fill"></i>访问人数:<span id="busuanzi_value_site_uv"></span></span>
+  <span class="division">|</span>
+  <span><i class="ri-eye-fill"></i>浏览次数:<span id="busuanzi_value_page_pv"></span></span>
+</span>
+        
+      </li>
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      <li>
+        <!-- cnzz统计 -->
+        
+        <script type="text/javascript" src='https://s9.cnzz.com/z_stat.php?id=1278069914&amp;web_id=1278069914'></script>
+        
+      </li>
+    </ul>
+  </div>
+</footer>
+
+        <div class="float_btns">
+            <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+
+<div class="todark" id="todark">
+  <i class="ri-moon-line"></i>
+</div>
+
+        </div>
+    </main>
+
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/alipay.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/wxpay.png">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-2.0.3.min.js"></script>
+ 
+<script src="/js/lazyload.min.js"></script>
+
+<!-- Tocbot -->
+ 
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  tocbot.init({
+    tocSelector: ".tocbot",
+    contentSelector: ".article-entry",
+    headingSelector: "h1, h2, h3, h4, h5, h6",
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: "main",
+    positionFixedSelector: ".tocbot",
+    positionFixedClass: "is-position-fixed",
+    fixedSidebarOffset: "auto",
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.js"></script>
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.css"
+/>
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js"></script>
+
+<script src="/dist/main.js"></script>
+
+<!-- ImageViewer -->
+ <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css">
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script> 
+<!-- MathJax -->
+
+<!-- Katex -->
+
+<!-- busuanzi  -->
+ 
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+ 
+<!-- ClickLove -->
+ 
+<script src="/js/clickLove.js"></script>
+ 
+<!-- ClickBoom1 -->
+
+<!-- ClickBoom2 -->
+
+<!-- CodeCopy -->
+ 
+<link rel="stylesheet" href="/css/clipboard.css">
+ <script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="ri-file-copy-2-line"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-checkbox-circle-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-checkbox-circle-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-time-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-time-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+ 
+<!-- CanvasBackground -->
+
+<script>
+  if (window.mermaid) {
+    mermaid.initialize({ theme: "forest" });
+  }
+</script>
+
+
+    
+</div>
+</body>
+
+</html>

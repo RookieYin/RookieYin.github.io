@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+
+
+<html lang="zh-CN">
+  
+
+    <head>
+      <meta name="baidu-site-verification" content="code-rk2CNV4xgj" />
+      <meta charset="utf-8" />
+        
+      <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1"
+      />
+      <title>Redis哨兵 |  RookieYin&#39;s Note</title>
+  <meta name="generator" content="hexo-theme-ayer">
+      
+      <link rel="shortcut icon" href="/images/2.jpg" />
+       
+<link rel="stylesheet" href="/dist/main.css">
+
+      <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/Shen-Yu/cdn/css/remixicon.min.css"
+      />
+      
+<link rel="stylesheet" href="/css/custom.css">
+ 
+      <script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+       
+ 
+
+      <!-- mermaid -->
+      
+    <link rel="alternate" href="/atom.xml" title="RookieYin's Note" type="application/atom+xml">
+<link href="https://cdn.bootcss.com/KaTeX/0.11.1/katex.min.css" rel="stylesheet" /></head>
+  </html>
+</html>
+
+
+<body>
+<div id="app">
+    
+    
+    <div class="sidebar">
+        <!--<button class="navbar-toggle"></button>-->
+<nav class="navbar">
+  <div class="logo">
+    <a href="/">
+      <img src="/images/2.jpg"
+           style="border-radius: 50%;max-width: none;">
+    </a>
+  </div>
+  <div class = nav-title style="font-size: 2.5rem;color: #ffffff;margin-left: 4rem;font-weight: bold;min-width: 23rem">
+    RookieYin's Note
+  </div>
+  <div class="nav nav-main">
+    
+    <div class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </div>
+    
+    <div class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </div>
+    
+    <div class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </div>
+    
+    <div class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </div>
+    
+    <div class="nav-item">
+      <a class="nav-item-link" href="/friends">友链</a>
+    </div>
+    
+    <div class="nav-item">
+      <a class="nav-item-link" href="/about-me/2021">关于我</a>
+    </div>
+    
+      <div class="nav-item">
+        <div class="nav-item-link navbar-menu-wrap">
+          <div class="navbar-menu"></div>
+        </div>
+      </div>
+    <div class = "nav-item">
+      <a class="nav-item-link nav-item-search"  title="搜索">
+        <i class="ri-search-line"></i>
+      </a>
+    </div>
+  </div>
+</nav>
+<nav class="navbar2">
+  <div style="position: relative;">
+      <div style="height: 4.8rem;display: inline-block;margin-top:1rem;margin-left:1rem;">
+        <a href="/">
+          <img src="/images/2.jpg"
+               style="border-radius: 50%;max-width: none;width:4.8rem">
+        </a>
+      </div>
+    <div class="navbar-title2" style="font-size: 2.5rem;color: #ffffff;margin-left: 4rem;font-weight: bold;margin-top:1rem;
+    min-width: 23rem;height: 4.8rem;overflow: hidden;">
+      <span style="line-height: 4.8rem;">RookieYin's Note</span>
+    </div>
+    <div style="display: inline-block;position: absolute;top:50%;height:50%;transform:translate(-50%,-50%);right:4rem;margin-top: 1rem;">
+      <div class="navbar-menu-wrap">
+        <div class="navbar-menu"></div>
+      </div>
+    </div>
+    <div style="display: inline-block;position: absolute;top:50%;height:50%;transform:translate(-50%,-50%);right:0;">
+      <a class="nav-item-search"  title="搜索">
+        <i class="ri-search-line"></i>
+      </a>
+    </div>
+  </div>
+  <div style="display: inline-block;text-align: center;width: 100%;padding-bottom: 1rem;">
+    
+    <div class="nav-item2">
+      <a class="nav-item-link2" href="/">主页</a>
+    </div>
+    
+    <div class="nav-item2">
+      <a class="nav-item-link2" href="/archives">归档</a>
+    </div>
+    
+    <div class="nav-item2">
+      <a class="nav-item-link2" href="/categories">分类</a>
+    </div>
+    
+    <div class="nav-item2">
+      <a class="nav-item-link2" href="/tags">标签</a>
+    </div>
+    
+    <div class="nav-item2">
+      <a class="nav-item-link2" href="/friends">友链</a>
+    </div>
+    
+    <div class="nav-item2">
+      <a class="nav-item-link2" href="/about-me/2021">关于我</a>
+    </div>
+    
+  </div>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+
+    </div>
+    <main class="content">
+        <section class="outer">
+  <article
+  id="post-2 后端/Redis/Redis哨兵"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  Redis哨兵
+</h1>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/feac293ea536/" class="article-date">
+  <time datetime="2022-05-15T12:38:14.000Z" itemprop="datePublished">2022-05-15</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a> / <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/Redis/">Redis</a>
+  </div>
+
+  
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> 字数统计:</span>
+            <span class="post-count">4.5k</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> 阅读时长≈</span>
+            <span class="post-count">16 分钟</span>
+        </span>
+    </span>
+</div>
+ 
+    </div>
+      
+    <div class="tocbot"></div>
+
+
+
+
+  
+    <div class="article-entry" itemprop="articleBody">
+       
+  <p>Redis主从复制的作用有数据热备、负载均衡、故障恢复等；但主从复制存在的一个问题是故障恢复无法自动化。本文将要介绍的哨兵，它基于Redis主从复制，主要作用便是<strong>解决主节点故障恢复的自动化问题</strong>，进一步提高系统的高可用性。</p>
+<a id="more"></a>
+<h2 id="功能与架构">功能与架构</h2>
+<p>Redis Sentinel，即Redis哨兵，在Redis 2.8版本开始引入。**哨兵的核心功能是主节点的自动故障转移。**下面是Redis官方文档对于哨兵功能的描述：</p>
+<ul>
+<li><strong>监控（Monitoring）</strong>：哨兵会不断地检查主节点和从节点是否运作正常。</li>
+<li><strong>自动故障转移（Automatic failover）</strong>：当主节点不能正常工作时，哨兵会开始自动故障转移操作，它会将失效主节点的其中一个从节点升级为新的主节点，并让其他从节点改为复制新的主节点。</li>
+<li><strong>配置提供者（Configuration provider）</strong>：客户端在初始化时，通过连接哨兵来获得当前Redis服务的主节点地址。</li>
+<li><strong>通知（Notification）</strong>：哨兵可以将故障转移的结果发送给客户端。</li>
+</ul>
+<p>其中，监控和自动故障转移功能，使得哨兵可以及时发现主节点故障并完成转移；而配置提供者和通知功能，则需要在与客户端的交互中才能体现。 下图是一个典型的哨兵集群监控的逻辑图：</p>
+<center><img src="/images/db-redis-sen-1.png" style="width:300px;"></img></center>
+<h2 id="工作原理">工作原理</h2>
+<h3 id="组建哨兵集群">组建哨兵集群</h3>
+<p>哨兵实例之间可以相互发现，要归功于 Redis 提供的 pub/sub 机制，也就是发布 / 订阅机制。在主从集群中，主库上有一个名为<code>__sentinel__:hello</code>的频道，不同哨兵就是通过它来相互发现，实现互相通信的。在下图中，哨兵 1 把自己的 IP（172.16.19.3）和端口（26579）发布到<code>__sentinel__:hello</code>频道上，哨兵 2 和 3 订阅了该频道。那么此时，哨兵 2 和 3 就可以从这个频道直接获取哨兵 1 的 IP 地址和端口号。然后，哨兵 2、3 可以和哨兵 1 建立网络连接。</p>
+<center><img src="/images/db-redis-sen-6.jpg" style="width:500px;"></img></center>
+<p>通过这个方式，哨兵 2 和 3 也可以建立网络连接，这样一来，哨兵集群就形成了。它们相互间可以通过网络连接进行通信，比如说对主库有没有下线这件事儿进行判断和协商。</p>
+<h3 id="哨兵监控redis库">哨兵监控Redis库</h3>
+<p>哨兵监控Redis库是通过向主库发送INFO命令来完成的。就像下图所示，哨兵 2 给主库发送 INFO 命令，主库接受到这个命令后，就会把从库列表返回给哨兵。接着，哨兵就可以根据从库列表中的连接信息，和每个从库建立连接，并在这个连接上持续地对从库进行监控。哨兵 1 和 3 可以通过相同的方法和从库建立连接。</p>
+<center><img src="/images/db-redis-sen-7.jpg" style="width:500px;"></img></center>
+<h3 id="主库下线的判定">主库下线的判定</h3>
+<p>首先要理解两个概念：<strong>主观下线</strong>和<strong>客观下线</strong></p>
+<ul>
+<li><strong>主观下线</strong>：任何一个哨兵都是可以监控探测，并作出Redis节点下线的判断；</li>
+<li><strong>客观下线</strong>：有哨兵集群共同决定Redis节点是否下线；</li>
+</ul>
+<p>当某个哨兵（如下图中的哨兵2）判断主库“主观下线”后，就会给其他哨兵发送 <code>is-master-down-by-addr</code> 命令。接着，其他哨兵会根据自己和主库的连接情况，做出 Y 或 N 的响应，Y 相当于赞成票，N 相当于反对票。</p>
+<center><img src="/images/db-redis-sen-2.jpg" style="width:500px;"></img></center>
+<p>如果赞成票数（这里是2）是大于等于哨兵配置文件中的 <code>quorum</code> 配置项（比如这里如果是quorum=2）, 则可以判定<strong>主库客观下线</strong>了。</p>
+<h3 id="哨兵集群选举">哨兵集群选举</h3>
+<p>判断完主库下线后，由哪个哨兵节点来执行主从切换呢？这里就需要哨兵集群的选举机制了。</p>
+<ul>
+<li>
+<p><strong>为什么需要选举机制？</strong></p>
+<p>为了避免哨兵单点故障，通常采用哨兵集群模式，既然是集群肯定就涉及到共识问题。另外，执行故障转移和通知都只需要一个主哨兵节点即可。</p>
+</li>
+<li>
+<p><strong>哨兵选举机制？</strong></p>
+<p>采用Raft算法：  <strong>选举的票数大于等于num(sentinels)/2+1时，将成为领导者，如果没有超过，继续选举</strong>。 Raft算法的基本思路是先到先得：即在一轮选举中，哨兵A向B发送成为领导者的申请，如果B没有同意过其他哨兵，则会同意A成为领导者。选举的具体过程这里不做详细描述，一般来说，哨兵选择的过程很快，谁先完成客观下线，一般就能成为领导者。</p>
+<p>任何一个想成为Leader的哨兵，都要满足两个条件：</p>
+<ul>
+<li>选举票数超过一半</li>
+<li>拿到的票数大于等于哨兵配置文件中的quorum值</li>
+</ul>
+</li>
+</ul>
+<h3 id="故障转移">故障转移</h3>
+<p>通过选举得到主哨兵节点后，就可以进行故障转移。具体流程可以分三步：</p>
+<ol>
+<li>
+<p>选新主库，其流程如下：</p>
+<ul>
+<li>过滤掉不健康的（下线或断线），没有回复过哨兵ping响应的从节点</li>
+<li>选择<code>salve-priority</code>从节点优先级最高（redis.conf）的</li>
+<li>如果优先级无法区分，选择复制偏移量最大的（复制最完整的节点）</li>
+</ul>
+</li>
+<li>
+<p>故障转移，假设slave-1被选择为新的主节点，sentinel-3被选为主哨兵，故障转移流程如下：</p>
+<center><img src="/images/db-redis-sen-4.png" style="width:500px;"></img></center>
+</li>
+</ol>
+<h3 id="总结">总结</h3>
+<p>关于哨兵的原理，关键是了解以下几个概念。</p>
+<p>（1）<strong>定时任务</strong>：每个哨兵节点维护了3个定时任务。定时任务的功能分别如下：通过向主从节点发送info命令获取最新的主从结构；通过发布订阅功能获取其他哨兵节点的信息；通过向其他节点发送ping命令进行心跳检测，判断是否下线。</p>
+<p>（2）<strong>主观下线</strong>：在心跳检测的定时任务中，如果其他节点超过一定时间没有回复，哨兵节点就会将其进行主观下线。顾名思义，主观下线的意思是一个哨兵节点“主观地”判断下线；与主观下线相对应的是客观下线。</p>
+<p>（3）<strong>客观下线</strong>：哨兵节点在对主节点进行主观下线后，会通过sentinel is-master-down-by-addr命令询问其他哨兵节点该主节点的状态；如果判断主节点下线的哨兵数量达到一定数值，则对该主节点进行客观下线。</p>
+<p><strong>需要特别注意的是，客观下线是主节点才有的概念；如果从节点和哨兵节点发生故障，被哨兵主观下线后，不会再有后续的客观下线和故障转移操作。</strong></p>
+<p>（4）<strong>选举领导者哨兵节点</strong>：当主节点被判断客观下线以后，各个哨兵节点会进行协商，选举出一个领导者哨兵节点，并由该领导者节点对其进行故障转移操作。</p>
+<p>监视该主节点的所有哨兵都有可能被选为领导者，选举使用的算法是Raft算法；Raft算法的基本思路是先到先得：即在一轮选举中，哨兵A向B发送成为领导者的申请，如果B没有同意过其他哨兵，则会同意A成为领导者。选举的具体过程这里不做详细描述，一般来说，哨兵选择的过程很快，谁先完成客观下线，一般就能成为领导者。</p>
+<p>（5）<strong>故障转移</strong>：选举出的领导者哨兵，开始进行故障转移操作，该操作大体可以分为3个步骤：</p>
+<ul>
+<li>在从节点中选择新的主节点：选择的原则是，首先过滤掉不健康的从节点；然后选择优先级最高的从节点(由slave-priority指定)；如果优先级无法区分，则选择复制偏移量最大的从节点；如果仍无法区分，则选择runid最小的从节点。</li>
+<li>更新主从状态：通过slaveof no one命令，让选出来的从节点成为主节点；并通过slaveof命令让其他节点成为其从节点。</li>
+<li>将已经下线的主节点(即6379)设置为新的主节点的从节点，当6379重新上线后，它会成为新的主节点的从节点。</li>
+</ul>
+<h2 id="配置与实践建议">配置与实践建议</h2>
+<h3 id="配置">配置</h3>
+<p>下面介绍与哨兵相关的几个配置。</p>
+<ol>
+<li>
+<p><strong>sentinel monitor {masterName} {masterIp} {masterPort} {quorum}</strong></p>
+<p>sentinel monitor是哨兵最核心的配置，在前文讲述部署哨兵节点时已说明，其中：masterName指定了主节点名称，masterIp和masterPort指定了主节点地址，quorum是判断主节点客观下线的哨兵数量阈值：当判定主节点下线的哨兵数量达到quorum时，对主节点进行客观下线。建议取值为哨兵数量的一半加1。</p>
+</li>
+<li>
+<p><strong>sentinel down-after-milliseconds {masterName} {time}</strong></p>
+<p>sentinel down-after-milliseconds与主观下线的判断有关：哨兵使用ping命令对其他节点进行心跳检测，如果其他节点超过down-after-milliseconds配置的时间没有回复，哨兵就会将其进行主观下线。该配置对主节点、从节点和哨兵节点的主观下线判定都有效。</p>
+<p>down-after-milliseconds的默认值是30000，即30s；可以根据不同的网络环境和应用要求来调整：值越大，对主观下线的判定会越宽松，好处是误判的可能性小，坏处是故障发现和故障转移的时间变长，客户端等待的时间也会变长。例如，如果应用对可用性要求较高，则可以将值适当调小，当故障发生时尽快完成转移；如果网络环境相对较差，可以适当提高该阈值，避免频繁误判。</p>
+</li>
+<li>
+<p><strong>sentinel parallel-syncs {masterName} {number}</strong></p>
+<p>sentinel parallel-syncs与故障转移之后从节点的复制有关：它规定了每次向新的主节点发起复制操作的从节点个数。例如，假设主节点切换完成之后，有3个从节点要向新的主节点发起复制；如果parallel-syncs=1，则从节点会一个一个开始复制；如果parallel-syncs=3，则3个从节点会一起开始复制。</p>
+<p>parallel-syncs取值越大，从节点完成复制的时间越快，但是对主节点的网络负载、硬盘负载造成的压力也越大；应根据实际情况设置。例如，如果主节点的负载较低，而从节点对服务可用的要求较高，可以适量增加parallel-syncs取值。parallel-syncs的默认值是1。</p>
+</li>
+<li>
+<p><strong>sentinel failover-timeout {masterName} {time}</strong></p>
+<p>sentinel failover-timeout与故障转移超时的判断有关，但是该参数不是用来判断整个故障转移阶段的超时，而是其几个子阶段的超时，例如如果主节点晋升从节点时间超过timeout，或从节点向新的主节点发起复制操作的时间(不包括复制数据的时间)超过timeout，都会导致故障转移超时失败。</p>
+<p>failover-timeout的默认值是180000，即180s；如果超时，则下一次该值会变为原来的2倍。</p>
+</li>
+<li>
+<p>除上述几个参数外，还有一些其他参数，如安全验证相关的参数，这里不做介绍。</p>
+</li>
+</ol>
+<h3 id="实践建议">实践建议</h3>
+<ol>
+<li>哨兵节点的数量应不止一个，一方面增加哨兵节点的冗余，避免哨兵本身成为高可用的瓶颈；另一方面减少对下线的误判。此外，这些不同的哨兵节点应部署在不同的物理机上。</li>
+<li>哨兵节点的数量应该是奇数，便于哨兵通过投票做出“决策”：领导者选举的决策、客观下线的决策等。</li>
+<li>各个哨兵节点的配置应一致，包括硬件、参数等；此外，所有节点都应该使用ntp或类似服务，保证时间准确、一致。</li>
+<li>哨兵的配置提供者和通知客户端功能，需要客户端的支持才能实现，如前文所说的Jedis；如果开发者使用的库未提供相应支持，则可能需要开发者自己实现。</li>
+<li>当哨兵系统中的节点在docker（或其他可能进行端口映射的软件）中部署时，应特别注意端口映射可能会导致哨兵系统无法正常工作，因为哨兵的工作基于与其他节点的通信，而docker的端口映射可能导致哨兵无法连接到其他节点。例如，哨兵之间互相发现，依赖于它们对外宣称的IP和port，如果某个哨兵A部署在做了端口映射的docker中，那么其他哨兵使用A宣称的port无法连接到A</li>
+</ol>
+<h2 id="实战演练">实战演练</h2>
+<h3 id="常用命令">常用命令</h3>
+<ol>
+<li>基础查询：通过这些命令，可以查询哨兵系统的拓扑结构、节点信息、配置信息等。</li>
+</ol>
+<ul>
+<li><strong>info sentinel</strong>：获取监控的所有主节点的基本信息</li>
+<li><strong>sentinel masters</strong>：获取监控的所有主节点的详细信息</li>
+<li><strong>sentinel master mymaster</strong>：获取监控的主节点mymaster的详细信息</li>
+<li><strong>sentinel slaves mymaster</strong>：获取监控的主节点mymaster的从节点的详细信息</li>
+<li><strong>sentinel sentinels mymaster</strong>：获取监控的主节点mymaster的哨兵节点的详细信息</li>
+<li><strong>sentinel get-master-addr-by-name mymaster</strong>：获取监控的主节点mymaster的地址信息，前文已有介绍</li>
+<li><strong>sentinel is-master-down-by-addr</strong>：哨兵节点之间可以通过该命令询问主节点是否下线，从而对是否客观下线做出判断</li>
+</ul>
+<ol start="2">
+<li><strong>增加/移除对主节点的监控</strong></li>
+</ol>
+<ul>
+<li><strong>sentinel monitor mymaster2 192.168.92.128 16379 2</strong>：后面参数分别指主节点名，主节点ip，主节点端口号和quorum（判断主节点客观下线阈值）</li>
+<li><strong>sentinel remove mymaster2</strong>：取消当前哨兵节点对主节点mymaster2的监控</li>
+</ul>
+<ol start="3">
+<li>
+<p><strong>强制故障转移</strong></p>
+<p><strong>sentinel failover mymaster</strong>：该命令可以<strong>强制对mymaster执行故障转移</strong>，即便当前的主节点运行完好；例如，如果当前主节点所在机器即将报废，便可以提前通过failover命令进行故障转移。</p>
+</li>
+</ol>
+<h3 id="部署哨兵系统">部署哨兵系统</h3>
+<p>这一部分将部署一个简单的哨兵系统，包含1个主节点、2个从节点和3个哨兵节点。方便起见：所有这些节点都部署在一台机器上（局域网IP：192.168.92.128），使用端口号区分；节点的配置尽可能简化。</p>
+<h4 id="部署主从节点">部署主从节点</h4>
+<p>哨兵系统中的主从节点，与普通的主从节点配置是一样的，并不需要做任何额外配置。下面分别是主节点（port=6379）和2个从节点（port=6380/6381）的配置文件，配置都比较简单，不再详述。</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#redis-6379.conf</span></span><br><span class="line"><span class="string">port</span> <span class="number">6379</span></span><br><span class="line"><span class="string">daemonize</span> <span class="literal">yes</span></span><br><span class="line"><span class="string">logfile</span> <span class="string">&quot;6379.log&quot;</span></span><br><span class="line"><span class="string">dbfilename</span> <span class="string">&quot;dump-6379.rdb&quot;</span></span><br><span class="line"> </span><br><span class="line"><span class="comment">#redis-6380.conf</span></span><br><span class="line"><span class="string">port</span> <span class="number">6380</span></span><br><span class="line"><span class="string">daemonize</span> <span class="literal">yes</span></span><br><span class="line"><span class="string">logfile</span> <span class="string">&quot;6380.log&quot;</span></span><br><span class="line"><span class="string">dbfilename</span> <span class="string">&quot;dump-6380.rdb&quot;</span></span><br><span class="line"><span class="string">slaveof</span> <span class="number">192.168</span><span class="number">.92</span><span class="number">.128</span> <span class="number">6379</span></span><br><span class="line"> </span><br><span class="line"><span class="comment">#redis-6381.conf</span></span><br><span class="line"><span class="string">port</span> <span class="number">6381</span></span><br><span class="line"><span class="string">daemonize</span> <span class="literal">yes</span></span><br><span class="line"><span class="string">logfile</span> <span class="string">&quot;6381.log&quot;</span></span><br><span class="line"><span class="string">dbfilename</span> <span class="string">&quot;dump-6381.rdb&quot;</span></span><br><span class="line"><span class="string">slaveof</span> <span class="number">192.168</span><span class="number">.92</span><span class="number">.128</span> <span class="number">6379</span></span><br></pre></td></tr></table></figure>
+<p>配置完成后，依次启动主节点和从节点：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">redis-server</span> <span class="string">redis-6379.conf</span></span><br><span class="line"><span class="string">redis-server</span> <span class="string">redis-6380.conf</span></span><br><span class="line"><span class="string">redis-server</span> <span class="string">redis-6381.conf</span></span><br></pre></td></tr></table></figure>
+<p>节点启动后，连接柱节点，可以通过<code>info Replication</code>查看主从状态是否正常。</p>
+<h4 id="部署哨兵节点">部署哨兵节点</h4>
+<p>3个哨兵节点的配置几乎是完全一样的，主要区别在于端口号的不同（26379/26380/26381），下面以26379节点为例介绍节点的配置和启动方式；配置部分尽量简化。</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#sentinel-26379.conf</span></span><br><span class="line"><span class="string">port</span> <span class="number">26379</span></span><br><span class="line"><span class="string">daemonize</span> <span class="literal">yes</span></span><br><span class="line"><span class="string">logfile</span> <span class="string">&quot;26379.log&quot;</span></span><br><span class="line"><span class="string">sentinel</span> <span class="string">monitor</span> <span class="string">mymaster</span> <span class="number">192.168</span><span class="number">.92</span><span class="number">.128</span> <span class="number">6379 </span><span class="number">2</span></span><br></pre></td></tr></table></figure>
+<p>哨兵节点的启动有两种方式，二者作用是完全相同的：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">redis-sentinel</span> <span class="string">sentinel-26379.conf</span></span><br><span class="line"><span class="string">redis-server</span> <span class="string">sentinel-26379.conf</span> <span class="string">--sentinel</span></span><br></pre></td></tr></table></figure>
+<p>按照上述方式配置和启动之后，整个哨兵系统就启动完毕了。可以通过redis-cli连接哨兵节点进行验证，如下图所示：可以看出26379哨兵节点已经在监控mymaster主节点(即192.168.92.128:6379)，并发现了其2个从节点和另外2个哨兵节点。</p>
+<center><img src="/images/1174710-20180908183617525-1093971812.png" style="width:700px;"></img></center>
+<h4 id="演示故障转移">演示故障转移</h4>
+<p>哨兵的4个作用中，配置提供者和通知需要客户端的配合，本文将在下一章介绍客户端访问哨兵系统的方法时详细介绍。这一小节将演示当主节点发生故障时，哨兵的监控和自动故障转移功能。</p>
+<ol>
+<li>
+<p>kill掉主节点</p>
+<center><img src="/images/1174710-20180908183838785-441116675.png" style="width:700px;"></img></center>
+</li>
+<li>
+<p>如果此时立即在哨兵节点中使用info Sentinel命令查看，会发现主节点还没有切换过来，因为哨兵发现主节点故障并转移，需要一段时间。</p>
+<center><img src="/images/1174710-20180908183852136-117673335.png" style="width:700px;"></img></center>
+</li>
+<li>
+<p>一段时间以后，再次在哨兵节点中执行info Sentinel查看，发现主节点已经切换成6380节点。</p>
+<center><img src="/images/1174710-20180908183951805-1759290657.png" style="width:700px;"></img></center>
+<p>但是同时可以发现，哨兵节点认为新的主节点仍然有2个从节点，这是因为哨兵在将6380切换成主节点的同时，将6379节点置为其从节点；虽然6379从节点已经挂掉，但是由于哨兵并不会对从节点进行客观下线（其含义将在原理部分介绍），因此认为该从节点一直存在。当6379节点重新启动后，会自动变成6380节点的从节点。下面验证一下。</p>
+</li>
+<li>
+<p>重启6379节点：可以看到6379节点成为了6380节点的从节点。</p>
+<center><img src="/images/1174710-20180908184001127-989060126.png" style="width:700px;"></img></center>
+</li>
+<li>
+<p>在故障转移阶段，哨兵和主从节点的配置文件都会被改写。</p>
+</li>
+</ol>
+<h2 id="参考资料">参考资料</h2>
+<ol>
+<li><a target="_blank" rel="noopener" href="https://pdai.tech/md/db/nosql-redis/db-redis-x-sentinel.html">https://pdai.tech/md/db/nosql-redis/db-redis-x-sentinel.html</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/kismetv/p/9609938.html">https://www.cnblogs.com/kismetv/p/9609938.html</a></li>
+</ol>
+ 
+      <!-- reward -->
+      
+      <div id="reword-out">
+        <div id="reward-btn">
+          打赏
+        </div>
+      </div>
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <div class="declare">
+      <ul class="post-copyright">
+        <li>
+          <i class="ri-copyright-line"></i>
+          <strong>版权声明： </strong>
+          
+          本博客所有文章除特别声明外，著作权归作者所有。转载请注明出处！
+          
+        </li>
+      </ul>
+    </div>
+    
+    <footer class="article-footer">
+       
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<!--<div class="wx-share-modal">-->
+<!--    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>-->
+<!--    <p>扫一扫，分享到微信</p>-->
+<!--    <div class="wx-qrcode">-->
+<!--      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://rookieyin.github.io/feac293ea536/" alt="微信分享二维码">-->
+<!--    </div>-->
+<!--</div>-->
+
+<div id="share-mask"></div>
+  
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/redis/" rel="tag">redis</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%90%8E%E7%AB%AF/" rel="tag">后端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="tag">数据库</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+  <nav class="article-nav">
+    
+      <a href="/621962d42a8e/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            Redis集群
+          
+        </div>
+      </a>
+    
+    
+      <a href="/c601abda57b3/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">raft算法是个啥</div>
+      </a>
+    
+  </nav>
+
+   
+<!-- valine评论 -->
+<div id="vcomments-box">
+  <div id="vcomments"></div>
+</div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js"></script>
+<script>
+  new Valine({
+    el: "#vcomments",
+    app_id: "f9XmUV7HVprPCNptggBNBhWR-gzGzoHsz",
+    app_key: "H73Viqo3lADopEFgshq3XrXs",
+    path: window.location.pathname,
+    avatar: "monsterid",
+    placeholder: "给我的文章加点评论吧~",
+    recordIP: true,
+  });
+  const infoEle = document.querySelector("#vcomments .info");
+  if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+    infoEle.childNodes.forEach(function (item) {
+      item.parentNode.removeChild(item);
+    });
+  }
+</script>
+<style>
+  #vcomments-box {
+    padding: 5px 30px;
+  }
+
+  @media screen and (max-width: 800px) {
+    #vcomments-box {
+      padding: 5px 0px;
+    }
+  }
+
+  #vcomments-box #vcomments {
+    background-color: #fff;
+  }
+
+  .v .vlist .vcard .vh {
+    padding-right: 20px;
+  }
+
+  .v .vlist .vcard {
+    padding-left: 10px;
+  }
+</style>
+
+ 
+   
+     
+</article>
+
+</section>
+        <footer class="footer">
+  <div class="outer">
+    <ul>
+      <li>
+        Copyrights &copy;
+        2021-2022
+        <i class="ri-heart-fill heart_icon"></i> Yin Peng
+      </li>
+    </ul>
+    <ul>
+      <li>引擎:
+        <a style="color: #0681d0" target="_blank" rel="noopener" href="https://hexo.io/zh-cn/">Hexo</a>
+        &nbsp;&nbsp;|&nbsp;&nbsp;主题:修改自
+        <a style="color: #0681d0" target="_blank" rel="noopener" href="https://shen-yu.gitee.io/">Ayer</a>
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        <span>
+  <span><i class="ri-user-3-fill"></i>访问人数:<span id="busuanzi_value_site_uv"></span></span>
+  <span class="division">|</span>
+  <span><i class="ri-eye-fill"></i>浏览次数:<span id="busuanzi_value_page_pv"></span></span>
+</span>
+        
+      </li>
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      <li>
+        <!-- cnzz统计 -->
+        
+        <script type="text/javascript" src='https://s9.cnzz.com/z_stat.php?id=1278069914&amp;web_id=1278069914'></script>
+        
+      </li>
+    </ul>
+  </div>
+</footer>
+
+        <div class="float_btns">
+            <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+
+<div class="todark" id="todark">
+  <i class="ri-moon-line"></i>
+</div>
+
+        </div>
+    </main>
+
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/alipay.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/wxpay.png">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-2.0.3.min.js"></script>
+ 
+<script src="/js/lazyload.min.js"></script>
+
+<!-- Tocbot -->
+ 
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  tocbot.init({
+    tocSelector: ".tocbot",
+    contentSelector: ".article-entry",
+    headingSelector: "h1, h2, h3, h4, h5, h6",
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: "main",
+    positionFixedSelector: ".tocbot",
+    positionFixedClass: "is-position-fixed",
+    fixedSidebarOffset: "auto",
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.js"></script>
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.css"
+/>
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js"></script>
+
+<script src="/dist/main.js"></script>
+
+<!-- ImageViewer -->
+ <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css">
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script> 
+<!-- MathJax -->
+
+<!-- Katex -->
+
+<!-- busuanzi  -->
+ 
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+ 
+<!-- ClickLove -->
+ 
+<script src="/js/clickLove.js"></script>
+ 
+<!-- ClickBoom1 -->
+
+<!-- ClickBoom2 -->
+
+<!-- CodeCopy -->
+ 
+<link rel="stylesheet" href="/css/clipboard.css">
+ <script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="ri-file-copy-2-line"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-checkbox-circle-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-checkbox-circle-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-time-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-time-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+ 
+<!-- CanvasBackground -->
+
+<script>
+  if (window.mermaid) {
+    mermaid.initialize({ theme: "forest" });
+  }
+</script>
+
+
+    
+</div>
+</body>
+
+</html>

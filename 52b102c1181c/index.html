@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+
+
+<html lang="zh-CN">
+  
+
+    <head>
+      <meta name="baidu-site-verification" content="code-rk2CNV4xgj" />
+      <meta charset="utf-8" />
+        
+      <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1"
+      />
+      <title>MySQL的缓存机制 |  RookieYin&#39;s Note</title>
+  <meta name="generator" content="hexo-theme-ayer">
+      
+      <link rel="shortcut icon" href="/images/2.jpg" />
+       
+<link rel="stylesheet" href="/dist/main.css">
+
+      <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/Shen-Yu/cdn/css/remixicon.min.css"
+      />
+      
+<link rel="stylesheet" href="/css/custom.css">
+ 
+      <script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+       
+ 
+
+      <!-- mermaid -->
+      
+    <link rel="alternate" href="/atom.xml" title="RookieYin's Note" type="application/atom+xml">
+<link href="https://cdn.bootcss.com/KaTeX/0.11.1/katex.min.css" rel="stylesheet" /></head>
+  </html>
+</html>
+
+
+<body>
+<div id="app">
+    
+    
+    <div class="sidebar">
+        <!--<button class="navbar-toggle"></button>-->
+<nav class="navbar">
+  <div class="logo">
+    <a href="/">
+      <img src="/images/2.jpg"
+           style="border-radius: 50%;max-width: none;">
+    </a>
+  </div>
+  <div class = nav-title style="font-size: 2.5rem;color: #ffffff;margin-left: 4rem;font-weight: bold;min-width: 23rem">
+    RookieYin's Note
+  </div>
+  <div class="nav nav-main">
+    
+    <div class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </div>
+    
+    <div class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </div>
+    
+    <div class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </div>
+    
+    <div class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </div>
+    
+    <div class="nav-item">
+      <a class="nav-item-link" href="/friends">友链</a>
+    </div>
+    
+    <div class="nav-item">
+      <a class="nav-item-link" href="/about-me/2021">关于我</a>
+    </div>
+    
+      <div class="nav-item">
+        <div class="nav-item-link navbar-menu-wrap">
+          <div class="navbar-menu"></div>
+        </div>
+      </div>
+    <div class = "nav-item">
+      <a class="nav-item-link nav-item-search"  title="搜索">
+        <i class="ri-search-line"></i>
+      </a>
+    </div>
+  </div>
+</nav>
+<nav class="navbar2">
+  <div style="position: relative;">
+      <div style="height: 4.8rem;display: inline-block;margin-top:1rem;margin-left:1rem;">
+        <a href="/">
+          <img src="/images/2.jpg"
+               style="border-radius: 50%;max-width: none;width:4.8rem">
+        </a>
+      </div>
+    <div class="navbar-title2" style="font-size: 2.5rem;color: #ffffff;margin-left: 4rem;font-weight: bold;margin-top:1rem;
+    min-width: 23rem;height: 4.8rem;overflow: hidden;">
+      <span style="line-height: 4.8rem;">RookieYin's Note</span>
+    </div>
+    <div style="display: inline-block;position: absolute;top:50%;height:50%;transform:translate(-50%,-50%);right:4rem;margin-top: 1rem;">
+      <div class="navbar-menu-wrap">
+        <div class="navbar-menu"></div>
+      </div>
+    </div>
+    <div style="display: inline-block;position: absolute;top:50%;height:50%;transform:translate(-50%,-50%);right:0;">
+      <a class="nav-item-search"  title="搜索">
+        <i class="ri-search-line"></i>
+      </a>
+    </div>
+  </div>
+  <div style="display: inline-block;text-align: center;width: 100%;padding-bottom: 1rem;">
+    
+    <div class="nav-item2">
+      <a class="nav-item-link2" href="/">主页</a>
+    </div>
+    
+    <div class="nav-item2">
+      <a class="nav-item-link2" href="/archives">归档</a>
+    </div>
+    
+    <div class="nav-item2">
+      <a class="nav-item-link2" href="/categories">分类</a>
+    </div>
+    
+    <div class="nav-item2">
+      <a class="nav-item-link2" href="/tags">标签</a>
+    </div>
+    
+    <div class="nav-item2">
+      <a class="nav-item-link2" href="/friends">友链</a>
+    </div>
+    
+    <div class="nav-item2">
+      <a class="nav-item-link2" href="/about-me/2021">关于我</a>
+    </div>
+    
+  </div>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+
+    </div>
+    <main class="content">
+        <section class="outer">
+  <article
+  id="post-2 后端/MySQL/6. MySQL的缓存机制"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  MySQL的缓存机制
+</h1>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/52b102c1181c/" class="article-date">
+  <time datetime="2021-12-13T12:38:14.000Z" itemprop="datePublished">2021-12-13</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a> / <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/MySQL/">MySQL</a>
+  </div>
+
+  
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> 字数统计:</span>
+            <span class="post-count">4.5k</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> 阅读时长≈</span>
+            <span class="post-count">15 分钟</span>
+        </span>
+    </span>
+</div>
+ 
+    </div>
+      
+    <div class="tocbot"></div>
+
+
+
+
+  
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h1>MySQL的缓存机制</h1>
+<p>本文简单总结下MySQL中的缓存机制，具体来说是，使用InnoDB作为作为存储引擎时的各种缓存机制。主要包含三个方面：</p>
+<ul>
+<li>MySQL层——查询缓存：作用不大，高版本mysql已经去掉了这个功能。</li>
+<li>InooDB层——buffer pool：很重要，是保证InnoDB高性能的核心功能之一，也是本文的重点介绍对象。</li>
+<li>三大日志文件的缓存：binglog、redolog和undolog三个日志文件，写文件时，先写到缓存，然后再刷盘。</li>
+</ul>
+<a id="more"></a>
+<h2 id="1-查询缓存">1 查询缓存</h2>
+<p>具体可以参考：<a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000038554542">这篇博客</a></p>
+<h3 id="1-1-概述">1.1 概述</h3>
+<p>MySQL查询缓（QC：QueryCache）在MySQL 4.0.1中引入， 5.6中默认禁用，5.7中被deprecated（废弃）以及8.0版本被Removed 。查询缓存存储SELECT语句的文本以及发送给客户机的结果集，如果再次执行相同的SQL，Server端将从查询缓存中检索结果返回给客户端，而不是再次解析执行SQL，查询缓存在session之间共享，因此，一个客户端生成的缓存结果集，可以响应另一个客户端执行同样的SQL。</p>
+<p>可以通过<code>query_cache_size</code>和<code>query_cache_type</code>来配置缓存。如下图所示，开启缓存后，收到查询请求后，先看缓存中有没有，有的话直接从缓存中返回查询结果，没有的话再去数据库里面取。</p>
+<center><img src="/images/40919599-87be9727fdb4aef3_fix732.jpg" style="width:600px;"></img></center>
+<p>那如何判断缓存中是否缓存了本次查询呢？ 通过SQL文本是否完全一致来判断，包括大小写，空格等所有字符完全一模一样才可以共享，共享好处是可以避免硬解析，直接从QC获取结果返回给客户端，下面的两个SQL是不共享滴，因为一个是from，另一个是From。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--SQL 1</span></span><br><span class="line"><span class="keyword">select</span> id, balance <span class="keyword">from</span> account <span class="keyword">where</span> id <span class="operator">=</span> <span class="number">121</span>;</span><br><span class="line"><span class="comment">--SQL 2</span></span><br><span class="line"><span class="keyword">select</span> id, balance <span class="keyword">From</span> account <span class="keyword">where</span> id <span class="operator">=</span> <span class="number">121</span>;</span><br></pre></td></tr></table></figure>
+<h3 id="1-2-为什么弃用">1.2 为什么弃用</h3>
+<p>主要还是带来的收益很小，更新操作需要锁缓存，很多场景下反而会降低数据库并发能力。</p>
+<p><strong>The query cache is deprecated as of MySQL 5.7.20, and is removed in MySQL 8.0. Deprecation includes query_cache_type</strong>，可以看到从MySQL 5.6的默认禁用，5.7的废弃以及8.0的彻底删除，Oracle也是综合了各方面考虑做出了这样的选择。</p>
+<p>QueryCache的特性对业务场景要求过于苛刻，与实际业务很难吻合，而且开启之后，对数据库并发度和处理能力都会降低很多，下面总结下为何MySQL从<strong>Disabled-&gt;Deprecated-&gt;Removed</strong> QueryCache的主要原因。</p>
+<center><img src="/images/1680108770-2afaefffbb56077c_fix732.jpg" style="width:800px;"></img></center>
+<p>同时查询缓存碎片化还会导致服务器的负载升高，影响数据库的稳定性，在Oracle官方搜索QueryCache可以发现，有很多Bug存在，这也就决定了MySQL 8.0直接果断的Remove了该特性。</p>
+<h2 id="2-buffer-pool">2 Buffer Pool</h2>
+<p>我们知道数据库中的数据是存在磁盘中，磁盘的IO速度是很慢的，如果每次查询都需要到磁盘里面去取数据，会严重影响数据库性能。因此必然需要建立缓存，把数据库中的数据加载到缓存中，需要的时候，先到缓存中找，缓存中没有，再去磁盘中找。</p>
+<h3 id="2-1-innodb缓存池概述">2.1 InnoDB缓存池概述</h3>
+<p>Buffer Pool 是在 MySQL 启动的时候，向操作系统申请的一片连续的内存空间，默认配置下 Buffer Pool 只有 <code>128MB</code> 。</p>
+<p>可以通过调整 <code>innodb_buffer_pool_size</code> 参数来设置 Buffer Pool 的大小，一般建议设置成可用物理内存的 60%~80%。</p>
+<p>InnoDB 会把存储的数据划分为若干个「页」，以页作为磁盘和内存交互的基本单位，一个页的默认大小为 16KB。因此，Buffer Pool 同样需要按「页」来划分。</p>
+<p>在 MySQL 启动的时候，<strong>InnoDB 会为 Buffer Pool 申请一片连续的内存空间，然后按照默认的<code>16KB</code>的大小划分出一个个的页， Buffer Pool 中的页就叫做缓存页</strong>。此时这些缓存页都是空闲的，之后随着程序的运行，才会有磁盘上的页被缓存到 Buffer Pool 中。</p>
+<p>所以，MySQL 刚启动的时候，你会观察到使用的虚拟内存空间很大，而使用到的物理内存空间却很小，这是因为只有这些虚拟内存被访问后，操作系统才会触发缺页中断，接着将虚拟地址和物理地址建立映射关系。</p>
+<p>Buffer Pool 除了缓存「索引页」和「数据页」，还包括了 undo 页，插入缓存、自适应哈希索引、锁信息等等。</p>
+<center><img src="/images/bufferpool内容.drawio.webp " style="width:400px;"></img></center>
+<p>为了更好的管理这些在 Buffer Pool 中的缓存页，InnoDB 为每一个缓存页都创建了一个<strong>控制块</strong>，控制块信息包括「缓存页的表空间、页号、缓存页地址、链表节点」等等。</p>
+<p>控制块也是占有内存空间的，它是放在 Buffer Pool 的最前面，接着才是缓存页，如下图：</p>
+<center><img src="/images/缓存页.drawio.webp" style="width:500px;"></img></center>
+<p>上图中控制块和缓存页之间灰色部分称为碎片空间（因为可能剩余一点空间，不够存放一对控制块和缓存页）。</p>
+<blockquote>
+<p>查询一条记录，就只需要缓冲一条记录吗？</p>
+</blockquote>
+<p>不是的。</p>
+<p>当我们查询一条记录时，InnoDB 是会把整个页的数据加载到 Buffer Pool 中，因为，通过索引只能定位到磁盘中的页，而不能定位到页中的一条记录。将页加载到 Buffer Pool 后，再通过页里的页目录去定位到某条具体的记录。</p>
+<h3 id="2-2-buffer-pool的管理">2.2 Buffer Pool的管理</h3>
+<h4 id="2-2-1-空闲页管理">2.2.1 空闲页管理</h4>
+<p>Buffer Pool 是一片连续的内存空间，当 MySQL 运行一段时间后，这片连续的内存空间中的缓存页既有空闲的，也有被使用的。</p>
+<p>那当我们从磁盘读取数据的时候，总不能通过遍历这一片连续的内存空间来找到空闲的缓存页吧，这样效率太低了。</p>
+<p>所以，为了能够快速找到空闲的缓存页，可以使用链表结构，将空闲缓存页的「控制块」作为链表的节点，这个链表称为 <strong>Free 链表</strong>（空闲链表）。</p>
+<center><img src="/images/freelist.drawio.webp" style="width:600px;"></img></center>
+<p>Free 链表上除了有控制块，还有一个头节点，该头节点包含链表的头节点地址，尾节点地址，以及当前链表中节点的数量等信息。</p>
+<p>有了 Free 链表后，每当需要从磁盘中加载一个页到 Buffer Pool 中时，就从 Free链表中取一个空闲的缓存页，并且把该缓存页对应的控制块的信息填上，然后把该缓存页对应的控制块从 Free 链表中移除。</p>
+<h4 id="2-2-2-页定位">2.2.2 页定位</h4>
+<p>前面提到，当我们需要访问某个页的数据时先要到缓存中去找，那么我们怎么知道页在不在缓存中呢？难道要遍历缓存中的所有页？</p>
+<p>回头想想，我们其实是根据表空间号+页号来定位一个页的，也就相当于表空间号+页号是一个key( 键) ，缓冲页控制块就是对应的value(值)。怎么通过一个key 来快速找到一个value呢？当然是哈希表了！</p>
+<p>因此我们可以用“表空间号+页号”作为key，用缓冲页控制块作为value来创建一个hash表。在需要访问某个页的数据时，先从哈希表中根据表空间号和页号看看是否有对应的缓冲页。如果有，直接使用缓存中的即可，如果没有，再去数据库中找该页，并把它加载到缓冲区中的某个空闲页。</p>
+<h4 id="2-2-3-脏页管理">2.2.3 脏页管理</h4>
+<p>设计 Buffer Pool 除了能提高读性能，还能提高写性能，也就是更新数据的时候，不需要每次都要写入磁盘，而是将 Buffer Pool 对应的缓存页标记为<strong>脏页</strong>，然后再由后台线程将脏页写入到磁盘。</p>
+<p>那为了能快速知道哪些缓存页是脏的，于是就设计出 <strong>Flush 链表</strong>，它跟 Free 链表类似的，链表的节点也是控制块，区别在于 Flush 链表的元素都是脏页。</p>
+<center><img src="/images/Flush.drawio.webp" style="width:600px;"></img></center>
+<p>有了 Flush 链表后，后台线程就可以遍历 Flush 链表，将脏页写入到磁盘。</p>
+<h4 id="2-3-4-页换入换出">2.3.4 页换入换出</h4>
+<p>我们知道缓存空间是有限的，如果缓存满了，但是我们要访问的页不在缓存中该怎么办呢？这时我们就要淘汰掉缓存中的某些页。那具体该淘汰那些缓存页呢？</p>
+<p>一个经典的方法就是LRU，即淘汰最近最少使用的页。简单的 LRU 算法的实现思路是这样的：</p>
+<ul>
+<li>当访问的页在 Buffer Pool 里，就直接把该页对应的 LRU 链表节点移动到链表的头部。</li>
+<li>当访问的页不在 Buffer Pool 里，除了要把页放入到 LRU 链表的头部，还要淘汰 LRU 链表末尾的节点。</li>
+</ul>
+<p>至此，我们知道缓存池中通过3种类型链表来管理数据页：</p>
+<ol>
+<li><strong>空闲页</strong>：用空闲页链表来链接所有空闲页，需要的时候从链表中取一个即可；</li>
+<li><strong>干净页</strong>：缓存了数据，但是页数据没有被更改，位于LRU链表中；</li>
+<li><strong>脏页</strong>：缓存了数据，并且页中数据被修改了，脏页同时存在于LRU链表和Flush链表。</li>
+</ol>
+<p>MySQL中使用的是增强版LRU，因为简单的LRU存在预读问题和全表扫描问题。</p>
+<h5 id="预读问题">预读问题</h5>
+<p>InnoDB提供了一个看起来很贴心的服务——预读。所谓预读，就是InnoOB 认为执行当前的请求时，可能会在后面读取某些页面，<br>
+于是就预先把这些页面加载到Buffer Pool 中。根据触发方式的不同，预读又可以细分为下面两种：</p>
+<ul>
+<li>线性预读：InnoDB提供了一个系统变量<code>innodb_read_ahead_threshold</code>，如果顺序访问的某个区的页面超过该值，会触发一次异步读取下一个区中全部的页面到 Buffer Pool 中的请求。</li>
+<li>随机预读：如果某个区的13 个连续的页面都被加载到了Buffer Pool 中， 无论这些页面是不是顺序读取的，都会触发一次异步读取本区中所有其他页面到Buffer Pool中的请求。可以通过<code>innodb-random-read ahead</code> 系统变量打开该功能，它的默认值为OFF ，也就意味着InnoDB 并不会默认开启随机预法的功能。</li>
+</ul>
+<p>预读本来是好事， 但是可能这些<strong>被提前加载进来的数据页，并没有被访问</strong>，相当于这个预读是白做了，这个就是<strong>预读失效</strong>。 并且如果此时Buffer Pool剩余容量不大的话，预读的内容会挤掉很多LRU链表尾部的元素，降低缓存命中率。</p>
+<h5 id="全表扫描">全表扫描</h5>
+<p>有的小伙伴可能会写一些需要进行全表扫描的语句（比如在没有建立合适的索引或者压根儿没有WHERE 子句的查询时）。全表扫描意味着什么？意味着我们可能要加载很多数据到缓存中，这时候如果缓存空闲空间不够话，可能要淘汰很多页。但是全表扫描的数据，在后面的查询中很可能用不到，这时候我们又要重新把需要的页加载到缓存中。</p>
+<h5 id="改进lru">改进LRU</h5>
+<p>InnoDB将LRU链表划分成两部分：old区域和yong区域，如下图所示：</p>
+<center><img src="/images/young+old.webp" style="width:500px;"></img></center>
+<ul>
+<li><strong>young区域</strong>：存储热数据。
+<ul>
+<li>预读的页加载到young区，当预读数据被真正使用时，才加载到old区。</li>
+</ul>
+</li>
+<li><strong>old区域</strong>：存储冷数据，默认占总空间的37%。</li>
+</ul>
+<p>这种方案可以很好的解决预读问题，但是对于全表扫描的问题该如何解决呢？</p>
+<p>在进行全表扫描时，虽然首次加载到Buffer Pool 中的页放到了old 区域的头部， 但是后续会被马上访问到，每次进行访问时又会把该页放到young 区域的头部， 这样仍然会把那些使用频率比较高的页面给&quot;排挤&quot; 下去。</p>
+<p>LRU的young区存储的时热点数据，全表扫描问题的本质在于，一些非热点数据，把yong区的热点数据给挤出去了。那我们只要提高数据进入young区的门槛就能很好解决该问题。InnoDB是这样做的，进入到 young 区域条件增加了一个<strong>停留在 old 区域的时间判断</strong>。具体是这样做的，在对某个处在 old 区域的缓存页进行第一次访问时，就在它对应的控制块中记录下来这个访问时间：</p>
+<ul>
+<li>如果后续的访问时间与第一次访问的时间<strong>在某个时间间隔内</strong>，那么<strong>该缓存页就不会被从 old 区域移动到 young 区域的头部</strong>；</li>
+<li>如果后续的访问时间与第一次访问的时间<strong>不在某个时间间隔内</strong>，那么<strong>该缓存页移动到 young 区域的头部</strong>；</li>
+</ul>
+<p>这个间隔时间是由 <code>innodb_old_blocks_time</code> 控制的，默认是 1000 ms。</p>
+<p>也就说，<strong>只有同时满足「被访问」与「在 old 区域停留时间超过 1 秒」两个条件，才会被插入到 young 区域头部</strong>，很明显，在一次全表扫描的过程中，多次访问一个页面（也就是读取同一个页面中的多条记录）的时间不会超过1s。</p>
+<p>另外，InnoDB 针对 young 区域其实做了一个优化，为了防止 young 区域节点频繁移动到头部。young 区域前面 1/4 被访问不会移动到链表头部，只有后面的 3/4被访问了才会。</p>
+<h4 id="2-3-5-其他">2.3.5 其他</h4>
+<ul>
+<li>多个Buffer pool：在Buffer Pool 特别大并且多线程并发访问盘特别高的情况下，单一的Buffer Pool 可能会影响请求的处理速度.所以在Buffer Pool 特别大时，可以把它们拆分成若干个小的Buffer Pool ，每个Buffer Pool 都称为一个实例。它们都是独立的——独立地申请内存空间、独立地管理各种链表等等，在多线程并发访问时并不会相互影响， 从而提高了并发处理能力。我们可以在服务器启动的时候通过设置<code>innodb_buffer_pool_instances</code>的值来修改Buffer PooI 实例的个数。</li>
+<li>buffer chunk：在MySQL 5 .7 .5版本之前，只能在服务器启动时通过配置<code>innodb_buffer_pool_size</code> 启动选项来调整Buffer Poo1 的大小，在服务器运行过程中是不允许调整该值的。
+<ul>
+<li>不过设计MySQL 的大叔在MySQL 5.7.5 以及之后的版本中，支持了在服务器运行过程中调整Buffer Poo1 大小的功能。但是有一个问题，就是每次重新调整Buffer Poo1 的大小时，都需要重新向操作系统申请一块连续的内存空间，然后将旧Buffer Poo1 中的内容复制到这一块新空间，这是极其耗时的。</li>
+<li>所以，设计MySQL 的大叔决定不再一次性为某个Buffer Poo1 实例向操作系统申请一大片连续的内存空间，而是以一个chunk 为单位向操作系统申请空间。也就是说， 一个Buffer Pool实例其实是由若干个chunk 组成的。一个chunk 就代表一片连续的内存空间， 里面包含了若干缓冲页与其对应的控制块。</li>
+</ul>
+</li>
+</ul>
+<h2 id="3-日志文件buffer">3 日志文件buffer</h2>
+<h3 id="3-1-binlog-cache">3.1 binlog cache</h3>
+<p>对于binglog数据，也是先将日志写到缓存中，然后等事务提交后，再写入磁盘。</p>
+<ul>
+<li><strong>分配内存</strong>：首先为每个session分配独立内存空间，用来存储二进制日志的缓存，可以通过<code>binlog_cache_log</code>设置缓存大小；</li>
+<li><strong>临时文件</strong>：当缓存大小超过<code>binlog_cache_log</code>后，会将数据写入大小为<code>max_binlog_cache_size</code>的临时文件；
+<ul>
+<li>临时文件存放于tmpdir目录下，以&quot;ML&quot;开头；</li>
+<li>执行多语句事务时，如果缓存数据超过<code>max_binlog_cache_size</code>+<code>binlog_cache_log</code>，会报错。</li>
+</ul>
+</li>
+<li><strong>刷盘</strong>：事务提交后，将binglog cache和binlog临时文件中所有数据写入磁盘。</li>
+</ul>
+<h3 id="3-2-redo-log">3.2 redo log</h3>
+<h4 id="3-2-1-buffer结构">3.2.1 buffer结构</h4>
+<p>redo log中数据存储方式是：把MTR（Min-Transaction，不可分割的一组日志）生成的redo日志放在大小为512字节的页中，称之为block。因此，redo log缓存也有着同样地存储格式，如下图所示：</p>
+<center><img src="/images/微信截图_20220508093411.png" style="width:500px;"></img></center>
+<p>在服务器启动时就向操作系统申请了一片连续空间，称之为redo log buffer。</p>
+<h4 id="3-2-2-数据写入">3.2.2 数据写入</h4>
+<p>向log buffer中写入redo日志的过程是顺序写入的，也就是先写前面的block，当该block写满了，再写下一个block。InnoDB中存储了一个全局变量buf_free，用来指示下一条日志应该写到哪里，如下图所示：</p>
+<center><img src="/images/微信截图_20220508093641.png" style="width:500px;"></img></center>
+<h4 id="3-2-3-刷盘时机">3.2.3 刷盘时机</h4>
+<p>遇到下面这些情况，会将buffer中的数据刷新到磁盘中：</p>
+<ol>
+<li>log buffer空间不足</li>
+<li>事务提交</li>
+<li>后台有一个线程，大约每秒一次的频率将buffer中数据刷新到磁盘</li>
+<li>正常关闭服务器时</li>
+<li>做checkpoint时</li>
+</ol>
+<h3 id="3-3-undo-log">3.3 undo log</h3>
+<p>undo log数据存储在表空间中，因此它的缓存和数据页缓存一样，依靠前文提到的buffer pool实现的。我们看前文提到的buffer pool结构图中，其中有一项就是undo log页。</p>
+<h2 id="参考资料">参考资料</h2>
+<ol>
+<li><a target="_blank" rel="noopener" href="https://xiaolincoding.com/mysql/buffer_pool/buffer_pool.html">https://xiaolincoding.com/mysql/buffer_pool/buffer_pool.html</a></li>
+<li><a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000038554542">https://segmentfault.com/a/1190000038554542</a></li>
+<li>《MySQL是怎样运行的》</li>
+</ol>
+ 
+      <!-- reward -->
+      
+      <div id="reword-out">
+        <div id="reward-btn">
+          打赏
+        </div>
+      </div>
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <div class="declare">
+      <ul class="post-copyright">
+        <li>
+          <i class="ri-copyright-line"></i>
+          <strong>版权声明： </strong>
+          
+          本博客所有文章除特别声明外，著作权归作者所有。转载请注明出处！
+          
+        </li>
+      </ul>
+    </div>
+    
+    <footer class="article-footer">
+       
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<!--<div class="wx-share-modal">-->
+<!--    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>-->
+<!--    <p>扫一扫，分享到微信</p>-->
+<!--    <div class="wx-qrcode">-->
+<!--      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://rookieyin.github.io/52b102c1181c/" alt="微信分享二维码">-->
+<!--    </div>-->
+<!--</div>-->
+
+<div id="share-mask"></div>
+  
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MySQL/" rel="tag">MySQL</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%90%8E%E7%AB%AF/" rel="tag">后端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="tag">数据库</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+  <nav class="article-nav">
+    
+      <a href="/d7c79caa873a/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            MySQL索引
+          
+        </div>
+      </a>
+    
+    
+      <a href="/f7547b80614e/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">InnoDB中的MVCC</div>
+      </a>
+    
+  </nav>
+
+   
+<!-- valine评论 -->
+<div id="vcomments-box">
+  <div id="vcomments"></div>
+</div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js"></script>
+<script>
+  new Valine({
+    el: "#vcomments",
+    app_id: "f9XmUV7HVprPCNptggBNBhWR-gzGzoHsz",
+    app_key: "H73Viqo3lADopEFgshq3XrXs",
+    path: window.location.pathname,
+    avatar: "monsterid",
+    placeholder: "给我的文章加点评论吧~",
+    recordIP: true,
+  });
+  const infoEle = document.querySelector("#vcomments .info");
+  if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+    infoEle.childNodes.forEach(function (item) {
+      item.parentNode.removeChild(item);
+    });
+  }
+</script>
+<style>
+  #vcomments-box {
+    padding: 5px 30px;
+  }
+
+  @media screen and (max-width: 800px) {
+    #vcomments-box {
+      padding: 5px 0px;
+    }
+  }
+
+  #vcomments-box #vcomments {
+    background-color: #fff;
+  }
+
+  .v .vlist .vcard .vh {
+    padding-right: 20px;
+  }
+
+  .v .vlist .vcard {
+    padding-left: 10px;
+  }
+</style>
+
+ 
+   
+     
+</article>
+
+</section>
+        <footer class="footer">
+  <div class="outer">
+    <ul>
+      <li>
+        Copyrights &copy;
+        2021-2022
+        <i class="ri-heart-fill heart_icon"></i> Yin Peng
+      </li>
+    </ul>
+    <ul>
+      <li>引擎:
+        <a style="color: #0681d0" target="_blank" rel="noopener" href="https://hexo.io/zh-cn/">Hexo</a>
+        &nbsp;&nbsp;|&nbsp;&nbsp;主题:修改自
+        <a style="color: #0681d0" target="_blank" rel="noopener" href="https://shen-yu.gitee.io/">Ayer</a>
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        <span>
+  <span><i class="ri-user-3-fill"></i>访问人数:<span id="busuanzi_value_site_uv"></span></span>
+  <span class="division">|</span>
+  <span><i class="ri-eye-fill"></i>浏览次数:<span id="busuanzi_value_page_pv"></span></span>
+</span>
+        
+      </li>
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      <li>
+        <!-- cnzz统计 -->
+        
+        <script type="text/javascript" src='https://s9.cnzz.com/z_stat.php?id=1278069914&amp;web_id=1278069914'></script>
+        
+      </li>
+    </ul>
+  </div>
+</footer>
+
+        <div class="float_btns">
+            <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+
+<div class="todark" id="todark">
+  <i class="ri-moon-line"></i>
+</div>
+
+        </div>
+    </main>
+
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/alipay.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/wxpay.png">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-2.0.3.min.js"></script>
+ 
+<script src="/js/lazyload.min.js"></script>
+
+<!-- Tocbot -->
+ 
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  tocbot.init({
+    tocSelector: ".tocbot",
+    contentSelector: ".article-entry",
+    headingSelector: "h1, h2, h3, h4, h5, h6",
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: "main",
+    positionFixedSelector: ".tocbot",
+    positionFixedClass: "is-position-fixed",
+    fixedSidebarOffset: "auto",
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.js"></script>
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.css"
+/>
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js"></script>
+
+<script src="/dist/main.js"></script>
+
+<!-- ImageViewer -->
+ <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css">
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script> 
+<!-- MathJax -->
+
+<!-- Katex -->
+
+<!-- busuanzi  -->
+ 
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+ 
+<!-- ClickLove -->
+ 
+<script src="/js/clickLove.js"></script>
+ 
+<!-- ClickBoom1 -->
+
+<!-- ClickBoom2 -->
+
+<!-- CodeCopy -->
+ 
+<link rel="stylesheet" href="/css/clipboard.css">
+ <script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="ri-file-copy-2-line"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-checkbox-circle-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-checkbox-circle-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-time-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-time-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+ 
+<!-- CanvasBackground -->
+
+<script>
+  if (window.mermaid) {
+    mermaid.initialize({ theme: "forest" });
+  }
+</script>
+
+
+    
+</div>
+</body>
+
+</html>
