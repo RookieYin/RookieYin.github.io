@@ -185,6 +185,134 @@
     
     
     <article
+  id="post-6 设计模式/一句话总结各种设计模式"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/ff79fb7493a9/"
+    >一句话总结各种设计模式</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/ff79fb7493a9/" class="article-date">
+  <time datetime="2022-03-13T07:08:10.000Z" itemprop="datePublished">2022-03-13</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a>
+  </div>
+
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <ol>
+<li>
+<p><strong>单例模式</strong>：系统中只实例化一个对象，通过类的<code>getInstance()</code>方法该实例，常用于线程池、连接池、日志对象等等。</p>
+</li>
+<li>
+<p><strong>工厂模式</strong>：创建与使用分离，把对象实例化的工作交给工厂来作，用户不需要关心对象如何生成的，需要某个对象时，向工厂申请一个即可。</p>
+<ul>
+<li>简单工厂：定义一个工厂类，里面有一个<code>createProduct()</code>用于创建对象。实现简单，但是扩展困难，工厂类单一，职责过重。</li>
+<li>工厂方法：不再由工厂类创建对象，而是将该任务转嫁给工厂类的各个子类来完成，由子类来决定该实例化哪一个类。</li>
+<li>抽象工厂：将多个抽象工厂方法封装到一起，用于生产<strong>一系列相关对象</strong>（核心功能），这些对象组合在一起是一个更大的产品。比如讲生产CPU的工厂方法和生产内存的工厂方法封装到一起，组成生产电脑的工厂。</li>
+</ul> 
+      <a class="article-more-link" href="/ff79fb7493a9/"
+        >阅读更多...</a
+      >
+       
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" rel="tag">设计模式</a></li></ul>
+
+    </footer>
+  </div>
+
+    
+ 
+    
+</article>
+
+    
+    <article
+  id="post-6 设计模式/行为型——模板方法模式"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/7ce6880842bc/"
+    >行为型——模板方法模式</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/7ce6880842bc/" class="article-date">
+  <time datetime="2022-03-12T07:08:10.000Z" itemprop="datePublished">2022-03-12</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a>
+  </div>
+
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h2 id="什么是模板方法模式">什么是模板方法模式</h2>
+<p>模板方法模式：定义某种操作的一个算法骨架， 而将算法的一些步骤延迟到子类中，使得子类可以不改变该算法结构的情况下重定义该算法的某些特定步骤。</p>
+<p>所谓模板方法模式，就是创建一个模板，模板指的就是一个方法或者说操作，这个方法包含一组步骤，其中任何步骤都可以是抽象的，交由子类来具体实现。</p> 
+      <a class="article-more-link" href="/7ce6880842bc/"
+        >阅读更多...</a
+      >
+       
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" rel="tag">设计模式</a></li></ul>
+
+    </footer>
+  </div>
+
+    
+ 
+    
+</article>
+
+    
+    <article
   id="post-2 后端/Redis/Redis主从复制"
   class="article article-type-post"
   itemscope
@@ -680,125 +808,6 @@
     <footer class="article-footer">
        
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/redis/" rel="tag">redis</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%90%8E%E7%AB%AF/" rel="tag">后端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="tag">数据库</a></li></ul>
-
-    </footer>
-  </div>
-
-    
- 
-    
-</article>
-
-    
-    <article
-  id="post-2 后端/Redis/Redis持久化"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/b4a3dfa7f75c/"
-    >Redis持久化</a> 
-</h2>
- 
-
-      
-    </header>
-     
-    <div class="article-meta">
-      <a href="/b4a3dfa7f75c/" class="article-date">
-  <time datetime="2022-03-08T12:38:14.000Z" itemprop="datePublished">2022-03-08</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a> / <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/Redis/">Redis</a>
-  </div>
-
-   
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <p>为了防止数据丢失以及服务重启时能够恢复数据，Redis支持数据的持久化（和Memcached的主要区别之一），主要分为两种方式，分别是RDB和AOF。当然实际场景下还会使用这两种的混合模式。</p> 
-      <a class="article-more-link" href="/b4a3dfa7f75c/"
-        >阅读更多...</a
-      >
-       
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/redis/" rel="tag">redis</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%90%8E%E7%AB%AF/" rel="tag">后端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="tag">数据库</a></li></ul>
-
-    </footer>
-  </div>
-
-    
- 
-    
-</article>
-
-    
-    <article
-  id="post-6 设计模式/结构型——享元模式"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/7cfcf24ee979/"
-    >结构型——享元模式</a> 
-</h2>
- 
-
-      
-    </header>
-     
-    <div class="article-meta">
-      <a href="/7cfcf24ee979/" class="article-date">
-  <time datetime="2022-03-08T07:08:10.000Z" itemprop="datePublished">2022-03-08</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a>
-  </div>
-
-   
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <h2 id="什么是享元模式">什么是享元模式</h2>
-<h3 id="享元模式的定义">享元模式的定义</h3>
-<p>享元模式定义为：<strong>通过共享技术来实现细粒度对象的复用</strong>。“享”即共享，“元”即对象，通过复用一些共享对象，避免创建大量重复对象，减小内存开销。 享元模式的本质是<strong>缓存共享对象</strong>，<strong>降低内存消耗</strong>。</p>
-<p>享元模式尝试重用现有的同类对象，如果未找到匹配的对象，则创建新对象。 比如对于Circle对象，有5种不同的颜色，如果需要50个Circle实例。如果不使用享元模式，我们需要创建50个对象。但是如果使用享元模式，可以创建一个Map，key为颜色，value为Circle实例，需要什么颜色的circle就去map里面取，这样最多只需要创建5个对象即可。</p> 
-      <a class="article-more-link" href="/7cfcf24ee979/"
-        >阅读更多...</a
-      >
-       
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" rel="tag">设计模式</a></li></ul>
 
     </footer>
   </div>

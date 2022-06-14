@@ -185,6 +185,127 @@
     
     
     <article
+  id="post-3 论文笔记/图学习/对比学习/22. An Empirical Study of Graph Contrastive Learning "
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/debd25f73abb/"
+    >An Empirical Study of Graph Contrastive Learning</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/debd25f73abb/" class="article-date">
+  <time datetime="2021-11-27T05:38:35.000Z" itemprop="datePublished">2021-11-27</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/">论文笔记</a> / <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/%E5%9B%BE%E5%AD%A6%E4%B9%A0/">图学习</a> / <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/%E5%9B%BE%E5%AD%A6%E4%B9%A0/%E5%AF%B9%E6%AF%94%E5%AD%A6%E4%B9%A0/">对比学习</a>
+  </div>
+
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <p><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2109.01116">https://arxiv.org/pdf/2109.01116</a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/GraphCL/PyGCL">https://github.com/GraphCL/PyGCL</a></p>
+<p>An Empirical Study of Graph Contrastive Learning ，2021，NIPS( Datasets and Benchmarks track )</p>
+<p><span style="font-size:18px;font-weight:bold;">总结：</span>一篇实验型综述，尝试通过实验对现有GCL方法有效性进行解释，并总结出一些通用的结论。另外，作者写了一个GCL库PyGCL，里面封装了一些标准化的GCL组件。</p> 
+      <a class="article-more-link" href="/debd25f73abb/"
+        >阅读更多...</a
+      >
+       
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%9B%BE%E5%AD%A6%E4%B9%A0/" rel="tag">图学习</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%AF%B9%E6%AF%94%E5%AD%A6%E4%B9%A0/" rel="tag">对比学习</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%BB%BC%E8%BF%B0/" rel="tag">综述</a></li></ul>
+
+    </footer>
+  </div>
+
+    
+ 
+    
+</article>
+
+    
+    <article
+  id="post-3 论文笔记/图学习/对比学习/21.InfoGCL Information-Aware Graph Contrastive Learning"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/4d8fadbd8370/"
+    >InfoGCL: Information-Aware Graph Contrastive Learning</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/4d8fadbd8370/" class="article-date">
+  <time datetime="2021-11-27T05:34:34.000Z" itemprop="datePublished">2021-11-27</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/">论文笔记</a> / <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/%E5%9B%BE%E5%AD%A6%E4%B9%A0/">图学习</a> / <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/%E5%9B%BE%E5%AD%A6%E4%B9%A0/%E5%AF%B9%E6%AF%94%E5%AD%A6%E4%B9%A0/">对比学习</a>
+  </div>
+
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <p><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2110.15438">https://arxiv.org/pdf/2110.15438</a></p>
+<p>InfoGCL: Information-Aware Graph Contrastive Learning  ，2021，NIPS</p>
+<p><span style="font-size:18px;font-weight:bold;">总结：</span>本质上还是一种自适应GCL方法。现有的GCL方法基本都是被精心设计，用于某种特定的数据集或者图学习任务。GCL主要由增强、编码和对比三部分构成，而每个组件都有很多种可选项，因此当我们拿到某种特定图学习任务中，我们很难寻找这些组件间的最优组合，来设计一个最优GCL模型。本文作者就是针对这个问题，提出了三条准则，称之为“<strong>InfoGCL principle</strong>”，分别对应GCL中三个组件。按照作者提出的三条准则来，我们就能设计出用于特定任务的最优GCL模型。</p> 
+      <a class="article-more-link" href="/4d8fadbd8370/"
+        >阅读更多...</a
+      >
+       
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%9B%BE%E5%AD%A6%E4%B9%A0/" rel="tag">图学习</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%AF%B9%E6%AF%94%E5%AD%A6%E4%B9%A0/" rel="tag">对比学习</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%87%AA%E9%80%82%E5%BA%94/" rel="tag">自适应</a></li></ul>
+
+    </footer>
+  </div>
+
+    
+ 
+    
+</article>
+
+    
+    <article
   id="post-3 论文笔记/图学习/对比学习/20.Deep Graph Infomax"
   class="article article-type-post"
   itemscope
@@ -658,127 +779,6 @@ Semi-Supervised Learning ，2020，AAAI</p>
     <footer class="article-footer">
        
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%9B%BE%E5%AD%A6%E4%B9%A0/" rel="tag">图学习</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%AF%B9%E6%AF%94%E5%AD%A6%E4%B9%A0/" rel="tag">对比学习</a></li></ul>
-
-    </footer>
-  </div>
-
-    
- 
-    
-</article>
-
-    
-    <article
-  id="post-3 论文笔记/图学习/对比学习/12.Prototypical Graph Contrastive Learning"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/21fc78e48a24/"
-    >Prototypical Graph Contrastive Learning</a> 
-</h2>
- 
-
-      
-    </header>
-     
-    <div class="article-meta">
-      <a href="/21fc78e48a24/" class="article-date">
-  <time datetime="2021-10-01T14:13:24.000Z" itemprop="datePublished">2021-10-01</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/">论文笔记</a> / <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/%E5%9B%BE%E5%AD%A6%E4%B9%A0/">图学习</a> / <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/%E5%9B%BE%E5%AD%A6%E4%B9%A0/%E5%AF%B9%E6%AF%94%E5%AD%A6%E4%B9%A0/">对比学习</a>
-  </div>
-
-   
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <p><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2106.09645">https://arxiv.org/pdf/2106.09645</a></p>
-<p>Prototypical Graph Contrastive Learning，2021，arxive preprint</p>
-<p><span style="font-size:18px;font-weight:bold;">总结：</span>作者提出了一种graph-graph图对比学习方法PGCL，用于无监督图分类任务。和其他图对比学习方法相比，作者最大的创新点就是<strong>负样本采样策略</strong>和<strong>加权对比损失</strong>。现有的GCL方法，对于负样本的选取基本都是均匀采样，不考虑负样本和锚点之间的相似度。作者在PGCL中首先对样本进行聚类，计算每个类别的原型向量，然后将和锚点处于不同簇的其他样本视作真负样本，处于相同簇的样本视为假负样本。另外，作者根据样本所在簇的原型和锚点所在簇原型之间距离计算权重用于对比损失的定义。感觉目前学术界对于GCL的研究，基本都是将CV和NLP中对比学习方法拓展到图邻域，可以多多关注CV中对比学习的最新进展。2021ICLR中有一篇名为“ PROTOTYPICAL CONTRASTIVE LEARNING OF UNSUPERVISED REPRESENTATIONS”的CV论文，我没有看着篇文章，不知道和本文是否有联系。</p> 
-      <a class="article-more-link" href="/21fc78e48a24/"
-        >阅读更多...</a
-      >
-       
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%9B%BE%E5%AD%A6%E4%B9%A0/" rel="tag">图学习</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%AF%B9%E6%AF%94%E5%AD%A6%E4%B9%A0/" rel="tag">对比学习</a></li></ul>
-
-    </footer>
-  </div>
-
-    
- 
-    
-</article>
-
-    
-    <article
-  id="post-3 论文笔记/图学习/对比学习/11.GCC Graph Contrastive Coding for Graph Neural Network Pre-Training"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/cd1ebef497f7/"
-    >GCC: Graph Contrastive Coding for Graph Neural Network Pre-Training</a> 
-</h2>
- 
-
-      
-    </header>
-     
-    <div class="article-meta">
-      <a href="/cd1ebef497f7/" class="article-date">
-  <time datetime="2021-09-30T13:50:16.000Z" itemprop="datePublished">2021-09-30</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/">论文笔记</a> / <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/%E5%9B%BE%E5%AD%A6%E4%B9%A0/">图学习</a> / <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/%E5%9B%BE%E5%AD%A6%E4%B9%A0/%E5%AF%B9%E6%AF%94%E5%AD%A6%E4%B9%A0/">对比学习</a>
-  </div>
-
-   
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <p><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2006.09963">https://arxiv.org/pdf/2006.09963</a></p>
-<p><a target="_blank" rel="noopener" href="https://github.com/THUDM/GCC">https://github.com/THUDM/GCC</a></p>
-<p>GCC: Graph Contrastive Coding for Graph Neural Network Pre-Training，2020，KDD</p>
-<p><span style="font-size:18px;font-weight:bold;">总结：</span>简单来说，作者提出了一种subgraph-subgraph level图对比学习框架GCC，对GNNs进行预训练后将模型迁移到其他数据集。框架本身就是非常常规的对比学习框架，目标函数也是常规的对比损失，没什么特别之处。值得关注的一点是作者如何生成定义、增强子图的。作者的实验比较丰富，但是实验结果并没有什么亮眼之处。个人感觉，这篇能发顶会主要原因：一是论文写的比较早，应该是第一篇用对比学习来搞图预训练任务的，开创意义比较大；二是作者比较会写论文，文章立意比较高。</p> 
-      <a class="article-more-link" href="/cd1ebef497f7/"
-        >阅读更多...</a
-      >
-       
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%9B%BE%E5%AD%A6%E4%B9%A0/" rel="tag">图学习</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%AF%B9%E6%AF%94%E5%AD%A6%E4%B9%A0/" rel="tag">对比学习</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E9%A2%84%E8%AE%AD%E7%BB%83/" rel="tag">预训练</a></li></ul>
 
     </footer>
   </div>

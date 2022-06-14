@@ -185,6 +185,129 @@
     
     
     <article
+  id="post-2 后端/Java/Java并发/1 初识Java多线程编程"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/b8b0651f57b7/"
+    >初识Java多线程编程</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/b8b0651f57b7/" class="article-date">
+  <time datetime="2022-02-02T14:34:49.000Z" itemprop="datePublished">2022-02-02</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a> / <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/Java/">Java</a> / <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/Java/Java%E5%B9%B6%E5%8F%91/">Java并发</a>
+  </div>
+
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <p>本文主要介绍下线程的相关概念，以及Java中关于多线程的标准类库java.lang.Thread的相关知识。</p>
+<p>我们知道进程是程序的运行实例，当我们在操作系统上运行一个程序时，相当于新建了一个进程。那线程是什么呢？线程是操作系统能够进行运算调度的最小单位，一个进程可以包含多个线程。</p>
+<p>线程和进程的区别如下：</p>
+<ol>
+<li>进程是程序向操作系统<strong>申请资源</strong>（如内存空间和文件句柄）的基本单位。线程（Thread）是进程中<strong>可独立执行</strong>的最小单位。</li>
+<li>一个进程可以包含多个线程。</li>
+<li>同一个进程中的所有线程共享该进程中的资源，如内存空间、文件句柄等。</li>
+</ol> 
+      <a class="article-more-link" href="/b8b0651f57b7/"
+        >阅读更多...</a
+      >
+       
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%90%8E%E7%AB%AF/" rel="tag">后端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" rel="tag">多线程</a></li></ul>
+
+    </footer>
+  </div>
+
+    
+ 
+    
+</article>
+
+    
+    <article
+  id="post-2 后端/Java/Java容器/10.ConcurrentHashMap源码解读"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/455d24388919/"
+    >ConcurrentHashMap源码解读</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/455d24388919/" class="article-date">
+  <time datetime="2022-02-01T14:34:49.000Z" itemprop="datePublished">2022-02-01</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a> / <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/Java/">Java</a> / <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/Java/Java%E5%AE%B9%E5%99%A8/">Java容器</a>
+  </div>
+
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <p>ConcurrentHashMap是线程安全的HashMap，JDK8之后，采用volatile+自旋锁+Synchronized（锁桶）方式实现并发控制，并发性能非常高。下面介绍下ConcurrentHashMap的具体细节。</p> 
+      <a class="article-more-link" href="/455d24388919/"
+        >阅读更多...</a
+      >
+       
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%90%8E%E7%AB%AF/" rel="tag">后端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%AE%B9%E5%99%A8/" rel="tag">容器</a></li></ul>
+
+    </footer>
+  </div>
+
+    
+ 
+    
+</article>
+
+    
+    <article
   id="post-2 后端/Java/Java容器/9.HashMap源码解读"
   class="article article-type-post"
   itemscope
@@ -646,123 +769,6 @@
     <footer class="article-footer">
        
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%90%8E%E7%AB%AF/" rel="tag">后端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%AE%B9%E5%99%A8/" rel="tag">容器</a></li></ul>
-
-    </footer>
-  </div>
-
-    
- 
-    
-</article>
-
-    
-    <article
-  id="post-2 后端/Java/Java容器/1. Java集合概述"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/38694dd49f4c/"
-    >Java集合概述</a> 
-</h2>
- 
-
-      
-    </header>
-     
-    <div class="article-meta">
-      <a href="/38694dd49f4c/" class="article-date">
-  <time datetime="2022-01-23T14:34:49.000Z" itemprop="datePublished">2022-01-23</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a> / <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/Java/">Java</a> / <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/Java/Java%E5%AE%B9%E5%99%A8/">Java容器</a>
-  </div>
-
-   
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <p>Java集合，也叫作容器，主要由<code>Collection</code>和<code>Map</code>两大顶层接口转化而来，其中<code>Collection</code>下面又有<code>List</code>，<code>Queue</code>和<code>Set</code>三大接口。Java集合框架图如下图所示：</p>
-<center><img src="/images/java_collections_overview.png" style="width:900px;"></img></center> 
-      <a class="article-more-link" href="/38694dd49f4c/"
-        >阅读更多...</a
-      >
-       
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%90%8E%E7%AB%AF/" rel="tag">后端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%AE%B9%E5%99%A8/" rel="tag">容器</a></li></ul>
-
-    </footer>
-  </div>
-
-    
- 
-    
-</article>
-
-    
-    <article
-  id="post-2 后端/Java/Java基础知识/1 Java抽象类与接口"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/bffbbbcd67c3/"
-    >Java抽象类与接口</a> 
-</h2>
- 
-
-      
-    </header>
-     
-    <div class="article-meta">
-      <a href="/bffbbbcd67c3/" class="article-date">
-  <time datetime="2022-01-22T14:34:49.000Z" itemprop="datePublished">2022-01-22</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a> / <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/Java/">Java</a> / <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/Java/Java%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/">Java基础知识</a>
-  </div>
-
-   
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <p>抽象类和接口都是OOP的抽象表现。两者有相似的地方，也有非常本质的区别，本文简单介绍下Java中的抽象类和接口。</p> 
-      <a class="article-more-link" href="/bffbbbcd67c3/"
-        >阅读更多...</a
-      >
-       
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%90%8E%E7%AB%AF/" rel="tag">后端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%8A%BD%E8%B1%A1%E7%B1%BB/" rel="tag">抽象类</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%8E%A5%E5%8F%A3/" rel="tag">接口</a></li></ul>
 
     </footer>
   </div>

@@ -6,7 +6,7 @@
   <link href="http://rookieyin.github.io/atom.xml" rel="self"/>
   
   <link href="http://rookieyin.github.io/"/>
-  <updated>2022-06-11T07:49:24.962Z</updated>
+  <updated>2022-06-14T14:11:50.714Z</updated>
   <id>http://rookieyin.github.io/</id>
   
   <author>
@@ -15,6 +15,62 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>差分算法总结</title>
+    <link href="http://rookieyin.github.io/47d678eb0d18/"/>
+    <id>http://rookieyin.github.io/47d678eb0d18/</id>
+    <published>2022-06-14T14:10:54.000Z</published>
+    <updated>2022-06-14T14:11:50.714Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;说到差分算法，就不得不提一个经典的公交车上下车问题：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;题目描述：给定二维数组，表示公交车每个站点上下车人数&lt;/li&gt;
+&lt;li&gt;问：公交车从起点到终点，车上最多有多少人？或者假如公交车最大载人量为k，问能否将所有人拉到目的地？&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;类似的问题还有很多，比如拼车问题、会议室问题、日程安排问题等等。&lt;/p&gt;
+&lt;p&gt;本文首先简单介绍下什么是差分算法，然后给个差分算法的解题模板。最后总结一下leetcode中标准差分应用题，方便大家练习。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="算法" scheme="http://rookieyin.github.io/categories/%E7%AE%97%E6%B3%95/"/>
+    
+    
+    <category term="算法" scheme="http://rookieyin.github.io/tags/%E7%AE%97%E6%B3%95/"/>
+    
+    <category term="差分" scheme="http://rookieyin.github.io/tags/%E5%B7%AE%E5%88%86/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>RabbitMQ概述</title>
+    <link href="http://rookieyin.github.io/3a6862a6af0f/"/>
+    <id>http://rookieyin.github.io/3a6862a6af0f/</id>
+    <published>2022-06-14T05:45:23.000Z</published>
+    <updated>2022-06-14T05:53:59.550Z</updated>
+    
+    
+    <summary type="html">&lt;h2 id=&quot;消息队列基础&quot;&gt;消息队列基础&lt;/h2&gt;
+&lt;h3 id=&quot;什么是消息队列&quot;&gt;什么是消息队列&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;消息&lt;/strong&gt;指的是两个应用间传递的数据。数据的类型有很多种形式，可能只包含文本字符串，也可能包含嵌入对象。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;“消息队列(Message Queue)”是在消息的传输过程中保存消息的容器&lt;/strong&gt;。在消息队列中，通常有生产者和消费者两个角色。生产者只负责发送数据到消息队列，谁从消息队列中取出数据处理，他不管。消费者只负责从消息队列中取出数据处理，他不管这是谁发送的数据。&lt;/p&gt;
+&lt;center&gt;&lt;img src=&quot;/images/aHR0cHM6Ly91c2VyLWdvbGQtY2RuLnhpdHUuaW8vMjAyMC83LzE5LzE3MzY3NTNjNDc1M2M2Zjk.png&quot; style=&quot;width:400px;&quot;&gt;&lt;/img&gt;&lt;/center&gt;</summary>
+    
+    
+    
+    <category term="后端" scheme="http://rookieyin.github.io/categories/%E5%90%8E%E7%AB%AF/"/>
+    
+    <category term="消息队列" scheme="http://rookieyin.github.io/categories/%E5%90%8E%E7%AB%AF/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/"/>
+    
+    
+    <category term="后端" scheme="http://rookieyin.github.io/tags/%E5%90%8E%E7%AB%AF/"/>
+    
+    <category term="消息队列" scheme="http://rookieyin.github.io/tags/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/"/>
+    
+    <category term="RabbitMQ" scheme="http://rookieyin.github.io/tags/RabbitMQ/"/>
+    
+  </entry>
   
   <entry>
     <title>快排的3种实现方式</title>
@@ -474,60 +530,6 @@
     <category term="计算机网络" scheme="http://rookieyin.github.io/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/"/>
     
     <category term="HTTP" scheme="http://rookieyin.github.io/tags/HTTP/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>网络分层模型</title>
-    <link href="http://rookieyin.github.io/2cb48d963c94/"/>
-    <id>http://rookieyin.github.io/2cb48d963c94/</id>
-    <published>2022-05-17T14:34:49.000Z</published>
-    <updated>2022-06-12T13:36:02.733Z</updated>
-    
-    
-    <summary type="html">&lt;h2 id=&quot;osi-7层模型&quot;&gt;OSI 7层模型&lt;/h2&gt;
-&lt;p&gt;&lt;strong&gt;OSI 七层模型&lt;/strong&gt; 是国际标准化组织提出一个网络分层模型，其大体结构以及每一层提供的功能如下图所示：&lt;/p&gt;
-&lt;center&gt;&lt;img src=&quot;/images/osi七层模型.png&quot; style=&quot;width:600px;&quot;&gt;&lt;/img&gt;&lt;/center&gt;</summary>
-    
-    
-    
-    <category term="计算机基础" scheme="http://rookieyin.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/"/>
-    
-    <category term="计算机网络" scheme="http://rookieyin.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/"/>
-    
-    
-    <category term="计算机网络" scheme="http://rookieyin.github.io/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Redis集群</title>
-    <link href="http://rookieyin.github.io/621962d42a8e/"/>
-    <id>http://rookieyin.github.io/621962d42a8e/</id>
-    <published>2022-05-16T12:38:14.000Z</published>
-    <updated>2022-06-11T13:41:48.395Z</updated>
-    
-    
-    <summary type="html">&lt;p&gt;本文内容基本全部来自：&lt;a href=&quot;https://www.cnblogs.com/kismetv/p/9853040.html&quot;&gt;https://www.cnblogs.com/kismetv/p/9853040.html&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;集群，即Redis Cluster，是Redis 3.0开始引入的分布式存储方案。&lt;/p&gt;
-&lt;p&gt;集群由多个节点(Node)组成，Redis的数据分布在这些节点中。集群中的节点分为主节点和从节点：只有主节点负责读写请求和集群信息的维护；从节点只进行主节点数据和状态信息的复制。集群的作用主要有两点：&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;&lt;strong&gt;数据分区&lt;/strong&gt;：将数据分散到多个节点，一方面突破Redis单机内存大小限制，另一方面可以做读写负载均衡，大大提高集群响应能力。&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;高可用&lt;/strong&gt;：Redis集群支持主从复制和自动故障转移，当任意节点发生故障时，集群仍能够对外提供服务。&lt;/li&gt;
-&lt;/ol&gt;</summary>
-    
-    
-    
-    <category term="后端" scheme="http://rookieyin.github.io/categories/%E5%90%8E%E7%AB%AF/"/>
-    
-    <category term="Redis" scheme="http://rookieyin.github.io/categories/%E5%90%8E%E7%AB%AF/Redis/"/>
-    
-    
-    <category term="后端" scheme="http://rookieyin.github.io/tags/%E5%90%8E%E7%AB%AF/"/>
-    
-    <category term="数据库" scheme="http://rookieyin.github.io/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
-    
-    <category term="redis" scheme="http://rookieyin.github.io/tags/redis/"/>
     
   </entry>
   

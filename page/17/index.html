@@ -185,6 +185,134 @@
     
     
     <article
+  id="post-3 论文笔记/小样本图学习/5.Node Classification on Graphs with Few-Shot Novel Labels via Meta Transformed Network Embedding"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/7bc0ee17a8f5/"
+    >Node Classification on Graphs with Few-Shot Novel Labels via Meta Transformed Network Embedding</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/7bc0ee17a8f5/" class="article-date">
+  <time datetime="2021-06-04T07:08:10.000Z" itemprop="datePublished">2021-06-04</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/">论文笔记</a> / <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/%E5%B0%8F%E6%A0%B7%E6%9C%AC%E5%9B%BE%E5%AD%A6%E4%B9%A0/">小样本图学习</a>
+  </div>
+
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <p><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2007.02914">https://arxiv.org/pdf/2007.02914</a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/llan-ml/MetaTNE">https://github.com/llan-ml/MetaTNE</a></p>
+<p>Node Classification on Graphs with Few-Shot Novel Labels via Meta Transformed Network Embedding，NIPS，2020</p>
+<p><span style="font-size:18px;font-weight:bold;">总结：</span>最大的创新点就是嵌入转换函数，利用自注意力机制对节点嵌入进行调整使其task-specific。针对小样本设置还是利用元学习思想，学习不同类别间统一的内在模式，提高目标任务上的分类准确度。</p>
+<p>目前图上的小样本问题大多都是针对有标签节点数量较少，且基本都是利用元学习思想来做，可以尝试着用小样本学习中的其他方法比如基于生成等等。另外可以探索一下关系或者属性在小样本场景下该如何做。</p> 
+      <a class="article-more-link" href="/7bc0ee17a8f5/"
+        >阅读更多...</a
+      >
+       
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/GNN/" rel="tag">GNN</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%85%83%E5%AD%A6%E4%B9%A0/" rel="tag">元学习</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%9B%BE%E5%AD%A6%E4%B9%A0/" rel="tag">图学习</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%B0%8F%E6%A0%B7%E6%9C%AC/" rel="tag">小样本</a></li></ul>
+
+    </footer>
+  </div>
+
+    
+ 
+    
+</article>
+
+    
+    <article
+  id="post-3 论文笔记/小样本图学习/7.Graph Meta Leraning via Local Subgraphs"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/84c11eb2e587/"
+    >Graph Meta Learning via Local Subgraphs</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/84c11eb2e587/" class="article-date">
+  <time datetime="2021-06-04T07:08:10.000Z" itemprop="datePublished">2021-06-04</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/">论文笔记</a> / <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/%E5%B0%8F%E6%A0%B7%E6%9C%AC%E5%9B%BE%E5%AD%A6%E4%B9%A0/">小样本图学习</a>
+  </div>
+
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <p><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2006.07889">https://arxiv.org/pdf/2006.07889</a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/mims-harvard/G-Meta">https://github.com/mims-harvard/G-Meta</a></p>
+<p>Graph Meta Learning via Local Subgraphs ，NIPS，2020</p>
+<p><span style="font-size:18px;font-weight:bold;">总结：</span>本文算法上没有太大的创新，将MAML拓展到图学习领域，基于度量学习判别样本标签。</p>
+<ol>
+<li>在元任务上学习一个GNN参数，将其代入目标任务的GNN中进行微调</li>
+<li>使用子图学习每个节点的嵌入，利用局部子图实现元学习（这块理论证明比较充分）</li>
+</ol>
+<p>还有一点就是文章故事讲的很好，完整的定义了图上的元学习以及常见的三种类型的元学习任务，然后提出了可以同时适用这三种类型问题的模型，而其他模型通常只能解决其中一种。</p> 
+      <a class="article-more-link" href="/84c11eb2e587/"
+        >阅读更多...</a
+      >
+       
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/GNN/" rel="tag">GNN</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%85%83%E5%AD%A6%E4%B9%A0/" rel="tag">元学习</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%9B%BE%E5%AD%A6%E4%B9%A0/" rel="tag">图学习</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%AD%90%E5%9B%BE/" rel="tag">子图</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%B0%8F%E6%A0%B7%E6%9C%AC/" rel="tag">小样本</a></li></ul>
+
+    </footer>
+  </div>
+
+    
+ 
+    
+</article>
+
+    
+    <article
   id="post-3.网络嵌入综述"
   class="article article-type-post"
   itemscope
