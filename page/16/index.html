@@ -185,7 +185,7 @@
     
     
     <article
-  id="post-3 论文笔记/小样本图学习/9.Meta-GNN On Few-shot Node Classfication in Graph Meta-Learning"
+  id="post-3 论文笔记/图学习/对比学习/19.Motif-based Graph Self-Supervised Learning forMolecular Property Prediction"
   class="article article-type-post"
   itemscope
   itemprop="blogPost"
@@ -196,8 +196,8 @@
     <header class="article-header">
        
 <h2 itemprop="name">
-  <a class="article-title" href="/58fc871ab75a/"
-    >Meta-GNN: On Few-shot Node Classification in Graph Meta-learning</a> 
+  <a class="article-title" href="/e9edfb23e5c9/"
+    >Motif-based Graph Self-Supervised Learning forMolecular Property Prediction</a> 
 </h2>
  
 
@@ -205,11 +205,11 @@
     </header>
      
     <div class="article-meta">
-      <a href="/58fc871ab75a/" class="article-date">
-  <time datetime="2021-06-04T07:08:10.000Z" itemprop="datePublished">2021-06-04</time>
+      <a href="/e9edfb23e5c9/" class="article-date">
+  <time datetime="2021-10-15T12:43:20.000Z" itemprop="datePublished">2021-10-15</time>
 </a> 
   <div class="article-category">
-    <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/">论文笔记</a> / <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/%E5%B0%8F%E6%A0%B7%E6%9C%AC%E5%9B%BE%E5%AD%A6%E4%B9%A0/">小样本图学习</a>
+    <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/">论文笔记</a> / <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/%E5%9B%BE%E5%AD%A6%E4%B9%A0/">图学习</a> / <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/%E5%9B%BE%E5%AD%A6%E4%B9%A0/%E5%AF%B9%E6%AF%94%E5%AD%A6%E4%B9%A0/">对比学习</a>
   </div>
 
    
@@ -217,11 +217,10 @@
       
     <div class="article-entry" itemprop="articleBody">
        
-  <p><a target="_blank" rel="noopener" href="https://dl.acm.org/doi/pdf/10.1145/3357384.3358106">https://dl.acm.org/doi/pdf/10.1145/3357384.3358106</a></p>
-<p><a target="_blank" rel="noopener" href="https://github.com/ChengtaiCao/Meta-GNN">https://github.com/ChengtaiCao/Meta-GNN</a></p>
-<p>Meta-GNN: On Few-shot Node Classification in Graph Meta-learning，CIKM，2019</p>
-<p><span style="font-size:18px;font-weight:bold;">总结：</span>本篇文章非常简单，单纯的将MAML和GNN相结合解决图小样本节点分类问题。工作做得非常浅，论文正文只有3页多，但是胜在是第一篇将元学习拓展到图小样本学习领域的文章，所以文章也能发在CIKM上。另一点就是本文提供了实验源码可以参考一下。</p> 
-      <a class="article-more-link" href="/58fc871ab75a/"
+  <p><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2110.00987">https://arxiv.org/pdf/2110.00987</a></p>
+<p>Motif-based Graph Self-Supervised Learning forMolecular Property Prediction，2021，NIPS</p>
+<p><span style="font-size:18px;font-weight:bold;">总结：</span>作者提出了一种基于<strong>motif</strong>的<strong>多层级生成式自监督</strong>预训练方法——MGSSL，用于分子图属性预测。具体来说，作者先利用一种分子碎片化算法将原始图打碎，得到不同类型的motifs，然后把这些motifs看作节点，并连接到一起构成一棵motif树（这里和我之前看过的一篇超图方法比较类似，先构建子图，然后将子图看做节点，在子图间添加边，构成一张超图）。然后利用GNNs学习到的节点嵌入对这棵树进行重构。另外，为了捕获分子图中多尺度信息，作者设计的MGSSL框架是多层级的。即在进行motif-tree生成的同时，对节点类型和边类型进行预测，最小化两者的交叉熵损失。</p> 
+      <a class="article-more-link" href="/e9edfb23e5c9/"
         >阅读更多...</a
       >
        
@@ -234,7 +233,7 @@
     
     <footer class="article-footer">
        
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/GNN/" rel="tag">GNN</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%85%83%E5%AD%A6%E4%B9%A0/" rel="tag">元学习</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%9B%BE%E5%AD%A6%E4%B9%A0/" rel="tag">图学习</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%B0%8F%E6%A0%B7%E6%9C%AC/" rel="tag">小样本</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%9B%BE%E5%AD%A6%E4%B9%A0/" rel="tag">图学习</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%87%AA%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0/" rel="tag">自监督学习</a></li></ul>
 
     </footer>
   </div>
@@ -246,7 +245,7 @@
 
     
     <article
-  id="post-3 论文笔记/图学习/异构网络/1. Heterogeneous Graph Neural Network"
+  id="post-3 论文笔记/图学习/对比学习/18.Distance-wise Graph Contrastive Learning"
   class="article article-type-post"
   itemscope
   itemprop="blogPost"
@@ -257,8 +256,8 @@
     <header class="article-header">
        
 <h2 itemprop="name">
-  <a class="article-title" href="/3b1aeb046948/"
-    >Heterogeneous Graph Neural Network</a> 
+  <a class="article-title" href="/60fc6ab88bd5/"
+    >Distance-wise Graph Contrastive Learning</a> 
 </h2>
  
 
@@ -266,11 +265,11 @@
     </header>
      
     <div class="article-meta">
-      <a href="/3b1aeb046948/" class="article-date">
-  <time datetime="2021-06-04T07:08:10.000Z" itemprop="datePublished">2021-06-04</time>
+      <a href="/60fc6ab88bd5/" class="article-date">
+  <time datetime="2021-10-06T09:09:44.000Z" itemprop="datePublished">2021-10-06</time>
 </a> 
   <div class="article-category">
-    <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/">论文笔记</a> / <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/%E5%9B%BE%E5%AD%A6%E4%B9%A0/">图学习</a> / <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/%E5%9B%BE%E5%AD%A6%E4%B9%A0/%E5%BC%82%E6%9E%84%E7%BD%91%E7%BB%9C/">异构网络</a>
+    <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/">论文笔记</a> / <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/%E5%9B%BE%E5%AD%A6%E4%B9%A0/">图学习</a> / <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/%E5%9B%BE%E5%AD%A6%E4%B9%A0/%E5%AF%B9%E6%AF%94%E5%AD%A6%E4%B9%A0/">对比学习</a>
   </div>
 
    
@@ -278,11 +277,10 @@
       
     <div class="article-entry" itemprop="articleBody">
        
-  <p><a target="_blank" rel="noopener" href="https://dl.acm.org/doi/pdf/10.1145/3292500.3330961">https://dl.acm.org/doi/pdf/10.1145/3292500.3330961</a></p>
-<p><a target="_blank" rel="noopener" href="https://github.com/chuxuzhang/KDD2019_HetGNN">https://github.com/chuxuzhang/KDD2019_HetGNN</a></p>
-<p>Heterogeneous Graph Neural Network，KDD，2019</p>
-<p><span style="font-size:18px;font-weight:bold;">总结：</span>解决异构网络嵌入中存在的三个挑战：（1）如何为每个节点采样高相关性的邻居？（2）如何设计一个node content编码器，解决不同节点携带的信息是异构这一问题？（3）如何考虑节点类型的影响，整合不同类型邻居节点的信息？针对这三个问题作者分别提出了解决方案：（1）采用RWR采样，按照出现频率选取前10各节点作为目标节点v的邻居，这样可以保证每个节点邻居数量相同，且高相关性邻居被采样到；（2）采用双向LSTM对节点内容信息进行编码，将文本、图像等多模态特征整合成一个特征向量；（3）将节点邻居按类型分类，计算每个类型邻居节点的信息，再通过注意力机制聚合所有类型邻居节点的信息。</p> 
-      <a class="article-more-link" href="/3b1aeb046948/"
+  <p><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2012.07437">https://arxiv.org/pdf/2012.07437</a></p>
+<p>Distance-wise Graph Contrastive Learning，2020，arxiv preprint</p>
+<p><span style="font-size:18px;font-weight:bold;">总结：</span>在半监督图学习任务中，作者通过实验发现，CL对模型性能的提升主要集中在那些远离有标签数据的节点上。基于这个发现，作者认为现有的这些GCL方法，GL和Graph Learning的结合方式是不协调的，提出了一种新的半监督图对比学习方法DwGCL。具体来说，作者根据节点的PageRank值进行distance-wise augmentation，根据TIG（作者自己定义的一个东西）值选取Contrastive Pair，最后利用KL散度定义了模型的损失函数。总的来说，个人认为这篇文章切入角度很有趣，其动机让人耳目一新，和其他论文有很大区别。不过比较可惜的是，从实验结果来看，DwGCL带来的性能提升并不多，平均大概有1%，但是DwGCL模型和其他GCL方法相比更复杂，感觉得不偿失。</p> 
+      <a class="article-more-link" href="/60fc6ab88bd5/"
         >阅读更多...</a
       >
        
@@ -295,7 +293,7 @@
     
     <footer class="article-footer">
        
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/GNN/" rel="tag">GNN</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%9B%BE%E5%AD%A6%E4%B9%A0/" rel="tag">图学习</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%BC%82%E6%9E%84%E7%BD%91%E7%BB%9C/" rel="tag">异构网络</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E9%9A%8F%E6%9C%BA%E9%87%87%E6%A0%B7/" rel="tag">随机采样</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%9B%BE%E5%AD%A6%E4%B9%A0/" rel="tag">图学习</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%AF%B9%E6%AF%94%E5%AD%A6%E4%B9%A0/" rel="tag">对比学习</a></li></ul>
 
     </footer>
   </div>
@@ -307,7 +305,7 @@
 
     
     <article
-  id="post-3 论文笔记/图学习/异构网络/2.metapath2vec Scalable Representation Learning for Heterogeneous Networks"
+  id="post-3 论文笔记/图学习/对比学习/17.Towards Robust Graph Contrastive Learning"
   class="article article-type-post"
   itemscope
   itemprop="blogPost"
@@ -318,8 +316,8 @@
     <header class="article-header">
        
 <h2 itemprop="name">
-  <a class="article-title" href="/03ccb56ea1df/"
-    >Metapath2vec: Scalable Representation Learning forHeterogeneous Networks</a> 
+  <a class="article-title" href="/af7c8be16de8/"
+    >Towards Robust Graph Contrastive Learning</a> 
 </h2>
  
 
@@ -327,11 +325,11 @@
     </header>
      
     <div class="article-meta">
-      <a href="/03ccb56ea1df/" class="article-date">
-  <time datetime="2021-06-04T07:08:10.000Z" itemprop="datePublished">2021-06-04</time>
+      <a href="/af7c8be16de8/" class="article-date">
+  <time datetime="2021-10-05T09:11:10.000Z" itemprop="datePublished">2021-10-05</time>
 </a> 
   <div class="article-category">
-    <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/">论文笔记</a> / <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/%E5%9B%BE%E5%AD%A6%E4%B9%A0/">图学习</a> / <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/%E5%9B%BE%E5%AD%A6%E4%B9%A0/%E5%BC%82%E6%9E%84%E7%BD%91%E7%BB%9C/">异构网络</a>
+    <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/">论文笔记</a> / <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/%E5%9B%BE%E5%AD%A6%E4%B9%A0/">图学习</a> / <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/%E5%9B%BE%E5%AD%A6%E4%B9%A0/%E5%AF%B9%E6%AF%94%E5%AD%A6%E4%B9%A0/">对比学习</a>
   </div>
 
    
@@ -339,11 +337,10 @@
       
     <div class="article-entry" itemprop="articleBody">
        
-  <p><a target="_blank" rel="noopener" href="https://dl.acm.org/doi/pdf/10.1145/3097983.3098036">https://dl.acm.org/doi/pdf/10.1145/3097983.3098036</a></p>
-<p><a target="_blank" rel="noopener" href="https://github.com/apple2373/metapath2vec">https://github.com/apple2373/metapath2vec</a></p>
-<p>Metapath2vec: Scalable Representation Learning forHeterogeneous Networks ，KDD，2017</p>
-<p><span style="font-size:18px;font-weight:bold;">总结：</span>未完待续… …</p> 
-      <a class="article-more-link" href="/03ccb56ea1df/"
+  <p><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2102.13085">https://arxiv.org/pdf/2102.13085</a></p>
+<p>Towards Robust Graph Contrastive Learning，2021，arxiv preprint</p>
+<p><span style="font-size:18px;font-weight:bold;">总结：</span>作者提出一种对抗增强策略，然后基于此提出了一种鲁棒性更强的图对比学习方法GROC。robust这个点感觉可以做，这方面文章暂时不多，不过个人感觉这篇文章写得不太行，有点乱，关键点没有介绍清楚。</p> 
+      <a class="article-more-link" href="/af7c8be16de8/"
         >阅读更多...</a
       >
        
@@ -356,7 +353,7 @@
     
     <footer class="article-footer">
        
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/GNN/" rel="tag">GNN</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%85%83%E8%B7%AF%E5%BE%84/" rel="tag">元路径</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%9B%BE%E5%AD%A6%E4%B9%A0/" rel="tag">图学习</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%BC%82%E6%9E%84%E7%BD%91%E7%BB%9C/" rel="tag">异构网络</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%9B%BE%E5%AD%A6%E4%B9%A0/" rel="tag">图学习</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%AF%B9%E6%8A%97%E6%94%BB%E5%87%BB/" rel="tag">对抗攻击</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%AF%B9%E6%AF%94%E5%AD%A6%E4%B9%A0/" rel="tag">对比学习</a></li></ul>
 
     </footer>
   </div>
@@ -368,7 +365,7 @@
 
     
     <article
-  id="post-3 论文笔记/图学习/异构网络/4.Heterogeneous Graph Transformer"
+  id="post-3 论文笔记/图学习/对比学习/16.Contrastive and Generative Graph Convolutional Networks for Graph-based Semi-Supervised Learning"
   class="article article-type-post"
   itemscope
   itemprop="blogPost"
@@ -379,8 +376,8 @@
     <header class="article-header">
        
 <h2 itemprop="name">
-  <a class="article-title" href="/d2722120e7b0/"
-    >Heterogeneous Graph Transformer</a> 
+  <a class="article-title" href="/d09f7c96cb68/"
+    >Contrastive and Generative Graph Convolutional Networks for Graph-based Semi-Supervised Learning</a> 
 </h2>
  
 
@@ -388,11 +385,11 @@
     </header>
      
     <div class="article-meta">
-      <a href="/d2722120e7b0/" class="article-date">
-  <time datetime="2021-06-04T07:08:10.000Z" itemprop="datePublished">2021-06-04</time>
+      <a href="/d09f7c96cb68/" class="article-date">
+  <time datetime="2021-10-04T12:43:50.000Z" itemprop="datePublished">2021-10-04</time>
 </a> 
   <div class="article-category">
-    <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/">论文笔记</a> / <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/%E5%9B%BE%E5%AD%A6%E4%B9%A0/">图学习</a> / <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/%E5%9B%BE%E5%AD%A6%E4%B9%A0/%E5%BC%82%E6%9E%84%E7%BD%91%E7%BB%9C/">异构网络</a>
+    <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/">论文笔记</a> / <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/%E5%9B%BE%E5%AD%A6%E4%B9%A0/">图学习</a> / <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/%E5%9B%BE%E5%AD%A6%E4%B9%A0/%E5%AF%B9%E6%AF%94%E5%AD%A6%E4%B9%A0/">对比学习</a>
   </div>
 
    
@@ -400,11 +397,11 @@
       
     <div class="article-entry" itemprop="articleBody">
        
-  <p><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2003.01332">https://arxiv.org/pdf/2003.01332</a></p>
-<p><a target="_blank" rel="noopener" href="https://github.com/acbull/pyHGT">https://github.com/acbull/pyHGT</a></p>
-<p>Heterogeneous Graph Transformer，WWW，2020</p>
-<p><span style="font-size:18px;font-weight:bold;">总结：</span>未完待续</p> 
-      <a class="article-more-link" href="/d2722120e7b0/"
+  <p><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2009.07111">https://arxiv.org/pdf/2009.07111</a></p>
+<p>Contrastive and Generative Graph Convolutional Networks for Graph-based<br>
+Semi-Supervised Learning ，2020，AAAI</p>
+<p><span style="font-size:18px;font-weight:bold;">总结：</span>作者提出了一种半监督图对比学习方法<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mtext>CG</mtext><mn>3</mn></msup></mrow><annotation encoding="application/x-tex">\text{CG}^3</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.887338em;vertical-align:0em;"></span><span class="mord"><span class="mord text"><span class="mord">CG</span></span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.887338em;"><span style="top:-3.1362300000000003em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">3</span></span></span></span></span></span></span></span></span></span></span>。模型比较特别的点有两个：一是和传统对比学习方法中增强策略不同，<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mtext>CG</mtext><mn>3</mn></msup></mrow><annotation encoding="application/x-tex">\text{CG}^3</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.887338em;vertical-align:0em;"></span><span class="mord"><span class="mord text"><span class="mord">CG</span></span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.887338em;"><span style="top:-3.1362300000000003em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">3</span></span></span></span></span></span></span></span></span></span></span>不改变原始图的结构或属性信息，而是从local和global两个不同维度学习节点嵌入，然后进行对比；二是<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mtext>CG</mtext><mn>3</mn></msup></mrow><annotation encoding="application/x-tex">\text{CG}^3</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.887338em;vertical-align:0em;"></span><span class="mord"><span class="mord text"><span class="mord">CG</span></span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.887338em;"><span style="top:-3.1362300000000003em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">3</span></span></span></span></span></span></span></span></span></span></span>的目标函数同时包含对比损失、生成损失和交叉熵分类损失。从实验结果来看，模型的实验性能是不错的，不过可能存在的一个确定就是损失函数太复杂了，训练起来代价可能比较高。</p> 
+      <a class="article-more-link" href="/d09f7c96cb68/"
         >阅读更多...</a
       >
        
@@ -417,7 +414,7 @@
     
     <footer class="article-footer">
        
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/GNN/" rel="tag">GNN</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%8A%A8%E6%80%81%E7%BD%91%E7%BB%9C/" rel="tag">动态网络</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%9B%BE%E5%AD%A6%E4%B9%A0/" rel="tag">图学习</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%BC%82%E6%9E%84%E7%BD%91%E7%BB%9C/" rel="tag">异构网络</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%8D%8A%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0/" rel="tag">半监督学习</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%9B%BE%E5%AD%A6%E4%B9%A0/" rel="tag">图学习</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%AF%B9%E6%AF%94%E5%AD%A6%E4%B9%A0/" rel="tag">对比学习</a></li></ul>
 
     </footer>
   </div>
@@ -429,7 +426,7 @@
 
     
     <article
-  id="post-3 论文笔记/图学习/异构网络/3.MAGNN Metapath Aggregated Graph Neural Network forHeterogeneous Graph Embedding"
+  id="post-3 论文笔记/图学习/对比学习/15.Multi-Level Graph Contrastive Learning"
   class="article article-type-post"
   itemscope
   itemprop="blogPost"
@@ -440,8 +437,8 @@
     <header class="article-header">
        
 <h2 itemprop="name">
-  <a class="article-title" href="/92a0f6b94a16/"
-    >MAGNN: Metapath Aggregated Graph Neural Network for Heterogeneous Graph Embedding</a> 
+  <a class="article-title" href="/3c9695579edc/"
+    >Multi-Level Graph Contrastive Learning</a> 
 </h2>
  
 
@@ -449,11 +446,11 @@
     </header>
      
     <div class="article-meta">
-      <a href="/92a0f6b94a16/" class="article-date">
-  <time datetime="2021-06-04T07:08:10.000Z" itemprop="datePublished">2021-06-04</time>
+      <a href="/3c9695579edc/" class="article-date">
+  <time datetime="2021-10-04T05:39:59.000Z" itemprop="datePublished">2021-10-04</time>
 </a> 
   <div class="article-category">
-    <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/">论文笔记</a> / <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/%E5%9B%BE%E5%AD%A6%E4%B9%A0/">图学习</a> / <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/%E5%9B%BE%E5%AD%A6%E4%B9%A0/%E5%BC%82%E6%9E%84%E7%BD%91%E7%BB%9C/">异构网络</a>
+    <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/">论文笔记</a> / <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/%E5%9B%BE%E5%AD%A6%E4%B9%A0/">图学习</a> / <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/%E5%9B%BE%E5%AD%A6%E4%B9%A0/%E5%AF%B9%E6%AF%94%E5%AD%A6%E4%B9%A0/">对比学习</a>
   </div>
 
    
@@ -461,11 +458,10 @@
       
     <div class="article-entry" itemprop="articleBody">
        
-  <p><a target="_blank" rel="noopener" href="https://qiniu.pattern.swarma.org/pdf/arxiv/2002.01680.pdf">https://qiniu.pattern.swarma.org/pdf/arxiv/2002.01680.pdf</a></p>
-<p><a target="_blank" rel="noopener" href="https://github.com/cynricfu/MAGNN">https://github.com/cynricfu/MAGNN</a></p>
-<p>MAGNN: Metapath Aggregated Graph Neural Network for Heterogeneous Graph Embedding ，KDD，2020</p>
-<p><span style="font-size:18px;font-weight:bold;">总结：</span>现有的利用元路径做异构网络嵌入的方法存在一些限制：“要么忽略了节点的内容特征，要么丢弃了元路径上的中间节点，要么仅仅考虑一条元路径”。为了解决这些问题，作者提出了MAGNN模型，包含三个组件：（1）node content转换器，用一个简单的线性映射把异构特征信息（比如图像和文本）映射到同一个特征空间；（2）intra-metapaht聚合器，将同一个类型元路径的多条实例合并成单个向量，表示该类型元路径的语义信息（这块参考RotatE，用一个Relational rotation encoder进行整合）；（3）inter-metapath聚合器，将不同类型元路径的语义信息整合到一起（用一个注意力机制）。</p> 
-      <a class="article-more-link" href="/92a0f6b94a16/"
+  <p><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2107.02639">https://arxiv.org/pdf/2107.02639</a></p>
+<p>Multi-Level Graph Contrastive Learning ，2021，arxiv preprint</p>
+<p><span style="font-size:18px;font-weight:bold;">总结：</span>论文比较简单，作者提出一种新的图对比学习方法MLGCL。本文主要有两个创新点：一是提出了一种新的增强策略，即从节点特征空间生成KNN图作为新视角和原始图进行对比；二是提出了multi-level对比损失，即同时进行node-node和graph-graph对比。通过实验可以发现MLGCL中KNN增强、node-node对比和graph-graph对比都起到了很重要的作用，缺一不可。</p> 
+      <a class="article-more-link" href="/3c9695579edc/"
         >阅读更多...</a
       >
        
@@ -478,7 +474,7 @@
     
     <footer class="article-footer">
        
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/GNN/" rel="tag">GNN</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%85%83%E8%B7%AF%E5%BE%84/" rel="tag">元路径</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%9B%BE%E5%AD%A6%E4%B9%A0/" rel="tag">图学习</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%BC%82%E6%9E%84%E7%BD%91%E7%BB%9C/" rel="tag">异构网络</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%9B%BE%E5%AD%A6%E4%B9%A0/" rel="tag">图学习</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%AF%B9%E6%AF%94%E5%AD%A6%E4%B9%A0/" rel="tag">对比学习</a></li></ul>
 
     </footer>
   </div>
@@ -490,7 +486,7 @@
 
     
     <article
-  id="post-4.图拉普拉斯的前世今生"
+  id="post-3 论文笔记/图学习/对比学习/14.Adversarial Graph Augmentation to Improve Graph Contrastive Learning"
   class="article article-type-post"
   itemscope
   itemprop="blogPost"
@@ -501,8 +497,8 @@
     <header class="article-header">
        
 <h2 itemprop="name">
-  <a class="article-title" href="/3338ae8e1a08/"
-    >图拉普拉斯的前世今生</a> 
+  <a class="article-title" href="/e88ce417fc34/"
+    >Adversarial Graph Augmentation to Improve Graph Contrastive Learning</a> 
 </h2>
  
 
@@ -510,11 +506,11 @@
     </header>
      
     <div class="article-meta">
-      <a href="/3338ae8e1a08/" class="article-date">
-  <time datetime="2021-06-04T07:08:10.000Z" itemprop="datePublished">2021-06-04</time>
+      <a href="/e88ce417fc34/" class="article-date">
+  <time datetime="2021-10-03T08:34:09.000Z" itemprop="datePublished">2021-10-03</time>
 </a> 
   <div class="article-category">
-    <a class="article-category-link" href="/categories/%E5%85%B6%E4%BB%96/">其他</a>
+    <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/">论文笔记</a> / <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/%E5%9B%BE%E5%AD%A6%E4%B9%A0/">图学习</a> / <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/%E5%9B%BE%E5%AD%A6%E4%B9%A0/%E5%AF%B9%E6%AF%94%E5%AD%A6%E4%B9%A0/">对比学习</a>
   </div>
 
    
@@ -522,55 +518,11 @@
       
     <div class="article-entry" itemprop="articleBody">
        
-  <center style="font-size:30px;font-weight:bold;">图拉普拉斯的前世今生</center>
-<center style="font-size:20px;margin-top:20px;">博客搬运工</center>
-# 1. 拉普拉斯算子
-<h2 id="1-1-散度">1.1 散度</h2>
-<ol>
-<li>
-<p><strong>二维平面上的通量</strong></p>
-<p>先看一道物理题： 小明乘帆船出行，刮来一阵妖风，假设帆的面积为<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>S</mi></mrow><annotation encoding="application/x-tex">S</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.05764em;">S</span></span></span></span>, 和妖风的夹角为<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>α</mi></mrow><annotation encoding="application/x-tex">\alpha</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.0037em;">α</span></span></span></span> ，妖风在每单位面积上的垂直风压为<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>S</mi></mrow><annotation encoding="application/x-tex">S</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.05764em;">S</span></span></span></span>，求妖风对帆的推动力 。</p>
-<center><img src="/images/QQ截图20201202201344.png"></img></center>
-</li>
-</ol>
-<p>显然答案是<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>F</mi><mo>=</mo><mi>S</mi><mo>×</mo><mi>P</mi><mo>×</mo><mi>s</mi><mi>i</mi><mi>n</mi><mo stretchy="false">(</mo><mi>α</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">F=S\times P\times sin(\alpha)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">F</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.76666em;vertical-align:-0.08333em;"></span><span class="mord mathdefault" style="margin-right:0.05764em;">S</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.76666em;vertical-align:-0.08333em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">P</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">s</span><span class="mord mathdefault">i</span><span class="mord mathdefault">n</span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.0037em;">α</span><span class="mclose">)</span></span></span></span>。如果用<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover accent="true"><mi>A</mi><mo stretchy="true">→</mo></mover></mrow><annotation encoding="application/x-tex">\overrightarrow{A}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.20533em;vertical-align:0em;"></span><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:1.20533em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault">A</span></span></span><span class="svg-align" style="top:-3.6833299999999998em;"><span class="pstrut" style="height:3em;"></span><span class="hide-tail" style="height:0.522em;min-width:0.888em;"><svg width='400em' height='0.522em' viewBox='0 0 400000 522' preserveAspectRatio='xMaxYMin slice'><path d='M0 241v40h399891c-47.3 35.3-84 78-110 128
--16.7 32-27.7 63.7-33 95 0 1.3-.2 2.7-.5 4-.3 1.3-.5 2.3-.5 3 0 7.3 6.7 11 20
- 11 8 0 13.2-.8 15.5-2.5 2.3-1.7 4.2-5.5 5.5-11.5 2-13.3 5.7-27 11-41 14.7-44.7
- 39-84.5 73-119.5s73.7-60.2 119-75.5c6-2 9-5.7 9-11s-3-9-9-11c-45.3-15.3-85
--40.5-119-75.5s-58.3-74.8-73-119.5c-4.7-14-8.3-27.3-11-40-1.3-6.7-3.2-10.8-5.5
--12.5-2.3-1.7-7.5-2.5-15.5-2.5-14 0-21 3.7-21 11 0 2 2 10.3 6 25 20.7 83.3 67
- 151.7 139 205zm0 0v40h399900v-40z'/></svg></span></span></span></span></span></span></span></span></span>表示风的向量<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">∣</mi><mi mathvariant="normal">∣</mi><mover accent="true"><mi>A</mi><mo stretchy="true">→</mo></mover><mi mathvariant="normal">∣</mi><mi mathvariant="normal">∣</mi><mo>=</mo><mi>P</mi></mrow><annotation encoding="application/x-tex">||\overrightarrow{A}||=P</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.45533em;vertical-align:-0.25em;"></span><span class="mord">∣</span><span class="mord">∣</span><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:1.20533em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault">A</span></span></span><span class="svg-align" style="top:-3.6833299999999998em;"><span class="pstrut" style="height:3em;"></span><span class="hide-tail" style="height:0.522em;min-width:0.888em;"><svg width='400em' height='0.522em' viewBox='0 0 400000 522' preserveAspectRatio='xMaxYMin slice'><path d='M0 241v40h399891c-47.3 35.3-84 78-110 128
--16.7 32-27.7 63.7-33 95 0 1.3-.2 2.7-.5 4-.3 1.3-.5 2.3-.5 3 0 7.3 6.7 11 20
- 11 8 0 13.2-.8 15.5-2.5 2.3-1.7 4.2-5.5 5.5-11.5 2-13.3 5.7-27 11-41 14.7-44.7
- 39-84.5 73-119.5s73.7-60.2 119-75.5c6-2 9-5.7 9-11s-3-9-9-11c-45.3-15.3-85
--40.5-119-75.5s-58.3-74.8-73-119.5c-4.7-14-8.3-27.3-11-40-1.3-6.7-3.2-10.8-5.5
--12.5-2.3-1.7-7.5-2.5-15.5-2.5-14 0-21 3.7-21 11 0 2 2 10.3 6 25 20.7 83.3 67
- 151.7 139 205zm0 0v40h399900v-40z'/></svg></span></span></span></span></span></span><span class="mord">∣</span><span class="mord">∣</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">P</span></span></span></span>，用<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover accent="true"><mi>n</mi><mo stretchy="true">→</mo></mover></mrow><annotation encoding="application/x-tex">\overrightarrow n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.9525600000000001em;vertical-align:0em;"></span><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.9525600000000001em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathdefault">n</span></span><span class="svg-align" style="top:-3.43056em;"><span class="pstrut" style="height:3em;"></span><span class="hide-tail" style="height:0.522em;min-width:0.888em;"><svg width='400em' height='0.522em' viewBox='0 0 400000 522' preserveAspectRatio='xMaxYMin slice'><path d='M0 241v40h399891c-47.3 35.3-84 78-110 128
--16.7 32-27.7 63.7-33 95 0 1.3-.2 2.7-.5 4-.3 1.3-.5 2.3-.5 3 0 7.3 6.7 11 20
- 11 8 0 13.2-.8 15.5-2.5 2.3-1.7 4.2-5.5 5.5-11.5 2-13.3 5.7-27 11-41 14.7-44.7
- 39-84.5 73-119.5s73.7-60.2 119-75.5c6-2 9-5.7 9-11s-3-9-9-11c-45.3-15.3-85
--40.5-119-75.5s-58.3-74.8-73-119.5c-4.7-14-8.3-27.3-11-40-1.3-6.7-3.2-10.8-5.5
--12.5-2.3-1.7-7.5-2.5-15.5-2.5-14 0-21 3.7-21 11 0 2 2 10.3 6 25 20.7 83.3 67
- 151.7 139 205zm0 0v40h399900v-40z'/></svg></span></span></span></span></span></span></span></span></span>表示帆的法向量，那么<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover accent="true"><mi>n</mi><mo stretchy="true">→</mo></mover></mrow><annotation encoding="application/x-tex">\overrightarrow n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.9525600000000001em;vertical-align:0em;"></span><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.9525600000000001em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathdefault">n</span></span><span class="svg-align" style="top:-3.43056em;"><span class="pstrut" style="height:3em;"></span><span class="hide-tail" style="height:0.522em;min-width:0.888em;"><svg width='400em' height='0.522em' viewBox='0 0 400000 522' preserveAspectRatio='xMaxYMin slice'><path d='M0 241v40h399891c-47.3 35.3-84 78-110 128
--16.7 32-27.7 63.7-33 95 0 1.3-.2 2.7-.5 4-.3 1.3-.5 2.3-.5 3 0 7.3 6.7 11 20
- 11 8 0 13.2-.8 15.5-2.5 2.3-1.7 4.2-5.5 5.5-11.5 2-13.3 5.7-27 11-41 14.7-44.7
- 39-84.5 73-119.5s73.7-60.2 119-75.5c6-2 9-5.7 9-11s-3-9-9-11c-45.3-15.3-85
--40.5-119-75.5s-58.3-74.8-73-119.5c-4.7-14-8.3-27.3-11-40-1.3-6.7-3.2-10.8-5.5
--12.5-2.3-1.7-7.5-2.5-15.5-2.5-14 0-21 3.7-21 11 0 2 2 10.3 6 25 20.7 83.3 67
- 151.7 139 205zm0 0v40h399900v-40z'/></svg></span></span></span></span></span></span></span></span></span>与风的夹角即为<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mi>π</mi><mn>2</mn></mfrac><mo>−</mo><mi>α</mi></mrow><annotation encoding="application/x-tex">\frac{\pi}{2}-\alpha</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.040392em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.695392em;"><span style="top:-2.6550000000000002em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.03588em;">π</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.0037em;">α</span></span></span></span>，那么此时<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>F</mi><mo>=</mo><mi>S</mi><mo separator="true">⋅</mo><mover accent="true"><mi>A</mi><mo stretchy="true">→</mo></mover><mo separator="true">⋅</mo><mover accent="true"><mi>n</mi><mo stretchy="true">→</mo></mover></mrow><annotation encoding="application/x-tex">F=S·\overrightarrow A·\overrightarrow n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">F</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.20533em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.05764em;">S</span><span class="mpunct">⋅</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:1.20533em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathdefault">A</span></span><span class="svg-align" style="top:-3.6833299999999998em;"><span class="pstrut" style="height:3em;"></span><span class="hide-tail" style="height:0.522em;min-width:0.888em;"><svg width='400em' height='0.522em' viewBox='0 0 400000 522' preserveAspectRatio='xMaxYMin slice'><path d='M0 241v40h399891c-47.3 35.3-84 78-110 128
--16.7 32-27.7 63.7-33 95 0 1.3-.2 2.7-.5 4-.3 1.3-.5 2.3-.5 3 0 7.3 6.7 11 20
- 11 8 0 13.2-.8 15.5-2.5 2.3-1.7 4.2-5.5 5.5-11.5 2-13.3 5.7-27 11-41 14.7-44.7
- 39-84.5 73-119.5s73.7-60.2 119-75.5c6-2 9-5.7 9-11s-3-9-9-11c-45.3-15.3-85
--40.5-119-75.5s-58.3-74.8-73-119.5c-4.7-14-8.3-27.3-11-40-1.3-6.7-3.2-10.8-5.5
--12.5-2.3-1.7-7.5-2.5-15.5-2.5-14 0-21 3.7-21 11 0 2 2 10.3 6 25 20.7 83.3 67
- 151.7 139 205zm0 0v40h399900v-40z'/></svg></span></span></span></span></span></span><span class="mpunct">⋅</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.9525600000000001em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathdefault">n</span></span><span class="svg-align" style="top:-3.43056em;"><span class="pstrut" style="height:3em;"></span><span class="hide-tail" style="height:0.522em;min-width:0.888em;"><svg width='400em' height='0.522em' viewBox='0 0 400000 522' preserveAspectRatio='xMaxYMin slice'><path d='M0 241v40h399891c-47.3 35.3-84 78-110 128
--16.7 32-27.7 63.7-33 95 0 1.3-.2 2.7-.5 4-.3 1.3-.5 2.3-.5 3 0 7.3 6.7 11 20
- 11 8 0 13.2-.8 15.5-2.5 2.3-1.7 4.2-5.5 5.5-11.5 2-13.3 5.7-27 11-41 14.7-44.7
- 39-84.5 73-119.5s73.7-60.2 119-75.5c6-2 9-5.7 9-11s-3-9-9-11c-45.3-15.3-85
--40.5-119-75.5s-58.3-74.8-73-119.5c-4.7-14-8.3-27.3-11-40-1.3-6.7-3.2-10.8-5.5
--12.5-2.3-1.7-7.5-2.5-15.5-2.5-14 0-21 3.7-21 11 0 2 2 10.3 6 25 20.7 83.3 67
- 151.7 139 205zm0 0v40h399900v-40z'/></svg></span></span></span></span></span></span></span></span></span>。</p> 
-      <a class="article-more-link" href="/3338ae8e1a08/"
+  <p><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2106.05819">https://arxiv.org/pdf/2106.05819</a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/susheels/adgcl">https://github.com/susheels/adgcl</a></p>
+<p>Adversarial Graph Augmentation to Improve Graph Contrastive Learning，2021，arxiv preprint</p>
+<p><span style="font-size:18px;font-weight:bold;">总结：</span>作者提出了一种对抗图对比学习框架AD-GCL，其实可以看做一种自适应数据增强GCL。具体来说，和其他自适应数据增强不同（在DA策略集合中选取最优组合），作者针对某一种数据增强策略，把数据增强看做一个可学习过程，用GNN-based augmenter学习一个最优增强策略。以Drop Edge这种数据增强策略为例，在AD-GCL框架下，我们不需要预先设计好增强策略的各种超参，而是利用一个augmenter自动学习最优超参。2021年CVPR有一篇名为“AdCo: Adversarial Contrast for Efficient Learning of Unsupervised Representations from Self-Trained Negative Adversaries”的文章，这篇文章感觉又是把CV里面的策略搬到图学习中。</p> 
+      <a class="article-more-link" href="/e88ce417fc34/"
         >阅读更多...</a
       >
        
@@ -583,7 +535,7 @@
     
     <footer class="article-footer">
        
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%9B%BE%E5%AD%A6%E4%B9%A0/" rel="tag">图学习</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%8B%89%E6%99%AE%E6%8B%89%E6%96%AF/" rel="tag">拉普拉斯</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%B0%B1%E8%81%9A%E7%B1%BB/" rel="tag">谱聚类</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%9B%BE%E5%AD%A6%E4%B9%A0/" rel="tag">图学习</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%AF%B9%E6%AF%94%E5%AD%A6%E4%B9%A0/" rel="tag">对比学习</a></li></ul>
 
     </footer>
   </div>
@@ -595,7 +547,7 @@
 
     
     <article
-  id="post-5.你真的了解Softmax吗？"
+  id="post-3 论文笔记/图学习/对比学习/13.SelfGNN Self-supervised Graph Neural Networks without explicit negative sampling"
   class="article article-type-post"
   itemscope
   itemprop="blogPost"
@@ -606,8 +558,8 @@
     <header class="article-header">
        
 <h2 itemprop="name">
-  <a class="article-title" href="/09a1698381db/"
-    >你真的了解Softmax吗？</a> 
+  <a class="article-title" href="/5981167fc012/"
+    >SelfGNN: Self-supervised Graph Neural Networks without explicit negative sampling</a> 
 </h2>
  
 
@@ -615,11 +567,11 @@
     </header>
      
     <div class="article-meta">
-      <a href="/09a1698381db/" class="article-date">
-  <time datetime="2021-06-04T07:08:10.000Z" itemprop="datePublished">2021-06-04</time>
+      <a href="/5981167fc012/" class="article-date">
+  <time datetime="2021-10-02T08:21:48.000Z" itemprop="datePublished">2021-10-02</time>
 </a> 
   <div class="article-category">
-    <a class="article-category-link" href="/categories/%E5%85%B6%E4%BB%96/">其他</a>
+    <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/">论文笔记</a> / <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/%E5%9B%BE%E5%AD%A6%E4%B9%A0/">图学习</a> / <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/%E5%9B%BE%E5%AD%A6%E4%B9%A0/%E5%AF%B9%E6%AF%94%E5%AD%A6%E4%B9%A0/">对比学习</a>
   </div>
 
    
@@ -627,14 +579,11 @@
       
     <div class="article-entry" itemprop="articleBody">
        
-  <h1>2. 逻辑回归</h1>
-<p>Logistic回归主要用于二分类任务，其本质是假设数据服从某个分布，然后使用极大似然估计做参数估计。</p>
-<h2 id="2-1-对比线性回归">2.1 对比线性回归</h2>
-<p>逻辑回归和线性回归都是一种广义线性模型。看下面这个例子：</p>
-<p>对于Tumor的良性和恶性这个二分类问题，0表示负类为良性，1表示正类为恶性。下图展示了在这8个训练样本下，使用线性回归模型<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>h</mi><mi>θ</mi></msub><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo>=</mo><msup><mi mathvariant="normal">Θ</mi><mi>T</mi></msup><mi>x</mi></mrow><annotation encoding="application/x-tex">h_\theta(x)=\Theta^Tx</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathdefault">h</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.33610799999999996em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.02778em;">θ</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathdefault">x</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.8413309999999999em;vertical-align:0em;"></span><span class="mord"><span class="mord">Θ</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8413309999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.13889em;">T</span></span></span></span></span></span></span></span><span class="mord mathdefault">x</span></span></span></span>可能拟合出下图中的红线。</p>
-<center><img src="/images/QQ截图20210104194514.png" style="height:200px;"></img></center>
-<p>此时我们可以正确判别肿瘤是良性还是恶性的：根据这条直线可以找到一个阈值，比如 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>h</mi><mi>θ</mi></msub><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo>=</mo><mn>0.5</mn></mrow><annotation encoding="application/x-tex">h_\theta(x)=0.5</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathdefault">h</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.33610799999999996em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.02778em;">θ</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathdefault">x</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span><span class="mord">.</span><span class="mord">5</span></span></span></span>，当<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>h</mi><mi>θ</mi></msub><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo>≥</mo><mn>0.5</mn></mrow><annotation encoding="application/x-tex">h_\theta(x)\geq0.5</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathdefault">h</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.33610799999999996em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.02778em;">θ</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathdefault">x</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≥</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span><span class="mord">.</span><span class="mord">5</span></span></span></span>时预测<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">y=1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span>为恶性，当<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>h</mi><mi>θ</mi></msub><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo>&lt;</mo><mn>0.5</mn></mrow><annotation encoding="application/x-tex">h_\theta(x)&lt;0.5</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathdefault">h</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.33610799999999996em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.02778em;">θ</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathdefault">x</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&lt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span><span class="mord">.</span><span class="mord">5</span></span></span></span>时预测<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">y=0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span></span></span></span>为良性。</p> 
-      <a class="article-more-link" href="/09a1698381db/"
+  <p><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2103.14958">https://arxiv.org/pdf/2103.14958</a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/zekarias-tilahun/SelfGNN">https://github.com/zekarias-tilahun/SelfGNN</a></p>
+<p>SelfGNN: Self-supervised Graph Neural Networks without explicit negative sampling，2021，WWW</p>
+<p><span style="font-size:18px;font-weight:bold;">总结：</span>作者提出了隐式负采样GCL模型SelfGNN。创新意义不强，纯粹把CV中一种最新的、非常牛的对比学习技术BYOL弄到图对比学习里面来了。主要创新点有两个：一是借鉴CV中隐式CL方法，将其拓展到GCL方法中；二是借鉴CV中数据增强技术，提出4种用于图数据的特征增强（FA）方法，取得了和常用的拓扑增强（TA）方法相当的性能，但是不需要额外的计算代价（TA计算复杂度通常为<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><msup><mi>N</mi><mn>3</mn></msup><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(N^3)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.064108em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.10903em;">N</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">3</span></span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span>）。文章实验比较丰富，实验结果也挺好的。</p> 
+      <a class="article-more-link" href="/5981167fc012/"
         >阅读更多...</a
       >
        
@@ -647,7 +596,7 @@
     
     <footer class="article-footer">
        
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Softmax/" rel="tag">Softmax</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" rel="tag">机器学习</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%9B%BE%E5%AD%A6%E4%B9%A0/" rel="tag">图学习</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%AF%B9%E6%AF%94%E5%AD%A6%E4%B9%A0/" rel="tag">对比学习</a></li></ul>
 
     </footer>
   </div>
@@ -659,7 +608,7 @@
 
     
     <article
-  id="post-3 论文笔记/图学习/2.Simple and Deep Graph Convolutional Networks"
+  id="post-3 论文笔记/图学习/对比学习/12.Prototypical Graph Contrastive Learning"
   class="article article-type-post"
   itemscope
   itemprop="blogPost"
@@ -670,8 +619,8 @@
     <header class="article-header">
        
 <h2 itemprop="name">
-  <a class="article-title" href="/8c3ac9ec967d/"
-    >Simple and Deep Graph Convolutional Networks</a> 
+  <a class="article-title" href="/21fc78e48a24/"
+    >Prototypical Graph Contrastive Learning</a> 
 </h2>
  
 
@@ -679,11 +628,11 @@
     </header>
      
     <div class="article-meta">
-      <a href="/8c3ac9ec967d/" class="article-date">
-  <time datetime="2021-06-04T07:08:10.000Z" itemprop="datePublished">2021-06-04</time>
+      <a href="/21fc78e48a24/" class="article-date">
+  <time datetime="2021-10-01T14:13:24.000Z" itemprop="datePublished">2021-10-01</time>
 </a> 
   <div class="article-category">
-    <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/">论文笔记</a> / <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/%E5%9B%BE%E5%AD%A6%E4%B9%A0/">图学习</a>
+    <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/">论文笔记</a> / <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/%E5%9B%BE%E5%AD%A6%E4%B9%A0/">图学习</a> / <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/%E5%9B%BE%E5%AD%A6%E4%B9%A0/%E5%AF%B9%E6%AF%94%E5%AD%A6%E4%B9%A0/">对比学习</a>
   </div>
 
    
@@ -691,15 +640,10 @@
       
     <div class="article-entry" itemprop="articleBody">
        
-  <p><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2007.02133">https://arxiv.org/abs/2007.02133</a></p>
-<p><a target="_blank" rel="noopener" href="https://github.com/chennnM/GCNII">https://github.com/chennnM/GCNII</a></p>
-<p>Simple and Deep Graph Convolutional Networks</p>
-<p><strong>我的启发：</strong></p>
-<ol>
-<li>这个方法存不存在什么弊端？</li>
-<li>收敛速度和节点度的关系今后能不能利用上？</li>
-</ol> 
-      <a class="article-more-link" href="/8c3ac9ec967d/"
+  <p><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2106.09645">https://arxiv.org/pdf/2106.09645</a></p>
+<p>Prototypical Graph Contrastive Learning，2021，arxive preprint</p>
+<p><span style="font-size:18px;font-weight:bold;">总结：</span>作者提出了一种graph-graph图对比学习方法PGCL，用于无监督图分类任务。和其他图对比学习方法相比，作者最大的创新点就是<strong>负样本采样策略</strong>和<strong>加权对比损失</strong>。现有的GCL方法，对于负样本的选取基本都是均匀采样，不考虑负样本和锚点之间的相似度。作者在PGCL中首先对样本进行聚类，计算每个类别的原型向量，然后将和锚点处于不同簇的其他样本视作真负样本，处于相同簇的样本视为假负样本。另外，作者根据样本所在簇的原型和锚点所在簇原型之间距离计算权重用于对比损失的定义。感觉目前学术界对于GCL的研究，基本都是将CV和NLP中对比学习方法拓展到图邻域，可以多多关注CV中对比学习的最新进展。2021ICLR中有一篇名为“ PROTOTYPICAL CONTRASTIVE LEARNING OF UNSUPERVISED REPRESENTATIONS”的CV论文，我没有看着篇文章，不知道和本文是否有联系。</p> 
+      <a class="article-more-link" href="/21fc78e48a24/"
         >阅读更多...</a
       >
        
@@ -712,7 +656,7 @@
     
     <footer class="article-footer">
        
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/GCN/" rel="tag">GCN</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%9B%BE%E5%AD%A6%E4%B9%A0/" rel="tag">图学习</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%BF%87%E5%B9%B3%E6%BB%91/" rel="tag">过平滑</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%9B%BE%E5%AD%A6%E4%B9%A0/" rel="tag">图学习</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%AF%B9%E6%AF%94%E5%AD%A6%E4%B9%A0/" rel="tag">对比学习</a></li></ul>
 
     </footer>
   </div>
@@ -724,7 +668,7 @@
 
     
     <article
-  id="post-3 论文笔记/图学习/6.Why Do Attributes Propagate in Graph Convolutional Neural Networks"
+  id="post-3 论文笔记/图学习/对比学习/11.GCC Graph Contrastive Coding for Graph Neural Network Pre-Training"
   class="article article-type-post"
   itemscope
   itemprop="blogPost"
@@ -735,8 +679,8 @@
     <header class="article-header">
        
 <h2 itemprop="name">
-  <a class="article-title" href="/400ef1348239/"
-    >Why Do Attributes Propagate in Graph Convolutional Neural Networks</a> 
+  <a class="article-title" href="/cd1ebef497f7/"
+    >GCC: Graph Contrastive Coding for Graph Neural Network Pre-Training</a> 
 </h2>
  
 
@@ -744,11 +688,11 @@
     </header>
      
     <div class="article-meta">
-      <a href="/400ef1348239/" class="article-date">
-  <time datetime="2021-06-04T07:08:10.000Z" itemprop="datePublished">2021-06-04</time>
+      <a href="/cd1ebef497f7/" class="article-date">
+  <time datetime="2021-09-30T13:50:16.000Z" itemprop="datePublished">2021-09-30</time>
 </a> 
   <div class="article-category">
-    <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/">论文笔记</a> / <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/%E5%9B%BE%E5%AD%A6%E4%B9%A0/">图学习</a>
+    <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/">论文笔记</a> / <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/%E5%9B%BE%E5%AD%A6%E4%B9%A0/">图学习</a> / <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/%E5%9B%BE%E5%AD%A6%E4%B9%A0/%E5%AF%B9%E6%AF%94%E5%AD%A6%E4%B9%A0/">对比学习</a>
   </div>
 
    
@@ -756,10 +700,11 @@
       
     <div class="article-entry" itemprop="articleBody">
        
-  <p><a target="_blank" rel="noopener" href="https://yangliang.github.io/pdf/aaai21.pdf">https://yangliang.github.io/pdf/aaai21.pdf</a></p>
-<p>Why Do Attributes Propagate in Graph Convolutional Neural Networks，2021，AAAI</p>
-<p><span style="font-size:18px;font-weight:bold;">总结：</span>本文偏理论一点，作者提出了一个图表示学习框架GRL，并基于此从数值优化角度（梯度下降和高阶近似）对GCN及其各种变体做出了解释。最后受共轭梯度法性能优于梯度下降法的启发，提出了图共轭卷积模型。</p> 
-      <a class="article-more-link" href="/400ef1348239/"
+  <p><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2006.09963">https://arxiv.org/pdf/2006.09963</a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/THUDM/GCC">https://github.com/THUDM/GCC</a></p>
+<p>GCC: Graph Contrastive Coding for Graph Neural Network Pre-Training，2020，KDD</p>
+<p><span style="font-size:18px;font-weight:bold;">总结：</span>简单来说，作者提出了一种subgraph-subgraph level图对比学习框架GCC，对GNNs进行预训练后将模型迁移到其他数据集。框架本身就是非常常规的对比学习框架，目标函数也是常规的对比损失，没什么特别之处。值得关注的一点是作者如何生成定义、增强子图的。作者的实验比较丰富，但是实验结果并没有什么亮眼之处。个人感觉，这篇能发顶会主要原因：一是论文写的比较早，应该是第一篇用对比学习来搞图预训练任务的，开创意义比较大；二是作者比较会写论文，文章立意比较高。</p> 
+      <a class="article-more-link" href="/cd1ebef497f7/"
         >阅读更多...</a
       >
        
@@ -772,7 +717,7 @@
     
     <footer class="article-footer">
        
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/GCN/" rel="tag">GCN</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%BF%87%E5%B9%B3%E6%BB%91/" rel="tag">过平滑</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%9B%BE%E5%AD%A6%E4%B9%A0/" rel="tag">图学习</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%AF%B9%E6%AF%94%E5%AD%A6%E4%B9%A0/" rel="tag">对比学习</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E9%A2%84%E8%AE%AD%E7%BB%83/" rel="tag">预训练</a></li></ul>
 
     </footer>
   </div>
@@ -784,7 +729,7 @@
 
     
     <article
-  id="post-3 论文笔记/小样本图学习/1.Few-Shot Learning on Graphs via Superclasses Based on Graph Spectral Measures"
+  id="post-3 论文笔记/图学习/对比学习/10.GraphCL Contrastive Self-Supervised Learning of Graph Representations"
   class="article article-type-post"
   itemscope
   itemprop="blogPost"
@@ -795,8 +740,8 @@
     <header class="article-header">
        
 <h2 itemprop="name">
-  <a class="article-title" href="/a59b92da0529/"
-    >FEW-SHOT LEARNING ON GRAPHS VIA SUPER-CLASSES BASED ON GRAPH SPECTRAL MEASURES</a> 
+  <a class="article-title" href="/d4b47adfecd7/"
+    >GraphCL: Contrastive Self-Supervised Learning of Graph Representations</a> 
 </h2>
  
 
@@ -804,11 +749,11 @@
     </header>
      
     <div class="article-meta">
-      <a href="/a59b92da0529/" class="article-date">
-  <time datetime="2021-06-04T07:08:10.000Z" itemprop="datePublished">2021-06-04</time>
+      <a href="/d4b47adfecd7/" class="article-date">
+  <time datetime="2021-09-29T10:47:33.000Z" itemprop="datePublished">2021-09-29</time>
 </a> 
   <div class="article-category">
-    <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/">论文笔记</a> / <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/%E5%B0%8F%E6%A0%B7%E6%9C%AC%E5%9B%BE%E5%AD%A6%E4%B9%A0/">小样本图学习</a>
+    <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/">论文笔记</a> / <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/%E5%9B%BE%E5%AD%A6%E4%B9%A0/">图学习</a> / <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/%E5%9B%BE%E5%AD%A6%E4%B9%A0/%E5%AF%B9%E6%AF%94%E5%AD%A6%E4%B9%A0/">对比学习</a>
   </div>
 
    
@@ -816,15 +761,11 @@
       
     <div class="article-entry" itemprop="articleBody">
        
-  <p><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2002.12815">https://arxiv.org/abs/2002.12815</a></p>
-<p><a target="_blank" rel="noopener" href="https://github.com/chauhanjatin10/GraphsFewShot">https://github.com/chauhanjatin10/GraphsFewShot</a></p>
-<p>FEW-SHOT LEARNING ON GRAPHS VIA SUPER-CLASSES BASED ON GRAPH SPECTRAL MEASURES</p>
-<p><strong>个人见解：</strong></p>
-<ol>
-<li>小样本在图领域的应用暂时还是个比较新的方向，可能主要有两个方向：一是将已经成熟的小样本训练方法（比如元学习、半监督等等）缝合到最近一些比较好的图学习方法中；二是对图学习方法进行改造，使其适合小样本场景。</li>
-<li>本文作者一方面将小样本中的一种训练策略“initialization based strategy”引入到图学习中，另一方面对图学习算法进行改进，作者认为某个样本类别数量很少时，在做消息传播时，如果图神经网络层数比较浅，那么该类别样本很难影响到大范围的其他节点，因此作者提出了一种计算超类并生成超图的方案使得图神经网络更适用于小样本场景。</li>
-</ol> 
-      <a class="article-more-link" href="/a59b92da0529/"
+  <p><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2007.08025">https://arxiv.org/pdf/2007.08025</a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/Shen-Lab/GraphCL">https://github.com/Shen-Lab/GraphCL</a></p>
+<p>GraphCL: Contrastive Self-Supervised Learning of Graph Representations，2020，NIPS</p>
+<p><span style="font-size:18px;font-weight:bold;">总结：</span>论文很短，作者提出对比学习框架GraphCL也简单易懂，但是实验结果很不错。作者借鉴类似GraphSAGE里面子图构造方法，首先为每个节点采样L-hop子图，然后对子图添加随机扰动得到不同的view，然后在两个view中进行node-node对比，通过最大化正样本与锚点之间距离、最小化负样本与锚点间的距离来学习节点表示。GraphCL算是图对比学习里的开山之作，后面很多文章都是基于这个方法的进一步拓展和深入。</p> 
+      <a class="article-more-link" href="/d4b47adfecd7/"
         >阅读更多...</a
       >
        
@@ -837,7 +778,7 @@
     
     <footer class="article-footer">
        
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/GNN/" rel="tag">GNN</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%9B%BE%E5%AD%A6%E4%B9%A0/" rel="tag">图学习</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%B0%8F%E6%A0%B7%E6%9C%AC/" rel="tag">小样本</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%9B%BE%E5%AD%A6%E4%B9%A0/" rel="tag">图学习</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%AF%B9%E6%AF%94%E5%AD%A6%E4%B9%A0/" rel="tag">对比学习</a></li></ul>
 
     </footer>
   </div>
@@ -854,7 +795,7 @@
   
   <nav class="page-nav">
     
-    <a class="extend prev" rel="prev" href="/page/15/">上一页</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/14/">14</a><a class="page-number" href="/page/15/">15</a><span class="page-number current">16</span><a class="page-number" href="/page/17/">17</a><a class="extend next" rel="next" href="/page/17/">下一页</a>
+    <a class="extend prev" rel="prev" href="/page/15/">上一页</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/14/">14</a><a class="page-number" href="/page/15/">15</a><span class="page-number current">16</span><a class="page-number" href="/page/17/">17</a><a class="page-number" href="/page/18/">18</a><span class="space">&hellip;</span><a class="page-number" href="/page/22/">22</a><a class="extend next" rel="next" href="/page/17/">下一页</a>
   </nav>
   
 </section>

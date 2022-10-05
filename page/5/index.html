@@ -185,7 +185,7 @@
     
     
     <article
-  id="post-6 设计模式/一句话总结各种设计模式"
+  id="post-8 计算机基础/计算机网络/11 HTTP请求类型"
   class="article article-type-post"
   itemscope
   itemprop="blogPost"
@@ -196,8 +196,8 @@
     <header class="article-header">
        
 <h2 itemprop="name">
-  <a class="article-title" href="/ff79fb7493a9/"
-    >一句话总结各种设计模式</a> 
+  <a class="article-title" href="/1a90fb22efa4/"
+    >HTTP请求类型</a> 
 </h2>
  
 
@@ -205,11 +205,11 @@
     </header>
      
     <div class="article-meta">
-      <a href="/ff79fb7493a9/" class="article-date">
-  <time datetime="2022-03-13T07:08:10.000Z" itemprop="datePublished">2022-03-13</time>
+      <a href="/1a90fb22efa4/" class="article-date">
+  <time datetime="2022-05-27T14:34:49.000Z" itemprop="datePublished">2022-05-27</time>
 </a> 
   <div class="article-category">
-    <a class="article-category-link" href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a>
+    <a class="article-category-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/">计算机基础</a> / <a class="article-category-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a>
   </div>
 
    
@@ -217,18 +217,385 @@
       
     <div class="article-entry" itemprop="articleBody">
        
-  <ol>
-<li>
-<p><strong>单例模式</strong>：系统中只实例化一个对象，通过类的<code>getInstance()</code>方法该实例，常用于线程池、连接池、日志对象等等。</p>
-</li>
-<li>
-<p><strong>工厂模式</strong>：创建与使用分离，把对象实例化的工作交给工厂来作，用户不需要关心对象如何生成的，需要某个对象时，向工厂申请一个即可。</p>
+  <h2 id="8种请求类型">8种请求类型</h2>
+<p>根据HTTP标准，HTTP请求可以使用多种请求方法。</p>
 <ul>
-<li>简单工厂：定义一个工厂类，里面有一个<code>createProduct()</code>用于创建对象。实现简单，但是扩展困难，工厂类单一，职责过重。</li>
-<li>工厂方法：不再由工厂类创建对象，而是将该任务转嫁给工厂类的各个子类来完成，由子类来决定该实例化哪一个类。</li>
-<li>抽象工厂：将多个抽象工厂方法封装到一起，用于生产<strong>一系列相关对象</strong>（核心功能），这些对象组合在一起是一个更大的产品。比如讲生产CPU的工厂方法和生产内存的工厂方法封装到一起，组成生产电脑的工厂。</li>
+<li>HTTP1.0定义了三种请求方法： GET, POST 和 HEAD方法。</li>
+<li>HTTP1.1新增了五种请求方法：OPTIONS, PUT, DELETE, TRACE 和 CONNECT 方法。</li>
+</ul>
+<p>所以，HTTP 协议共定义了八种方法或者叫“动作”来表明对 Request-URI 指定的资源的不同操作方式，具体介绍如下：</p>
+<ul>
+<li><strong>OPTIONS</strong>：<strong>返回服务器针对特定资源</strong>所支持的HTTP请求方法。也可以利用向Web服务器发送’*'的请求来测试服务器的功能性。</li>
+<li><strong>HEAD</strong>：<strong>向服务器索要与GET请求相一致的响应，只不过响应体将不会被返回</strong>。这一方法可以在不必传输整个响应内容的情况下，就可以获取包含在响应消息头中的元信息。</li>
+<li><strong>GET</strong>：向特定的资源发出请求。</li>
+<li><strong>POST</strong>：向指定资源提交数据进行处理请求（例如提交表单或者上传文件）。数据被包含在请求体中。POST请求可能会导致新的资源的创建和/或已有资源的修改。</li>
+<li><strong>PUT</strong>：向指定资源位置上传其最新内容。</li>
+<li><strong>DELETE</strong>：请求服务器删除 Request-URI 所标识的资源。</li>
+<li><strong>TRACE</strong>：回显服务器收到的请求，主要用于测试或诊断。</li>
+<li><strong>CONNECT</strong>：HTTP/1.1 协议中预留给能够将连接改为管道方式的代理服务器。</li>
+</ul>
+<p>虽然 HTTP 的请求方式有 8 种，但是我们在实际应用中常用的也就是 get 和 post，其他请求方式也都可以通过这两种方式间接的来实现</p> 
+      <a class="article-more-link" href="/1a90fb22efa4/"
+        >阅读更多...</a
+      >
+       
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" rel="tag">计算机网络</a></li></ul>
+
+    </footer>
+  </div>
+
+    
+ 
+    
+</article>
+
+    
+    <article
+  id="post-8 计算机基础/操作系统/11. 进程占用资源有哪些"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/ef8123a25f84/"
+    >进程占用资源有哪些</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/ef8123a25f84/" class="article-date">
+  <time datetime="2022-05-27T14:34:49.000Z" itemprop="datePublished">2022-05-27</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/">计算机基础</a> / <a class="article-category-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a>
+  </div>
+
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <p>我们常说：“进程是资源分配的基本单位，线程是CPU调度的基本单位。一个进程可以有若干个线程，每个线程会进程的部分资源”。 那么系统中一个进程会占用哪些资源呢？其中哪些是线程共享的，哪些是线程独有的呢？</p> 
+      <a class="article-more-link" href="/ef8123a25f84/"
+        >阅读更多...</a
+      >
+       
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" rel="tag">操作系统</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%BF%9B%E7%A8%8B/" rel="tag">进程</a></li></ul>
+
+    </footer>
+  </div>
+
+    
+ 
+    
+</article>
+
+    
+    <article
+  id="post-2 后端/其他/2 内存屏障是个啥"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/e11f4fa067fe/"
+    >内存屏障是个啥</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/e11f4fa067fe/" class="article-date">
+  <time datetime="2022-05-27T05:43:55.000Z" itemprop="datePublished">2022-05-27</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a> / <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/%E5%85%B6%E4%BB%96/">其他</a>
+  </div>
+
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <p>文章转自：<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/2ab5e3d7e510">https://www.jianshu.com/p/2ab5e3d7e510</a></p>
+<p>关于内存屏障，还可以参考：<a target="_blank" rel="noopener" href="https://www.cxyzjd.com/article/qfanmingyiq/107449052%E5%92%8Chttps://gorden5566.com/post/1020.html">https://www.cxyzjd.com/article/qfanmingyiq/107449052和https://gorden5566.com/post/1020.html</a></p> 
+      <a class="article-more-link" href="/e11f4fa067fe/"
+        >阅读更多...</a
+      >
+       
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%86%85%E5%AD%98%E5%B1%8F%E9%9A%9C/" rel="tag">内存屏障</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%90%8E%E7%AB%AF/" rel="tag">后端</a></li></ul>
+
+    </footer>
+  </div>
+
+    
+ 
+    
+</article>
+
+    
+    <article
+  id="post-8 计算机基础/计算机网络/10 TCP流量控制与拥塞控制"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/f54a503d428b/"
+    >TCP拥塞控制与流量控制</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/f54a503d428b/" class="article-date">
+  <time datetime="2022-05-26T14:34:49.000Z" itemprop="datePublished">2022-05-26</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/">计算机基础</a> / <a class="article-category-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a>
+  </div>
+
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h2 id="流量控制">流量控制</h2>
+<h3 id="定义与目的">定义与目的</h3>
+<p>一条TCP连接每一侧主机都为该连接设置了接收缓存。当该TCP连接收到了正确的、按序的字节后，他就将数据放入接收缓存。相关联的应用进程会从该缓存中读取数据。但不必是数据一到达就立即读取。事实上，接收方也许正忙于其他任务，甚至要过很长时间后才读取该数据。<strong>如果某个应用进程读取比较缓慢，但是发送方发送的太多、太快，发送的数据就会很容易地使该连接的接收缓存溢出。</strong></p>
+<p>TCP为它的应用程序提供了<strong>流量控制服务(flow-control service)<strong>以消除发送方使接收方缓存溢出的可能性。流量控制因此是一个</strong>速度匹配服务</strong>，即发送方的发送速率与接收方应用程序的读取速率相匹配。</p> 
+      <a class="article-more-link" href="/f54a503d428b/"
+        >阅读更多...</a
+      >
+       
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" rel="tag">计算机网络</a></li></ul>
+
+    </footer>
+  </div>
+
+    
+ 
+    
+</article>
+
+    
+    <article
+  id="post-8 计算机基础/操作系统/10. 操作系统堆栈对比"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/32163a94d579/"
+    >操作系统堆栈对比</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/32163a94d579/" class="article-date">
+  <time datetime="2022-05-26T14:34:49.000Z" itemprop="datePublished">2022-05-26</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/">计算机基础</a> / <a class="article-category-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a>
+  </div>
+
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h2 id="操作系统中的栈">操作系统中的栈</h2>
+<p>在计算机系统中，栈也可以称之为栈内存是一个具有动态内存区域,存储函数内部（包括main函数）的局部变量和方法调用和函数参数值。</p> 
+      <a class="article-more-link" href="/32163a94d579/"
+        >阅读更多...</a
+      >
+       
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%86%85%E5%AD%98/" rel="tag">内存</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" rel="tag">操作系统</a></li></ul>
+
+    </footer>
+  </div>
+
+    
+ 
+    
+</article>
+
+    
+    <article
+  id="post-2 后端/其他/1 聊聊定时任务的实现方式"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/89003babc13d/"
+    >聊聊定时任务的实现方式</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/89003babc13d/" class="article-date">
+  <time datetime="2022-05-26T05:43:55.000Z" itemprop="datePublished">2022-05-26</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a> / <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/%E5%85%B6%E4%BB%96/">其他</a>
+  </div>
+
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h2 id="利用jdk实现">利用JDK实现</h2>
+<h3 id="thread-sleep">Thread Sleep</h3>
+<p>创建一个线程，把任务放到while循环中，每次执行完任务后sleep指定时间。方法简单，但是能够实现的功能十分有限。</p> 
+      <a class="article-more-link" href="/89003babc13d/"
+        >阅读更多...</a
+      >
+       
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%90%8E%E7%AB%AF/" rel="tag">后端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1/" rel="tag">定时任务</a></li></ul>
+
+    </footer>
+  </div>
+
+    
+ 
+    
+</article>
+
+    
+    <article
+  id="post-8 计算机基础/计算机网络/9 常见应用层协议"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/eebf915f0dc5/"
+    >常见应用层协议</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/eebf915f0dc5/" class="article-date">
+  <time datetime="2022-05-25T14:34:49.000Z" itemprop="datePublished">2022-05-25</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/">计算机基础</a> / <a class="article-category-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a>
+  </div>
+
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <p>文章转自<a target="_blank" rel="noopener" href="https://blog.csdn.net/sangjinchao/article/details/79852670">这里</a></p>
+<h2 id="基于udp">基于UDP</h2>
+<ul>
+<li>TFTP（Trivial File Transfer Protocol,简单文件传输协议）是TCP/IP协议族中的一个用来在客户机与服务器之间进行简单文件传输的协议，提供不复杂、开销不大的文件传输服务。端口号为69。</li>
+<li>DNS（Domain Name System，域名系统），万维网上作为域名和IP地址相互映射的一个分布式数据库，能够使用户更方便的访问互联网，而不用去记住能够被机器直接读取的IP数串。通过域名，最终得到该域名对应的IP地址的过程叫做域名解析（或主机名解析）。DNS协议运行在UDP协议之上，使用端口号53。</li>
 </ul> 
-      <a class="article-more-link" href="/ff79fb7493a9/"
+      <a class="article-more-link" href="/eebf915f0dc5/"
         >阅读更多...</a
       >
        
@@ -241,7 +608,7 @@
     
     <footer class="article-footer">
        
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" rel="tag">设计模式</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" rel="tag">计算机网络</a></li></ul>
 
     </footer>
   </div>
@@ -253,7 +620,7 @@
 
     
     <article
-  id="post-6 设计模式/行为型——模板方法模式"
+  id="post-8 计算机基础/操作系统/8. 聊聊中断"
   class="article article-type-post"
   itemscope
   itemprop="blogPost"
@@ -264,8 +631,8 @@
     <header class="article-header">
        
 <h2 itemprop="name">
-  <a class="article-title" href="/7ce6880842bc/"
-    >行为型——模板方法模式</a> 
+  <a class="article-title" href="/4397ff0a2739/"
+    >聊聊中断</a> 
 </h2>
  
 
@@ -273,11 +640,11 @@
     </header>
      
     <div class="article-meta">
-      <a href="/7ce6880842bc/" class="article-date">
-  <time datetime="2022-03-12T07:08:10.000Z" itemprop="datePublished">2022-03-12</time>
+      <a href="/4397ff0a2739/" class="article-date">
+  <time datetime="2022-05-25T14:34:49.000Z" itemprop="datePublished">2022-05-25</time>
 </a> 
   <div class="article-category">
-    <a class="article-category-link" href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a>
+    <a class="article-category-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/">计算机基础</a> / <a class="article-category-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a>
   </div>
 
    
@@ -285,10 +652,11 @@
       
     <div class="article-entry" itemprop="articleBody">
        
-  <h2 id="什么是模板方法模式">什么是模板方法模式</h2>
-<p>模板方法模式：定义某种操作的一个算法骨架， 而将算法的一些步骤延迟到子类中，使得子类可以不改变该算法结构的情况下重定义该算法的某些特定步骤。</p>
-<p>所谓模板方法模式，就是创建一个模板，模板指的就是一个方法或者说操作，这个方法包含一组步骤，其中任何步骤都可以是抽象的，交由子类来具体实现。</p> 
-      <a class="article-more-link" href="/7ce6880842bc/"
+  <h2 id="中断基本概念">中断基本概念</h2>
+<h3 id="什么是中断？">什么是中断？</h3>
+<p>中断，即打断CPU的运行。具体来说，在计算机运行过程中，当发生某个事件后，CPU 会停止当前程序流，转而去处理该事件，并在处理完毕后继续执行原程序流。</p>
+<p>正式一点来说， 中断是指由于接收到<strong>来自外围硬件（相对于中央处理器和内存）的异步信号或来自软件的同步信号</strong>，而进行相应的硬件／软件处理。</p> 
+      <a class="article-more-link" href="/4397ff0a2739/"
         >阅读更多...</a
       >
        
@@ -301,7 +669,7 @@
     
     <footer class="article-footer">
        
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" rel="tag">设计模式</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%86%85%E5%AD%98/" rel="tag">内存</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" rel="tag">操作系统</a></li></ul>
 
     </footer>
   </div>
@@ -313,7 +681,7 @@
 
     
     <article
-  id="post-2 后端/Redis/Redis主从复制"
+  id="post-5 分布式/4 Redisson概述"
   class="article article-type-post"
   itemscope
   itemprop="blogPost"
@@ -324,8 +692,8 @@
     <header class="article-header">
        
 <h2 itemprop="name">
-  <a class="article-title" href="/0a87fbe80a6b/"
-    >Redis主从复制</a> 
+  <a class="article-title" href="/524795742ef5/"
+    >Redisson概述</a> 
 </h2>
  
 
@@ -333,11 +701,11 @@
     </header>
      
     <div class="article-meta">
-      <a href="/0a87fbe80a6b/" class="article-date">
-  <time datetime="2022-03-11T14:34:58.000Z" itemprop="datePublished">2022-03-11</time>
+      <a href="/524795742ef5/" class="article-date">
+  <time datetime="2022-05-25T12:38:14.000Z" itemprop="datePublished">2022-05-25</time>
 </a> 
   <div class="article-category">
-    <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a> / <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/Redis/">Redis</a>
+    <a class="article-category-link" href="/categories/%E5%88%86%E5%B8%83%E5%BC%8F/">分布式</a>
   </div>
 
    
@@ -345,15 +713,8 @@
       
     <div class="article-entry" itemprop="articleBody">
        
-  <p>主从复制，是指将一台Redis服务器的数据，复制到其他的Redis服务器。前者称为主节点(master)，后者称为从节点(slave)；数据的复制是单向的，只能由主节点到从节点。</p>
-<p>主从复制的目的在于：</p>
-<ol>
-<li><strong>数据冗余</strong>：从节点备份主节点数据，持久化之外的另一种数据冗余方式。</li>
-<li><strong>故障恢复</strong>：主节点出现问题，从节点顶上，实现快速故障恢复。</li>
-<li><strong>负载均衡</strong>：主节点写，从节点读，提高系统并发能力。</li>
-<li><strong>高可用基石</strong>： 主从复制还是哨兵和集群能够实施的基础</li>
-</ol> 
-      <a class="article-more-link" href="/0a87fbe80a6b/"
+  <p>文章转自<a target="_blank" rel="noopener" href="https://my.oschina.net/u/4499317/blog/5039486">这里</a>。</p> 
+      <a class="article-more-link" href="/524795742ef5/"
         >阅读更多...</a
       >
        
@@ -366,7 +727,7 @@
     
     <footer class="article-footer">
        
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/redis/" rel="tag">redis</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%90%8E%E7%AB%AF/" rel="tag">后端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="tag">数据库</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Redis/" rel="tag">Redis</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F/" rel="tag">分布式</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%90%8E%E7%AB%AF/" rel="tag">后端</a></li></ul>
 
     </footer>
   </div>
@@ -378,7 +739,7 @@
 
     
     <article
-  id="post-2 后端/Redis/Redis数据结构底层原理"
+  id="post-8 计算机基础/计算机网络/8 TCP长连接与短连接"
   class="article article-type-post"
   itemscope
   itemprop="blogPost"
@@ -389,8 +750,8 @@
     <header class="article-header">
        
 <h2 itemprop="name">
-  <a class="article-title" href="/67952895de8b/"
-    >Redis数据结构底层原理</a> 
+  <a class="article-title" href="/1223025a81c7/"
+    >TCP长连接与短连接</a> 
 </h2>
  
 
@@ -398,11 +759,11 @@
     </header>
      
     <div class="article-meta">
-      <a href="/67952895de8b/" class="article-date">
-  <time datetime="2022-03-11T14:34:55.000Z" itemprop="datePublished">2022-03-11</time>
+      <a href="/1223025a81c7/" class="article-date">
+  <time datetime="2022-05-24T14:34:49.000Z" itemprop="datePublished">2022-05-24</time>
 </a> 
   <div class="article-category">
-    <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a> / <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/Redis/">Redis</a>
+    <a class="article-category-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/">计算机基础</a> / <a class="article-category-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a>
   </div>
 
    
@@ -410,78 +771,15 @@
       
     <div class="article-entry" itemprop="articleBody">
        
-  <blockquote>
-<p>声明：本文大部分内容都来自<a target="_blank" rel="noopener" href="https://pdai.tech/md/db/nosql-redis/db-redis-x-redis-ds.html">Java全站知识体系</a></p>
-</blockquote>
-<p>Redis的每种对象其实都由<strong>对象结构(redisObject)</strong> 与 <strong>对应编码的数据结构</strong>组合而成, 本文主要介绍<strong>底层数据结构</strong> 部分。</p>
-<p>Redis底层包括SDS、QuickList、ZipList、HashTable、IntSet、ZSkipList和Redis Tree of listpack。这些结构和上层数据类型之间的映射关系如下图所示：</p>
-<center><img src="/images/db-redis-object-2-3.png" style="width:700px;"></img></center> 
-      <a class="article-more-link" href="/67952895de8b/"
-        >阅读更多...</a
-      >
-       
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/redis/" rel="tag">redis</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%90%8E%E7%AB%AF/" rel="tag">后端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="tag">数据库</a></li></ul>
-
-    </footer>
-  </div>
-
-    
- 
-    
-</article>
-
-    
-    <article
-  id="post-2 后端/Java/JVM/1 Java内存空间"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/57edbfaf4ec4/"
-    >Java内存空间</a> 
-</h2>
- 
-
-      
-    </header>
-     
-    <div class="article-meta">
-      <a href="/57edbfaf4ec4/" class="article-date">
-  <time datetime="2022-03-11T14:34:49.000Z" itemprop="datePublished">2022-03-11</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a> / <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/Java/">Java</a> / <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/Java/JVM/">JVM</a>
-  </div>
-
-   
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <h2 id="1-概述">1 概述</h2>
-<p>Java虚拟机在执行Java程序时会将它所管理的内存划分成若干个不同的数据区域。</p>
-<p>下图是JVM的整体结构，中间部分就是Java虚拟机定义的各种运行时数据区域。这些内存区域可以分为两类：</p>
+  <h2 id="tcp的长连接和短连接">TCP的长连接和短连接</h2>
+<h3 id="基本概念">基本概念</h3>
+<p>所谓长连接，指在一个TCP连接上可以连续发送多个数据包，在TCP连接保持期间，如果没有数据包发送，需要双方发检测包以维持此连接，一般需要自己做在线维持。</p>
+<p>短连接是指通信双方有数据交互时，就建立一个TCP连接，数据发送完成后，则断开此TCP连接，一般银行都使用短连接。</p>
 <ul>
-<li><strong>线程私有</strong>：程序计数器、虚拟机栈、本地方法栈</li>
-<li><strong>线程共享</strong>：堆、方法区、堆外内存（Java7的永久代，JDK8的元空间、代码缓存）</li>
-</ul>
-<center><img src="/images/0082zybply1gc6fz21n8kj30u00wpn5v.jpg" style="width:600px;"></img></center> 
-      <a class="article-more-link" href="/57edbfaf4ec4/"
+<li>对于短连接，连接步骤通常为：连接——&gt;数据传输——&gt;关闭连接</li>
+<li>对于长连接，通常是：连接——&gt;数据传输——&gt;保持连接（心跳包）——&gt;数据传输——&gt;保持连接（心跳包）——&gt;… … ——&gt;关闭连接</li>
+</ul> 
+      <a class="article-more-link" href="/1223025a81c7/"
         >阅读更多...</a
       >
        
@@ -494,320 +792,7 @@
     
     <footer class="article-footer">
        
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JVM/" rel="tag">JVM</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%90%8E%E7%AB%AF/" rel="tag">后端</a></li></ul>
-
-    </footer>
-  </div>
-
-    
- 
-    
-</article>
-
-    
-    <article
-  id="post-6 设计模式/行为型——命令模式"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/e875640894b9/"
-    >行为型——命令模式</a> 
-</h2>
- 
-
-      
-    </header>
-     
-    <div class="article-meta">
-      <a href="/e875640894b9/" class="article-date">
-  <time datetime="2022-03-11T07:08:10.000Z" itemprop="datePublished">2022-03-11</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a>
-  </div>
-
-   
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <h2 id="概述">概述</h2>
-<p>所谓“命令模式”，简单解释就是：<strong>把命令封装成对象</strong>，当客户需要执行某条命令时，直接new一个该命令对应的对象，然后调用命令对象中的excute方法即可。这种设计下，命令调用者无需关心命令具体是怎样执行的，<strong>达到命令调用者和命令执行者之间解耦的目的</strong>。</p> 
-      <a class="article-more-link" href="/e875640894b9/"
-        >阅读更多...</a
-      >
-       
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" rel="tag">设计模式</a></li></ul>
-
-    </footer>
-  </div>
-
-    
- 
-    
-</article>
-
-    
-    <article
-  id="post-6 设计模式/行为型——观察者模式"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/8ae23491da19/"
-    >行为型——观察者模式</a> 
-</h2>
- 
-
-      
-    </header>
-     
-    <div class="article-meta">
-      <a href="/8ae23491da19/" class="article-date">
-  <time datetime="2022-03-10T07:08:10.000Z" itemprop="datePublished">2022-03-10</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a>
-  </div>
-
-   
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <h2 id="什么是观察者模式">什么是观察者模式</h2>
-<p><strong>观察者模式</strong>：定义了对象之间的一对多依赖，这样一来，当一个对象改变状态时，它的所有依赖者都会受到通知并自动更新。类似一种订阅发布模式，用户订阅某主题，当该主题有更新后会主动通知订阅者。</p> 
-      <a class="article-more-link" href="/8ae23491da19/"
-        >阅读更多...</a
-      >
-       
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" rel="tag">设计模式</a></li></ul>
-
-    </footer>
-  </div>
-
-    
- 
-    
-</article>
-
-    
-    <article
-  id="post-6 设计模式/行为型——策略模式"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/7a1bbf9ffc6c/"
-    >结构型——策略模式</a> 
-</h2>
- 
-
-      
-    </header>
-     
-    <div class="article-meta">
-      <a href="/7a1bbf9ffc6c/" class="article-date">
-  <time datetime="2022-03-09T07:08:10.000Z" itemprop="datePublished">2022-03-09</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a>
-  </div>
-
-   
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <h2 id="什么是策略模式">什么是策略模式</h2>
-<p>在软件开发过程中，某些行为可能具有不同的实现方式，比如，对于排序这一行为，其具体实现可能包括堆排序、插入排序、选择排序、希尔排序、快速排序等等，这些实现方式有着各自的应用场景。在软件运行过程中，对于某种行为，我们希望能够动态选择具体实现方式。这时候就需要用到策略模式了。</p> 
-      <a class="article-more-link" href="/7a1bbf9ffc6c/"
-        >阅读更多...</a
-      >
-       
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" rel="tag">设计模式</a></li></ul>
-
-    </footer>
-  </div>
-
-    
- 
-    
-</article>
-
-    
-    <article
-  id="post-2 后端/Redis/Redis事务"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/47bd1b89eebf/"
-    >Redis事务</a> 
-</h2>
- 
-
-      
-    </header>
-     
-    <div class="article-meta">
-      <a href="/47bd1b89eebf/" class="article-date">
-  <time datetime="2022-03-08T12:38:32.000Z" itemprop="datePublished">2022-03-08</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a> / <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/Redis/">Redis</a>
-  </div>
-
-   
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <h2 id="何为事务">何为事务</h2>
-<p>Redis 事务的本质是一组命令的集合。事务支持一次执行多个命令，一个事务中所有命令都会被序列化。在事务执行过程，会按照顺序串行化执行队列中的命令，其他客户端提交的命令请求不会插入到事务执行命令序列中。</p>
-<p>总结说：redis事务就是一次性、顺序性、排他性的执行一个队列中的一系列命令。</p> 
-      <a class="article-more-link" href="/47bd1b89eebf/"
-        >阅读更多...</a
-      >
-       
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/redis/" rel="tag">redis</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%90%8E%E7%AB%AF/" rel="tag">后端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="tag">数据库</a></li></ul>
-
-    </footer>
-  </div>
-
-    
- 
-    
-</article>
-
-    
-    <article
-  id="post-2 后端/Redis/Redis过期与内存淘汰机制"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/c4ebbd2dc215/"
-    >Redis过期与内存淘汰机制</a> 
-</h2>
- 
-
-      
-    </header>
-     
-    <div class="article-meta">
-      <a href="/c4ebbd2dc215/" class="article-date">
-  <time datetime="2022-03-08T12:38:24.000Z" itemprop="datePublished">2022-03-08</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a> / <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/Redis/">Redis</a>
-  </div>
-
-   
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <h2 id="redis数据过期">Redis数据过期</h2>
-<p>我们知道Redis中的key可以设置过期时间，如果设置1批key只能存活1分钟，那么1分钟后，Redis是怎么对这批key进行删除的呢？</p>
-<p>常用过期策略有三种：</p>
-<ul>
-<li><strong>定时过期</strong>：每个设置过期时间的key都创建一个定时器，到期后立即清除。
-<ul>
-<li>优点：到期后立即清除数据，对内存友好。</li>
-<li>缺点：创建大量定时器，占用过多系统资源，对CPU不友好。</li>
-</ul>
-</li>
-<li><strong>惰性过期</strong>：取出key的时候对数据过期时间进行检查。
-<ul>
-<li>优点：对CPU友好。</li>
-<li>缺点：造成太多过期key没有删除，对内存不友好。</li>
-</ul>
-</li>
-<li><strong>定期过期</strong>：每隔一段时间抽取一批key执行删除过期key操作，可以看做是定时和惰性的一种折中方案。</li>
-</ul>
-<p>在Redis中同时使用了<strong>定期删除+惰性删除</strong>。</p> 
-      <a class="article-more-link" href="/c4ebbd2dc215/"
-        >阅读更多...</a
-      >
-       
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/redis/" rel="tag">redis</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%90%8E%E7%AB%AF/" rel="tag">后端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="tag">数据库</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" rel="tag">计算机网络</a></li></ul>
 
     </footer>
   </div>
@@ -824,7 +809,7 @@
   
   <nav class="page-nav">
     
-    <a class="extend prev" rel="prev" href="/page/4/">上一页</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><span class="space">&hellip;</span><a class="page-number" href="/page/17/">17</a><a class="extend next" rel="next" href="/page/6/">下一页</a>
+    <a class="extend prev" rel="prev" href="/page/4/">上一页</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><span class="space">&hellip;</span><a class="page-number" href="/page/22/">22</a><a class="extend next" rel="next" href="/page/6/">下一页</a>
   </nav>
   
 </section>

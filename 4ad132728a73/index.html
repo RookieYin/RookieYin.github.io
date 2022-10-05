@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+
+
+<html lang="zh-CN">
+  
+
+    <head>
+      <meta name="baidu-site-verification" content="code-rk2CNV4xgj" />
+      <meta charset="utf-8" />
+        
+      <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1"
+      />
+      <title>static代码块、构造函数等执行顺序 |  RookieYin&#39;s Note</title>
+  <meta name="generator" content="hexo-theme-ayer">
+      
+      <link rel="shortcut icon" href="/images/2.jpg" />
+       
+<link rel="stylesheet" href="/dist/main.css">
+
+      <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/Shen-Yu/cdn/css/remixicon.min.css"
+      />
+      
+<link rel="stylesheet" href="/css/custom.css">
+ 
+      <script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+       
+ 
+
+      <!-- mermaid -->
+      
+    <link rel="alternate" href="/atom.xml" title="RookieYin's Note" type="application/atom+xml">
+<link href="https://cdn.bootcss.com/KaTeX/0.11.1/katex.min.css" rel="stylesheet" /></head>
+  </html>
+</html>
+
+
+<body>
+<div id="app">
+    
+    
+    <div class="sidebar">
+        <!--<button class="navbar-toggle"></button>-->
+<nav class="navbar">
+  <div class="logo">
+    <a href="/">
+      <img src="/images/2.jpg"
+           style="border-radius: 50%;max-width: none;">
+    </a>
+  </div>
+  <div class = nav-title style="font-size: 2.5rem;color: #ffffff;margin-left: 4rem;font-weight: bold;min-width: 23rem">
+    RookieYin's Note
+  </div>
+  <div class="nav nav-main">
+    
+    <div class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </div>
+    
+    <div class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </div>
+    
+    <div class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </div>
+    
+    <div class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </div>
+    
+    <div class="nav-item">
+      <a class="nav-item-link" href="/friends">友链</a>
+    </div>
+    
+    <div class="nav-item">
+      <a class="nav-item-link" href="/about-me/2021">关于我</a>
+    </div>
+    
+      <div class="nav-item">
+        <div class="nav-item-link navbar-menu-wrap">
+          <div class="navbar-menu"></div>
+        </div>
+      </div>
+    <div class = "nav-item">
+      <a class="nav-item-link nav-item-search"  title="搜索">
+        <i class="ri-search-line"></i>
+      </a>
+    </div>
+  </div>
+</nav>
+<nav class="navbar2">
+  <div style="position: relative;">
+      <div style="height: 4.8rem;display: inline-block;margin-top:1rem;margin-left:1rem;">
+        <a href="/">
+          <img src="/images/2.jpg"
+               style="border-radius: 50%;max-width: none;width:4.8rem">
+        </a>
+      </div>
+    <div class="navbar-title2" style="font-size: 2.5rem;color: #ffffff;margin-left: 4rem;font-weight: bold;margin-top:1rem;
+    min-width: 23rem;height: 4.8rem;overflow: hidden;">
+      <span style="line-height: 4.8rem;">RookieYin's Note</span>
+    </div>
+    <div style="display: inline-block;position: absolute;top:50%;height:50%;transform:translate(-50%,-50%);right:4rem;margin-top: 1rem;">
+      <div class="navbar-menu-wrap">
+        <div class="navbar-menu"></div>
+      </div>
+    </div>
+    <div style="display: inline-block;position: absolute;top:50%;height:50%;transform:translate(-50%,-50%);right:0;">
+      <a class="nav-item-search"  title="搜索">
+        <i class="ri-search-line"></i>
+      </a>
+    </div>
+  </div>
+  <div style="display: inline-block;text-align: center;width: 100%;padding-bottom: 1rem;">
+    
+    <div class="nav-item2">
+      <a class="nav-item-link2" href="/">主页</a>
+    </div>
+    
+    <div class="nav-item2">
+      <a class="nav-item-link2" href="/archives">归档</a>
+    </div>
+    
+    <div class="nav-item2">
+      <a class="nav-item-link2" href="/categories">分类</a>
+    </div>
+    
+    <div class="nav-item2">
+      <a class="nav-item-link2" href="/tags">标签</a>
+    </div>
+    
+    <div class="nav-item2">
+      <a class="nav-item-link2" href="/friends">友链</a>
+    </div>
+    
+    <div class="nav-item2">
+      <a class="nav-item-link2" href="/about-me/2021">关于我</a>
+    </div>
+    
+  </div>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+
+    </div>
+    <main class="content">
+        <section class="outer">
+  <article
+  id="post-2 后端/Java/Java基础知识/11 static代码块、构造函数等执行顺序"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  static代码块、构造函数等执行顺序
+</h1>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/4ad132728a73/" class="article-date">
+  <time datetime="2022-08-05T14:34:49.000Z" itemprop="datePublished">2022-08-05</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a> / <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/Java/">Java</a> / <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/Java/Java%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/">Java基础知识</a>
+  </div>
+
+  
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> 字数统计:</span>
+            <span class="post-count">1.4k</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> 阅读时长≈</span>
+            <span class="post-count">6 分钟</span>
+        </span>
+    </span>
+</div>
+ 
+    </div>
+      
+    <div class="tocbot"></div>
+
+
+
+
+  
+    <div class="article-entry" itemprop="articleBody">
+       
+  <p>文章转自<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/0c4223e0702b">这里</a></p>
+<p><strong>顺序：<br>
+父类静态块–&gt;子类静态块–&gt; main方法–&gt;父类构造代码块 --&gt;父类构造函数–&gt;子类构造代码块–&gt;子类构造函数，同一级别代码块按顺序执行。</strong></p>
+<a id="more"></a>
+<p>这几个名词体现在代码中，如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Study</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Study</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;构造函数&quot;</span>);    </span><br><span class="line">    &#125;</span><br><span class="line">    &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;构造代码块&quot;</span>);    </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">static</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;静态代码块&quot;</span>);        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>静态代码块和代码块的区别在于：<br>
+静态代码块只执行一次，代码块每次创建该对象的时候都会执行一次。<br>
+执行顺序：<br>
+静态变量，main方法，构造块，构造函数。</p>
+<p>我觉得对于这个简单明了的理解就是上代码。</p>
+<h4 id="普通情况">普通情况</h4>
+<ul>
+<li>执行顺序，静态变量–&gt;静态块–&gt; main方法</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo</span> </span>&#123;    </span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">int</span> a = <span class="number">10</span>;</span><br><span class="line">    <span class="keyword">static</span> &#123;</span><br><span class="line">         System.out.println(<span class="string">&quot;a----&quot;</span>+a);</span><br><span class="line">         System.out.println(<span class="string">&quot;A的静态代码块&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">         System.out.println(<span class="string">&quot;main&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">输出结果：</span><br><span class="line">a----<span class="number">10</span></span><br><span class="line">A的静态代码块</span><br><span class="line">main</span><br></pre></td></tr></table></figure>
+<ul>
+<li>main方法 --&gt; 非静态变量–&gt; 构造代码块 --&gt; 构造函数</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo</span> </span>&#123; </span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">int</span> a = <span class="number">10</span>;</span><br><span class="line">    <span class="keyword">static</span> &#123;</span><br><span class="line">         System.out.println(<span class="string">&quot;a----&quot;</span>+a);</span><br><span class="line">         System.out.println(<span class="string">&quot;A的静态代码块&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> b = <span class="number">20</span>;</span><br><span class="line">    &#123;</span><br><span class="line">         System.out.println(<span class="string">&quot;b----&quot;</span>+b);</span><br><span class="line">         System.out.println(<span class="string">&quot;A的构造代码块&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    Demo()&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;构造函数&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">         System.out.println(<span class="string">&quot;main&quot;</span>);</span><br><span class="line">         <span class="keyword">new</span> Demo();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">输出结果：</span><br><span class="line">a----<span class="number">10</span></span><br><span class="line">A的静态代码块</span><br><span class="line">main</span><br><span class="line">b----<span class="number">20</span></span><br><span class="line">A的构造代码块</span><br><span class="line">构造函数</span><br></pre></td></tr></table></figure>
+<ul>
+<li>静态构造块只执行一次，构造代码块每次new对象的时候都会调用。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo</span> </span>&#123; </span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;子类的静态代码块&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;子类的构造代码块&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    Demo()&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;子类构造函数&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">        <span class="keyword">new</span> Demo();</span><br><span class="line">        <span class="keyword">new</span> Demo();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">结果：</span><br><span class="line">子类的静态代码块</span><br><span class="line">子类的构造代码块</span><br><span class="line">子类构造函数</span><br><span class="line">子类的构造代码块</span><br><span class="line">子类构造函数</span><br></pre></td></tr></table></figure>
+<p><strong>为什么只静态代码块只执行了一次，普通代码块执行了多次？</strong><br>
+静态变量被所有的对象所共享，在内存中只有一个副本，它当且仅当在类初次加载时会被初始化。而非静态变量是对象所拥有的，在创建对象的时候被初始化，存在多个副本，各个对象拥有的副本互不影响。</p>
+<h4 id="继承情况">继承情况</h4>
+<ul>
+<li>父类静态块–&gt;子类静态块–&gt; main方法–&gt;父类构造代码块 --&gt;父类构造函数–&gt;子类构造代码块–&gt; 子类构造函数</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Super</span> </span>&#123;</span><br><span class="line">    <span class="keyword">static</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;Super的静态代码块&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;Super的构造代码块&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    Super()&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;Super构造函数&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo</span> <span class="keyword">extends</span> <span class="title">Super</span></span>&#123;</span><br><span class="line">    <span class="keyword">static</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;子类的静态代码块1&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;子类的静态代码块2&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;子类的构造代码块&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    Demo()&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;子类构造函数&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;main&quot;</span>);</span><br><span class="line">        <span class="keyword">new</span> Demo();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">输出:</span><br><span class="line">Super的静态代码块</span><br><span class="line">子类的静态代码块<span class="number">1</span></span><br><span class="line">子类的静态代码块<span class="number">2</span></span><br><span class="line">main</span><br><span class="line">Super的构造代码块</span><br><span class="line">Super构造函数</span><br><span class="line">子类的构造代码块</span><br><span class="line">子类构造函数</span><br></pre></td></tr></table></figure>
+<p><strong>为什么会调用父类的构造函数呢？命名没有调用过Super方法。</strong><br>
+–&gt;子类构造函数会默认调用一下父类的无参构造函数，可以给父类构造函数加个参数试一下。基础知识不能忘啊。</p>
+<p><strong>加载过程：</strong><br>
+<em>在执行开始，先要寻找到main方法，因为main方法是程序的入口，但是在执行main方法之前，必须先加载Demo类，而在加载Demo类的时候发现Demo类继承自Super类，因此会转去先加载Super类，在加载Super类的时候，发现有static块，便执行了static块。在Super类加载完成之后，便继续加载Demo类，然后发现Demo类中也有static块，便执行static块。在加载完所需的类之后，便开始执行main方法。在main方法中执行new Demo()的时候会先调用父类的构造器，然后再调用自身的构造器。因此，便出现了上面的输出结果。<br>
+同时存在两个代码块的时候，按代码顺序执行。</em></p>
+<h4 id="题目">题目</h4>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Demo test = <span class="keyword">new</span> Demo();</span><br><span class="line">    <span class="comment">//静态变量sta1    未赋予初始值</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> sta1;</span><br><span class="line">    <span class="comment">//静态变量sta1    赋予初始值20</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> sta2 = <span class="number">20</span>;</span><br><span class="line">    <span class="comment">//构造方法中对于静态变量赋值</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">Demo</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        sta1 ++ ;</span><br><span class="line">        sta2 ++ ;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        System.out.println(Demo.sta1);</span><br><span class="line">        System.out.println(Demo.sta2);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>print:<br>
+<code>1</code><br>
+<code>20</code><br>
+res:都是static就顺序执行，执行完后，让sta1和2自增，完后sta2又赋值为20。<br>
+补充一个demo</p>
+<p><strong>构造代码块和对象绑定，简单讲，不new对象不走构造代码块</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Animal</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span> k;</span><br><span class="line">    <span class="keyword">static</span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;父类的静态方法&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;执行父类的构造代码块&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Animal</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;执行父类的构造方法&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        System.out.println(Animal.k);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">print:</span><br><span class="line">父类的静态方法</span><br><span class="line"><span class="number">0</span></span><br></pre></td></tr></table></figure>
+<p>这个链接里面也有几道烧脑的题目，反正就按顺序来就好了，但是写代码的时候最好还是以大部分人能看明白为主，要不然光这个点很多人就得进坑，而且时间久了自己也会记不牢。<br>
+<a target="_blank" rel="noopener" href="https://www.cnblogs.com/chihirotan/p/6043442.html">https://www.cnblogs.com/chihirotan/p/6043442.html</a></p>
+ 
+      <!-- reward -->
+      
+      <div id="reword-out">
+        <div id="reward-btn">
+          打赏
+        </div>
+      </div>
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <div class="declare">
+      <ul class="post-copyright">
+        <li>
+          <i class="ri-copyright-line"></i>
+          <strong>版权声明： </strong>
+          
+          本博客所有文章除特别声明外，著作权归作者所有。转载请注明出处！
+          
+        </li>
+      </ul>
+    </div>
+    
+    <footer class="article-footer">
+       
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<!--<div class="wx-share-modal">-->
+<!--    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>-->
+<!--    <p>扫一扫，分享到微信</p>-->
+<!--    <div class="wx-qrcode">-->
+<!--      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://rookieyin.github.io/4ad132728a73/" alt="微信分享二维码">-->
+<!--    </div>-->
+<!--</div>-->
+
+<div id="share-mask"></div>
+  
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%90%8E%E7%AB%AF/" rel="tag">后端</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+  <nav class="article-nav">
+    
+      <a href="/6a5e2bd46dc2/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            Java静态绑定与动态绑定
+          
+        </div>
+      </a>
+    
+    
+      <a href="/01a29da4a7e8/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">Java三大特性</div>
+      </a>
+    
+  </nav>
+
+   
+<!-- valine评论 -->
+<div id="vcomments-box">
+  <div id="vcomments"></div>
+</div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js"></script>
+<script>
+  new Valine({
+    el: "#vcomments",
+    app_id: "f9XmUV7HVprPCNptggBNBhWR-gzGzoHsz",
+    app_key: "H73Viqo3lADopEFgshq3XrXs",
+    path: window.location.pathname,
+    avatar: "monsterid",
+    placeholder: "给我的文章加点评论吧~",
+    recordIP: true,
+  });
+  const infoEle = document.querySelector("#vcomments .info");
+  if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+    infoEle.childNodes.forEach(function (item) {
+      item.parentNode.removeChild(item);
+    });
+  }
+</script>
+<style>
+  #vcomments-box {
+    padding: 5px 30px;
+  }
+
+  @media screen and (max-width: 800px) {
+    #vcomments-box {
+      padding: 5px 0px;
+    }
+  }
+
+  #vcomments-box #vcomments {
+    background-color: #fff;
+  }
+
+  .v .vlist .vcard .vh {
+    padding-right: 20px;
+  }
+
+  .v .vlist .vcard {
+    padding-left: 10px;
+  }
+</style>
+
+ 
+   
+     
+</article>
+
+</section>
+        <footer class="footer">
+  <div class="outer">
+    <ul>
+      <li>
+        Copyrights &copy;
+        2021-2022
+        <i class="ri-heart-fill heart_icon"></i> Yin Peng
+      </li>
+    </ul>
+    <ul>
+      <li>引擎:
+        <a style="color: #0681d0" target="_blank" rel="noopener" href="https://hexo.io/zh-cn/">Hexo</a>
+        &nbsp;&nbsp;|&nbsp;&nbsp;主题:修改自
+        <a style="color: #0681d0" target="_blank" rel="noopener" href="https://shen-yu.gitee.io/">Ayer</a>
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        <span>
+  <span><i class="ri-user-3-fill"></i>访问人数:<span id="busuanzi_value_site_uv"></span></span>
+  <span class="division">|</span>
+  <span><i class="ri-eye-fill"></i>浏览次数:<span id="busuanzi_value_page_pv"></span></span>
+</span>
+        
+      </li>
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      <li>
+        <!-- cnzz统计 -->
+        
+        <script type="text/javascript" src='https://s9.cnzz.com/z_stat.php?id=1278069914&amp;web_id=1278069914'></script>
+        
+      </li>
+    </ul>
+  </div>
+</footer>
+
+        <div class="float_btns">
+            <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+
+<div class="todark" id="todark">
+  <i class="ri-moon-line"></i>
+</div>
+
+        </div>
+    </main>
+
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/alipay.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/wxpay.png">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-2.0.3.min.js"></script>
+ 
+<script src="/js/lazyload.min.js"></script>
+
+<!-- Tocbot -->
+ 
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  tocbot.init({
+    tocSelector: ".tocbot",
+    contentSelector: ".article-entry",
+    headingSelector: "h1, h2, h3, h4, h5, h6",
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: "main",
+    positionFixedSelector: ".tocbot",
+    positionFixedClass: "is-position-fixed",
+    fixedSidebarOffset: "auto",
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.js"></script>
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.css"
+/>
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js"></script>
+
+<script src="/dist/main.js"></script>
+
+<!-- ImageViewer -->
+ <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css">
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script> 
+<!-- MathJax -->
+
+<!-- Katex -->
+
+<!-- busuanzi  -->
+ 
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+ 
+<!-- ClickLove -->
+ 
+<script src="/js/clickLove.js"></script>
+ 
+<!-- ClickBoom1 -->
+
+<!-- ClickBoom2 -->
+
+<!-- CodeCopy -->
+ 
+<link rel="stylesheet" href="/css/clipboard.css">
+ <script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="ri-file-copy-2-line"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-checkbox-circle-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-checkbox-circle-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-time-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-time-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+ 
+<!-- CanvasBackground -->
+
+<script>
+  if (window.mermaid) {
+    mermaid.initialize({ theme: "forest" });
+  }
+</script>
+
+
+    
+</div>
+</body>
+
+</html>

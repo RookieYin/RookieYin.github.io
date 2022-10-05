@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+
+
+<html lang="zh-CN">
+  
+
+    <head>
+      <meta name="baidu-site-verification" content="code-rk2CNV4xgj" />
+      <meta charset="utf-8" />
+        
+      <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1"
+      />
+      <title>Linux下查看系统CPU和内存使用情况 |  RookieYin&#39;s Note</title>
+  <meta name="generator" content="hexo-theme-ayer">
+      
+      <link rel="shortcut icon" href="/images/2.jpg" />
+       
+<link rel="stylesheet" href="/dist/main.css">
+
+      <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/Shen-Yu/cdn/css/remixicon.min.css"
+      />
+      
+<link rel="stylesheet" href="/css/custom.css">
+ 
+      <script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+       
+ 
+
+      <!-- mermaid -->
+      
+    <link rel="alternate" href="/atom.xml" title="RookieYin's Note" type="application/atom+xml">
+<link href="https://cdn.bootcss.com/KaTeX/0.11.1/katex.min.css" rel="stylesheet" /></head>
+  </html>
+</html>
+
+
+<body>
+<div id="app">
+    
+    
+    <div class="sidebar">
+        <!--<button class="navbar-toggle"></button>-->
+<nav class="navbar">
+  <div class="logo">
+    <a href="/">
+      <img src="/images/2.jpg"
+           style="border-radius: 50%;max-width: none;">
+    </a>
+  </div>
+  <div class = nav-title style="font-size: 2.5rem;color: #ffffff;margin-left: 4rem;font-weight: bold;min-width: 23rem">
+    RookieYin's Note
+  </div>
+  <div class="nav nav-main">
+    
+    <div class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </div>
+    
+    <div class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </div>
+    
+    <div class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </div>
+    
+    <div class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </div>
+    
+    <div class="nav-item">
+      <a class="nav-item-link" href="/friends">友链</a>
+    </div>
+    
+    <div class="nav-item">
+      <a class="nav-item-link" href="/about-me/2021">关于我</a>
+    </div>
+    
+      <div class="nav-item">
+        <div class="nav-item-link navbar-menu-wrap">
+          <div class="navbar-menu"></div>
+        </div>
+      </div>
+    <div class = "nav-item">
+      <a class="nav-item-link nav-item-search"  title="搜索">
+        <i class="ri-search-line"></i>
+      </a>
+    </div>
+  </div>
+</nav>
+<nav class="navbar2">
+  <div style="position: relative;">
+      <div style="height: 4.8rem;display: inline-block;margin-top:1rem;margin-left:1rem;">
+        <a href="/">
+          <img src="/images/2.jpg"
+               style="border-radius: 50%;max-width: none;width:4.8rem">
+        </a>
+      </div>
+    <div class="navbar-title2" style="font-size: 2.5rem;color: #ffffff;margin-left: 4rem;font-weight: bold;margin-top:1rem;
+    min-width: 23rem;height: 4.8rem;overflow: hidden;">
+      <span style="line-height: 4.8rem;">RookieYin's Note</span>
+    </div>
+    <div style="display: inline-block;position: absolute;top:50%;height:50%;transform:translate(-50%,-50%);right:4rem;margin-top: 1rem;">
+      <div class="navbar-menu-wrap">
+        <div class="navbar-menu"></div>
+      </div>
+    </div>
+    <div style="display: inline-block;position: absolute;top:50%;height:50%;transform:translate(-50%,-50%);right:0;">
+      <a class="nav-item-search"  title="搜索">
+        <i class="ri-search-line"></i>
+      </a>
+    </div>
+  </div>
+  <div style="display: inline-block;text-align: center;width: 100%;padding-bottom: 1rem;">
+    
+    <div class="nav-item2">
+      <a class="nav-item-link2" href="/">主页</a>
+    </div>
+    
+    <div class="nav-item2">
+      <a class="nav-item-link2" href="/archives">归档</a>
+    </div>
+    
+    <div class="nav-item2">
+      <a class="nav-item-link2" href="/categories">分类</a>
+    </div>
+    
+    <div class="nav-item2">
+      <a class="nav-item-link2" href="/tags">标签</a>
+    </div>
+    
+    <div class="nav-item2">
+      <a class="nav-item-link2" href="/friends">友链</a>
+    </div>
+    
+    <div class="nav-item2">
+      <a class="nav-item-link2" href="/about-me/2021">关于我</a>
+    </div>
+    
+  </div>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+
+    </div>
+    <main class="content">
+        <section class="outer">
+  <article
+  id="post-8 计算机基础/操作系统/7. Linux下查看系统CPU和内存使用情况"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  Linux下查看系统CPU和内存使用情况
+</h1>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/c15fae668063/" class="article-date">
+  <time datetime="2022-05-24T14:34:49.000Z" itemprop="datePublished">2022-05-24</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/">计算机基础</a> / <a class="article-category-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a>
+  </div>
+
+  
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> 字数统计:</span>
+            <span class="post-count">1.5k</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> 阅读时长≈</span>
+            <span class="post-count">5 分钟</span>
+        </span>
+    </span>
+</div>
+ 
+    </div>
+      
+    <div class="tocbot"></div>
+
+
+
+
+  
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h2 id="cpu使用情况">CPU使用情况</h2>
+<ol>
+<li>
+<p><strong>top命令</strong></p>
+<p>top应该最常用的一个用来查看系统资源使用情况的命令了。</p>
+<ul>
+<li>第一行：当时时间、系统运行时长、当前登录用户数、系统平均负载（三个值同loadavg命令）</li>
+<li>第二行：进程总数、正在运行进程数、睡眠进程数、停止进程数、僵尸进程数</li>
+<li>第三行：CPU信息，具体包括用户空间CPU占比，内核空间CPU占比，用户进程空间内改变过优先级的进程占用CPU时间百分比，空闲CPU时间百分比，等待输入输出的CPU时间百分比，CPU服务于硬件中断的CPU时间百分比，CPU服务于软件中断的CPU时间百分比，被虚拟机偷走的CPU时间百分比。</li>
+</ul>
+<a id="more"></a>
+<ul>
+<li>第四行：物理内存统计数据，总量、空闲量、已使用量、缓存大小</li>
+<li>第五行：交换分区，即虚拟内存的统计数据</li>
+<li>从第七行开始，显示了各个进程的状态信息，称为任务区（Task Area）。部分列含义如下：</li>
+<li>PR：进程优先级，范围为0-31，数值越低，优先级越高</li>
+<li>NI：nice值，范围-20到19，用于调整进程优先级</li>
+<li>VIRT：使用的虚拟内存总量</li>
+<li>RES：进程使用的、未被换出的物理内存大小</li>
+<li>SHR：共享内存大小</li>
+<li>S：进程状态。D=不可中断的睡眠状态 R=运行 S=睡眠 T=停止 t=跟踪 Z=僵尸进程</li>
+</ul>
+</li>
+</ol>
+<ul>
+<li>%CPU：上次更新到现在的 CPU 时间占用百分比。注意，在多核或多 CPU 环境中，如果进程是多线程的，而 top 不是在线程模式下运行的，该值由多个核的值累加，可能会大于 100%
+<ul>
+<li>%MEM：进程使用的物理内存百分比</li>
+</ul>
+</li>
+<li>TIME+：进程使用的 CPU 时间总计，单位 1/100 秒</li>
+</ul>
+   <center><img src="/images/image-20220718144030677.png" style="width:700px;"></img></center>
+<p>top命令还有以下常用小技巧：</p>
+<ol>
+<li>
+<p>常用命令参数：-c显示完整命令、-i&lt;时间&gt;设置间隔时间、-u&lt;用户名&gt;指定用户名、-p&lt;进程号&gt;指定进程、-n&lt;次数&gt;循环显示的次数。</p>
+<ol start="2">
+<li>常用交互命令：h显示帮助画面、k终止一个进程、S切换到累计模式、m显示内存信息、M按照内存排序、P根据CPU排序、T根据时间排序等。</li>
+</ol>
+</li>
+<li>
+<p>cat  /proc/loadavg</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ubuntu@VM-16-2-ubuntu:~$ cat &#x2F;proc&#x2F;loadavg</span><br><span class="line">0.08 0.04 0.00 1&#x2F;536 26312</span><br></pre></td></tr></table></figure>
+<ul>
+<li>
+<p>前三项分别是最近1分钟、5分钟和15分钟的系统平均负载。系统平均负载为在特定时间间隔内运行队列中的平均进程数，包括正在CPU上运行或者等待运行的进程。</p>
+</li>
+<li>
+<p>第四项，分子是正在运行的进程数，分母是进程总数。</p>
+</li>
+<li>
+<p>最后一项是最近运行的进程ID号。</p>
+</li>
+</ul>
+</li>
+<li>
+<p>vmstat &lt;采样时间间隔&gt; &lt;采样次数&gt;</p>
+<ul>
+<li>
+<p>procs：r表示运行队列中等待的进程数，b表示等待io的进程数</p>
+</li>
+<li>
+<p>memory：交换区大小、空闲大小、buff大小和cache大小。其中buff主要用来作目录、权限缓存，cache用来记忆打开过的文件，作为文件缓冲。</p>
+</li>
+<li>
+<p>swap：si和so表示磁盘和内存间的页换入换出数量，单位为KB/秒</p>
+</li>
+<li>
+<p>io：bi和bo分别表示发送数据和接收数据的设备块数</p>
+</li>
+<li>
+<p>system：in和cs分别表示每秒中断数和每秒上下文切换次数</p>
+</li>
+<li>
+<p>cpu</p>
+<ul>
+<li>us： 用户CPU时间，曾经在一个做加密解密很频繁的服务器上， 可以看到us接近100,r运行队列达到80(机器在做压力测试，性能表现不佳)。</li>
+<li>sy：系统CPU时间，如果太高，表示系统调用时间长，例如是IO操作频繁。</li>
+<li>id：空闲 CPU时间，一般来说，id + us + sy = 100,一般我认为id是空闲CPU使用率， us是用户CPU使用率，sy是系统CPU使用率。</li>
+<li>wa：CPU空闲时间</li>
+<li>st：来自虚拟机偷取的CPU所占的百分比</li>
+</ul>
+<center><img src="/images/image-20220718151523273.png" style="width:700px;"></img></center>
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="内存使用情况">内存使用情况</h2>
+<ol>
+<li>
+<p>top命令，详情见前文。</p>
+</li>
+<li>
+<p>free命令： 命令显示系统使用和空闲的内存情况，包括物理内存、交互区内存(swap)和内核缓冲区内存。共享内存将被忽略 。具体参数包括：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">free [-K] #以Kb为单位显示内存使用情况</span><br><span class="line">free -g #以G为单位显示内存使用情况</span><br><span class="line">free -m #以G为单位显示内存使用情况</span><br><span class="line">free -t #以总和的形式显示内存使用情况</span><br><span class="line">free -s 1 #每秒显示1次</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>cat /proc/meminfo</p>
+</li>
+</ol>
+<p><strong>内存信息里面的buffers和cached都是缓存，两者有什么区别？</strong></p>
+<p>1、<strong>Buffer</strong>（缓冲区）是系统两端处理<strong>速度平衡</strong>（从长时间尺度上看）时使用的。它的引入是为了减小短期内突发I/O的影响，起到<strong>流量整形</strong>的作用。比如生产者——消费者问题，他们产生和消耗资源的速度大体接近，加一个buffer可以抵消掉资源刚产生/消耗时的突然变化。<br>
+2、<strong>Cache</strong>（缓存）则是系统两端处理<strong>速度不匹配</strong>时的一种<strong>折衷策略</strong>。因为CPU和memory之间的速度差异越来越大，所以人们充分利用数据的局部性（locality）特征，通过使用存储系统分级（memory hierarchy）的策略来减小这种差异带来的影响。<br>
+3、假定以后存储器访问变得跟CPU做计算一样快，cache就可以消失，但是buffer依然存在。比如从网络上下载东西，瞬时速率可能会有较大变化，但从长期来看却是稳定的，这样就能通过引入一个buffer使得OS接收数据的速率更稳定，进一步减少对磁盘的伤害。<br>
+4、TLB（Translation Lookaside Buffer，翻译后备缓冲器）名字起错了，其实它是一个cache。</p>
+<h2 id="磁盘使用情况">磁盘使用情况</h2>
+<ol>
+<li>
+<p>df命令，同样地，可以使用-g，-m等参数调整数据单位</p>
+<center><img src="/images/image-20220718152215922.png" style="width:700px;"></img></center></li>
+</ol>
+ 
+      <!-- reward -->
+      
+      <div id="reword-out">
+        <div id="reward-btn">
+          打赏
+        </div>
+      </div>
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <div class="declare">
+      <ul class="post-copyright">
+        <li>
+          <i class="ri-copyright-line"></i>
+          <strong>版权声明： </strong>
+          
+          本博客所有文章除特别声明外，著作权归作者所有。转载请注明出处！
+          
+        </li>
+      </ul>
+    </div>
+    
+    <footer class="article-footer">
+       
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<!--<div class="wx-share-modal">-->
+<!--    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>-->
+<!--    <p>扫一扫，分享到微信</p>-->
+<!--    <div class="wx-qrcode">-->
+<!--      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://rookieyin.github.io/c15fae668063/" alt="微信分享二维码">-->
+<!--    </div>-->
+<!--</div>-->
+
+<div id="share-mask"></div>
+  
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%86%85%E5%AD%98/" rel="tag">内存</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" rel="tag">操作系统</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+  <nav class="article-nav">
+    
+      <a href="/1223025a81c7/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            TCP长连接与短连接
+          
+        </div>
+      </a>
+    
+    
+      <a href="/c727a3d2828a/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">分布式锁概述</div>
+      </a>
+    
+  </nav>
+
+   
+<!-- valine评论 -->
+<div id="vcomments-box">
+  <div id="vcomments"></div>
+</div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js"></script>
+<script>
+  new Valine({
+    el: "#vcomments",
+    app_id: "f9XmUV7HVprPCNptggBNBhWR-gzGzoHsz",
+    app_key: "H73Viqo3lADopEFgshq3XrXs",
+    path: window.location.pathname,
+    avatar: "monsterid",
+    placeholder: "给我的文章加点评论吧~",
+    recordIP: true,
+  });
+  const infoEle = document.querySelector("#vcomments .info");
+  if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+    infoEle.childNodes.forEach(function (item) {
+      item.parentNode.removeChild(item);
+    });
+  }
+</script>
+<style>
+  #vcomments-box {
+    padding: 5px 30px;
+  }
+
+  @media screen and (max-width: 800px) {
+    #vcomments-box {
+      padding: 5px 0px;
+    }
+  }
+
+  #vcomments-box #vcomments {
+    background-color: #fff;
+  }
+
+  .v .vlist .vcard .vh {
+    padding-right: 20px;
+  }
+
+  .v .vlist .vcard {
+    padding-left: 10px;
+  }
+</style>
+
+ 
+   
+     
+</article>
+
+</section>
+        <footer class="footer">
+  <div class="outer">
+    <ul>
+      <li>
+        Copyrights &copy;
+        2021-2022
+        <i class="ri-heart-fill heart_icon"></i> Yin Peng
+      </li>
+    </ul>
+    <ul>
+      <li>引擎:
+        <a style="color: #0681d0" target="_blank" rel="noopener" href="https://hexo.io/zh-cn/">Hexo</a>
+        &nbsp;&nbsp;|&nbsp;&nbsp;主题:修改自
+        <a style="color: #0681d0" target="_blank" rel="noopener" href="https://shen-yu.gitee.io/">Ayer</a>
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        <span>
+  <span><i class="ri-user-3-fill"></i>访问人数:<span id="busuanzi_value_site_uv"></span></span>
+  <span class="division">|</span>
+  <span><i class="ri-eye-fill"></i>浏览次数:<span id="busuanzi_value_page_pv"></span></span>
+</span>
+        
+      </li>
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      <li>
+        <!-- cnzz统计 -->
+        
+        <script type="text/javascript" src='https://s9.cnzz.com/z_stat.php?id=1278069914&amp;web_id=1278069914'></script>
+        
+      </li>
+    </ul>
+  </div>
+</footer>
+
+        <div class="float_btns">
+            <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+
+<div class="todark" id="todark">
+  <i class="ri-moon-line"></i>
+</div>
+
+        </div>
+    </main>
+
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/alipay.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/wxpay.png">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-2.0.3.min.js"></script>
+ 
+<script src="/js/lazyload.min.js"></script>
+
+<!-- Tocbot -->
+ 
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  tocbot.init({
+    tocSelector: ".tocbot",
+    contentSelector: ".article-entry",
+    headingSelector: "h1, h2, h3, h4, h5, h6",
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: "main",
+    positionFixedSelector: ".tocbot",
+    positionFixedClass: "is-position-fixed",
+    fixedSidebarOffset: "auto",
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.js"></script>
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.css"
+/>
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js"></script>
+
+<script src="/dist/main.js"></script>
+
+<!-- ImageViewer -->
+ <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css">
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script> 
+<!-- MathJax -->
+
+<!-- Katex -->
+
+<!-- busuanzi  -->
+ 
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+ 
+<!-- ClickLove -->
+ 
+<script src="/js/clickLove.js"></script>
+ 
+<!-- ClickBoom1 -->
+
+<!-- ClickBoom2 -->
+
+<!-- CodeCopy -->
+ 
+<link rel="stylesheet" href="/css/clipboard.css">
+ <script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="ri-file-copy-2-line"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-checkbox-circle-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-checkbox-circle-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-time-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-time-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+ 
+<!-- CanvasBackground -->
+
+<script>
+  if (window.mermaid) {
+    mermaid.initialize({ theme: "forest" });
+  }
+</script>
+
+
+    
+</div>
+</body>
+
+</html>

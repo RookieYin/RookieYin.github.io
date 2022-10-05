@@ -1,0 +1,897 @@
+<!DOCTYPE html>
+
+
+<html lang="zh-CN">
+  
+
+    <head>
+      <meta name="baidu-site-verification" content="code-rk2CNV4xgj" />
+      <meta charset="utf-8" />
+        
+      <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1"
+      />
+      <title>Redis单线程模型 |  RookieYin&#39;s Note</title>
+  <meta name="generator" content="hexo-theme-ayer">
+      
+      <link rel="shortcut icon" href="/images/2.jpg" />
+       
+<link rel="stylesheet" href="/dist/main.css">
+
+      <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/Shen-Yu/cdn/css/remixicon.min.css"
+      />
+      
+<link rel="stylesheet" href="/css/custom.css">
+ 
+      <script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+       
+ 
+
+      <!-- mermaid -->
+      
+    <link rel="alternate" href="/atom.xml" title="RookieYin's Note" type="application/atom+xml">
+<link href="https://cdn.bootcss.com/KaTeX/0.11.1/katex.min.css" rel="stylesheet" /></head>
+  </html>
+</html>
+
+
+<body>
+<div id="app">
+    
+    
+    <div class="sidebar">
+        <!--<button class="navbar-toggle"></button>-->
+<nav class="navbar">
+  <div class="logo">
+    <a href="/">
+      <img src="/images/2.jpg"
+           style="border-radius: 50%;max-width: none;">
+    </a>
+  </div>
+  <div class = nav-title style="font-size: 2.5rem;color: #ffffff;margin-left: 4rem;font-weight: bold;min-width: 23rem">
+    RookieYin's Note
+  </div>
+  <div class="nav nav-main">
+    
+    <div class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </div>
+    
+    <div class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </div>
+    
+    <div class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </div>
+    
+    <div class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </div>
+    
+    <div class="nav-item">
+      <a class="nav-item-link" href="/friends">友链</a>
+    </div>
+    
+    <div class="nav-item">
+      <a class="nav-item-link" href="/about-me/2021">关于我</a>
+    </div>
+    
+      <div class="nav-item">
+        <div class="nav-item-link navbar-menu-wrap">
+          <div class="navbar-menu"></div>
+        </div>
+      </div>
+    <div class = "nav-item">
+      <a class="nav-item-link nav-item-search"  title="搜索">
+        <i class="ri-search-line"></i>
+      </a>
+    </div>
+  </div>
+</nav>
+<nav class="navbar2">
+  <div style="position: relative;">
+      <div style="height: 4.8rem;display: inline-block;margin-top:1rem;margin-left:1rem;">
+        <a href="/">
+          <img src="/images/2.jpg"
+               style="border-radius: 50%;max-width: none;width:4.8rem">
+        </a>
+      </div>
+    <div class="navbar-title2" style="font-size: 2.5rem;color: #ffffff;margin-left: 4rem;font-weight: bold;margin-top:1rem;
+    min-width: 23rem;height: 4.8rem;overflow: hidden;">
+      <span style="line-height: 4.8rem;">RookieYin's Note</span>
+    </div>
+    <div style="display: inline-block;position: absolute;top:50%;height:50%;transform:translate(-50%,-50%);right:4rem;margin-top: 1rem;">
+      <div class="navbar-menu-wrap">
+        <div class="navbar-menu"></div>
+      </div>
+    </div>
+    <div style="display: inline-block;position: absolute;top:50%;height:50%;transform:translate(-50%,-50%);right:0;">
+      <a class="nav-item-search"  title="搜索">
+        <i class="ri-search-line"></i>
+      </a>
+    </div>
+  </div>
+  <div style="display: inline-block;text-align: center;width: 100%;padding-bottom: 1rem;">
+    
+    <div class="nav-item2">
+      <a class="nav-item-link2" href="/">主页</a>
+    </div>
+    
+    <div class="nav-item2">
+      <a class="nav-item-link2" href="/archives">归档</a>
+    </div>
+    
+    <div class="nav-item2">
+      <a class="nav-item-link2" href="/categories">分类</a>
+    </div>
+    
+    <div class="nav-item2">
+      <a class="nav-item-link2" href="/tags">标签</a>
+    </div>
+    
+    <div class="nav-item2">
+      <a class="nav-item-link2" href="/friends">友链</a>
+    </div>
+    
+    <div class="nav-item2">
+      <a class="nav-item-link2" href="/about-me/2021">关于我</a>
+    </div>
+    
+  </div>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+
+    </div>
+    <main class="content">
+        <section class="outer">
+  <article
+  id="post-2 后端/Redis/11.Redis单线程模型"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  Redis单线程模型
+</h1>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/a816038086bf/" class="article-date">
+  <time datetime="2022-07-19T00:52:14.000Z" itemprop="datePublished">2022-07-19</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a> / <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/Redis/">Redis</a>
+  </div>
+
+  
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> 字数统计:</span>
+            <span class="post-count">5.7k</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> 阅读时长≈</span>
+            <span class="post-count">20 分钟</span>
+        </span>
+    </span>
+</div>
+ 
+    </div>
+      
+    <div class="tocbot"></div>
+
+
+
+
+  
+    <div class="article-entry" itemprop="articleBody">
+       
+  <p>我们常说Redis是单线程的，所有操作都是按照顺序线性执行，但是由于读写操作等待用户输入或输出都是阻塞的，因此IO操作在一般情况下不能直接返回，这会导致：某一文件的IO阻塞会使得整个进程无法对其他客户提供服务。因此Redis在新版本中引入了多路复用功能。</p>
+<a id="more"></a>
+<h2 id="1-几个常见问题">1. 几个常见问题</h2>
+<h3 id="1-1-redis是单线程模型？">1.1 Redis是单线程模型？</h3>
+<p>Redis的版本有非常多，3.x、4.x、6.x，版本不同架构也是不同的，<strong>不限定版本问是否单线程</strong>不太严谨。<br>
+1）版本3.x，最早版本，也就是大家口口相传的redis是<strong>单线程。</strong><br>
+2）版本4.x，严格意义上来说也不是单线程，而是负责客户端处理请求的线程是单线程，但是开始加了点多线程的东西（<strong>异步删除</strong>）<br>
+3）最新版本的6.0.x后，告别了刻板印象中的单线程，<strong>而采用了一种全新的多线程来解决问题。</strong></p>
+<center><img src="/images/921002735-621ee0a31c97f_fix732.png" style="width:500px;"></img></center>
+<h3 id="1-1-1-早期单线程模型">1.1.1 早期单线程模型</h3>
+<p>在以前，Redis的网络IO和键值对的读写<strong>都是由一个线程来完成的</strong>，Redis的请求时包括获<strong>取（Socket读），解析，执行，内容返回（socket写）等都是由一个顺序串行的主线程处理</strong>，这就是所谓的<strong>单线程</strong>。</p>
+<center><img src="/images/image-20220715212212208.png" style="width:500px;"></img></center>
+<p>但此时，Redis的<strong>瓶颈就出现了</strong>：<br>
+<strong>I/O的读写本身是阻塞的</strong>，比如当socket中有数据的时候，Redis会通过调用先将数据<strong>从内核态空间拷贝到用户态空间</strong>，再交给Redis调用，<strong>而这个拷贝的过程就是阻塞的</strong>，当<strong>数据量越大时拷贝所需要的时间就越多</strong>，而这些操作都是基于<strong>单线程</strong>完成的。</p>
+<h3 id="1-1-2-新版本中的多路复用">1.1.2 新版本中的多路复用</h3>
+<p>在Redis6.0中新增加了多线程的功能来<strong>提高I/O读写性能</strong>，他的主要实现思路是将<strong>主线程的IO读写任务拆分给一组独立的线程去执行</strong>，这样就可以使多个socket的读写并行化了，<strong>采用I/O多路复用技术可以让单个线程高效处理多个连接请求</strong>（尽量减少网络IO的时间消耗），将最耗时的socket读取，请求解析，写入单独外包出去，剩下的命令执行仍然是由主线程串行执行和内存的数据交互。</p>
+<center><img src="/images/2455197319-621ee41155b73_fix732.png" style="width:500px;"></img></center>
+<p>结合上图可知，<strong>网络IO操作就变成多线程化了</strong>，其他核心部分仍然是线程安全的，是个不错的折中办法。 整个流程如下图所示：</p>
+<center><img src="/images/1330726521-621f178196c81_fix732.png" style="width:500px;"></img></center>
+<ol>
+<li>主线程负责接收建立链接请求，获取socket放入全局等待读取队列</li>
+<li>主线程处理完读事件后，<strong>将这些连接分配给这些IO线程</strong></li>
+<li><strong>主线程阻塞等待IO线程读取socket完毕</strong></li>
+<li><strong>IO线程组收集各个socket输入进来的命令，收集完毕</strong></li>
+<li>主线解除阻塞，程执行命令，<strong>执行完毕后输出结果数据</strong></li>
+<li>主线程阻塞等待 <strong>IO 线程将数据回写</strong> socket 完毕</li>
+<li>解除绑定，清空等待队列</li>
+</ol>
+<h3 id="1-2-redis为什么快？">1.2 Redis为什么快？</h3>
+<p>1）<strong>基于内存操作</strong>，Redis的所有数据都存在内存中，因此所有的运算都是内存级别的，所以他的性能比较高。<br>
+2）<strong>数据结构简单</strong>：Redis的数据结构都是专门设计的，而这些简单的数据结构的查找和操作的时间大部分复杂度都是O（1），因此性能比较强。<br>
+3）<strong>多路复用和非阻塞I/O</strong>，Redis使用I/O多路复用来监听多个socket链接客户端，这样就可以使用一个线程链接来处理多个请求，减少线程切换带来的开销，同时也避免了I/O阻塞操作。<br>
+4）<strong>主线程为单线程，避免上下文切换</strong>，因为是单线程模型，因此避免了不必要的上下文切换和多线程竞争（比如锁），这就省去了多线程切换带来的时间和性能上的消耗，而且单线程不会导致死锁问题的发生。</p>
+<h3 id="1-3-redis性能瓶颈">1.3 Redis性能瓶颈</h3>
+<p>说了这么多redis的优点，<strong>redis的性能瓶颈到底在哪里</strong>？</p>
+<p><strong>从cpu上看：</strong><br>
+1）redis是基于内存的，因此减少了cpu将数据从磁盘复制到内存的时间<br>
+2）redis是单线程的，因此减少了多线程切换和恢复上下文的时间<br>
+3）redis是单线程的，因此多核cpu和单核cpu对于redis来说没有太大影响，单个线程的执行使用一个cpu即可</p>
+<p>综上所述，<strong>redis并没有太多受到cpu的限制</strong>，所以cpu大概率不会成为redis的瓶颈。</p>
+<p>而<strong>内存大小和网络IO才有可能是redis的瓶颈。</strong></p>
+<p>所以Redis<strong>使用了I/O多路复用模型</strong>，来优化redis。</p>
+<h2 id="2-redis多路复用实现原理">2. Redis多路复用实现原理</h2>
+<p>Redis 服务器是一个事件驱动程序， 服务器处理的事件分为时间事件和文件事件两类。</p>
+<ul>
+<li><strong>文件事件</strong>：Redis 主进程中，主要处理客户端的连接请求与相应。</li>
+<li><strong>时间事件</strong>：fork 出的子进程中，处理如 AOF 持久化任务等。</li>
+</ul>
+<p>由于 Redis 的文件事件是单进程，单线程模型，但是确保持着优秀的吞吐量，IO 多路复用起到了主要作用。</p>
+<p>文件事件是对套接字操作的抽象，每当一个套接字准备好执行连接应答、写入、读取、关闭等操作时，就会产生一个文件事件。因为一个服务器通常会连接多个套接字，所以多个文件事件有可能会并发地出现。</p>
+<p>IO 多路复用程序负责监听多个套接字并向文件事件分派器传送那些产生了事件的套接字。文件事件分派器接收 IO 多路复用程序传来的套接字，并根据套接字产生的事件的类型，调用相应的事件处理器。示例如图所示：</p>
+<center><img src="/images/225e6ad72395a6686eba04d82bfec23f.jpeg" style="width:500px;"></img></center>
+<p>Redis 的 IO 多路复用程序的所有功能都是通过包装常见的 select、poll、evport 和 kqueue 这些 IO 多路复用函数库来实现的，每个 IO 多路复用函数库在 Redis 源码中都有对应的一个单独的文件。</p>
+<p>Redis 为每个 IO 多路复用函数库都实现了相同的 API，所以 IO 多路复用程序的底层实现是可以互换的。如图：</p>
+<center><img src="/images/04dd554ab597afc58aa94357ecec97f3.jpeg" style="width:500px;"></img></center>
+<p>Redis 把所有连接与读写事件、还有我们没提到的时间事件一起集中管理，并对底层 IO 多路复用机制进行了封装，最终实现了单进程能够处理多个连接以及读写事件。这就是 IO 多路复用在 redis 中的应用。</p>
+<h2 id="3-unix网络编程中的5种io模型">3. Unix网络编程中的5种IO模型</h2>
+<p>Unix网络编程中有5中IO模型：Blocking IO，NoneBlocking IO，IO multiplexing，signal driven IO和asynchronous IO。</p>
+<h3 id="3-1-bio-阻塞io">3.1 BIO（阻塞IO）</h3>
+<p>当用户进程调用了recvfrom这个系统调用，kernel就开始了IO的第一个阶段：准备数据（对于网络IO来说，很多时候数据在一开始还没有到达。比如，还没有收到一个完整的UDP包。这个时候kernel就要等待足够的数据到来）。这个过程需要等待，也就是说数据被拷贝到操作系统内核的缓冲区中是需要一个过程的。而在用户进程这边，整个进程会被阻塞（当然，是进程自己选择的阻塞）。当kernel一直等到数据准备好了，它就会将数据从kernel中拷贝到用户内存，然后kernel返回结果，用户进程才解除block的状态，重新运行起来。所以，BIO的特点就是在IO执行的两个阶段都被block了。</p>
+<center><img src="/images/c9a319d8db0648e692ad23d7cce834ad_tplv-k3u1fbpfcp-zoom-in-crop-mark_3024_0_0_0.awebp" style="width:700px;"></img></center>
+<h3 id="3-2-nio-非阻塞io">3.2 NIO（非阻塞IO）</h3>
+<h4 id="3-2-1-实现方式">3.2.1 实现方式</h4>
+<p>当用户进程发出read操作时，如果kernel中的数据还没有准备好，那么它并不会block用户进程，而是立刻返回一个error。从用户进程角度讲 ，它发起一个read操作后，并不需要等待，而是马上就得到了一个结果。用户进程判断结果是一个error时，它就知道数据还没有准备好，于是它可以再次发送read操作。一旦kernel中的数据准备好了，并且又再次收到了用户进程的system call，那么它马上就将数据拷贝到了用户内存，然后返回。所以，NIO特点是用户进程需要不断的主动询问内核数据准备好了吗？</p>
+<center><img src="/images/28b788b2ee8743d293830f8689b78707_tplv-k3u1fbpfcp-zoom-in-crop-mark_3024_0_0_0.awebp" style="width:700px;"></img></center>
+<p>在非阻塞式 I/O 模型中，应用程序把一个套接口设置为非阻塞，就是告诉内核，当所请求的I/O操作无法完成时，不要将进程睡眠而是返回一个“错误”，应用程序基于 I/O 操作函数将不断的轮询数据是否已经准备好，如果没有准备好，继续轮询，直到数据准备好为止。</p>
+<p>在NIO模式中，只有一个线程： 当一个客户端与服务端进行连接，这个socket就会加入到一个数组中，隔一段时间遍历一次，看这个socket的read()方法能否读到数据，这样一个线程就能处理多个客户端的连接和读取了。</p>
+<h4 id="3-2-2-问题和优缺点">3.2.2 问题和优缺点</h4>
+<p>NIO成功的解决了BIO需要开启多线程的问题，NIO中一个线程就能解决多个socket，但是还存在2个问题。</p>
+<p>问题一： 这个模型在客户端少的时候十分好用，但是客户端如果很多， 比如有1万个客户端进行连接，那么每次循环就要遍历1万个socket，如果一万个socket中只有10个socket有数据，也会遍历一万个socket，就会做很多无用功，每次遍历遇到 read 返回 -1 时仍然是一次浪费资源的系统调用。</p>
+<p>问题二： 而且这个遍历过程是在用户态进行的，用户态判断socket是否有数据还是调用内核的read()方法实现的，这就涉及到用户态和内核态的切换，每遍历一个就要切换一次，开销很大因为这些问题的存在。</p>
+<p><strong>优点</strong>：不会阻塞在内核的等待数据过程，每次发起的 I/O 请求可以立即返回，不用阻塞等待，实时性较好。</p>
+<p><strong>缺点</strong>：轮询将会不断地询问内核，这将占用大量的 CPU 时间，系统资源利用率较低，所以一般 Web 服务器不使用这种 I/O 模型。</p>
+<p><strong>结论</strong>：让Linux内核搞定上述需求，**我们将一批文件描述符通过一次系统调用传给内核由内核层去遍历，才能真正解决这个问题。**IO多路复用应运而生，也即将上述工作直接放进Linux内核，<strong>不再两态转换而是直接从内核获得结果</strong>，因为内核是非阻塞的。</p>
+<p>问题升级：如何用单线程处理大量的链接？</p>
+<h3 id="3-3-io-multiplexing-io多路复用">3.3 IO Multiplexing（IO多路复用）</h3>
+<h4 id="3-3-1-实现方式">3.3.1 实现方式</h4>
+<p>IO multiplexing就是我们说的select，poll，epoll，有些地方也称这种IO方式为event driven IO事件驱动IO。就是通过一种机制，一个进程可以监视多个描述符，一旦某个描述符就绪（一般是读就绪或者写就绪），能够通知程序进行相应的读写操作。可以基于一个阻塞对象，同时在多个描述符上等待就绪，而不是使用多个线程(每个文件描述符一个线程，每次new一个线程)，这样可以大大节省系统资源。所以，I/O 多路复用的特点是<strong>通过一种机制一个进程能同时等待多个文件描述符而这些文件描述符（套接字描述符）其中的任意一个进入读就绪状态，select()函数就可以返回。</strong></p>
+<p>假设你是一个监考老师，让30个学生解答一道竞赛考题，然后负责验收学生答卷，你有下面几个选择：</p>
+<p>第一种选择：按顺序逐个验收，先验收A，然后是B，之后是C、D。。。这中间如果有一个学生卡住，全班都会被耽误,你用循环挨个处理socket，根本不具有并发能力。</p>
+<p>第二种选择：你创建30个分身线程，每个分身线程检查一个学生的答案是否正确。 这种类似于为每一个用户创建一个进程或者线程处理连接。</p>
+<p>第三种选择，你站在讲台上等，谁解答完谁举手。这时C、D举手，表示他们解答问题完毕，你下去依次检查C、D的答案，然后继续回到讲台上等。此时E、A又举手，然后去处理E和A。。。这种就是IO复用模型。Linux下的select、poll和epoll就是干这个的。</p>
+<p>将用户socket对应的fd注册进epoll，然后epoll帮你监听哪些socket上有消息到达，这样就避免了大量的无用操作。此时的socket应该采用非阻塞模式。这样，整个过程只在调用select、poll、epoll这些调用的时候才会阻塞，收发客户消息是不会阻塞的，整个进程或者线程就被充分利用起来，这就是事件驱动，所谓的reactor反应模式。</p>
+<p><strong>Reactor设计模式</strong> 基于 I/O 复用模型：<strong>多个连接共用一个阻塞对象</strong>，应用程序只需要在一个阻塞对象上等待，无需阻塞等待所有连接。当某条连接有新的数据可以处理时，操作系统通知应用程序，线程从阻塞状态返回，开始进行业务处理。</p>
+<p>Reactor 模式，是指通过一个或多个输入同时传递给服务处理器的服务请求的事件驱动处理模式。服务端程序处理传入多路请求，并将它们同步分派给请求对应的处理线程，Reactor 模式也叫 Dispatcher 模式。<strong>即 I/O 多了复用统一监听事件，收到事件后分发(Dispatch 给某进程)，是编写高性能网络服务器的必备技术。</strong></p>
+<center><img src="/images/5dd939b1883b42cead1eabfa65c69682_tplv-k3u1fbpfcp-zoom-in-crop-mark_3024_0_0_0.awebp" style="width:700px;"></img></center>
+<h4 id="3-3-2-select-poll和epoll">3.3.2 select、poll和epoll</h4>
+<p>select, poll, epoll 都是I/O多路复用的具体的实现。</p>
+<ol>
+<li>
+<p>select方法</p>
+<p>select函数监视的文件描述符分3类，分别是<strong>readfds、writefds和exceptfds</strong>，将用户传入的数组拷贝到内核空间，调用select函数<strong>后会进行阻塞</strong>，直到有描述符就绪（有数据 可读，可写或者有except）或者超时（timeout指定等待时间，如果立即返回设为null即可），<strong>函数返回</strong>。当select函数返回后，<strong>可以通过遍历fdset，来找到就绪的描述符。</strong></p>
+<ul>
+<li>优点
+<ul>
+<li>select其实就是把NIO中<strong>用户态要遍历的fd数组</strong>（我们的每一个socket链接，安装进ArrayList里面的那个）<strong>拷贝到了内核态</strong>，让内核态来遍历，因为<strong>用户态判断socket是否有数据还是要调用内核态的</strong>，所有拷贝到内核态后，这样遍历判断的时候就<strong>不用一直用用户态和内核态频繁切换了。</strong></li>
+</ul>
+</li>
+<li>缺点
+<ul>
+<li><strong>bitmap最大1024位</strong>，一个进程最多<strong>只能处理1024个客户端</strong></li>
+<li><strong>&amp;rset不可重用</strong>，每次socket有数据就相应的位<strong>会被置位</strong></li>
+<li><strong>文件描述符数组拷贝到了内核态，仍然有开销</strong>。select调用需要传入fd数组，需要拷贝一份到内核，<strong>高并发场景下这样的拷贝消耗资源是惊人的</strong>。（可优化为不复制）</li>
+<li>**select并没有通知用户态哪一个socket用户有数据，仍需要O（n）的遍历。**select仅仅返回可读文件描述符的个数，具体哪个可读还是要用户自己遍历。（可优化为只返回给用户就绪的文件描述符，无需用户做无效的遍历）</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>poll方法</p>
+<ul>
+<li>
+<p>优点</p>
+<ul>
+<li><strong>poll使用pollfd数组来代替select中的bitmap，数组中没有1024的限制</strong>，去掉了select只能监听1024个文件描述符的限制。</li>
+<li><strong>当pollfds数组中有事件发生，相应revents置置为1，遍历的时候又置位回零，实现了pollfd数组的重用</strong></li>
+</ul>
+</li>
+<li>
+<p>缺点</p>
+<ul>
+<li>pollfds数组拷贝到了内核态，<strong>仍然有开销</strong></li>
+<li>poll并没有通知用户态哪一个socket有数据，<strong>仍然需要O(n)的遍历</strong></li>
+</ul>
+</li>
+<li>
+<p>问题</p>
+<p>poll 解决了select缺点中的前两条，其本质原理还是select的方法，还存在select中原来的问题：</p>
+<p>1、pollfds数组拷贝到了内核态，仍然有开销 2、poll并没有通知用户态哪一个socket有数据，仍然需要O(n)的遍历</p>
+</li>
+</ul>
+</li>
+<li>
+<p>epoll方法</p>
+<ul>
+<li>epoll_create：创建一个 epoll 句柄</li>
+<li>epoll_ctl：向内核添加、修改或删除要监控的文件描述符</li>
+<li>epoll_wait：类似发起了select() 调用</li>
+</ul>
+<p>epoll的执行流程为：</p>
+<ul>
+<li>当有数据的时候，会把相应的文件描述符“置位”，但是epoll没有revent标志位，所以并不是真正的置位。这时候会把有数据的文件描述符放到队首。</li>
+<li>epoll会返回有数据的文件描述符的个数</li>
+<li>根据返回的个数读取前N个文件描述符即可</li>
+</ul>
+</li>
+</ol>
+<h4 id="3-3-3-总结">3.3.3 总结</h4>
+<p>多路复用快的原因在于，操作系统提供了这样的系统调用，使得原来的 while 循环里多次系统调用， 变成了一次系统调用 + 内核层遍历这些文件描述符。 epoll是现在最先进的IO多路复用器，Redis、Nginx，linux中的Java NIO都使用的是epoll。 这里“多路”指的是多个网络连接，“复用”指的是复用同一个线程。 1、一个socket的生命周期中只有一次从用户态拷贝到内核态的过程，开销小 2、<strong>使用event事件通知机制，每次socket中有数据会主动通知内核，并加入到就绪链表中，不需要遍历所有的socket</strong></p>
+<p>在多路复用IO模型中，会有一个内核线程不断地去轮询多个 socket 的状态，只有当真正读写事件发送时，才真正调用实际的IO读写操作。因为在多路复用IO模型中，只需要使用一个线程就可以管理多个socket，系统不需要建立新的进程或者线程，也不必维护这些线程和进程，并且只有真正有读写事件进行时，才会使用IO资源，所以它大大减少来资源占用。<strong>多路I/O复用模型是利用 select、poll、epoll 可以同时监察多个流的 I/O 事件的能力，在空闲的时候，会把当前线程阻塞掉，当有一个或多个流有 I/O 事件时，就从阻塞态中唤醒，于是程序就会轮询一遍所有的流（epoll 是只轮询那些真正发出了事件的流），并且只依次顺序的处理就绪的流，这种做法就避免了大量的无用操作。 采用多路 I/O 复用技术可以让单个线程高效的处理多个连接请求（尽量减少网络 IO 的时间消耗），且 Redis 在内存中操作数据的速度非常快，也就是说内存内的操作不会成为影响Redis性能的瓶颈</strong></p>
+<p>三个方法对比如下：</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>select</th>
+<th>poll</th>
+<th>epoll</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>操作方式</td>
+<td>遍历</td>
+<td>遍历</td>
+<td>回调</td>
+</tr>
+<tr>
+<td>数据结构</td>
+<td>bitmap</td>
+<td>数组</td>
+<td>红黑树</td>
+</tr>
+<tr>
+<td>最大连接数</td>
+<td>1024（x86）或2048（x64）</td>
+<td>无上限</td>
+<td>无上限</td>
+</tr>
+<tr>
+<td>最大支持文件描述符数</td>
+<td>一般有最大值限制</td>
+<td>65535</td>
+<td>65535</td>
+</tr>
+<tr>
+<td>fd拷贝</td>
+<td>每次调用select，都需要把fd集合从用户态拷贝到内核态</td>
+<td>每次调用poll，都需要把fd集合从用户态拷贝到内核态</td>
+<td>fd首次调用epoll_ctl拷贝，每次调用epoll_wait不拷贝</td>
+</tr>
+<tr>
+<td>工作效率</td>
+<td>每次调用都进行线性遍历，时间复杂度O(n)</td>
+<td>每次调用都进行线性遍历，时间复杂度O(n)</td>
+<td>事件通知方式，每当fd就绪，系统注册的回调函数被调用，将就绪fd放到readyList里面，时间复杂度O(1)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="3-4-signal-driven-io-信号驱动io">3.4 signal-driven IO（信号驱动IO）</h3>
+<p>在信号驱动式I/O模型中，应用程序使用套接口进行信号驱动I/O，并安装一个信号处理函数，进程继续运行并不阻塞。当数据准备好时，进程会收到一个SIGIO信号，可以在信号处理函数中调用I/O操作函数处理数据。</p>
+<center><img src="/images/20200330032219476.png" style="width:700px;"></img></center>
+<ul>
+<li>优点： 线程并没有在等待数据时被阻塞，可以提高资源的利用率</li>
+<li>缺点： 信号I/O在大量IO操作时可能会因为信号队列溢出导致没法通知</li>
+</ul>
+<p>信号驱动I/O尽管对于处理UDP套接字来说有用，即这种信号通知意味着到达一个数据报，或者返回一个异步错误。但是，对于TCP而言，信号驱动的I/O方式近乎无用，因为导致这种通知的条件为数众多，每一个来进行判别会消耗很大资源，与前几种方式相比优势尽失。</p>
+<h2 id="3-5-asynchronous-io-异步io">3.5 asynchronous IO（异步IO）</h2>
+<p>由POSIX规范定义，应用程序告知内核启动某个操作，并让内核在整个操作（包括将数据从内核拷贝到应用程序的缓冲区）完成后通知应用程序。这种模型与信号驱动模型的主要区别在于：信号驱动I/O是由内核通知应用程序何时启动一个I/O操作，而异步I/O模型是由内核通知应用程序I/O操作何时完成。</p>
+<center><img src="/images/20200330032322460.png" style="width:700px;"></img></center>
+<ul>
+<li><strong>优点</strong>： 异步 I/O 能够充分利用 DMA 特性，让 I/O 操作与计算重叠</li>
+<li><strong>缺点</strong>： 要实现真正的异步 I/O，操作系统需要做大量的工作。目前 Windows 下通过 IOCP 实现了真正的异步 I/O，而在 Linux 系统下，Linux2.6才引入，目前 AIO 并不完善，因此在 Linux 下实现高并发网络编程时都是以 IO复用模型模式为主。</li>
+</ul>
+<h2 id="4-参考文献">4. 参考文献</h2>
+<ol>
+<li><a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000041488709">https://segmentfault.com/a/1190000041488709</a></li>
+<li><a target="_blank" rel="noopener" href="https://juejin.cn/post/7015927248100261901">https://juejin.cn/post/7015927248100261901</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/LU_ZHAO/article/details/105190942">https://blog.csdn.net/LU_ZHAO/article/details/105190942</a></li>
+</ol>
+ 
+      <!-- reward -->
+      
+      <div id="reword-out">
+        <div id="reward-btn">
+          打赏
+        </div>
+      </div>
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <div class="declare">
+      <ul class="post-copyright">
+        <li>
+          <i class="ri-copyright-line"></i>
+          <strong>版权声明： </strong>
+          
+          本博客所有文章除特别声明外，著作权归作者所有。转载请注明出处！
+          
+        </li>
+      </ul>
+    </div>
+    
+    <footer class="article-footer">
+       
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<!--<div class="wx-share-modal">-->
+<!--    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>-->
+<!--    <p>扫一扫，分享到微信</p>-->
+<!--    <div class="wx-qrcode">-->
+<!--      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://rookieyin.github.io/a816038086bf/" alt="微信分享二维码">-->
+<!--    </div>-->
+<!--</div>-->
+
+<div id="share-mask"></div>
+  
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/redis/" rel="tag">redis</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%90%8E%E7%AB%AF/" rel="tag">后端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="tag">数据库</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+  <nav class="article-nav">
+    
+      <a href="/0a324fe2c91c/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            线程池拒绝策略及应用场景
+          
+        </div>
+      </a>
+    
+    
+      <a href="/37288260d506/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">Are Graph Augmentations Necessary? Simple Graph Contrastive Learning for Recommendation</div>
+      </a>
+    
+  </nav>
+
+   
+<!-- valine评论 -->
+<div id="vcomments-box">
+  <div id="vcomments"></div>
+</div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js"></script>
+<script>
+  new Valine({
+    el: "#vcomments",
+    app_id: "f9XmUV7HVprPCNptggBNBhWR-gzGzoHsz",
+    app_key: "H73Viqo3lADopEFgshq3XrXs",
+    path: window.location.pathname,
+    avatar: "monsterid",
+    placeholder: "给我的文章加点评论吧~",
+    recordIP: true,
+  });
+  const infoEle = document.querySelector("#vcomments .info");
+  if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+    infoEle.childNodes.forEach(function (item) {
+      item.parentNode.removeChild(item);
+    });
+  }
+</script>
+<style>
+  #vcomments-box {
+    padding: 5px 30px;
+  }
+
+  @media screen and (max-width: 800px) {
+    #vcomments-box {
+      padding: 5px 0px;
+    }
+  }
+
+  #vcomments-box #vcomments {
+    background-color: #fff;
+  }
+
+  .v .vlist .vcard .vh {
+    padding-right: 20px;
+  }
+
+  .v .vlist .vcard {
+    padding-left: 10px;
+  }
+</style>
+
+ 
+   
+     
+</article>
+
+</section>
+        <footer class="footer">
+  <div class="outer">
+    <ul>
+      <li>
+        Copyrights &copy;
+        2021-2022
+        <i class="ri-heart-fill heart_icon"></i> Yin Peng
+      </li>
+    </ul>
+    <ul>
+      <li>引擎:
+        <a style="color: #0681d0" target="_blank" rel="noopener" href="https://hexo.io/zh-cn/">Hexo</a>
+        &nbsp;&nbsp;|&nbsp;&nbsp;主题:修改自
+        <a style="color: #0681d0" target="_blank" rel="noopener" href="https://shen-yu.gitee.io/">Ayer</a>
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        <span>
+  <span><i class="ri-user-3-fill"></i>访问人数:<span id="busuanzi_value_site_uv"></span></span>
+  <span class="division">|</span>
+  <span><i class="ri-eye-fill"></i>浏览次数:<span id="busuanzi_value_page_pv"></span></span>
+</span>
+        
+      </li>
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      <li>
+        <!-- cnzz统计 -->
+        
+        <script type="text/javascript" src='https://s9.cnzz.com/z_stat.php?id=1278069914&amp;web_id=1278069914'></script>
+        
+      </li>
+    </ul>
+  </div>
+</footer>
+
+        <div class="float_btns">
+            <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+
+<div class="todark" id="todark">
+  <i class="ri-moon-line"></i>
+</div>
+
+        </div>
+    </main>
+
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/alipay.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/wxpay.png">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-2.0.3.min.js"></script>
+ 
+<script src="/js/lazyload.min.js"></script>
+
+<!-- Tocbot -->
+ 
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  tocbot.init({
+    tocSelector: ".tocbot",
+    contentSelector: ".article-entry",
+    headingSelector: "h1, h2, h3, h4, h5, h6",
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: "main",
+    positionFixedSelector: ".tocbot",
+    positionFixedClass: "is-position-fixed",
+    fixedSidebarOffset: "auto",
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.js"></script>
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.css"
+/>
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js"></script>
+
+<script src="/dist/main.js"></script>
+
+<!-- ImageViewer -->
+ <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css">
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script> 
+<!-- MathJax -->
+
+<!-- Katex -->
+
+<!-- busuanzi  -->
+ 
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+ 
+<!-- ClickLove -->
+ 
+<script src="/js/clickLove.js"></script>
+ 
+<!-- ClickBoom1 -->
+
+<!-- ClickBoom2 -->
+
+<!-- CodeCopy -->
+ 
+<link rel="stylesheet" href="/css/clipboard.css">
+ <script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="ri-file-copy-2-line"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-checkbox-circle-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-checkbox-circle-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-time-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-time-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+ 
+<!-- CanvasBackground -->
+
+<script>
+  if (window.mermaid) {
+    mermaid.initialize({ theme: "forest" });
+  }
+</script>
+
+
+    
+</div>
+</body>
+
+</html>

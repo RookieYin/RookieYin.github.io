@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+
+
+<html lang="zh-CN">
+  
+
+    <head>
+      <meta name="baidu-site-verification" content="code-rk2CNV4xgj" />
+      <meta charset="utf-8" />
+        
+      <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1"
+      />
+      <title>ICMP协议 |  RookieYin&#39;s Note</title>
+  <meta name="generator" content="hexo-theme-ayer">
+      
+      <link rel="shortcut icon" href="/images/2.jpg" />
+       
+<link rel="stylesheet" href="/dist/main.css">
+
+      <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/Shen-Yu/cdn/css/remixicon.min.css"
+      />
+      
+<link rel="stylesheet" href="/css/custom.css">
+ 
+      <script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+       
+ 
+
+      <!-- mermaid -->
+      
+    <link rel="alternate" href="/atom.xml" title="RookieYin's Note" type="application/atom+xml">
+<link href="https://cdn.bootcss.com/KaTeX/0.11.1/katex.min.css" rel="stylesheet" /></head>
+  </html>
+</html>
+
+
+<body>
+<div id="app">
+    
+    
+    <div class="sidebar">
+        <!--<button class="navbar-toggle"></button>-->
+<nav class="navbar">
+  <div class="logo">
+    <a href="/">
+      <img src="/images/2.jpg"
+           style="border-radius: 50%;max-width: none;">
+    </a>
+  </div>
+  <div class = nav-title style="font-size: 2.5rem;color: #ffffff;margin-left: 4rem;font-weight: bold;min-width: 23rem">
+    RookieYin's Note
+  </div>
+  <div class="nav nav-main">
+    
+    <div class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </div>
+    
+    <div class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </div>
+    
+    <div class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </div>
+    
+    <div class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </div>
+    
+    <div class="nav-item">
+      <a class="nav-item-link" href="/friends">友链</a>
+    </div>
+    
+    <div class="nav-item">
+      <a class="nav-item-link" href="/about-me/2021">关于我</a>
+    </div>
+    
+      <div class="nav-item">
+        <div class="nav-item-link navbar-menu-wrap">
+          <div class="navbar-menu"></div>
+        </div>
+      </div>
+    <div class = "nav-item">
+      <a class="nav-item-link nav-item-search"  title="搜索">
+        <i class="ri-search-line"></i>
+      </a>
+    </div>
+  </div>
+</nav>
+<nav class="navbar2">
+  <div style="position: relative;">
+      <div style="height: 4.8rem;display: inline-block;margin-top:1rem;margin-left:1rem;">
+        <a href="/">
+          <img src="/images/2.jpg"
+               style="border-radius: 50%;max-width: none;width:4.8rem">
+        </a>
+      </div>
+    <div class="navbar-title2" style="font-size: 2.5rem;color: #ffffff;margin-left: 4rem;font-weight: bold;margin-top:1rem;
+    min-width: 23rem;height: 4.8rem;overflow: hidden;">
+      <span style="line-height: 4.8rem;">RookieYin's Note</span>
+    </div>
+    <div style="display: inline-block;position: absolute;top:50%;height:50%;transform:translate(-50%,-50%);right:4rem;margin-top: 1rem;">
+      <div class="navbar-menu-wrap">
+        <div class="navbar-menu"></div>
+      </div>
+    </div>
+    <div style="display: inline-block;position: absolute;top:50%;height:50%;transform:translate(-50%,-50%);right:0;">
+      <a class="nav-item-search"  title="搜索">
+        <i class="ri-search-line"></i>
+      </a>
+    </div>
+  </div>
+  <div style="display: inline-block;text-align: center;width: 100%;padding-bottom: 1rem;">
+    
+    <div class="nav-item2">
+      <a class="nav-item-link2" href="/">主页</a>
+    </div>
+    
+    <div class="nav-item2">
+      <a class="nav-item-link2" href="/archives">归档</a>
+    </div>
+    
+    <div class="nav-item2">
+      <a class="nav-item-link2" href="/categories">分类</a>
+    </div>
+    
+    <div class="nav-item2">
+      <a class="nav-item-link2" href="/tags">标签</a>
+    </div>
+    
+    <div class="nav-item2">
+      <a class="nav-item-link2" href="/friends">友链</a>
+    </div>
+    
+    <div class="nav-item2">
+      <a class="nav-item-link2" href="/about-me/2021">关于我</a>
+    </div>
+    
+  </div>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+
+    </div>
+    <main class="content">
+        <section class="outer">
+  <article
+  id="post-8 计算机基础/计算机网络/7 ICMP协议"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  ICMP协议
+</h1>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/afce9b9b3bcc/" class="article-date">
+  <time datetime="2022-05-23T14:34:49.000Z" itemprop="datePublished">2022-05-23</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/">计算机基础</a> / <a class="article-category-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a>
+  </div>
+
+  
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> 字数统计:</span>
+            <span class="post-count">3.9k</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> 阅读时长≈</span>
+            <span class="post-count">13 分钟</span>
+        </span>
+    </span>
+</div>
+ 
+    </div>
+      
+    <div class="tocbot"></div>
+
+
+
+
+  
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h2 id="icmp协议概述">ICMP协议概述</h2>
+<p>ICMP，即Internet Control Message Protocol网络控制报文协议，它属于网络层。</p>
+<p>在详细介绍ICMP之前，我们先看几个问题：</p>
+<p><strong>问题1：http协议，当client请求的网页不存在时，server如何做？</strong></p>
+<p>同学们会说，这是出错的情况，当然要发送特定的Error Code，告诉client出现了什么错误， 以便让client认识到当前的情况,及时调整自己的行，或让用户来进行干预。如果没有这种错误消息通知机制 ，一旦出错，server什么也不做，只是把无法处理的请求一丢了事。简单是简单了，问题是client被闷在鼓里，一直在那里 转圈圈 等，直到用户很不满意地关闭软件，并伴随一声 靠,什么破软件！很显然，http有自己的 错误消息通知机制，由于http属于应用层，姑且称之为 应用层的错误消息通知机制。</p>
+<a id="more"></a>
+<p><strong>问题2：TCP协议一旦接到无法处理的报文，如何处理？</strong></p>
+<p>熟悉TCP协议的同学略加思索会说，使用RST(Reset)消息,告诉发送方，当前遭遇无法处理的异常情况，且无法修复，只有Reset连接才是最好的选择。接收方接到Reset消息，只要这个Reset消息是合法的，那么接收方会无条件的Reset当前的连接。RST消息，属于TCP协议的错误消息通知机制，由于TCP协议属于OSI传输层，称之为 传输层的错误消息通知机制。</p>
+<p>但TCP的RST消息，实在是很粗糙，没有任何 Error Code，让接收方只知道发生了错误，但是具体是哪里出错了并不知道，这样就给排错设置了一个很大的障碍，于是千千万万的网工、码农一旦遭遇TCP连接被Reset，就会陷入深深地思索：娘西皮,到底是咋回事呢？如果TCP提供 Error Code ，方便排错的同时，将使TCP协议变得臃肿不堪。 个人推测，当初设计这些基础协议时，还是希望流线型 简洁型，尽量减少协议头尺寸，留更多的空间传输用户的数据。</p>
+<p><strong>问题3：当主机在处理IP报文时，发现目的端口没有程序在监听，如何处理？</strong></p>
+<p>熟悉ICMP协议的同学会不假思索脱口而出，使用ICMP消息发送出错消息 Port Unreachable ,告诉源主机目前的现状 是的，由于当前没有程序在目的端口侦听(Listen)，无法使用 传输层的错误消息通知机制 来通知源主机当前的错误状况，那只好退而求其次，让传输层的下级单位 网络层来处理。 网络层的代表人物“IP协议”，终于闪亮登场。</p>
+<p>但是熟悉IP协议的同学会知道,，P协议20字节标准头部 以及40字节的扩展头部(option)并没有处理出错的字段。 如上文所言，如果IP协议本身增添了出错处理字段，协议变得不再流线，将大大挤占用户数据的空间。 但是，错误的情况没有“错误消息通知机制”来通知源主机，是不可接受的。 所以，协议设计者发明了ICMP协议，用于协助IP层来处理“错误消息通知机制 ”。由于该层位于网络层，称之为“网络层的错误消息通知机制”。</p>
+<p>ICMP里面有个关键词——控制，如何控制的呢？</p>
+<p>网络包在复杂的网络传输环境里，常常会遇到各种问题。当遇到问题的时候，总不能死的不明不白，没头没脑的作风不是计算机网络的风格。所以需要传出消息，报告遇到了什么问题，这样才可以调整传输策略，以此来控制整个局面。</p>
+<p><code>ICMP</code> 主要的功能包括：</p>
+<ul>
+<li><strong>确认 IP 包是否成功送达目标地址</strong></li>
+<li><strong>报告发送过程中 IP 包被废弃的原因和改善网络设置等</strong></li>
+</ul>
+<p>在 <code>IP</code> 通信中如果某个 <code>IP</code> 包因为某种原因未能达到目标地址，那么这个具体的原因将<strong>由 ICMP 负责通知</strong>。</p>
+<center><img src="/images/aHR0cHM6Ly9jZG4uanNkZWxpdnIubmV0L2doL3hpYW9saW5jb2Rlci9JbWFnZUhvc3QvJUU4JUFFJUExJUU3JUFFJTk3JUU2JTlDJUJBJUU3JUJEJTkxJUU3JUJCJTlDL3BpbmcvNC5qcGc.png" style="width:500px;"></img></center>     
+<p>如上图例子，主机 <code>A</code> 向主机 <code>B</code> 发送了数据包，由于某种原因，途中的路由器 <code>2</code> 未能发现主机 <code>B</code> 的存在，这时，路由器 <code>2</code> 就会向主机 <code>A</code> 发送一个 <code>ICMP</code> 目标不可达数据包，说明发往主机 <code>B</code> 的包未能成功。</p>
+<p><strong>ICMP 的这种通知消息会使用 <code>IP</code> 进行发送</strong> 。</p>
+<p>因此，从路由器 <code>2</code> 返回的 ICMP 包会按照往常的路由控制先经过路由器 <code>1</code> 再转发给主机 <code>A</code> 。收到该 ICMP 包的主机 <code>A</code> 则分解 ICMP 的首部和数据域以后得知具体发生问题的原因。</p>
+<h2 id="icmp报文">ICMP报文</h2>
+<p>ICMP 报文是封装在 IP 包里面，它工作在网络层，是 IP 协议的助手。</p>
+<center><img src="/images/aHR0cHM6Ly9jZG4uanNkZWxpdnIubmV0L2doL3hpYW9saW5jb2Rlci9JbWFnZUhvc3QvJUU4JUFFJUExJUU3JUFFJTk3JUU2JTlDJUJBJUU3JUJEJTkxJUU3JUJCJTlDL3BpbmcvNS5qcGc.png" style="width:500px;"></img></center>     
+<p>ICMP 包头的<strong>类型</strong>字段，大致可以分为两大类：</p>
+<ul>
+<li>一类是用于诊断的查询消息，也就是「<strong>查询报文类型</strong>」</li>
+<li>另一类是通知出错原因的错误消息，也就是「<strong>差错报文类型</strong>」</li>
+</ul>
+<center><img src="/images/aHR0cHM6Ly9jZG4uanNkZWxpdnIubmV0L2doL3hpYW9saW5jb2Rlci9JbWFnZUhvc3QvJUU4JUFFJUExJUU3JUFFJTk3JUU2JTlDJUJBJUU3JUJEJTkxJUU3JUJCJTlDL3BpbmcvNi5qcGc.png" style="width:500px;"></img></center>     
+<h3 id="查询报文类型">查询报文类型</h3>
+<p>查询报文类型包括：回送应答和回送请求，代码分别为0和8。</p>
+<p><strong>回送消息</strong>用于进行通信的主机或路由器之间，判断所发送的数据包是否已经成功到达对端的一种消息，<code>ping</code> 命令就是利用这个消息实现的。</p>
+<center><img src="/images/aHR0cHM6Ly9jZG4uanNkZWxpdnIubmV0L2doL3hpYW9saW5jb2Rlci9JbWFnZUhvc3QvJUU4JUFFJUExJUU3JUFFJTk3JUU2JTlDJUJBJUU3JUJEJTkxJUU3JUJCJTlDL3BpbmcvNy5qcGc.png" style="width:500px;"></img></center>     
+<p>一台主机可以向对端主机发送<strong>回送请求</strong>的消息（<code>ICMP Echo Request Message</code>，类型 <code>8</code>），也可以接收对端主机发回来的<strong>回送应答</strong>消息（<code>ICMP Echo Reply Message</code>，类型 <code>0</code>）。 其报文格式如下：</p>
+<center><img src="/images/aHR0cHM6Ly9jZG4uanNkZWxpdnIubmV0L2doL3hpYW9saW5jb2Rlci9JbWFnZUhvc3QvJUU4JUFFJUExJUU3JUFFJTk3JUU2JTlDJUJBJUU3JUJEJTkxJUU3JUJCJTlDL3BpbmcvOC5qcGc.png" style="width:700px;"></img></center>     
+<p>相比原生的 ICMP，这里多了两个字段：</p>
+<ul>
+<li><strong>标识符</strong>：用以区分是哪个应用程序发 ICMP 包，比如用进程 <code>PID</code> 作为标识符；</li>
+<li><strong>序号</strong>：序列号从 <code>0</code> 开始，每发送一次新的回送请求就会加 <code>1</code>， 可以用来确认网络包是否有丢失。</li>
+</ul>
+<p>在<strong>选项数据</strong>中，<code>ping</code> 还会存放发送请求的时间值，来计算往返时间，说明路程的长短。</p>
+<h3 id="差错报文类型">差错报文类型</h3>
+<p>这里介绍几个常用的差错报文类型：目标不可达、原点抑制、重定向和超时。</p>
+<ol>
+<li>
+<p>目标不可达</p>
+<p>IP 路由器无法将 IP 数据包发送给目标地址时，会给发送端主机返回一个<strong>目标不可达</strong>的 ICMP 消息，并在这个消息中显示不可达的具体原因，原因记录在 ICMP 包头的<strong>代码</strong>字段。</p>
+<p>由此，根据 ICMP 不可达的具体消息，发送端主机也就可以了解此次发送<strong>不可达的具体原因</strong>。</p>
+<p>下图总结了6 种常见的目标不可达类型的<strong>代码</strong>：</p>
+<center><img src="/images/aHR0cHM6Ly9jZG4uanNkZWxpdnIubmV0L2doL3hpYW9saW5jb2Rlci9JbWFnZUhvc3QvJUU4JUFFJUExJUU3JUFFJTk3JUU2JTlDJUJBJUU3JUJEJTkxJUU3JUJCJTlDL3BpbmcvOS5qcGc.png" style="width:500px;"></img></center>     
+</li>
+</ol>
+<ul>
+<li>网络不可达：  IP 地址是分为网络号和主机号，当路由器表匹配不到接收方 IP 的网络号时， 就通过 ICMP 协议以<strong>网络不可达</strong>（<code>Network Unreachable</code>）的原因告知主机。
+<ul>
+<li>主机不可达：路由表中没有该主机信息，或者该主机没有接入到网络</li>
+<li>协议不可达：比如目标主机防火墙禁用了TCP协议</li>
+<li>端口不可达：可能目标主机没有对该端口进行监听</li>
+</ul>
+</li>
+</ul>
+<ol start="2">
+<li>
+<p>原点抑制</p>
+<p>在使用低速广域线路的情况下，连接 WAN 的路由器可能会遇到网络拥堵的问题。</p>
+<p><code>ICMP</code> 原点抑制消息的目的就是<strong>为了缓和这种拥堵情况</strong>。</p>
+<p>当路由器向低速线路发送数据时，其发送队列的缓存变为零而无法发送出去时，可以向 IP 包的源地址发送一个 ICMP <strong>原点抑制消息</strong>。</p>
+<p>收到这个消息的主机借此了解在整个线路的某一处发生了拥堵的情况，从而增大 IP 包的传输间隔，减少网络拥堵的情况。</p>
+<p>然而，由于这种 ICMP 可能会引起不公平的网络通信，一般不被使用。</p>
+</li>
+<li>
+<p>重定向</p>
+<p>如果路由器发现发送端主机使用了「不是最优」的路径发送数据，那么它会返回一个 ICMP <strong>重定向消息</strong>给这个主机。</p>
+<p>在这个消息中包含了<strong>最合适的路由信息和源数据</strong>。这主要发生在路由器持有更好的路由信息的情况下。路由器会通过这样的 ICMP 消息告知发送端，让它下次发给另外一个路由器。</p>
+</li>
+<li>
+<p>超时消息</p>
+<p>IP 包中有一个字段叫做 <code>TTL</code> （<code>Time To Live</code>，生存周期），它的<strong>值随着每经过一次路由器就会减 1，直到减到 0 时该 IP 包会被丢弃。</strong></p>
+<p>此时，路由器将会发送一个 ICMP <strong>超时消息</strong>给发送端主机，并通知该包已被丢弃。</p>
+<p>设置 IP 包生存周期的主要目的，是为了在路由控制遇到问题发生循环状况时，避免 IP 包无休止地在网络上被转发。</p>
+<center><img src="/images/aHR0cHM6Ly9jZG4uanNkZWxpdnIubmV0L2doL3hpYW9saW5jb2Rlci9JbWFnZUhvc3QvJUU4JUFFJUExJUU3JUFFJTk3JUU2JTlDJUJBJUU3JUJEJTkxJUU3JUJCJTlDL3BpbmcvMTEuanBn.png" style="width:500px;"></img></center>     
+<p>此外，有时可以用 TTL 控制包的到达范围，例如设置一个<strong>较小的 TTL 值</strong>。</p>
+</li>
+</ol>
+<h2 id="ping命令">Ping命令</h2>
+<p>接下来，我们重点来看 <code>ping</code> 的<strong>发送和接收过程</strong>。</p>
+<p>同个子网下的主机 A 和 主机 B，主机 A 执行<code>ping</code> 主机 B 后，我们来看看其间发送了什么？</p>
+<center><img src="/images/aHR0cHM6Ly9jZG4uanNkZWxpdnIubmV0L2doL3hpYW9saW5jb2Rlci9JbWFnZUhvc3QvJUU4JUFFJUExJUU3JUFFJTk3JUU2JTlDJUJBJUU3JUJEJTkxJUU3JUJCJTlDL3BpbmcvMTIuanBn.png" style="width:500px;"></img></center>     
+<ol>
+<li>ping 命令执行的时候，源主机首先会构建一个 <strong>ICMP 回送请求消息</strong>数据包。<br>
+ICMP 数据包内包含多个字段，最重要的是两个：</li>
+</ol>
+<ul>
+<li>
+<p>第一个是<strong>类型</strong>，对于回送请求消息而言该字段为 <code>8</code>；</p>
+</li>
+<li>
+<p>另外一个是<strong>序号</strong>，主要用于区分连续 ping 的时候发出的多个数据包。<br>
+每发出一个请求数据包，序号会自动加 <code>1</code>。为了能够计算往返时间 <code>RTT</code>，它会在报文的数据部分插入发送时间。</p>
+<center><img src="/images/aHR0cHM6Ly9jZG4uanNkZWxpdnIubmV0L2doL3hpYW9saW5jb2Rlci9JbWFnZUhvc3QvJUU4JUFFJUExJUU3JUFFJTk3JUU2JTlDJUJBJUU3JUJEJTkxJUU3JUJCJTlDL3BpbmcvMTMuanBn.png" style="width:500px;"></img></center>     
+</li>
+</ul>
+<ol>
+<li>
+<p>然后，由 ICMP 协议将这个数据包连同地址 192.168.1.2 一起交给 IP 层。IP 层将以 192.168.1.2 作为<strong>目的地址</strong>，本机 IP 地址作为<strong>源地址</strong>，<strong>协议</strong>字段设置为 <code>1</code> 表示是 <code>ICMP</code> 协议，再加上一些其他控制信息，构建一个 <code>IP</code> 数据包。</p>
+<center><img src="/images/aHR0cHM6Ly9jZG4uanNkZWxpdnIubmV0L2doL3hpYW9saW5jb2Rlci9JbWFnZUhvc3QvJUU4JUFFJUExJUU3JUFFJTk3JUU2JTlDJUJBJUU3JUJEJTkxJUU3JUJCJTlDL3BpbmcvMTQuanBn.png" style="width:500px;"></img></center>     
+</li>
+<li>
+<p>接下来，需要加入 <code>MAC</code> 头。如果在本地 ARP 映射表中查找出 IP 地址 192.168.1.2 所对应的 MAC 地址，则可以直接使用；如果没有，则需要发送 <code>ARP</code> 协议查询 MAC 地址，获得 MAC 地址后，由数据链路层构建一个数据帧，目的地址是 IP 层传过来的 MAC 地址，源地址则是本机的 MAC 地址；还要附加上一些控制信息，依据以太网的介质访问规则，将它们传送出去。</p>
+<center><img src="/images/aHR0cHM6Ly9jZG4uanNkZWxpdnIubmV0L2doL3hpYW9saW5jb2Rlci9JbWFnZUhvc3QvJUU4JUFFJUExJUU3JUFFJTk3JUU2JTlDJUJBJUU3JUJEJTkxJUU3JUJCJTlDL3BpbmcvMTUuanBn.png" style="width:500px;"></img></center>     
+</li>
+<li>
+<p>主机 <code>B</code> 收到这个数据帧后，先检查它的目的 MAC 地址，并和本机的 MAC 地址对比，如符合，则接收，否则就丢弃。<br>
+接收后检查该数据帧，将 IP 数据包从帧中提取出来，交给本机的 IP 层。同样，IP 层检查后，将有用的信息提取后交给 ICMP 协议。</p>
+</li>
+<li>
+<p>主机 <code>B</code> 会构建一个 <strong>ICMP 回送响应消息</strong>数据包，回送响应数据包的<strong>类型</strong>字段为 <code>0</code>，<strong>序号</strong>为接收到的请求数据包中的序号，然后再发送出去给主机 A。</p>
+<center><img src="/images/aHR0cHM6Ly9jZG4uanNkZWxpdnIubmV0L2doL3hpYW9saW5jb2Rlci9JbWFnZUhvc3QvJUU4JUFFJUExJUU3JUFFJTk3JUU2JTlDJUJBJUU3JUJEJTkxJUU3JUJCJTlDL3BpbmcvMTYuanBn.png" style="width:500px;"></img></center>     
+</li>
+</ol>
+<p>在规定的时候间内，源主机如果没有接到 ICMP 的应答包，则说明目标主机不可达；如果接收到了 ICMP 回送响应消息，则说明目标主机可达。</p>
+<p>此时，源主机会检查，用当前时刻减去该数据包最初从源主机上发出的时刻，就是 ICMP 数据包的时间延迟。</p>
+<p>针对上面发送的事情，总结成了如下图：</p>
+<center><img src="/images/aHR0cHM6Ly9jZG4uanNkZWxpdnIubmV0L2doL3hpYW9saW5jb2Rlci9JbWFnZUhvc3QvJUU4JUFFJUExJUU3JUFFJTk3JUU2JTlDJUJBJUU3JUJEJTkxJUU3JUJCJTlDL3BpbmcvMTcucG5n.png" style="width:900px;"></img></center>     
+<p>当然这只是最简单的，同一个局域网里面的情况。如果跨网段的话，还会涉及网关的转发、路由器的转发等等。</p>
+<p><strong>但是对于 ICMP 的头来讲，是没什么影响的。会影响的是根据目标 IP 地址，选择路由的下一跳，还有每经过一个路由器到达一个新的局域网，需要换 MAC 头里面的 MAC 地址</strong>。</p>
+<p>说了这么多，可以看出 ping 这个程序是<strong>使用了 ICMP 里面的 ECHO REQUEST（类型为 8 ） 和 ECHO REPLY （类型为 0）</strong>。</p>
+<h2 id="traceroute命令">Traceroute命令</h2>
+<p>有一款充分利用 ICMP <strong>差错报文类型</strong>的应用叫做 <code>traceroute</code>（在UNIX、MacOS中是这个命令，而在Windows中对等的命令叫做 tracert ）。</p>
+<p><em>1. traceroute 作用一</em></p>
+<p>traceroute 的第一个作用就是<strong>故意设置特殊的 TTL，来追踪去往目的地时沿途经过的路由器。</strong></p>
+<p>traceroute 的参数指向某个<strong>目的 IP 地址</strong>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">traceroute 192.168.1.100</span><br><span class="line">1</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>这个作用是如何工作的呢？</p>
+</blockquote>
+<p>它的原理就是利用 IP 包的<strong>生存期限</strong> 从 <code>1</code> 开始按照顺序递增的同时发送 <strong>UDP 包</strong>，强制接收 <strong>ICMP 超时消息</strong>的一种方法。</p>
+<p>比如，将 TTL 设置 为 <code>1</code>，则遇到第一个路由器，就牺牲了，接着返回 ICMP 差错报文网络包，类型是<strong>时间超时</strong>。</p>
+<p>接下来将 TTL 设置为 <code>2</code>，第一个路由器过了，遇到第二个路由器也牺牲了，也同时返回了 ICMP 差错报文数据包，如此往复，直到到达目的主机。</p>
+<p>这样的过程，traceroute 就可以拿到了所有的路由器 IP。</p>
+<p>当然有的路由器根本就不会返回这个 ICMP，所以对于有的公网地址，是看不到中间经过的路由的。</p>
+<blockquote>
+<p>发送方如何知道发出的 UDP 包是否到达了目的主机呢？</p>
+</blockquote>
+<p>traceroute 在发送 <code>UDP</code> 包时，会填入一个<strong>不可能的端口号</strong>值作为 UDP 目标端口号（大于 <code>3000</code> ）。当目的主机，收到 UDP 包后，会返回 ICMP 差错报文消息，但这个差错报文消息的类型是「<strong>端口不可达</strong>」。</p>
+<p>traceroute 还有一个作用是<strong>故意设置不分片，从而确定路径的 MTU</strong>。</p>
+<blockquote>
+<p>这么做是为了什么？</p>
+</blockquote>
+<p>这样做的目的是为了<strong>路径MTU发现</strong>。</p>
+<p>因为有的时候我们并不知道路由器的 <code>MTU</code> 大小，以太网的数据链路上的 <code>MTU</code> 通常是 <code>1500</code> 字节，但是非以外网的 <code>MTU</code> 值就不一样了，所以我们要知道 <code>MTU</code> 的大小，从而控制发送的包大小。</p>
+<center><img src="/images/aHR0cHM6Ly9jZG4uanNkZWxpdnIubmV0L2doL3hpYW9saW5jb2Rlci9JbWFnZUhvc3QvJUU4JUFFJUExJUU3JUFFJTk3JUU2JTlDJUJBJUU3JUJEJTkxJUU3JUJCJTlDL3BpbmcvMTguanBn.png" style="width:500px;"></img></center>     
+<p>它的工作原理如下：</p>
+<p>首先在发送端主机发送 <code>IP</code> 数据报时，将 <code>IP</code> 包首部的<strong>分片禁止标志位设置为 1</strong>。根据这个标志位，途中的路由器不会对大数据包进行分片，而是将包丢弃。</p>
+<p>随后，通过一个 ICMP 的不可达消息将<strong>数据链路上 MTU 的值</strong>一起给发送主机，不可达消息的类型为「<strong>需要进行分片但设置了不分片位</strong>」。</p>
+<p>发送主机端每次收到 ICMP 差错报文时就<strong>减少</strong>包的大小，以此来定位一个合适的 <code>MTU</code> 值，以便能到达目标主机。</p>
+<h2 id="参考文献">参考文献</h2>
+<ol>
+<li><a target="_blank" rel="noopener" href="https://www.zhihu.com/question/31002474">https://www.zhihu.com/question/31002474</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_32523711/article/details/108724419">https://blog.csdn.net/qq_32523711/article/details/108724419</a></li>
+</ol>
+ 
+      <!-- reward -->
+      
+      <div id="reword-out">
+        <div id="reward-btn">
+          打赏
+        </div>
+      </div>
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <div class="declare">
+      <ul class="post-copyright">
+        <li>
+          <i class="ri-copyright-line"></i>
+          <strong>版权声明： </strong>
+          
+          本博客所有文章除特别声明外，著作权归作者所有。转载请注明出处！
+          
+        </li>
+      </ul>
+    </div>
+    
+    <footer class="article-footer">
+       
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<!--<div class="wx-share-modal">-->
+<!--    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>-->
+<!--    <p>扫一扫，分享到微信</p>-->
+<!--    <div class="wx-qrcode">-->
+<!--      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://rookieyin.github.io/afce9b9b3bcc/" alt="微信分享二维码">-->
+<!--    </div>-->
+<!--</div>-->
+
+<div id="share-mask"></div>
+  
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" rel="tag">计算机网络</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+  <nav class="article-nav">
+    
+      <a href="/85f0dd1c2cfb/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            谈谈CPU上下文切换
+          
+        </div>
+      </a>
+    
+    
+      <a href="/7adcc9586fb9/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">内存管理</div>
+      </a>
+    
+  </nav>
+
+   
+<!-- valine评论 -->
+<div id="vcomments-box">
+  <div id="vcomments"></div>
+</div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js"></script>
+<script>
+  new Valine({
+    el: "#vcomments",
+    app_id: "f9XmUV7HVprPCNptggBNBhWR-gzGzoHsz",
+    app_key: "H73Viqo3lADopEFgshq3XrXs",
+    path: window.location.pathname,
+    avatar: "monsterid",
+    placeholder: "给我的文章加点评论吧~",
+    recordIP: true,
+  });
+  const infoEle = document.querySelector("#vcomments .info");
+  if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+    infoEle.childNodes.forEach(function (item) {
+      item.parentNode.removeChild(item);
+    });
+  }
+</script>
+<style>
+  #vcomments-box {
+    padding: 5px 30px;
+  }
+
+  @media screen and (max-width: 800px) {
+    #vcomments-box {
+      padding: 5px 0px;
+    }
+  }
+
+  #vcomments-box #vcomments {
+    background-color: #fff;
+  }
+
+  .v .vlist .vcard .vh {
+    padding-right: 20px;
+  }
+
+  .v .vlist .vcard {
+    padding-left: 10px;
+  }
+</style>
+
+ 
+   
+     
+</article>
+
+</section>
+        <footer class="footer">
+  <div class="outer">
+    <ul>
+      <li>
+        Copyrights &copy;
+        2021-2022
+        <i class="ri-heart-fill heart_icon"></i> Yin Peng
+      </li>
+    </ul>
+    <ul>
+      <li>引擎:
+        <a style="color: #0681d0" target="_blank" rel="noopener" href="https://hexo.io/zh-cn/">Hexo</a>
+        &nbsp;&nbsp;|&nbsp;&nbsp;主题:修改自
+        <a style="color: #0681d0" target="_blank" rel="noopener" href="https://shen-yu.gitee.io/">Ayer</a>
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        <span>
+  <span><i class="ri-user-3-fill"></i>访问人数:<span id="busuanzi_value_site_uv"></span></span>
+  <span class="division">|</span>
+  <span><i class="ri-eye-fill"></i>浏览次数:<span id="busuanzi_value_page_pv"></span></span>
+</span>
+        
+      </li>
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      <li>
+        <!-- cnzz统计 -->
+        
+        <script type="text/javascript" src='https://s9.cnzz.com/z_stat.php?id=1278069914&amp;web_id=1278069914'></script>
+        
+      </li>
+    </ul>
+  </div>
+</footer>
+
+        <div class="float_btns">
+            <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+
+<div class="todark" id="todark">
+  <i class="ri-moon-line"></i>
+</div>
+
+        </div>
+    </main>
+
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/alipay.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/wxpay.png">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-2.0.3.min.js"></script>
+ 
+<script src="/js/lazyload.min.js"></script>
+
+<!-- Tocbot -->
+ 
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  tocbot.init({
+    tocSelector: ".tocbot",
+    contentSelector: ".article-entry",
+    headingSelector: "h1, h2, h3, h4, h5, h6",
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: "main",
+    positionFixedSelector: ".tocbot",
+    positionFixedClass: "is-position-fixed",
+    fixedSidebarOffset: "auto",
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.js"></script>
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.css"
+/>
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js"></script>
+
+<script src="/dist/main.js"></script>
+
+<!-- ImageViewer -->
+ <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css">
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script> 
+<!-- MathJax -->
+
+<!-- Katex -->
+
+<!-- busuanzi  -->
+ 
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+ 
+<!-- ClickLove -->
+ 
+<script src="/js/clickLove.js"></script>
+ 
+<!-- ClickBoom1 -->
+
+<!-- ClickBoom2 -->
+
+<!-- CodeCopy -->
+ 
+<link rel="stylesheet" href="/css/clipboard.css">
+ <script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="ri-file-copy-2-line"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-checkbox-circle-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-checkbox-circle-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-time-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-time-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+ 
+<!-- CanvasBackground -->
+
+<script>
+  if (window.mermaid) {
+    mermaid.initialize({ theme: "forest" });
+  }
+</script>
+
+
+    
+</div>
+</body>
+
+</html>

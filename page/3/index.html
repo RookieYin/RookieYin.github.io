@@ -185,7 +185,7 @@
     
     
     <article
-  id="post-8 计算机基础/计算机网络/1 网络分层模型"
+  id="post-2 后端/Java/Java并发/13 Synchronized和Lock对比"
   class="article article-type-post"
   itemscope
   itemprop="blogPost"
@@ -196,8 +196,8 @@
     <header class="article-header">
        
 <h2 itemprop="name">
-  <a class="article-title" href="/2cb48d963c94/"
-    >网络分层模型</a> 
+  <a class="article-title" href="/f41ccc86ccbc/"
+    >Synchronized和Lock对比</a> 
 </h2>
  
 
@@ -205,11 +205,11 @@
     </header>
      
     <div class="article-meta">
-      <a href="/2cb48d963c94/" class="article-date">
-  <time datetime="2022-05-17T14:34:49.000Z" itemprop="datePublished">2022-05-17</time>
+      <a href="/f41ccc86ccbc/" class="article-date">
+  <time datetime="2022-08-04T14:34:49.000Z" itemprop="datePublished">2022-08-04</time>
 </a> 
   <div class="article-category">
-    <a class="article-category-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/">计算机基础</a> / <a class="article-category-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a>
+    <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a> / <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/Java/">Java</a> / <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/Java/Java%E5%B9%B6%E5%8F%91/">Java并发</a>
   </div>
 
    
@@ -217,74 +217,28 @@
       
     <div class="article-entry" itemprop="articleBody">
        
-  <h2 id="osi-7层模型">OSI 7层模型</h2>
-<p><strong>OSI 七层模型</strong> 是国际标准化组织提出一个网络分层模型，其大体结构以及每一层提供的功能如下图所示：</p>
-<center><img src="/images/osi七层模型.png" style="width:600px;"></img></center> 
-      <a class="article-more-link" href="/2cb48d963c94/"
-        >阅读更多...</a
-      >
-       
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" rel="tag">计算机网络</a></li></ul>
-
-    </footer>
-  </div>
-
-    
- 
-    
-</article>
-
-    
-    <article
-  id="post-2 后端/Redis/Redis集群"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/621962d42a8e/"
-    >Redis集群</a> 
-</h2>
- 
-
-      
-    </header>
-     
-    <div class="article-meta">
-      <a href="/621962d42a8e/" class="article-date">
-  <time datetime="2022-05-16T12:38:14.000Z" itemprop="datePublished">2022-05-16</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a> / <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/Redis/">Redis</a>
-  </div>
-
-   
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <p>本文内容基本全部来自：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/kismetv/p/9853040.html">https://www.cnblogs.com/kismetv/p/9853040.html</a></p>
-<p>集群，即Redis Cluster，是Redis 3.0开始引入的分布式存储方案。</p>
-<p>集群由多个节点(Node)组成，Redis的数据分布在这些节点中。集群中的节点分为主节点和从节点：只有主节点负责读写请求和集群信息的维护；从节点只进行主节点数据和状态信息的复制。集群的作用主要有两点：</p>
+  <p>synchronized和lock是Java中提供的两种常用的锁机制，两者对比如下：</p>
 <ol>
-<li><strong>数据分区</strong>：将数据分散到多个节点，一方面突破Redis单机内存大小限制，另一方面可以做读写负载均衡，大大提高集群响应能力。</li>
-<li><strong>高可用</strong>：Redis集群支持主从复制和自动故障转移，当任意节点发生故障时，集群仍能够对外提供服务。</li>
+<li><strong>使用方法上</strong>
+<ul>
+<li>synchronize，是Java提供的一个关键字，可以加在方法上，也可以加在特定代码块中</li>
+<li>lock，是Java提供的一个借口，常用的有ReentrantLock，通过调用lock()和unlock()获取锁和释放锁。通常在finally中添加unlock()防止死锁。</li>
+</ul>
+</li>
+<li><strong>性能上</strong>
+<ul>
+<li>synchronized，JDK1.5中，synchronized是非常重量级的操作，但是从1.6开始，进行了优化，引入了锁升级机制，性能得到了较大提升。</li>
+<li>lock，是乐观锁，通过CAS实现，在资源竞争激烈的情况下，使用lock性能会更好。</li>
+</ul>
+</li>
+<li><strong>支持的功能上</strong>
+<ul>
+<li>synchronized，支持的功能简单，是公平锁，不支持中断</li>
+<li>lock，支持更多的功能，包括公平、非公平锁，trylock、读写锁、condition等。</li>
+</ul>
+</li>
 </ol> 
-      <a class="article-more-link" href="/621962d42a8e/"
+      <a class="article-more-link" href="/f41ccc86ccbc/"
         >阅读更多...</a
       >
        
@@ -297,7 +251,7 @@
     
     <footer class="article-footer">
        
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/redis/" rel="tag">redis</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%90%8E%E7%AB%AF/" rel="tag">后端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="tag">数据库</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%90%8E%E7%AB%AF/" rel="tag">后端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" rel="tag">多线程</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E9%94%81/" rel="tag">锁</a></li></ul>
 
     </footer>
   </div>
@@ -309,7 +263,7 @@
 
     
     <article
-  id="post-2 后端/Redis/Redis哨兵"
+  id="post-2 后端/Java/Java并发/14. wait、notify、park、sleep、yield等对比"
   class="article article-type-post"
   itemscope
   itemprop="blogPost"
@@ -320,8 +274,8 @@
     <header class="article-header">
        
 <h2 itemprop="name">
-  <a class="article-title" href="/feac293ea536/"
-    >Redis哨兵</a> 
+  <a class="article-title" href="/47f68d9d8215/"
+    >wait、notify、park、sleep、yield等对比</a> 
 </h2>
  
 
@@ -329,8 +283,190 @@
     </header>
      
     <div class="article-meta">
-      <a href="/feac293ea536/" class="article-date">
-  <time datetime="2022-05-15T12:38:14.000Z" itemprop="datePublished">2022-05-15</time>
+      <a href="/47f68d9d8215/" class="article-date">
+  <time datetime="2022-08-04T14:34:49.000Z" itemprop="datePublished">2022-08-04</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a> / <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/Java/">Java</a> / <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/Java/Java%E5%B9%B6%E5%8F%91/">Java并发</a>
+  </div>
+
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <center><img src="/images/20210301201459977.png" style="width:800px;"></img></center> 
+      <a class="article-more-link" href="/47f68d9d8215/"
+        >阅读更多...</a
+      >
+       
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%90%8E%E7%AB%AF/" rel="tag">后端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" rel="tag">多线程</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%B9%B6%E5%8F%91/" rel="tag">并发</a></li></ul>
+
+    </footer>
+  </div>
+
+    
+ 
+    
+</article>
+
+    
+    <article
+  id="post-2 后端/Java/Java并发/16 Java中的Future"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/008aa26390aa/"
+    >Java中的Future</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/008aa26390aa/" class="article-date">
+  <time datetime="2022-08-04T14:34:49.000Z" itemprop="datePublished">2022-08-04</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a> / <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/Java/">Java</a> / <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/Java/Java%E5%B9%B6%E5%8F%91/">Java并发</a>
+  </div>
+
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h2 id="future相关概念">Future相关概念</h2>
+<h3 id="定义">定义</h3>
+<p>官放时这样描述Future接口的：</p>
+<blockquote>
+<p>Future represents the result of an asynchronous computation. Methods are provided to check if the computation is complete, to wait for its completion, and to retrieve the result of the computation. The result can only be retrieved using method get when the computation has completed, blocking if necessary until it is ready. Cancellation is performed by the cancel method. Additional methods are provided to determine if the task completed normally or was cancelled. Once a computation has completed, the computation cannot be cancelled. If you would like to use a Future for the sake of cancellability but not provide a usable result, you can declare types of the form Future&lt;?&gt; and return null as a result of the underlying task.</p>
+</blockquote> 
+      <a class="article-more-link" href="/008aa26390aa/"
+        >阅读更多...</a
+      >
+       
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%90%8E%E7%AB%AF/" rel="tag">后端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" rel="tag">多线程</a></li></ul>
+
+    </footer>
+  </div>
+
+    
+ 
+    
+</article>
+
+    
+    <article
+  id="post-2 后端/Java/Java并发/17 线程池拒绝策略及应用场景"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/0a324fe2c91c/"
+    >线程池拒绝策略及应用场景</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/0a324fe2c91c/" class="article-date">
+  <time datetime="2022-08-04T14:34:49.000Z" itemprop="datePublished">2022-08-04</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a> / <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/Java/">Java</a> / <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/Java/Java%E5%B9%B6%E5%8F%91/">Java并发</a>
+  </div>
+
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <p>文章转自<a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/1520860">这里</a></p>
+<h2 id="1-前言">1 前言</h2>
+<p>谈到java的线程池最熟悉的莫过于ExecutorService接口了，jdk1.5新增的java.util.concurrent包下的这个api，大大的简化了多线程代码的开发。而不论你用FixedThreadPool还是CachedThreadPool其背后实现都是ThreadPoolExecutor。</p>
+<p>ThreadPoolExecutor是一个典型的缓存池化设计的产物，因为池子有大小，当池子体积不够承载时，就涉及到拒绝策略。JDK中已经预设了4种线程池拒绝策略，下面结合场景详细聊聊这些策略的使用场景，以及我们还能扩展哪些拒绝策略。</p> 
+      <a class="article-more-link" href="/0a324fe2c91c/"
+        >阅读更多...</a
+      >
+       
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%90%8E%E7%AB%AF/" rel="tag">后端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" rel="tag">多线程</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%B9%B6%E5%8F%91/" rel="tag">并发</a></li></ul>
+
+    </footer>
+  </div>
+
+    
+ 
+    
+</article>
+
+    
+    <article
+  id="post-2 后端/Redis/11.Redis单线程模型"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/a816038086bf/"
+    >Redis单线程模型</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/a816038086bf/" class="article-date">
+  <time datetime="2022-07-19T00:52:14.000Z" itemprop="datePublished">2022-07-19</time>
 </a> 
   <div class="article-category">
     <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a> / <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/Redis/">Redis</a>
@@ -341,8 +477,8 @@
       
     <div class="article-entry" itemprop="articleBody">
        
-  <p>Redis主从复制的作用有数据热备、负载均衡、故障恢复等；但主从复制存在的一个问题是故障恢复无法自动化。本文将要介绍的哨兵，它基于Redis主从复制，主要作用便是<strong>解决主节点故障恢复的自动化问题</strong>，进一步提高系统的高可用性。</p> 
-      <a class="article-more-link" href="/feac293ea536/"
+  <p>我们常说Redis是单线程的，所有操作都是按照顺序线性执行，但是由于读写操作等待用户输入或输出都是阻塞的，因此IO操作在一般情况下不能直接返回，这会导致：某一文件的IO阻塞会使得整个进程无法对其他客户提供服务。因此Redis在新版本中引入了多路复用功能。</p> 
+      <a class="article-more-link" href="/a816038086bf/"
         >阅读更多...</a
       >
        
@@ -367,7 +503,7 @@
 
     
     <article
-  id="post-5 分布式/3 raft算法是个啥"
+  id="post-3 论文笔记/图学习/对比学习/29.Are Graph Augmentations Necessary Simple Graph Contrastive Learning for Recommendation"
   class="article article-type-post"
   itemscope
   itemprop="blogPost"
@@ -378,8 +514,8 @@
     <header class="article-header">
        
 <h2 itemprop="name">
-  <a class="article-title" href="/c321fe594eaf/"
-    >raft算法是个啥</a> 
+  <a class="article-title" href="/37288260d506/"
+    >Are Graph Augmentations Necessary? Simple Graph Contrastive Learning for Recommendation</a> 
 </h2>
  
 
@@ -387,11 +523,11 @@
     </header>
      
     <div class="article-meta">
-      <a href="/c321fe594eaf/" class="article-date">
-  <time datetime="2022-05-13T12:38:14.000Z" itemprop="datePublished">2022-05-13</time>
+      <a href="/37288260d506/" class="article-date">
+  <time datetime="2022-07-02T11:26:03.000Z" itemprop="datePublished">2022-07-02</time>
 </a> 
   <div class="article-category">
-    <a class="article-category-link" href="/categories/%E5%88%86%E5%B8%83%E5%BC%8F/">分布式</a>
+    <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/">论文笔记</a> / <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/%E5%9B%BE%E5%AD%A6%E4%B9%A0/">图学习</a> / <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/%E5%9B%BE%E5%AD%A6%E4%B9%A0/%E5%AF%B9%E6%AF%94%E5%AD%A6%E4%B9%A0/">对比学习</a>
   </div>
 
    
@@ -399,9 +535,10 @@
       
     <div class="article-entry" itemprop="articleBody">
        
-  <p>之前学Redis集群相关知识时候遇到过Raft算法，今天系统的学习一下Raft算法的一些细节。</p>
-<p>在继续往下阅读之前可以，先看一个<a target="_blank" rel="noopener" href="http://thesecretlivesofdata.com/raft/">动画</a>，简单了解下Raft算法。或者通过<a target="_blank" rel="noopener" href="https://raft.github.io/raftscope/index.html">这个</a>实操一下！</p> 
-      <a class="article-more-link" href="/c321fe594eaf/"
+  <p><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2112.08679">https://arxiv.org/pdf/2112.08679</a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/Coder-Yu/QRec">https://github.com/Coder-Yu/QRec</a></p>
+<p>Are Graph Augmentations Necessary? Simple Graph Contrastive Learning for Recommendation ，2022，SIGIR</p> 
+      <a class="article-more-link" href="/37288260d506/"
         >阅读更多...</a
       >
        
@@ -414,7 +551,7 @@
     
     <footer class="article-footer">
        
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F/" rel="tag">分布式</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%90%8E%E7%AB%AF/" rel="tag">后端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%9B%BE%E5%AD%A6%E4%B9%A0/" rel="tag">图学习</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%AF%B9%E6%AF%94%E5%AD%A6%E4%B9%A0/" rel="tag">对比学习</a></li></ul>
 
     </footer>
   </div>
@@ -426,7 +563,7 @@
 
     
     <article
-  id="post-4 算法/rand(7)模拟rand(10)的背后"
+  id="post-7 其他/短链设计方案总结"
   class="article article-type-post"
   itemscope
   itemprop="blogPost"
@@ -437,8 +574,8 @@
     <header class="article-header">
        
 <h2 itemprop="name">
-  <a class="article-title" href="/f85e1f123fb5/"
-    >rand(7)模拟rand(10)的背后</a> 
+  <a class="article-title" href="/b4e850948e6f/"
+    >短链设计方案总结</a> 
 </h2>
  
 
@@ -446,11 +583,11 @@
     </header>
      
     <div class="article-meta">
-      <a href="/f85e1f123fb5/" class="article-date">
-  <time datetime="2022-05-07T05:39:48.000Z" itemprop="datePublished">2022-05-07</time>
+      <a href="/b4e850948e6f/" class="article-date">
+  <time datetime="2022-06-15T11:50:55.000Z" itemprop="datePublished">2022-06-15</time>
 </a> 
   <div class="article-category">
-    <a class="article-category-link" href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+    <a class="article-category-link" href="/categories/%E5%85%B6%E4%BB%96/">其他</a>
   </div>
 
    
@@ -458,198 +595,25 @@
       
     <div class="article-entry" itemprop="articleBody">
        
-  <p>刷LeetCode遇到这样一道题：<a target="_blank" rel="noopener" href="https://leetcode.cn/problems/implement-rand10-using-rand7/">用 Rand7() 实现 Rand10()</a>，本文以这题为引子，深入探讨一下其背后的一些知识。</p>
-<p><strong>题目描述如下：</strong></p>
-<ul>
+  <h2 id="为什么用短链">为什么用短链</h2>
+<p>所谓“短链”，就是短的链接。短链设计，就是设计一种方案，将原本很长的一串链接转换成一个非常短的链接。当用户访问这个短连接时，会自动跳转到真实链接对应的网页。</p>
+<p>那么使用短链有什么好处呢？</p>
+<ol>
 <li>
-<p>给定方法 rand7 可生成 [1,7] 范围内的均匀随机整数，试写一个方法 rand10 生成 [1,10] 范围内的均匀随机整数。</p>
-<p>你只能调用 rand7() 且不能调用其他方法。请不要使用系统的 Math.random() 方法。每个测试用例将有一个内部参数 n，即你实现的函数 rand10() 在测试时将被调用的次数。请注意，这不是传递给 rand10() 的参数。</p>
-</li>
-</ul> 
-      <a class="article-more-link" href="/f85e1f123fb5/"
-        >阅读更多...</a
-      >
-       
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E9%9A%8F%E6%9C%BA%E5%8C%96/" rel="tag">随机化</a></li></ul>
-
-    </footer>
-  </div>
-
-    
- 
-    
-</article>
-
-    
-    <article
-  id="post-4 算法/B-树"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/1ffc37519baa/"
-    >B-树</a> 
-</h2>
- 
-
-      
-    </header>
-     
-    <div class="article-meta">
-      <a href="/1ffc37519baa/" class="article-date">
-  <time datetime="2022-05-06T05:39:48.000Z" itemprop="datePublished">2022-05-06</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
-  </div>
-
-   
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <h2 id="b-树">B-树</h2>
-<p>B-树，这里的 B 表示 balance( 平衡的意思),B-树是一种多路自平衡的搜索树（B树是<strong>一颗多路平衡查找树</strong>）<br>
-。它类似普通的平衡二叉树，不同的一点是B-树允许每个节点有更多的子节点。下图是 B-树的简化图：</p>
-<center><img src="/images/1446087-bc023e47bc74cfa1.webp" style="width:800px;"></img></center> 
-      <a class="article-more-link" href="/1ffc37519baa/"
-        >阅读更多...</a
-      >
-       
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%A0%91/" rel="tag">树</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a></li></ul>
-
-    </footer>
-  </div>
-
-    
- 
-    
-</article>
-
-    
-    <article
-  id="post-4 算法/洗牌算法"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/8d739821694e/"
-    >洗牌算法</a> 
-</h2>
- 
-
-      
-    </header>
-     
-    <div class="article-meta">
-      <a href="/8d739821694e/" class="article-date">
-  <time datetime="2022-05-05T05:39:48.000Z" itemprop="datePublished">2022-05-05</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
-  </div>
-
-   
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <p>所谓“洗牌算法”，就是把一组序列完全打乱，怎样才算乱呢？需要满足这样一个条件：<strong>对于包含n个元素的序列，每个元素出现在每个位置的概率都是<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi mathvariant="normal">/</mi><mi>n</mi></mrow><annotation encoding="application/x-tex">1/n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mord">/</span><span class="mord mathdefault">n</span></span></span></span>。</strong></p>
-<p>一种直白的方法就是，统计序列的全排列，然后在全排列集合中随机选取一各排列出来。这种方法虽然简单，但是无论是空间还是时间复杂度都太高了，有没有其他性能更高的算法呢？当然有，本文简单总结下集中常用的洗牌算法。</p> 
-      <a class="article-more-link" href="/8d739821694e/"
-        >阅读更多...</a
-      >
-       
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E9%9A%8F%E6%9C%BA%E5%8C%96/" rel="tag">随机化</a></li></ul>
-
-    </footer>
-  </div>
-
-    
- 
-    
-</article>
-
-    
-    <article
-  id="post-4 算法/拓扑排序"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/3da51d7b8480/"
-    >拓扑排序</a> 
-</h2>
- 
-
-      
-    </header>
-     
-    <div class="article-meta">
-      <a href="/3da51d7b8480/" class="article-date">
-  <time datetime="2022-05-04T05:39:48.000Z" itemprop="datePublished">2022-05-04</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
-  </div>
-
-   
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <h2 id="概述">概述</h2>
-<p>拓扑排序，我的理解就是：<strong>有向图</strong>中所有节点的<strong>一种排列</strong>，这个排列需要满足下面两个条件：</p>
+<p>链接变短，有时候我们要限制内容长度，使用长链接的话会占用过多字数，导致可编辑文字变少。</p>
 <ul>
-<li>序列包含图中所有节点，且每个节点只出现一次；</li>
-<li>若A在序列中排在B的前面，则图中不存在从B到A的路径。</li>
-</ul> 
-      <a class="article-more-link" href="/3da51d7b8480/"
+<li>比如，微博平台，限定只能发140个字，如果使用长链接，可能直接占用了50个字，那相当于只能编写90个字</li>
+<li>再比如，短信发文有长度限制，如果使用长链接，一条短信可能要拆分成好几条，不仅体验极差，还要花更多的钱</li>
+</ul>
+</li>
+<li>
+<p>二维码，我们经常需要将连接转成二维码的形式分享给他人，如果使用长链的话，生成的二维码十分密集难以识别，短链就不存在这个问题。</p>
+</li>
+<li>
+<p>无法识别，链接太长，有些平台无法自动识别为超链接，只能识别其中一部分。</p>
+</li>
+</ol> 
+      <a class="article-more-link" href="/b4e850948e6f/"
         >阅读更多...</a
       >
        
@@ -662,7 +626,7 @@
     
     <footer class="article-footer">
        
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%9B%BE/" rel="tag">图</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%8E%92%E5%BA%8F/" rel="tag">排序</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%93%88%E5%B8%8C/" rel="tag">哈希</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%AE%BE%E8%AE%A1/" rel="tag">设计</a></li></ul>
 
     </footer>
   </div>
@@ -674,7 +638,7 @@
 
     
     <article
-  id="post-4 算法/平衡二叉树"
+  id="post-7 其他/接口幂等性是个啥"
   class="article article-type-post"
   itemscope
   itemprop="blogPost"
@@ -685,8 +649,8 @@
     <header class="article-header">
        
 <h2 itemprop="name">
-  <a class="article-title" href="/325f8721ea9c/"
-    >平衡二叉树</a> 
+  <a class="article-title" href="/8324fec6df71/"
+    >接口幂等性是个啥</a> 
 </h2>
  
 
@@ -694,11 +658,11 @@
     </header>
      
     <div class="article-meta">
-      <a href="/325f8721ea9c/" class="article-date">
-  <time datetime="2022-05-03T05:39:48.000Z" itemprop="datePublished">2022-05-03</time>
+      <a href="/8324fec6df71/" class="article-date">
+  <time datetime="2022-06-15T11:50:42.000Z" itemprop="datePublished">2022-06-15</time>
 </a> 
   <div class="article-category">
-    <a class="article-category-link" href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+    <a class="article-category-link" href="/categories/%E5%85%B6%E4%BB%96/">其他</a>
   </div>
 
    
@@ -706,8 +670,16 @@
       
     <div class="article-entry" itemprop="articleBody">
        
-  <p>平衡二叉树（Balanced Binary Tree）具有以下性质：它是一棵空树或它的左右两个子树的高度差的绝对值不超过1，并且左右两个子树都是一棵平衡二叉树。平衡二叉树的常用实现方法有红黑树、AVL、替罪羊树、Treap、伸展树等。 最小二叉平衡树的节点的公式如下 F(n)=F(n-1)+F(n-2)+1 这个类似于一个递归的数列，可以参考Fibonacci数列，1是根节点，F(n-1)是左子树的节点数量，F(n-2)是右子树的节点数量。</p> 
-      <a class="article-more-link" href="/325f8721ea9c/"
+  <h2 id="什么是接口幂等？">什么是接口幂等？</h2>
+<p>“幂等”是数学和计算机学中一个概念，常见于抽象代数中。</p>
+<p>在数学里，幂等的定义主要有两种：</p>
+<ul>
+<li><strong>元素幂等</strong>：在某二元运算下，元素自己和自己运算，结果等于自己，那么该元素是幂等元素。比如乘法运算下，幂等实数有两个0和1。</li>
+<li><strong>运算幂等</strong>：对于某一元运算，对于任意元素的运算结果再次进行运算，两次运算结果一样，即<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mo stretchy="false">(</mo><mi>f</mi><mo stretchy="false">(</mo><mi>X</mi><mo stretchy="false">)</mo><mo stretchy="false">)</mo><mo>=</mo><mi>f</mi><mo stretchy="false">(</mo><mi>X</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">f(f(X)) = f(X)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.07847em;">X</span><span class="mclose">)</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.07847em;">X</span><span class="mclose">)</span></span></span></span>。</li>
+</ul>
+<p>那什么是接口幂等呢？第一次听到这个概念的时候，还感觉挺懵的。其实这里套用的是前面提到的第二种定义“运算幂等”。</p>
+<p>所谓“接口幂等”，是指 <strong>以相同的请求调用这个接口一次和调用这个接口多次，对系统产生的影响是相同的</strong>。如果一个接口满足这个特性，那么我们就说这个接口是一个幂等接口。</p> 
+      <a class="article-more-link" href="/8324fec6df71/"
         >阅读更多...</a
       >
        
@@ -720,7 +692,7 @@
     
     <footer class="article-footer">
        
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/" rel="tag">二叉树</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%8E%92%E5%BA%8F/" rel="tag">排序</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%B9%82%E7%AD%89%E6%80%A7/" rel="tag">幂等性</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E9%AB%98%E5%B9%B6%E5%8F%91/" rel="tag">高并发</a></li></ul>
 
     </footer>
   </div>
@@ -732,7 +704,7 @@
 
     
     <article
-  id="post-4 算法/并查集"
+  id="post-4 算法/差分算法总结"
   class="article article-type-post"
   itemscope
   itemprop="blogPost"
@@ -743,8 +715,8 @@
     <header class="article-header">
        
 <h2 itemprop="name">
-  <a class="article-title" href="/14bdfa95fb86/"
-    >并查集</a> 
+  <a class="article-title" href="/47d678eb0d18/"
+    >差分算法总结</a> 
 </h2>
  
 
@@ -752,8 +724,8 @@
     </header>
      
     <div class="article-meta">
-      <a href="/14bdfa95fb86/" class="article-date">
-  <time datetime="2022-05-03T05:39:48.000Z" itemprop="datePublished">2022-05-03</time>
+      <a href="/47d678eb0d18/" class="article-date">
+  <time datetime="2022-06-14T14:10:54.000Z" itemprop="datePublished">2022-06-14</time>
 </a> 
   <div class="article-category">
     <a class="article-category-link" href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
@@ -764,8 +736,14 @@
       
     <div class="article-entry" itemprop="articleBody">
        
-  <p>并查集，是一种高级数据结构，常用于<strong>数据分组</strong>问题。本文简单介绍一下并查集相关概念以及实现方法，并附带一些leetcode练习题。</p> 
-      <a class="article-more-link" href="/14bdfa95fb86/"
+  <p>说到差分算法，就不得不提一个经典的公交车上下车问题：</p>
+<ul>
+<li>题目描述：给定二维数组，表示公交车每个站点上下车人数</li>
+<li>问：公交车从起点到终点，车上最多有多少人？或者假如公交车最大载人量为k，问能否将所有人拉到目的地？</li>
+</ul>
+<p>类似的问题还有很多，比如拼车问题、会议室问题、日程安排问题等等。</p>
+<p>本文首先简单介绍下什么是差分算法，然后给个差分算法的解题模板。最后总结一下leetcode中标准差分应用题，方便大家练习。</p> 
+      <a class="article-more-link" href="/47d678eb0d18/"
         >阅读更多...</a
       >
        
@@ -778,7 +756,69 @@
     
     <footer class="article-footer">
        
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86/" rel="tag">并查集</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%B7%AE%E5%88%86/" rel="tag">差分</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a></li></ul>
+
+    </footer>
+  </div>
+
+    
+ 
+    
+</article>
+
+    
+    <article
+  id="post-2 后端/消息队列/RabbitMQ概述"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/3a6862a6af0f/"
+    >RabbitMQ概述</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/3a6862a6af0f/" class="article-date">
+  <time datetime="2022-06-14T05:45:23.000Z" itemprop="datePublished">2022-06-14</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a> / <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/">消息队列</a>
+  </div>
+
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h2 id="消息队列基础">消息队列基础</h2>
+<h3 id="什么是消息队列">什么是消息队列</h3>
+<p><strong>消息</strong>指的是两个应用间传递的数据。数据的类型有很多种形式，可能只包含文本字符串，也可能包含嵌入对象。</p>
+<p><strong>“消息队列(Message Queue)”是在消息的传输过程中保存消息的容器</strong>。在消息队列中，通常有生产者和消费者两个角色。生产者只负责发送数据到消息队列，谁从消息队列中取出数据处理，他不管。消费者只负责从消息队列中取出数据处理，他不管这是谁发送的数据。</p>
+<center><img src="/images/aHR0cHM6Ly91c2VyLWdvbGQtY2RuLnhpdHUuaW8vMjAyMC83LzE5LzE3MzY3NTNjNDc1M2M2Zjk.png" style="width:400px;"></img></center> 
+      <a class="article-more-link" href="/3a6862a6af0f/"
+        >阅读更多...</a
+      >
+       
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/RabbitMQ/" rel="tag">RabbitMQ</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%90%8E%E7%AB%AF/" rel="tag">后端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/" rel="tag">消息队列</a></li></ul>
 
     </footer>
   </div>
@@ -795,7 +835,7 @@
   
   <nav class="page-nav">
     
-    <a class="extend prev" rel="prev" href="/page/2/">上一页</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/17/">17</a><a class="extend next" rel="next" href="/page/4/">下一页</a>
+    <a class="extend prev" rel="prev" href="/page/2/">上一页</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/22/">22</a><a class="extend next" rel="next" href="/page/4/">下一页</a>
   </nav>
   
 </section>

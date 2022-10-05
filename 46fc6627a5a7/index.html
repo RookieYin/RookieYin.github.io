@@ -1,0 +1,892 @@
+<!DOCTYPE html>
+
+
+<html lang="zh-CN">
+  
+
+    <head>
+      <meta name="baidu-site-verification" content="code-rk2CNV4xgj" />
+      <meta charset="utf-8" />
+        
+      <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1"
+      />
+      <title>Redis持久化 |  RookieYin&#39;s Note</title>
+  <meta name="generator" content="hexo-theme-ayer">
+      
+      <link rel="shortcut icon" href="/images/2.jpg" />
+       
+<link rel="stylesheet" href="/dist/main.css">
+
+      <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/Shen-Yu/cdn/css/remixicon.min.css"
+      />
+      
+<link rel="stylesheet" href="/css/custom.css">
+ 
+      <script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+       
+ 
+
+      <!-- mermaid -->
+      
+    <link rel="alternate" href="/atom.xml" title="RookieYin's Note" type="application/atom+xml">
+<link href="https://cdn.bootcss.com/KaTeX/0.11.1/katex.min.css" rel="stylesheet" /></head>
+  </html>
+</html>
+
+
+<body>
+<div id="app">
+    
+    
+    <div class="sidebar">
+        <!--<button class="navbar-toggle"></button>-->
+<nav class="navbar">
+  <div class="logo">
+    <a href="/">
+      <img src="/images/2.jpg"
+           style="border-radius: 50%;max-width: none;">
+    </a>
+  </div>
+  <div class = nav-title style="font-size: 2.5rem;color: #ffffff;margin-left: 4rem;font-weight: bold;min-width: 23rem">
+    RookieYin's Note
+  </div>
+  <div class="nav nav-main">
+    
+    <div class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </div>
+    
+    <div class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </div>
+    
+    <div class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </div>
+    
+    <div class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </div>
+    
+    <div class="nav-item">
+      <a class="nav-item-link" href="/friends">友链</a>
+    </div>
+    
+    <div class="nav-item">
+      <a class="nav-item-link" href="/about-me/2021">关于我</a>
+    </div>
+    
+      <div class="nav-item">
+        <div class="nav-item-link navbar-menu-wrap">
+          <div class="navbar-menu"></div>
+        </div>
+      </div>
+    <div class = "nav-item">
+      <a class="nav-item-link nav-item-search"  title="搜索">
+        <i class="ri-search-line"></i>
+      </a>
+    </div>
+  </div>
+</nav>
+<nav class="navbar2">
+  <div style="position: relative;">
+      <div style="height: 4.8rem;display: inline-block;margin-top:1rem;margin-left:1rem;">
+        <a href="/">
+          <img src="/images/2.jpg"
+               style="border-radius: 50%;max-width: none;width:4.8rem">
+        </a>
+      </div>
+    <div class="navbar-title2" style="font-size: 2.5rem;color: #ffffff;margin-left: 4rem;font-weight: bold;margin-top:1rem;
+    min-width: 23rem;height: 4.8rem;overflow: hidden;">
+      <span style="line-height: 4.8rem;">RookieYin's Note</span>
+    </div>
+    <div style="display: inline-block;position: absolute;top:50%;height:50%;transform:translate(-50%,-50%);right:4rem;margin-top: 1rem;">
+      <div class="navbar-menu-wrap">
+        <div class="navbar-menu"></div>
+      </div>
+    </div>
+    <div style="display: inline-block;position: absolute;top:50%;height:50%;transform:translate(-50%,-50%);right:0;">
+      <a class="nav-item-search"  title="搜索">
+        <i class="ri-search-line"></i>
+      </a>
+    </div>
+  </div>
+  <div style="display: inline-block;text-align: center;width: 100%;padding-bottom: 1rem;">
+    
+    <div class="nav-item2">
+      <a class="nav-item-link2" href="/">主页</a>
+    </div>
+    
+    <div class="nav-item2">
+      <a class="nav-item-link2" href="/archives">归档</a>
+    </div>
+    
+    <div class="nav-item2">
+      <a class="nav-item-link2" href="/categories">分类</a>
+    </div>
+    
+    <div class="nav-item2">
+      <a class="nav-item-link2" href="/tags">标签</a>
+    </div>
+    
+    <div class="nav-item2">
+      <a class="nav-item-link2" href="/friends">友链</a>
+    </div>
+    
+    <div class="nav-item2">
+      <a class="nav-item-link2" href="/about-me/2021">关于我</a>
+    </div>
+    
+  </div>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+
+    </div>
+    <main class="content">
+        <section class="outer">
+  <article
+  id="post-2 后端/Redis/6. Redis持久化"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  Redis持久化
+</h1>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/46fc6627a5a7/" class="article-date">
+  <time datetime="2022-03-08T12:38:14.000Z" itemprop="datePublished">2022-03-08</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a> / <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/Redis/">Redis</a>
+  </div>
+
+  
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> 字数统计:</span>
+            <span class="post-count">2.5k</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> 阅读时长≈</span>
+            <span class="post-count">8 分钟</span>
+        </span>
+    </span>
+</div>
+ 
+    </div>
+      
+    <div class="tocbot"></div>
+
+
+
+
+  
+    <div class="article-entry" itemprop="articleBody">
+       
+  <p>为了防止数据丢失以及服务重启时能够恢复数据，Redis支持数据的持久化（和Memcached的主要区别之一），主要分为两种方式，分别是RDB和AOF。当然实际场景下还会使用这两种的混合模式。</p>
+<a id="more"></a>
+<h2 id="rdb快照持久化">RDB快照持久化</h2>
+<h3 id="触发方式">触发方式</h3>
+<p>rdb触发方式分为手动触发和自动触发两种：</p>
+<ul>
+<li>
+<p>手动触发：redis客户端执行save或bgsave命令</p>
+<ul>
+<li>
+<p>save命令： 阻塞当前Redis服务器，直到RDB过程完成为止，对于内存 比较大的实例会造成长时间<strong>阻塞</strong>，线上环境不建议使用 。</p>
+</li>
+<li>
+<p>bgsave命令： Redis进程执行fork操作创建子进程，RDB持久化过程由子 进程负责，完成后自动结束。阻塞只发生在fork阶段，一般时间很短 ，其流程图如下：</p>
+<center><img src="/images/image-20220306155933550.png" style="width:300px;"></img></center>
+</li>
+</ul>
+</li>
+<li>
+<p>自动触发：在一下4中情况下会自动触发</p>
+<ul>
+<li>redis.conf中配置<code>save m n</code>，即在m秒内有n次修改时，自动触发bgsave生成rdb文件；</li>
+<li>主从复制时，从节点要从主节点进行全量复制时也会触发bgsave操作，生成当时的快照发送到从节点；</li>
+<li>执行debug reload命令重新加载redis时也会触发bgsave操作；</li>
+<li>默认情况下执行shutdown命令时，如果没有开启aof持久化，那么也会触发bgsave操作。</li>
+</ul>
+</li>
+</ul>
+<h3 id="相关配置">相关配置</h3>
+<ul>
+<li>
+<p>持久化周期配置</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 周期性执行条件的设置格式为 </span></span><br><span class="line"><span class="string">save</span> <span class="string">&lt;seconds&gt;</span> <span class="string">&lt;changes&gt;</span> </span><br><span class="line"><span class="comment"># 默认的设置为： </span></span><br><span class="line"><span class="string">save</span> <span class="number">900</span> <span class="number">1</span> <span class="comment">#如果900秒内有1条Key信息发生变化，则进行快照</span></span><br><span class="line"><span class="string">save</span> <span class="number">300</span> <span class="number">10</span> <span class="comment">#如果300秒内有10条Key信息发生变化，则进行快照</span></span><br><span class="line"><span class="string">save</span> <span class="number">60</span> <span class="number">10000</span> <span class="comment"># 如果60秒内有10000条Key信息发生变化，则进行快照</span></span><br><span class="line"><span class="comment"># 以下设置方式为关闭RDB快照功能 </span></span><br><span class="line"><span class="string">save</span> <span class="string">&quot;&quot;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>其他相关配置</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 文件名称</span></span><br><span class="line"><span class="string">dbfilename</span> <span class="string">dump.rdb</span></span><br><span class="line"><span class="comment"># 文件保存路径，默认&quot;./&quot;，即Redis服务的主目录</span></span><br><span class="line"><span class="string">dir</span> <span class="string">/home/work/app/redis/data/</span></span><br><span class="line"><span class="comment"># 如果持久化出错，主进程是否停止写入</span></span><br><span class="line"><span class="string">stop-writes-on-bgsave-error</span> <span class="literal">yes</span></span><br><span class="line"><span class="comment"># 是否压缩</span></span><br><span class="line"><span class="string">rdbcompression</span> <span class="literal">yes</span></span><br><span class="line"><span class="comment"># 导入时是否检查。一个64位的CRC冗余校验编码会被放置在RDB文件的末尾，以便对整个RDB文件的完整性进行验证。这个功能大概会多损失10%左右的性能，但获得了更高的数据可靠性。所以如果您的Redis服务需要追求极致的性能，就可以将这个选项设置为no</span></span><br><span class="line"><span class="string">rdbchecksum</span> <span class="literal">yes</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="优缺点">优缺点</h3>
+<ul>
+<li><strong>优点</strong>
+<ul>
+<li>RDB文件是某个时间节点的快照，默认使用LZF算法进行压缩，压缩后的文件体积远远小于内存大小，适用于备份、全量复制等场景；</li>
+<li>Redis加载RDB文件恢复数据要远远快于AOF方式.</li>
+</ul>
+</li>
+<li><strong>缺点</strong>
+<ul>
+<li>RDB方式实时性不够，无法做到秒级的持久化；</li>
+<li>每次调用bgsave都需要fork子进程，fork子进程属于重量级操作，频繁执行成本较高；</li>
+<li>RDB文件是二进制的，没有可读性，AOF文件在了解其结构的情况下可以手动修改或者补全；</li>
+<li>版本兼容RDB文件问题.</li>
+</ul>
+</li>
+</ul>
+<h3 id="深入理解">深入理解</h3>
+<ul>
+<li>
+<p>Redis开辟的内存空间通常较大，在将内存数据同步到硬盘可能会持续比较长的时间。在<strong>持久化</strong>这段时间一般都会收到数据写操作请求，<strong>如何保证数据一致性？</strong></p>
+<p>RDB的核心思路就是Copy-on-Write， 需要压缩写入磁盘上的数据在内存中不会发生变化 。在持久化这段时间发生的数据变化会以副本的方式<strong>存放在另一个新的内存区域</strong>，待快照操作结束后才会同步到原来的内存区域。</p>
+</li>
+<li>
+<p>在进行快照操作的这段时间，如果发生服务崩溃怎么办？</p>
+<p>崩溃了就弃用本次持久化。持久化过程会创建一个临时文件，只有持久化完整过程结束后，才会用该临时文件替换上一次的备份。</p>
+</li>
+<li>
+<p>可以每秒做一次快照吗？</p>
+<p>快照间隔时间越短，服务崩溃时丢失的数据越少，但是频繁的快照会带来两方面问题：</p>
+<ul>
+<li>磁盘压力过大： 多个快照竞争有限的磁盘带宽，前一个快照还没有做完，后一个又开始做了，容易造成恶性循环。</li>
+<li>阻塞主线程：虽然bgsave会fork子线程执行IO操作，但是fork子线程会阻塞主线程。 如果频繁 fork 出 bgsave 子进程，这就会频繁<strong>阻塞主线程</strong>了。</li>
+</ul>
+</li>
+</ul>
+<h2 id="aof追加文件持久化">AOF追加文件持久化</h2>
+<p>和RDB相比，AOF 持久化的实时性更好，因此已成为主流的持久化方案。默认情况下 Redis 没有开启 AOF（append only file）方式的持久化，可以通过 appendonly 参数开启： <code>appendonly yes</code>。</p>
+<h3 id="实现方法">实现方法</h3>
+<p>开启AOF后，AOF日志记录Redis的每个写命令，分3步：命令追加、文件写入和文件同步。</p>
+<ul>
+<li>
+<p>命令追加： 服务器在执行完一个写命令之后，会以协议格式将被执行的写命令追加到服务器的 aof_buf 缓冲区 。</p>
+</li>
+<li>
+<p>文件写入和同步： 关于何时将 aof_buf 缓冲区的内容写入AOF文件中，Redis提供了三种写回策略：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">名称</th>
+<th style="text-align:center">写会时机</th>
+<th style="text-align:center">优点</th>
+<th style="text-align:center">缺点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Always</td>
+<td style="text-align:center">同步写回</td>
+<td style="text-align:center">可靠性高，数据基本不丢失</td>
+<td style="text-align:center">开销过大，影响性能</td>
+</tr>
+<tr>
+<td style="text-align:center">Everysec</td>
+<td style="text-align:center">每秒写会</td>
+<td style="text-align:center">性能适中</td>
+<td style="text-align:center">宕机时丢失1秒数据</td>
+</tr>
+<tr>
+<td style="text-align:center">No</td>
+<td style="text-align:center">操作系统控制写回</td>
+<td style="text-align:center">性能好</td>
+<td style="text-align:center">宕机时丢失数据较多</td>
+</tr>
+</tbody>
+</table>
+</li>
+</ul>
+<h3 id="配置文件">配置文件</h3>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>appendonly</td>
+<td>yes/no，是否开启AOF，默认是关闭的</td>
+</tr>
+<tr>
+<td>appendfilename</td>
+<td>AOF持久化文件名</td>
+</tr>
+<tr>
+<td>dir</td>
+<td>AOF文件保存路径</td>
+</tr>
+<tr>
+<td>appendfsync</td>
+<td>同步策略，always/everysec/no</td>
+</tr>
+<tr>
+<td>no-appendfsync-on-rewrite</td>
+<td>设置no表示在aof重写期间不会将这段时间内发生的写命令放入操作系统</td>
+</tr>
+<tr>
+<td>auto-aof-rewrite-percentage</td>
+<td>生产环境不可能手动进行AOF持久化，因此需要配置何时自动触发AOF。该配置项表示当前AOF文件大小超过上次重写后AOF文件的百分之多少后，就再次开始重写AOF文件</td>
+</tr>
+<tr>
+<td>auto-aof-rewrite-min-size</td>
+<td>和auto-aof-rewrite-percentage类似，不过这里给的不是百分比，而是具体文件大小。比如设置为64mb，表示当AOF文件大小超过64mb后，重新开始新的AOF文件</td>
+</tr>
+</tbody>
+</table>
+<h3 id="aof重写">AOF重写</h3>
+<p>Aof重写过程如下图所示，主线程首先fork出子进程用于重写aof日志，子进程在重写日志完成后，通知主进程追加aof日志缓冲，最后用新日志文件替换掉原来的日志文件。</p>
+<center><img src="/images/redis-x-aof-2.jpg" style="width:500px;"></img></center>
+下面总结了AOF重写的常见问题：
+<ul>
+<li>
+<p><strong>为什么要进行AOF重写？</strong></p>
+<p>AOF会记录每个写命令到AOF文件，随着时间越来越长，AOF文件会变得越来越大。如果不加以控制，会对Redis服务器，甚至对操作系统造成影响，而且AOF文件越大，数据恢复也越慢。</p>
+</li>
+<li>
+<p><strong>AOF重写会阻塞吗？</strong></p>
+<p>和RDB一样，AOF重写也会fork一个子进程，重写过程不阻塞，但是fork子进程会阻塞主进程。</p>
+</li>
+<li>
+<p><strong>AOF何时会重写？</strong></p>
+<p>如前文“配置项”所述，Redis根据 auto-aof-rewrite-min-size 和 auto-aof-rewrite-percentage 两个配置项决定何时重写。</p>
+</li>
+<li>
+<p><strong>AOF重写时，有新数据写入怎么处理？</strong></p>
+<p>如前文图片所示，Redis会将新数据放到AOF重写缓冲区，子进程重写完毕后，将缓冲区内容写入新日志。</p>
+<p><em>注：在高并发系统中，重写过程可能有大量新入局进入，导致缓冲区积累数据过多。Redis后来通过Linux管道技术，让aof重写期间能同时进行回放，这样aof重写结束后，缓冲区不会积累过多数据。</em></p>
+</li>
+<li>
+<p><strong>主线程fork出子进程的是如何复制内存数据的？</strong></p>
+<p>fork子进程时，为了避免一次性拷贝过多数据造成阻塞。fork子进程时，子进程会拷贝父进程的页面，而不会拷贝物理内存。这时候两个进程使用相同的内存地址空间。</p>
+<p>此时主进程是可以有数据写入的，如下图所示：</p>
+<center><img src="/images/redis-x-aof-3.png" style="width:500px;"></img></center>
+</li>
+</ul>
+<p>在主进程有数据写入时，如果这个数据恰好在页C中，主进程会创建一个页C的副本，将其映射到主进程中，而子进程还是使用原来的页C。</p>
+<ul>
+<li>
+<p><strong>AOF重写过程中哪些时候会阻塞？</strong></p>
+<ul>
+<li>fork子进程时，需要拷贝虚拟页表，会对主进程阻塞。</li>
+<li>主进程有bigkey写入时， 操作系统会创建页面的副本，并拷贝原有的数据，会对主线程阻塞。</li>
+<li>子进程重写日志完成后，主进程追加aof重写缓冲区时可能会对主线程阻塞。</li>
+</ul>
+</li>
+<li>
+<p><strong>为什么AOF重写不复用原AOF日志</strong>？</p>
+<ul>
+<li>父子进程写同一个文件会产生竞争问题，影响父进程的性能。</li>
+<li>如果AOF重写过程中失败了，相当于污染了原本的AOF文件，无法做恢复数据使用。</li>
+</ul>
+</li>
+</ul>
+<h3 id="rdb和aof混合方式-4-0版本">RDB和AOF混合方式（4.0版本）</h3>
+<p>该模式下，内存快照以一定的频率执行，在两次快照之间，使用AOF日志记录这期间的所有命令操作，如下图所示：</p>
+<center><img src="/images/redis-x-rdb-4.jpg" style="width:500px;"></img></center>
+## 从持久化中恢复数据
+<p>从持久化文件中恢复数据，只需要重新启动Redis即可。其流程如下图所示：</p>
+<center><img src="/images/redis-x-aof-5.png" style="width:300px;"></img></center>
+ 那么为什么会优先加载AOF呢？因为AOF保存的数据更完整，通过上面的分析我们知道AOF基本上最多损失1s的数据。 
+<h2 id="参考资料">参考资料</h2>
+<ol>
+<li><a target="_blank" rel="noopener" href="https://pdai.tech/md/db/nosql-redis/db-redis-x-rdb-aof.html">https://pdai.tech/md/db/nosql-redis/db-redis-x-rdb-aof.html</a></li>
+<li><a target="_blank" rel="noopener" href="https://javaguide.cn/database/redis/redis-questions-01">https://javaguide.cn/database/redis/redis-questions-01</a></li>
+</ol>
+ 
+      <!-- reward -->
+      
+      <div id="reword-out">
+        <div id="reward-btn">
+          打赏
+        </div>
+      </div>
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <div class="declare">
+      <ul class="post-copyright">
+        <li>
+          <i class="ri-copyright-line"></i>
+          <strong>版权声明： </strong>
+          
+          本博客所有文章除特别声明外，著作权归作者所有。转载请注明出处！
+          
+        </li>
+      </ul>
+    </div>
+    
+    <footer class="article-footer">
+       
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<!--<div class="wx-share-modal">-->
+<!--    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>-->
+<!--    <p>扫一扫，分享到微信</p>-->
+<!--    <div class="wx-qrcode">-->
+<!--      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://rookieyin.github.io/46fc6627a5a7/" alt="微信分享二维码">-->
+<!--    </div>-->
+<!--</div>-->
+
+<div id="share-mask"></div>
+  
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/redis/" rel="tag">redis</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%90%8E%E7%AB%AF/" rel="tag">后端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="tag">数据库</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+  <nav class="article-nav">
+    
+      <a href="/29e18cf0aa29/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            Redis过期与内存淘汰机制
+          
+        </div>
+      </a>
+    
+    
+      <a href="/7cfcf24ee979/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">结构型——享元模式</div>
+      </a>
+    
+  </nav>
+
+   
+<!-- valine评论 -->
+<div id="vcomments-box">
+  <div id="vcomments"></div>
+</div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js"></script>
+<script>
+  new Valine({
+    el: "#vcomments",
+    app_id: "f9XmUV7HVprPCNptggBNBhWR-gzGzoHsz",
+    app_key: "H73Viqo3lADopEFgshq3XrXs",
+    path: window.location.pathname,
+    avatar: "monsterid",
+    placeholder: "给我的文章加点评论吧~",
+    recordIP: true,
+  });
+  const infoEle = document.querySelector("#vcomments .info");
+  if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+    infoEle.childNodes.forEach(function (item) {
+      item.parentNode.removeChild(item);
+    });
+  }
+</script>
+<style>
+  #vcomments-box {
+    padding: 5px 30px;
+  }
+
+  @media screen and (max-width: 800px) {
+    #vcomments-box {
+      padding: 5px 0px;
+    }
+  }
+
+  #vcomments-box #vcomments {
+    background-color: #fff;
+  }
+
+  .v .vlist .vcard .vh {
+    padding-right: 20px;
+  }
+
+  .v .vlist .vcard {
+    padding-left: 10px;
+  }
+</style>
+
+ 
+   
+     
+</article>
+
+</section>
+        <footer class="footer">
+  <div class="outer">
+    <ul>
+      <li>
+        Copyrights &copy;
+        2021-2022
+        <i class="ri-heart-fill heart_icon"></i> Yin Peng
+      </li>
+    </ul>
+    <ul>
+      <li>引擎:
+        <a style="color: #0681d0" target="_blank" rel="noopener" href="https://hexo.io/zh-cn/">Hexo</a>
+        &nbsp;&nbsp;|&nbsp;&nbsp;主题:修改自
+        <a style="color: #0681d0" target="_blank" rel="noopener" href="https://shen-yu.gitee.io/">Ayer</a>
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        <span>
+  <span><i class="ri-user-3-fill"></i>访问人数:<span id="busuanzi_value_site_uv"></span></span>
+  <span class="division">|</span>
+  <span><i class="ri-eye-fill"></i>浏览次数:<span id="busuanzi_value_page_pv"></span></span>
+</span>
+        
+      </li>
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      <li>
+        <!-- cnzz统计 -->
+        
+        <script type="text/javascript" src='https://s9.cnzz.com/z_stat.php?id=1278069914&amp;web_id=1278069914'></script>
+        
+      </li>
+    </ul>
+  </div>
+</footer>
+
+        <div class="float_btns">
+            <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+
+<div class="todark" id="todark">
+  <i class="ri-moon-line"></i>
+</div>
+
+        </div>
+    </main>
+
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/alipay.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/wxpay.png">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-2.0.3.min.js"></script>
+ 
+<script src="/js/lazyload.min.js"></script>
+
+<!-- Tocbot -->
+ 
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  tocbot.init({
+    tocSelector: ".tocbot",
+    contentSelector: ".article-entry",
+    headingSelector: "h1, h2, h3, h4, h5, h6",
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: "main",
+    positionFixedSelector: ".tocbot",
+    positionFixedClass: "is-position-fixed",
+    fixedSidebarOffset: "auto",
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.js"></script>
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.css"
+/>
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js"></script>
+
+<script src="/dist/main.js"></script>
+
+<!-- ImageViewer -->
+ <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css">
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script> 
+<!-- MathJax -->
+
+<!-- Katex -->
+
+<!-- busuanzi  -->
+ 
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+ 
+<!-- ClickLove -->
+ 
+<script src="/js/clickLove.js"></script>
+ 
+<!-- ClickBoom1 -->
+
+<!-- ClickBoom2 -->
+
+<!-- CodeCopy -->
+ 
+<link rel="stylesheet" href="/css/clipboard.css">
+ <script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="ri-file-copy-2-line"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-checkbox-circle-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-checkbox-circle-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-time-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-time-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+ 
+<!-- CanvasBackground -->
+
+<script>
+  if (window.mermaid) {
+    mermaid.initialize({ theme: "forest" });
+  }
+</script>
+
+
+    
+</div>
+</body>
+
+</html>

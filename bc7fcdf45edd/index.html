@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+
+
+<html lang="zh-CN">
+  
+
+    <head>
+      <meta name="baidu-site-verification" content="code-rk2CNV4xgj" />
+      <meta charset="utf-8" />
+        
+      <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1"
+      />
+      <title>Spring AOP |  RookieYin&#39;s Note</title>
+  <meta name="generator" content="hexo-theme-ayer">
+      
+      <link rel="shortcut icon" href="/images/2.jpg" />
+       
+<link rel="stylesheet" href="/dist/main.css">
+
+      <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/Shen-Yu/cdn/css/remixicon.min.css"
+      />
+      
+<link rel="stylesheet" href="/css/custom.css">
+ 
+      <script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+       
+ 
+
+      <!-- mermaid -->
+      
+    <link rel="alternate" href="/atom.xml" title="RookieYin's Note" type="application/atom+xml">
+<link href="https://cdn.bootcss.com/KaTeX/0.11.1/katex.min.css" rel="stylesheet" /></head>
+  </html>
+</html>
+
+
+<body>
+<div id="app">
+    
+    
+    <div class="sidebar">
+        <!--<button class="navbar-toggle"></button>-->
+<nav class="navbar">
+  <div class="logo">
+    <a href="/">
+      <img src="/images/2.jpg"
+           style="border-radius: 50%;max-width: none;">
+    </a>
+  </div>
+  <div class = nav-title style="font-size: 2.5rem;color: #ffffff;margin-left: 4rem;font-weight: bold;min-width: 23rem">
+    RookieYin's Note
+  </div>
+  <div class="nav nav-main">
+    
+    <div class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </div>
+    
+    <div class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </div>
+    
+    <div class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </div>
+    
+    <div class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </div>
+    
+    <div class="nav-item">
+      <a class="nav-item-link" href="/friends">友链</a>
+    </div>
+    
+    <div class="nav-item">
+      <a class="nav-item-link" href="/about-me/2021">关于我</a>
+    </div>
+    
+      <div class="nav-item">
+        <div class="nav-item-link navbar-menu-wrap">
+          <div class="navbar-menu"></div>
+        </div>
+      </div>
+    <div class = "nav-item">
+      <a class="nav-item-link nav-item-search"  title="搜索">
+        <i class="ri-search-line"></i>
+      </a>
+    </div>
+  </div>
+</nav>
+<nav class="navbar2">
+  <div style="position: relative;">
+      <div style="height: 4.8rem;display: inline-block;margin-top:1rem;margin-left:1rem;">
+        <a href="/">
+          <img src="/images/2.jpg"
+               style="border-radius: 50%;max-width: none;width:4.8rem">
+        </a>
+      </div>
+    <div class="navbar-title2" style="font-size: 2.5rem;color: #ffffff;margin-left: 4rem;font-weight: bold;margin-top:1rem;
+    min-width: 23rem;height: 4.8rem;overflow: hidden;">
+      <span style="line-height: 4.8rem;">RookieYin's Note</span>
+    </div>
+    <div style="display: inline-block;position: absolute;top:50%;height:50%;transform:translate(-50%,-50%);right:4rem;margin-top: 1rem;">
+      <div class="navbar-menu-wrap">
+        <div class="navbar-menu"></div>
+      </div>
+    </div>
+    <div style="display: inline-block;position: absolute;top:50%;height:50%;transform:translate(-50%,-50%);right:0;">
+      <a class="nav-item-search"  title="搜索">
+        <i class="ri-search-line"></i>
+      </a>
+    </div>
+  </div>
+  <div style="display: inline-block;text-align: center;width: 100%;padding-bottom: 1rem;">
+    
+    <div class="nav-item2">
+      <a class="nav-item-link2" href="/">主页</a>
+    </div>
+    
+    <div class="nav-item2">
+      <a class="nav-item-link2" href="/archives">归档</a>
+    </div>
+    
+    <div class="nav-item2">
+      <a class="nav-item-link2" href="/categories">分类</a>
+    </div>
+    
+    <div class="nav-item2">
+      <a class="nav-item-link2" href="/tags">标签</a>
+    </div>
+    
+    <div class="nav-item2">
+      <a class="nav-item-link2" href="/friends">友链</a>
+    </div>
+    
+    <div class="nav-item2">
+      <a class="nav-item-link2" href="/about-me/2021">关于我</a>
+    </div>
+    
+  </div>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+
+    </div>
+    <main class="content">
+        <section class="outer">
+  <article
+  id="post-2 后端/Spring/Spring AOP"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  Spring AOP
+</h1>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/bc7fcdf45edd/" class="article-date">
+  <time datetime="2022-03-30T14:34:49.000Z" itemprop="datePublished">2022-03-30</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a> / <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/Spring/">Spring</a>
+  </div>
+
+  
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> 字数统计:</span>
+            <span class="post-count">3.8k</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> 阅读时长≈</span>
+            <span class="post-count">13 分钟</span>
+        </span>
+    </span>
+</div>
+ 
+    </div>
+      
+    <div class="tocbot"></div>
+
+
+
+
+  
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h2 id="基础介绍">基础介绍</h2>
+<h3 id="产生背景">产生背景</h3>
+<p>“存在即合理”，任何一种理论或技术的产生，必然有它的原因。了解它产生的背景、为了解决的问题有助于我们更好地把握AOP（Aspect-OrientedProgramming）的概念。<br>
+软件开发一直在寻求一种高效开发、护展、维护的方式。从面向过程的开发实践中，前人将关注点抽象出来，对行为和属性进行聚合，形成了面向对象的开发思想，其在一定程度上影响了软件开发的过程。鉴于此，我们在开发的过程中会对软件开发进行抽象、分割成各个模块或对象。例如，我们会对API进行抽象成四个模块：Controller,Service,Gateway,Command.这很好地解决了业务级别的开发，但对于系统级别的开发我们很难聚焦。比如、对于每一个模块需要进行打日志、代码监控、异常处理。以打日志为例，我只能将日志代码嵌套在各个对象上，而无法关注日志本身，而这种现象又偏离了OOP思想。</p>
+<a id="more"></a>
+<center><img src="/images/d954be75ebca469617d4_tplv-t2oaga2asx-zoom-in-crop-mark_3024_0_0_0.awebp" style="width:500px;"></img></center>
+<center><img src="/images/efa47f28e884f98d3a0c_tplv-t2oaga2asx-zoom-in-crop-mark_3024_0_0_0.awebp" style="width:500px;"></img></center>
+<p>为了能够更好地将系统级别的代码抽离出来，去掉与对象的耦合，就产生了面向AOP（面向切面）。如上图所示，OOP属于一种横向扩展，AOP是一种纵向扩展。AOP依托于OOP，进一步将系统级别的代码抽象出来，进行纵向排列，实现低耦合。至于AOP的确切的概念，我不希望给出抽象复杂的表述，只需要了解其作用即可。</p>
+<h3 id="相关概念">相关概念</h3>
+<ol>
+<li>
+<p>PointCut</p>
+<p>即在哪个地方进行切入,它可以指定某一个点，也可以指定多个点。<br>
+比如类A的methord函数，当然一般的AOP与语言（AOL）会采用多用方式来定义PointCut,比如说利用正则表达式，可以同时指定多个类的多个函数。</p>
+</li>
+<li>
+<p>Advice</p>
+<p>在切入点干什么，指定在PointCut地方做什么事情（增强），打日志、执行缓存、处理异常等等。</p>
+</li>
+<li>
+<p>Advisor/Aspect</p>
+<p>PointCut + Advice 形成了切面Aspect，这个概念本身即代表切面的所有元素。但到这一地步并不是完整的，因为还不知道如何将切面植入到代码中，解决此问题的技术就是PROXY</p>
+</li>
+<li>
+<p>Proxy</p>
+<p>Proxy 即代理，其不能算做AOP的家庭成员，更相当于一个管理部门，它管理 了AOP的如何融入OOP。之所以将其放在这里，是因为Aspect虽然是面向切面核心思想的重要组成部分，但其思想的践行者却是Proxy,也是实现AOP的难点与核心据在。</p>
+</li>
+</ol>
+<h3 id="实现方式">实现方式</h3>
+<p>小伙伴们知道，AOP 底层就是动态代理，动态代理有两种实现方式：</p>
+<ul>
+<li>JDK 动态代理：利用拦截器（必须实现 InvocationHandler）加上反射机制生成一个代理接口的匿名类，在调用具体方法前调用 InvokeHandler 来处理。举个例子，假设有一个接口 A，A 有一个实现类 B，现在要给 B 生成代理对象，那么实际上是给 A 接口自动生成了一个匿名实现类，并且在这个匿名实现类中调用到 B 中的方法。</li>
+<li>CGLIB 动态代理：利用 ASM 框架，对代理对象类生成的 class 文件加载进来，通过修改其字节码生成子类来处理。举个例子，现在有一个类 A，A 没有接口，现在想给 A 生成一个代理对象，那么实际上是自动给 A 生成了一个子类，在这个子类中覆盖了 A 中的方法，<strong>所以，小伙伴们要注意，A 类以及它里边的方法不能是 final 类型的，否则无法生成代理</strong>。</li>
+</ul>
+<p>如果被代理的对象有接口，则可以使用 JDK 动态代理，没有接口就可以使用 CGLIB 动态代理。</p>
+<p>在 Spring 中，默认情况下，如果被代理的对象有接口，就使用 JDK 动态代理，如果被代理的对象没有接口，则使用 CGLIB 动态代理。</p>
+<p>在 Spring Boot 中，2.0 之前也跟 Spring 中的规则一样，2.0 之后则统一都使用 CGLIB 动态代理。</p>
+<p>不过这些都是默认的规则，如果有接口，但是你又希望使用 CGLIB 动态代理，通过修改配置，也都是可以实现的。</p>
+<h3 id="底层原理">底层原理</h3>
+<p>Spring AOP底层还是基于IOC来实现的。</p>
+<p>Spring通过<code>AnnotationAwareAspectJAutoProxyCreator</code>来创建代理类，其类图如下：</p>
+<center><img src="/images/spring-springframework-aop-3.png" style="width:800px;"></img></center>
+<p>我们可以发现它实现了两类接口：</p>
+<ul>
+<li>
+<p>BeanFactoryAware属于<strong>Bean级生命周期接口方法</strong></p>
+</li>
+<li>
+<p>InstantiationAwareBeanPostProcessor 和 BeanPostProcessor 这两个接口实现，一般称它们的实现类为“后处理器”，是<strong>容器级生命周期接口方法</strong>；</p>
+</li>
+</ul>
+<p>结合Spring Bean的生命周期：</p>
+<center><img src="/images/spring-springframework-aop-4.png" style="width:800px;"></img></center>
+<p>我们可以发现AOP的主要初始话方法再上图红色方框中。</p>
+<h2 id="jdk动态代理">JDK动态代理</h2>
+<h3 id="回顾代理模式">回顾代理模式</h3>
+<p>代理模式，即 为另一个对象提供一个替身或占位符以控制对这个对象的访问。其类图通常如下：</p>
+<center><img src="/images/a6c20f60-5eba-427d-9413-352ada4b40fe.png" style="width:800px;"></img></center>
+<h3 id="实现方式">实现方式</h3>
+<p><strong>Spring默认使用JDK的动态代理实现AOP，类如果实现了接口，Spring就会使用这种方式实现动态代理</strong>。熟悉<code>Java</code>语言的应该会对<code>JDK</code>动态代理有所了解。<code>JDK</code>实现动态代理需要两个组件：</p>
+<ul>
+<li>首先第一个就是<code>InvocationHandler</code>接口。我们在使用<code>JDK</code>的动态代理时，需要编写一个类，去实现这个接口，然后重写<code>invoke</code>方法，这个方法其实就是我们提供的代理方法。</li>
+<li>然后<code>JDK</code>动态代理需要使用的第二个组件就是<code>Proxy</code>这个类，我们可以通过这个类的<code>newProxyInstance</code>方法，返回一个代理对象。生成的代理类实现了原来那个类的所有接口，并对接口的方法进行了代理，我们通过代理对象调用这些方法时，底层将通过反射，调用我们实现的<code>invoke</code>方法。</li>
+</ul>
+<h3 id="实现原理">实现原理</h3>
+<p><code>JDK</code>的动态代理是基于<strong>反射</strong>实现。<code>JDK</code>通过反射，生成一个代理类，这个代理类实现了原来那个类的全部接口，并对接口中定义的所有方法进行了代理。当我们通过代理对象执行原来那个类的方法时，代理类底层会通过反射机制，回调我们实现的<code>InvocationHandler</code>接口的<code>invoke</code>方法。<strong>并且这个代理类是Proxy类的子类</strong>（记住这个结论，后面测试要用）。这就是<code>JDK</code>动态代理大致的实现方式。</p>
+<h3 id="优缺点">优缺点</h3>
+<ul>
+<li><strong>优点</strong>
+<ol>
+<li><code>JDK</code>动态代理是<code>JDK</code>原生的，不需要任何依赖即可使用；</li>
+<li>通过反射机制生成代理类的速度要比<code>CGLib</code>操作字节码生成代理类的速度更快；</li>
+</ol>
+</li>
+<li><strong>缺点</strong>
+<ol>
+<li>如果要使用<code>JDK</code>动态代理，被代理的类必须实现了接口，否则无法代理。因为java只支持单继承，而JDK动态代理再创建代理对象时，默认让代理对象继承自Proxy类，因此无法同时继承被代理类，只能通过实现相同接口来实现。</li>
+<li><code>JDK</code>动态代理无法为没有在接口中定义的方法实现代理，假设我们有一个实现了接口的类，我们为它的一个不属于接口中的方法配置了切面，<code>Spring</code>仍然会使用<code>JDK</code>的动态代理，但是由于配置了切面的方法不属于接口，为这个方法配置的切面将不会被织入。</li>
+<li><code>JDK</code>动态代理执行代理方法时，需要通过反射机制进行回调，此时方法执行的效率比较低；</li>
+</ol>
+</li>
+</ul>
+<h3 id="实践测试">实践测试</h3>
+<p>下面我们通过一个简单的例子，来验证上面的说法。首先我们需要一个接口和它的一个实现类，然后再为这个实现类的方法配置切面，看看<code>Spring</code>是否真的使用的是<code>JDK</code>的动态代理。假设接口的名称为<code>Human</code>，而实现类为<code>Student</code>：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Human</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">display</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Student</span> <span class="keyword">implements</span> <span class="title">Human</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">display</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;I am a student&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然后我们定义一个切面，将这个<code>display</code>方法作为切入点，为它配置一个前置通知，代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Aspect</span></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HumanAspect</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 为Student这个类的所有方法，配置这个前置通知</span></span><br><span class="line">    <span class="meta">@Before(&quot;execution(* cn.tewuyiang.pojo.Student.*(..))&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">before</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;before student&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>下面可以开始测试了，我们通过<code>Java</code>类的方式进行配置，然后编写一个单元测试方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 配置类</span></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@ComponentScan(basePackages = &quot;cn.tewuyiang&quot;)</span></span><br><span class="line"><span class="meta">@EnableAspectJAutoProxy</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AOPConfig</span> </span>&#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 测试方法</span></span><br><span class="line"> <span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testProxy</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    ApplicationContext context =</span><br><span class="line">        <span class="keyword">new</span> AnnotationConfigApplicationContext(AOPConfig.class);</span><br><span class="line">	<span class="comment">// 注意，这里只能通过Human.class获取，而无法通过Student.class，因为在Spirng容器中，</span></span><br><span class="line">    <span class="comment">// 因为使用JDK动态代理，Ioc容器中，存储的是一个类型为Human的代理对象</span></span><br><span class="line">    Human human =  context.getBean(Human.class);</span><br><span class="line">    human.display();</span><br><span class="line">    <span class="comment">// 输出代理类的父类，以此判断是JDK还是CGLib</span></span><br><span class="line">    System.out.println(human.getClass().getSuperclass());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>注意看上面代码中，最长的那一句注释。由于我们需要代理的类实现了接口，则<code>Spring</code>会使用<code>JDK</code>的动态代理，生成的代理类会实现相同的接口，然后创建一个代理对象存储在<code>Spring</code>容器中。这也就是说，在<code>Spring</code>容器中，这个代理<code>bean</code>的类型不是<code>Student</code>类型，而是<code>Human</code>类型，所以我们不能通过<code>Student.class</code>获取，只能通过<code>Human.class</code>（或者通过它的名称获取）。这也证明了我们上面说过的另一个问题，<code>JDK</code>动态代理无法代理没有定义在接口中的方法。假设<code>Student</code>这个类有另外一个方法，它不是<code>Human</code>接口定义的方法，此时就算我们为它配置了切面，也无法将切面织入。而且由于在<code>Spring</code>容器中保存的代理对象并不是<code>Student</code>类型，而是<code>Human</code>类型，这就导致我们连那个不属于<code>Human</code>的方法都无法调用。这也说明了<code>JDK</code>动态代理的局限性。</p>
+<p>我们前面说过，<code>JDK</code>动态代理生成的代理类继承了<code>Proxy</code>这个类，而<code>CGLib</code>生成的代理类，则继承了需要进行代理的那个类，于是我们可以通过输出代理对象所属类的父类，来判断<code>Spring</code>使用了何种代理。下面是输出结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">before student</span><br><span class="line">I am a student</span><br><span class="line">class java.lang.reflect.Proxy	&#x2F;&#x2F; 注意看，父类是Proxy</span><br></pre></td></tr></table></figure>
+<p>通过上面的输出结果，我们发现，代理类的父类是<code>Proxy</code>，也就意味着果然使用的是<code>JDK</code>的动态代理。</p>
+<h2 id="cglib动态代理">CGLib动态代理</h2>
+<h3 id="实现原理">实现原理</h3>
+<p><code>CGLib</code>实现动态代理的原理是，底层采用了<code>ASM</code>字节码生成框架，直接对需要代理的类的字节码进行操作，生成这个类的一个子类，并重写了类的所有可以重写的方法，在重写的过程中，将我们定义的额外的逻辑（简单理解为<code>Spring</code>中的切面）织入到方法中，对方法进行了增强。而通过字节码操作生成的代理类，和我们自己编写并编译后的类没有太大区别。</p>
+<h3 id="优缺点">优缺点</h3>
+<ul>
+<li>优点
+<ol>
+<li>使用<code>CGLib</code>代理的类，不需要实现接口，因为<code>CGLib</code>生成的代理类是直接继承自需要被代理的类；</li>
+<li><code>CGLib</code>生成的代理类是原来那个类的子类，这就意味着这个代理类可以为原来那个类中，所有能够被子类重写的方法进行代理；</li>
+<li><code>CGLib</code>生成的代理类，和我们自己编写并编译的类没有太大区别，对方法的调用和直接调用普通类的方式一致，所以<code>CGLib</code>执行代理方法的效率要高于<code>JDK</code>的动态代理；</li>
+</ol>
+</li>
+<li>缺点
+<ol>
+<li>由于<code>CGLib</code>的代理类使用的是继承，这也就意味着如果需要被代理的类是一个<code>final</code>类，则无法使用<code>CGLib</code>代理；</li>
+<li>由于<code>CGLib</code>实现代理方法的方式是重写父类的方法，所以无法对<code>final</code>方法，或者<code>private</code>方法进行代理，因为子类无法重写这些方法；</li>
+<li><code>CGLib</code>生成代理类的方式是通过操作字节码，这种方式生成代理类的速度要比<code>JDK</code>通过反射生成代理类的速度更慢；</li>
+</ol>
+</li>
+</ul>
+<h3 id="实践测试">实践测试</h3>
+<p>好，测试完<code>JDK</code>动态代理，我们开始测试<code>CGLib</code>动态代理。我们前面说过，只有当需要代理的类没有实现接口时，<code>Spring</code>才会使用<code>CGLib</code>动态代理，于是我们修改<code>Student</code>这个类的定义，不让他实现接口：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Student</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">display</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;I am a student&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>由于<code>Student</code>没有实现接口，所以我们的测试方法也需要做一些修改。之前我们是通过<code>Human.class</code>这个类型从<code>Spring</code>容器中获取代理对象，但是现在，由于没有实现接口，所以我们不能再这么写了，而是要写成<code>Student.class</code>，如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testProxy</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    ApplicationContext context =</span><br><span class="line">        <span class="keyword">new</span> AnnotationConfigApplicationContext(AOPConfig.class);</span><br><span class="line">	<span class="comment">// 修改为Student.class</span></span><br><span class="line">    Student student = context.getBean(Student.class);</span><br><span class="line">    student.display();</span><br><span class="line">    <span class="comment">// 同样输出父类</span></span><br><span class="line">    System.out.println(student.getClass().getSuperclass());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>因为<code>CGLib</code>动态代理是生成了<code>Student</code>的一个子类，所以这个代理对象也是<code>Student</code>类型（子类也是父类类型），所以可以通过<code>Student.class</code>获取。下面是输出结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">before student</span><br><span class="line">I am a student</span><br><span class="line">class cn.tewuyiang.pojo.Student		&#x2F;&#x2F; 此时，父类是Student</span><br></pre></td></tr></table></figure>
+<p>可以看到，<code>AOP</code>成功生效，并且代理对象所属类的父类是<code>Student</code>，验证了我们之前的说法。下面我们修改一下<code>Student</code>类的定义，将<code>display</code>方法加上<code>final</code>修饰符，再看看效果：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Student</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 加上final修饰符</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">void</span> <span class="title">display</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;I am a student&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 输出结果如下：</span></span><br><span class="line">I am a student</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">cn</span>.<span class="title">tewuyiang</span>.<span class="title">pojo</span>.<span class="title">Student</span></span></span><br></pre></td></tr></table></figure>
+<p>可以看到，输出的父类仍然是<code>Student</code>，也就是说<code>Spring</code>依然使用了<code>CGLib</code>生成代理。但是我们发现，我们为<code>display</code>方法配置的前置通知并没有执行，也就是代理类并没有为<code>display</code>方法进行代理。这也验证了我们之前的说法，<code>CGLib</code>无法代理<code>final</code>方法，因为子类无法重写父类的<code>final</code>方法。下面我们可以试着为<code>Student</code>类加上<code>final</code>修饰符，让他无法被继承，此时看看结果。运行的结果会抛出异常，因为无法生成代理类，这里就不贴出来了，可以自己去试试。</p>
+<h2 id="参考资料">参考资料</h2>
+<ol>
+<li><a target="_blank" rel="noopener" href="https://juejin.cn/post/6844903478582575111#heading-2">https://juejin.cn/post/6844903478582575111#heading-2</a></li>
+<li><a target="_blank" rel="noopener" href="https://pdai.tech/md/spring/spring-x-framework-aop-source-1.html#%E5%BC%95%E5%85%A5">https://pdai.tech/md/spring/spring-x-framework-aop-source-1.html#引入</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/tuyang1129/p/12878549.html">https://www.cnblogs.com/tuyang1129/p/12878549.html</a></li>
+</ol>
+ 
+      <!-- reward -->
+      
+      <div id="reword-out">
+        <div id="reward-btn">
+          打赏
+        </div>
+      </div>
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <div class="declare">
+      <ul class="post-copyright">
+        <li>
+          <i class="ri-copyright-line"></i>
+          <strong>版权声明： </strong>
+          
+          本博客所有文章除特别声明外，著作权归作者所有。转载请注明出处！
+          
+        </li>
+      </ul>
+    </div>
+    
+    <footer class="article-footer">
+       
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<!--<div class="wx-share-modal">-->
+<!--    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>-->
+<!--    <p>扫一扫，分享到微信</p>-->
+<!--    <div class="wx-qrcode">-->
+<!--      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://rookieyin.github.io/bc7fcdf45edd/" alt="微信分享二维码">-->
+<!--    </div>-->
+<!--</div>-->
+
+<div id="share-mask"></div>
+  
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spring/" rel="tag">Spring</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%90%8E%E7%AB%AF/" rel="tag">后端</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+  <nav class="article-nav">
+    
+      <a href="/78f2dc72cab6/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            谈谈一致性哈希算法
+          
+        </div>
+      </a>
+    
+    
+      <a href="/210bc7cd9545/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">Spring IOC——概述</div>
+      </a>
+    
+  </nav>
+
+   
+<!-- valine评论 -->
+<div id="vcomments-box">
+  <div id="vcomments"></div>
+</div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js"></script>
+<script>
+  new Valine({
+    el: "#vcomments",
+    app_id: "f9XmUV7HVprPCNptggBNBhWR-gzGzoHsz",
+    app_key: "H73Viqo3lADopEFgshq3XrXs",
+    path: window.location.pathname,
+    avatar: "monsterid",
+    placeholder: "给我的文章加点评论吧~",
+    recordIP: true,
+  });
+  const infoEle = document.querySelector("#vcomments .info");
+  if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+    infoEle.childNodes.forEach(function (item) {
+      item.parentNode.removeChild(item);
+    });
+  }
+</script>
+<style>
+  #vcomments-box {
+    padding: 5px 30px;
+  }
+
+  @media screen and (max-width: 800px) {
+    #vcomments-box {
+      padding: 5px 0px;
+    }
+  }
+
+  #vcomments-box #vcomments {
+    background-color: #fff;
+  }
+
+  .v .vlist .vcard .vh {
+    padding-right: 20px;
+  }
+
+  .v .vlist .vcard {
+    padding-left: 10px;
+  }
+</style>
+
+ 
+   
+     
+</article>
+
+</section>
+        <footer class="footer">
+  <div class="outer">
+    <ul>
+      <li>
+        Copyrights &copy;
+        2021-2022
+        <i class="ri-heart-fill heart_icon"></i> Yin Peng
+      </li>
+    </ul>
+    <ul>
+      <li>引擎:
+        <a style="color: #0681d0" target="_blank" rel="noopener" href="https://hexo.io/zh-cn/">Hexo</a>
+        &nbsp;&nbsp;|&nbsp;&nbsp;主题:修改自
+        <a style="color: #0681d0" target="_blank" rel="noopener" href="https://shen-yu.gitee.io/">Ayer</a>
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        <span>
+  <span><i class="ri-user-3-fill"></i>访问人数:<span id="busuanzi_value_site_uv"></span></span>
+  <span class="division">|</span>
+  <span><i class="ri-eye-fill"></i>浏览次数:<span id="busuanzi_value_page_pv"></span></span>
+</span>
+        
+      </li>
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      <li>
+        <!-- cnzz统计 -->
+        
+        <script type="text/javascript" src='https://s9.cnzz.com/z_stat.php?id=1278069914&amp;web_id=1278069914'></script>
+        
+      </li>
+    </ul>
+  </div>
+</footer>
+
+        <div class="float_btns">
+            <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+
+<div class="todark" id="todark">
+  <i class="ri-moon-line"></i>
+</div>
+
+        </div>
+    </main>
+
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/alipay.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/wxpay.png">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-2.0.3.min.js"></script>
+ 
+<script src="/js/lazyload.min.js"></script>
+
+<!-- Tocbot -->
+ 
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  tocbot.init({
+    tocSelector: ".tocbot",
+    contentSelector: ".article-entry",
+    headingSelector: "h1, h2, h3, h4, h5, h6",
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: "main",
+    positionFixedSelector: ".tocbot",
+    positionFixedClass: "is-position-fixed",
+    fixedSidebarOffset: "auto",
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.js"></script>
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.css"
+/>
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js"></script>
+
+<script src="/dist/main.js"></script>
+
+<!-- ImageViewer -->
+ <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css">
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script> 
+<!-- MathJax -->
+
+<!-- Katex -->
+
+<!-- busuanzi  -->
+ 
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+ 
+<!-- ClickLove -->
+ 
+<script src="/js/clickLove.js"></script>
+ 
+<!-- ClickBoom1 -->
+
+<!-- ClickBoom2 -->
+
+<!-- CodeCopy -->
+ 
+<link rel="stylesheet" href="/css/clipboard.css">
+ <script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="ri-file-copy-2-line"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-checkbox-circle-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-checkbox-circle-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-time-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-time-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+ 
+<!-- CanvasBackground -->
+
+<script>
+  if (window.mermaid) {
+    mermaid.initialize({ theme: "forest" });
+  }
+</script>
+
+
+    
+</div>
+</body>
+
+</html>
