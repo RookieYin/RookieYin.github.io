@@ -217,7 +217,7 @@
 <a id="more"></a>
 <center><img src="/images/d954be75ebca469617d4_tplv-t2oaga2asx-zoom-in-crop-mark_3024_0_0_0.awebp" style="width:500px;"></img></center>
 <center><img src="/images/efa47f28e884f98d3a0c_tplv-t2oaga2asx-zoom-in-crop-mark_3024_0_0_0.awebp" style="width:500px;"></img></center>
-<p>为了能够更好地将系统级别的代码抽离出来，去掉与对象的耦合，就产生了面向AOP（面向切面）。如上图所示，OOP属于一种横向扩展，AOP是一种纵向扩展。AOP依托于OOP，进一步将系统级别的代码抽象出来，进行纵向排列，实现低耦合。至于AOP的确切的概念，我不希望给出抽象复杂的表述，只需要了解其作用即可。</p>
+为了能够更好地将系统级别的代码抽离出来，去掉与对象的耦合，就产生了面向AOP（面向切面）。如上图所示，OOP属于一种横向扩展，AOP是一种纵向扩展。AOP依托于OOP，进一步将系统级别的代码抽象出来，进行纵向排列，实现低耦合。至于AOP的确切的概念，我不希望给出抽象复杂的表述，只需要了解其作用即可。
 <h3 id="相关概念">相关概念</h3>
 <ol>
 <li>
@@ -252,7 +252,7 @@
 <p>Spring AOP底层还是基于IOC来实现的。</p>
 <p>Spring通过<code>AnnotationAwareAspectJAutoProxyCreator</code>来创建代理类，其类图如下：</p>
 <center><img src="/images/spring-springframework-aop-3.png" style="width:800px;"></img></center>
-<p>我们可以发现它实现了两类接口：</p>
+我们可以发现它实现了两类接口：
 <ul>
 <li>
 <p>BeanFactoryAware属于<strong>Bean级生命周期接口方法</strong></p>
@@ -263,12 +263,12 @@
 </ul>
 <p>结合Spring Bean的生命周期：</p>
 <center><img src="/images/spring-springframework-aop-4.png" style="width:800px;"></img></center>
-<p>我们可以发现AOP的主要初始话方法再上图红色方框中。</p>
+我们可以发现AOP的主要初始话方法再上图红色方框中。
 <h2 id="jdk动态代理">JDK动态代理</h2>
 <h3 id="回顾代理模式">回顾代理模式</h3>
 <p>代理模式，即 为另一个对象提供一个替身或占位符以控制对这个对象的访问。其类图通常如下：</p>
 <center><img src="/images/a6c20f60-5eba-427d-9413-352ada4b40fe.png" style="width:800px;"></img></center>
-<h3 id="实现方式">实现方式</h3>
+### 实现方式
 <p><strong>Spring默认使用JDK的动态代理实现AOP，类如果实现了接口，Spring就会使用这种方式实现动态代理</strong>。熟悉<code>Java</code>语言的应该会对<code>JDK</code>动态代理有所了解。<code>JDK</code>实现动态代理需要两个组件：</p>
 <ul>
 <li>首先第一个就是<code>InvocationHandler</code>接口。我们在使用<code>JDK</code>的动态代理时，需要编写一个类，去实现这个接口，然后重写<code>invoke</code>方法，这个方法其实就是我们提供的代理方法。</li>

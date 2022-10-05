@@ -6,7 +6,7 @@
   <link href="http://rookieyin.github.io/atom.xml" rel="self"/>
   
   <link href="http://rookieyin.github.io/"/>
-  <updated>2022-10-01T02:37:44.340Z</updated>
+  <updated>2022-10-04T08:20:09.064Z</updated>
   <id>http://rookieyin.github.io/</id>
   
   <author>
@@ -15,55 +15,6 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
-  
-  <entry>
-    <title></title>
-    <link href="http://rookieyin.github.io/fa66ff8617b1/"/>
-    <id>http://rookieyin.github.io/fa66ff8617b1/</id>
-    <published>2022-10-04T14:00:51.791Z</published>
-    <updated>2022-10-01T02:37:44.340Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;@Resource和@Autowired都可以实现bean的自动装配，那么两者有什么区别呢？&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;@Autowired是Spring提供的，@Resource是Java（JSR-250标准中定义的）提供的。因此前者是和Spring强耦合的，换成其他框架</summary>
-        
-      
-    
-    
-    
-    
-  </entry>
-  
-  <entry>
-    <title></title>
-    <link href="http://rookieyin.github.io/11f3b0dbfc3d/"/>
-    <id>http://rookieyin.github.io/11f3b0dbfc3d/</id>
-    <published>2022-10-04T13:42:53.385Z</published>
-    <updated>2022-10-01T02:37:37.227Z</updated>
-    
-    
-    
-    
-    
-  </entry>
-  
-  <entry>
-    <title></title>
-    <link href="http://rookieyin.github.io/d0b7ae6f49f2/"/>
-    <id>http://rookieyin.github.io/d0b7ae6f49f2/</id>
-    <published>2022-10-04T13:37:45.811Z</published>
-    <updated>2022-10-01T02:37:36.247Z</updated>
-    
-    
-    
-    
-    
-  </entry>
   
   <entry>
     <title>Adversarial Graph Contrastive Learning with Information Regularization</title>
@@ -404,6 +355,31 @@
   </entry>
   
   <entry>
+    <title>Java类和继承</title>
+    <link href="http://rookieyin.github.io/e2218c103027/"/>
+    <id>http://rookieyin.github.io/e2218c103027/</id>
+    <published>2022-08-05T14:34:49.000Z</published>
+    <updated>2022-10-04T13:17:20.905Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;文章转自：&lt;a href=&quot;https://www.cnblogs.com/dolphin0520/p/3803432.html&quot;&gt;这里&lt;/a&gt;&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="后端" scheme="http://rookieyin.github.io/categories/%E5%90%8E%E7%AB%AF/"/>
+    
+    <category term="Java" scheme="http://rookieyin.github.io/categories/%E5%90%8E%E7%AB%AF/Java/"/>
+    
+    <category term="Java基础知识" scheme="http://rookieyin.github.io/categories/%E5%90%8E%E7%AB%AF/Java/Java%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/"/>
+    
+    
+    <category term="后端" scheme="http://rookieyin.github.io/tags/%E5%90%8E%E7%AB%AF/"/>
+    
+    <category term="Java" scheme="http://rookieyin.github.io/tags/Java/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Java三大特性</title>
     <link href="http://rookieyin.github.io/01a29da4a7e8/"/>
     <id>http://rookieyin.github.io/01a29da4a7e8/</id>
@@ -429,14 +405,15 @@
   </entry>
   
   <entry>
-    <title>Java类和继承</title>
-    <link href="http://rookieyin.github.io/e2218c103027/"/>
-    <id>http://rookieyin.github.io/e2218c103027/</id>
+    <title>Java新特性</title>
+    <link href="http://rookieyin.github.io/df61fc7edb7a/"/>
+    <id>http://rookieyin.github.io/df61fc7edb7a/</id>
     <published>2022-08-05T14:34:49.000Z</published>
-    <updated>2022-10-04T13:17:20.905Z</updated>
+    <updated>2022-10-04T13:36:11.941Z</updated>
     
     
-    <summary type="html">&lt;p&gt;文章转自：&lt;a href=&quot;https://www.cnblogs.com/dolphin0520/p/3803432.html&quot;&gt;这里&lt;/a&gt;&lt;/p&gt;</summary>
+    <summary type="html">&lt;p&gt;Java每年发布两个正式版本，每3年发布一个TLS， 意味着Java 8 ，Java 11， Java 17 才可能被大规模使用。&lt;/p&gt;
+&lt;p&gt;本文简单总结一下Java8、Java11和Java17的新特性。文章内容主要总结自&lt;a href=&quot;https://pdai.tech/md/java/java8up/java-8-up-overview.html&quot;&gt;Java全栈知识体系&lt;/a&gt;。&lt;/p&gt;</summary>
     
     
     
@@ -481,32 +458,6 @@
   </entry>
   
   <entry>
-    <title>Java新特性</title>
-    <link href="http://rookieyin.github.io/df61fc7edb7a/"/>
-    <id>http://rookieyin.github.io/df61fc7edb7a/</id>
-    <published>2022-08-05T14:34:49.000Z</published>
-    <updated>2022-10-04T13:36:11.941Z</updated>
-    
-    
-    <summary type="html">&lt;p&gt;Java每年发布两个正式版本，每3年发布一个TLS， 意味着Java 8 ，Java 11， Java 17 才可能被大规模使用。&lt;/p&gt;
-&lt;p&gt;本文简单总结一下Java8、Java11和Java17的新特性。文章内容主要总结自&lt;a href=&quot;https://pdai.tech/md/java/java8up/java-8-up-overview.html&quot;&gt;Java全栈知识体系&lt;/a&gt;。&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="后端" scheme="http://rookieyin.github.io/categories/%E5%90%8E%E7%AB%AF/"/>
-    
-    <category term="Java" scheme="http://rookieyin.github.io/categories/%E5%90%8E%E7%AB%AF/Java/"/>
-    
-    <category term="Java基础知识" scheme="http://rookieyin.github.io/categories/%E5%90%8E%E7%AB%AF/Java/Java%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/"/>
-    
-    
-    <category term="后端" scheme="http://rookieyin.github.io/tags/%E5%90%8E%E7%AB%AF/"/>
-    
-    <category term="Java" scheme="http://rookieyin.github.io/tags/Java/"/>
-    
-  </entry>
-  
-  <entry>
     <title>Java异常机制</title>
     <link href="http://rookieyin.github.io/bcc8998c2008/"/>
     <id>http://rookieyin.github.io/bcc8998c2008/</id>
@@ -531,6 +482,116 @@
     <category term="Java" scheme="http://rookieyin.github.io/tags/Java/"/>
     
     <category term="异常" scheme="http://rookieyin.github.io/tags/%E5%BC%82%E5%B8%B8/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Synchronized和Lock对比</title>
+    <link href="http://rookieyin.github.io/f41ccc86ccbc/"/>
+    <id>http://rookieyin.github.io/f41ccc86ccbc/</id>
+    <published>2022-08-04T14:34:49.000Z</published>
+    <updated>2022-10-04T13:20:55.510Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;synchronized和lock是Java中提供的两种常用的锁机制，两者对比如下：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;使用方法上&lt;/strong&gt;
+&lt;ul&gt;
+&lt;li&gt;synchronize，是Java提供的一个关键字，可以加在方法上，也可以加在特定代码块中&lt;/li&gt;
+&lt;li&gt;lock，是Java提供的一个借口，常用的有ReentrantLock，通过调用lock()和unlock()获取锁和释放锁。通常在finally中添加unlock()防止死锁。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;性能上&lt;/strong&gt;
+&lt;ul&gt;
+&lt;li&gt;synchronized，JDK1.5中，synchronized是非常重量级的操作，但是从1.6开始，进行了优化，引入了锁升级机制，性能得到了较大提升。&lt;/li&gt;
+&lt;li&gt;lock，是乐观锁，通过CAS实现，在资源竞争激烈的情况下，使用lock性能会更好。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;支持的功能上&lt;/strong&gt;
+&lt;ul&gt;
+&lt;li&gt;synchronized，支持的功能简单，是公平锁，不支持中断&lt;/li&gt;
+&lt;li&gt;lock，支持更多的功能，包括公平、非公平锁，trylock、读写锁、condition等。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ol&gt;</summary>
+    
+    
+    
+    <category term="后端" scheme="http://rookieyin.github.io/categories/%E5%90%8E%E7%AB%AF/"/>
+    
+    <category term="Java" scheme="http://rookieyin.github.io/categories/%E5%90%8E%E7%AB%AF/Java/"/>
+    
+    <category term="Java并发" scheme="http://rookieyin.github.io/categories/%E5%90%8E%E7%AB%AF/Java/Java%E5%B9%B6%E5%8F%91/"/>
+    
+    
+    <category term="后端" scheme="http://rookieyin.github.io/tags/%E5%90%8E%E7%AB%AF/"/>
+    
+    <category term="Java" scheme="http://rookieyin.github.io/tags/Java/"/>
+    
+    <category term="多线程" scheme="http://rookieyin.github.io/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/"/>
+    
+    <category term="锁" scheme="http://rookieyin.github.io/tags/%E9%94%81/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>wait、notify、park、sleep、yield等对比</title>
+    <link href="http://rookieyin.github.io/47f68d9d8215/"/>
+    <id>http://rookieyin.github.io/47f68d9d8215/</id>
+    <published>2022-08-04T14:34:49.000Z</published>
+    <updated>2022-10-04T13:38:00.743Z</updated>
+    
+    
+    <summary type="html">&lt;center&gt;&lt;img src=&quot;/images/20210301201459977.png&quot; style=&quot;width:800px;&quot;&gt;&lt;/img&gt;&lt;/center&gt;</summary>
+    
+    
+    
+    <category term="后端" scheme="http://rookieyin.github.io/categories/%E5%90%8E%E7%AB%AF/"/>
+    
+    <category term="Java" scheme="http://rookieyin.github.io/categories/%E5%90%8E%E7%AB%AF/Java/"/>
+    
+    <category term="Java并发" scheme="http://rookieyin.github.io/categories/%E5%90%8E%E7%AB%AF/Java/Java%E5%B9%B6%E5%8F%91/"/>
+    
+    
+    <category term="后端" scheme="http://rookieyin.github.io/tags/%E5%90%8E%E7%AB%AF/"/>
+    
+    <category term="Java" scheme="http://rookieyin.github.io/tags/Java/"/>
+    
+    <category term="多线程" scheme="http://rookieyin.github.io/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/"/>
+    
+    <category term="并发" scheme="http://rookieyin.github.io/tags/%E5%B9%B6%E5%8F%91/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Java中的Future</title>
+    <link href="http://rookieyin.github.io/008aa26390aa/"/>
+    <id>http://rookieyin.github.io/008aa26390aa/</id>
+    <published>2022-08-04T14:34:49.000Z</published>
+    <updated>2022-10-04T13:42:02.833Z</updated>
+    
+    
+    <summary type="html">&lt;h2 id=&quot;future相关概念&quot;&gt;Future相关概念&lt;/h2&gt;
+&lt;h3 id=&quot;定义&quot;&gt;定义&lt;/h3&gt;
+&lt;p&gt;官放时这样描述Future接口的：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Future represents the result of an asynchronous computation. Methods are provided to check if the computation is complete, to wait for its completion, and to retrieve the result of the computation. The result can only be retrieved using method get when the computation has completed, blocking if necessary until it is ready. Cancellation is performed by the cancel method. Additional methods are provided to determine if the task completed normally or was cancelled. Once a computation has completed, the computation cannot be cancelled. If you would like to use a Future for the sake of cancellability but not provide a usable result, you can declare types of the form Future&amp;lt;?&amp;gt; and return null as a result of the underlying task.&lt;/p&gt;
+&lt;/blockquote&gt;</summary>
+    
+    
+    
+    <category term="后端" scheme="http://rookieyin.github.io/categories/%E5%90%8E%E7%AB%AF/"/>
+    
+    <category term="Java" scheme="http://rookieyin.github.io/categories/%E5%90%8E%E7%AB%AF/Java/"/>
+    
+    <category term="Java并发" scheme="http://rookieyin.github.io/categories/%E5%90%8E%E7%AB%AF/Java/Java%E5%B9%B6%E5%8F%91/"/>
+    
+    
+    <category term="后端" scheme="http://rookieyin.github.io/tags/%E5%90%8E%E7%AB%AF/"/>
+    
+    <category term="Java" scheme="http://rookieyin.github.io/tags/Java/"/>
+    
+    <category term="多线程" scheme="http://rookieyin.github.io/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/"/>
     
   </entry>
   
