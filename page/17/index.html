@@ -185,6 +185,370 @@
     
     
     <article
+  id="post-3 论文笔记/图学习/对比学习/12.Prototypical Graph Contrastive Learning"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/21fc78e48a24/"
+    >Prototypical Graph Contrastive Learning</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/21fc78e48a24/" class="article-date">
+  <time datetime="2021-10-01T14:13:24.000Z" itemprop="datePublished">2021-10-01</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/">论文笔记</a> / <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/%E5%9B%BE%E5%AD%A6%E4%B9%A0/">图学习</a> / <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/%E5%9B%BE%E5%AD%A6%E4%B9%A0/%E5%AF%B9%E6%AF%94%E5%AD%A6%E4%B9%A0/">对比学习</a>
+  </div>
+
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <p><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2106.09645">https://arxiv.org/pdf/2106.09645</a></p>
+<p>Prototypical Graph Contrastive Learning，2021，arxive preprint</p>
+<p><span style="font-size:18px;font-weight:bold;">总结：</span>作者提出了一种graph-graph图对比学习方法PGCL，用于无监督图分类任务。和其他图对比学习方法相比，作者最大的创新点就是<strong>负样本采样策略</strong>和<strong>加权对比损失</strong>。现有的GCL方法，对于负样本的选取基本都是均匀采样，不考虑负样本和锚点之间的相似度。作者在PGCL中首先对样本进行聚类，计算每个类别的原型向量，然后将和锚点处于不同簇的其他样本视作真负样本，处于相同簇的样本视为假负样本。另外，作者根据样本所在簇的原型和锚点所在簇原型之间距离计算权重用于对比损失的定义。感觉目前学术界对于GCL的研究，基本都是将CV和NLP中对比学习方法拓展到图邻域，可以多多关注CV中对比学习的最新进展。2021ICLR中有一篇名为“ PROTOTYPICAL CONTRASTIVE LEARNING OF UNSUPERVISED REPRESENTATIONS”的CV论文，我没有看着篇文章，不知道和本文是否有联系。</p> 
+      <a class="article-more-link" href="/21fc78e48a24/"
+        >阅读更多...</a
+      >
+       
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%9B%BE%E5%AD%A6%E4%B9%A0/" rel="tag">图学习</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%AF%B9%E6%AF%94%E5%AD%A6%E4%B9%A0/" rel="tag">对比学习</a></li></ul>
+
+    </footer>
+  </div>
+
+    
+ 
+    
+</article>
+
+    
+    <article
+  id="post-3 论文笔记/图学习/对比学习/11.GCC Graph Contrastive Coding for Graph Neural Network Pre-Training"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/cd1ebef497f7/"
+    >GCC: Graph Contrastive Coding for Graph Neural Network Pre-Training</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/cd1ebef497f7/" class="article-date">
+  <time datetime="2021-09-30T13:50:16.000Z" itemprop="datePublished">2021-09-30</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/">论文笔记</a> / <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/%E5%9B%BE%E5%AD%A6%E4%B9%A0/">图学习</a> / <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/%E5%9B%BE%E5%AD%A6%E4%B9%A0/%E5%AF%B9%E6%AF%94%E5%AD%A6%E4%B9%A0/">对比学习</a>
+  </div>
+
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <p><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2006.09963">https://arxiv.org/pdf/2006.09963</a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/THUDM/GCC">https://github.com/THUDM/GCC</a></p>
+<p>GCC: Graph Contrastive Coding for Graph Neural Network Pre-Training，2020，KDD</p>
+<p><span style="font-size:18px;font-weight:bold;">总结：</span>简单来说，作者提出了一种subgraph-subgraph level图对比学习框架GCC，对GNNs进行预训练后将模型迁移到其他数据集。框架本身就是非常常规的对比学习框架，目标函数也是常规的对比损失，没什么特别之处。值得关注的一点是作者如何生成定义、增强子图的。作者的实验比较丰富，但是实验结果并没有什么亮眼之处。个人感觉，这篇能发顶会主要原因：一是论文写的比较早，应该是第一篇用对比学习来搞图预训练任务的，开创意义比较大；二是作者比较会写论文，文章立意比较高。</p> 
+      <a class="article-more-link" href="/cd1ebef497f7/"
+        >阅读更多...</a
+      >
+       
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%9B%BE%E5%AD%A6%E4%B9%A0/" rel="tag">图学习</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%AF%B9%E6%AF%94%E5%AD%A6%E4%B9%A0/" rel="tag">对比学习</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E9%A2%84%E8%AE%AD%E7%BB%83/" rel="tag">预训练</a></li></ul>
+
+    </footer>
+  </div>
+
+    
+ 
+    
+</article>
+
+    
+    <article
+  id="post-3 论文笔记/图学习/对比学习/10.GraphCL Contrastive Self-Supervised Learning of Graph Representations"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/d4b47adfecd7/"
+    >GraphCL: Contrastive Self-Supervised Learning of Graph Representations</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/d4b47adfecd7/" class="article-date">
+  <time datetime="2021-09-29T10:47:33.000Z" itemprop="datePublished">2021-09-29</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/">论文笔记</a> / <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/%E5%9B%BE%E5%AD%A6%E4%B9%A0/">图学习</a> / <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/%E5%9B%BE%E5%AD%A6%E4%B9%A0/%E5%AF%B9%E6%AF%94%E5%AD%A6%E4%B9%A0/">对比学习</a>
+  </div>
+
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <p><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2007.08025">https://arxiv.org/pdf/2007.08025</a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/Shen-Lab/GraphCL">https://github.com/Shen-Lab/GraphCL</a></p>
+<p>GraphCL: Contrastive Self-Supervised Learning of Graph Representations，2020，NIPS</p>
+<p><span style="font-size:18px;font-weight:bold;">总结：</span>论文很短，作者提出对比学习框架GraphCL也简单易懂，但是实验结果很不错。作者借鉴类似GraphSAGE里面子图构造方法，首先为每个节点采样L-hop子图，然后对子图添加随机扰动得到不同的view，然后在两个view中进行node-node对比，通过最大化正样本与锚点之间距离、最小化负样本与锚点间的距离来学习节点表示。GraphCL算是图对比学习里的开山之作，后面很多文章都是基于这个方法的进一步拓展和深入。</p> 
+      <a class="article-more-link" href="/d4b47adfecd7/"
+        >阅读更多...</a
+      >
+       
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%9B%BE%E5%AD%A6%E4%B9%A0/" rel="tag">图学习</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%AF%B9%E6%AF%94%E5%AD%A6%E4%B9%A0/" rel="tag">对比学习</a></li></ul>
+
+    </footer>
+  </div>
+
+    
+ 
+    
+</article>
+
+    
+    <article
+  id="post-3 论文笔记/图学习/对比学习/9.Contrastive Self-supervised Learning for Graph Classification"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/b6326d38d625/"
+    >Contrastive Self-supervised Learning for Graph Classification</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/b6326d38d625/" class="article-date">
+  <time datetime="2021-09-28T12:49:00.000Z" itemprop="datePublished">2021-09-28</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/">论文笔记</a> / <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/%E5%9B%BE%E5%AD%A6%E4%B9%A0/">图学习</a> / <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/%E5%9B%BE%E5%AD%A6%E4%B9%A0/%E5%AF%B9%E6%AF%94%E5%AD%A6%E4%B9%A0/">对比学习</a>
+  </div>
+
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <p><a target="_blank" rel="noopener" href="https://www.aaai.org/AAAI21Papers/AAAI-7017.ZengJ.pdf">https://www.aaai.org/AAAI21Papers/AAAI-7017.ZengJ.pdf</a></p>
+<p>Contrastive Self-supervised Learning for Graph Classification ，2021，AAAI</p>
+<p><span style="font-size:18px;font-weight:bold;">总结：</span>这是一篇关于图分类的图对比学习方法。作者在论文中提出了两种框架：CSSL-Pretrain和CSSL-Reg，同时涵盖了图对比学习中两种常见的模式（预训练/无监督或监督）。作者的方法很常规，和现有的一些GCL方法相比创新性并不强，只是直接将CV中对比学习框架搬到图分类任务中。另外，作者的实验结果挺好的。</p> 
+      <a class="article-more-link" href="/b6326d38d625/"
+        >阅读更多...</a
+      >
+       
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%9B%BE%E5%AD%A6%E4%B9%A0/" rel="tag">图学习</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%AF%B9%E6%AF%94%E5%AD%A6%E4%B9%A0/" rel="tag">对比学习</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E9%A2%84%E8%AE%AD%E7%BB%83/" rel="tag">预训练</a></li></ul>
+
+    </footer>
+  </div>
+
+    
+ 
+    
+</article>
+
+    
+    <article
+  id="post-3 论文笔记/图学习/对比学习/8.Motif-Driven Contrastive Learning of Graph Representations"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/7981ac0a697d/"
+    >Motif-Driven Contrastive Learning of Graph Representations</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/7981ac0a697d/" class="article-date">
+  <time datetime="2021-09-28T02:34:48.000Z" itemprop="datePublished">2021-09-28</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/">论文笔记</a> / <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/%E5%9B%BE%E5%AD%A6%E4%B9%A0/">图学习</a> / <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/%E5%9B%BE%E5%AD%A6%E4%B9%A0/%E5%AF%B9%E6%AF%94%E5%AD%A6%E4%B9%A0/">对比学习</a>
+  </div>
+
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <p><a target="_blank" rel="noopener" href="https://ojs.aaai.org/index.php/AAAI/article/view/17986/17791">https://ojs.aaai.org/index.php/AAAI/article/view/17986/17791</a></p>
+<p><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2012.12533">https://arxiv.org/pdf/2012.12533</a></p>
+<p>Motif-Driven Contrastive Learning of Graph Representations，2021，AAAI-21 Student Papers and Demonstrations</p>
+<p><span style="font-size:18px;font-weight:bold;">总结：</span>文章动机挺好的，希望通过motif来采样语义信息更丰富的子图来执行GCL，用于GNN的预训练。而且本文实验做的很丰富，实验结果看起来也挺好的。不过，文章写得有点乱（好像是本科生写的），看起来有点费劲，个人感觉有些地方描述的不太准确，而且有点冗余。对于这篇文章有两点思考：1. 作者这种motif学习方式可不可行？有没有道理？而且作者用的数据集是分子数据集，在其他类型数据集中，这种方法可不可行？2. 个人感觉利用子图进行对比学习是一个挺好的方向，有没有其他和motif类似的子图生成方法？</p> 
+      <a class="article-more-link" href="/7981ac0a697d/"
+        >阅读更多...</a
+      >
+       
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%9B%BE%E5%AD%A6%E4%B9%A0/" rel="tag">图学习</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%AD%90%E5%9B%BE%E5%AD%A6%E4%B9%A0/" rel="tag">子图学习</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%AF%B9%E6%AF%94%E5%AD%A6%E4%B9%A0/" rel="tag">对比学习</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E9%A2%84%E8%AE%AD%E7%BB%83/" rel="tag">预训练</a></li></ul>
+
+    </footer>
+  </div>
+
+    
+ 
+    
+</article>
+
+    
+    <article
+  id="post-3 论文笔记/图学习/对比学习/7.Deep Graph Contrastive Representation Learning"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/02bcad3b2d8c/"
+    >Deep Graph Contrastive Representation Learning</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/02bcad3b2d8c/" class="article-date">
+  <time datetime="2021-09-25T09:39:01.000Z" itemprop="datePublished">2021-09-25</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/">论文笔记</a> / <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/%E5%9B%BE%E5%AD%A6%E4%B9%A0/">图学习</a> / <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/%E5%9B%BE%E5%AD%A6%E4%B9%A0/%E5%AF%B9%E6%AF%94%E5%AD%A6%E4%B9%A0/">对比学习</a>
+  </div>
+
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <p><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2006.04131">https://arxiv.org/pdf/2006.04131</a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/CRIPAC-DIG/GRACE">https://github.com/CRIPAC-DIG/GRACE</a></p>
+<p>Deep Graph Contrastive Representation Learning，2020，arxiv preprint</p>
+<p><span style="font-size:18px;font-weight:bold;">总结：</span>20年的一篇早期图对比学习的文章，作者主要针对19年发表的DGI模型的两个弊端进行改进，提出了一种比较简单的GCL框架GRACE（现在大部分GCL方法都沿用了这一种框架）。由于现在大部分GCL方法都是采用这种node-level对比框架，数据增强策略也更丰富，因此这篇文章和现有其他GCL方法相比并没有什么亮眼的创新之处。</p> 
+      <a class="article-more-link" href="/02bcad3b2d8c/"
+        >阅读更多...</a
+      >
+       
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%9B%BE%E5%AD%A6%E4%B9%A0/" rel="tag">图学习</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%AF%B9%E6%AF%94%E5%AD%A6%E4%B9%A0/" rel="tag">对比学习</a></li></ul>
+
+    </footer>
+  </div>
+
+    
+ 
+    
+</article>
+
+    
+    <article
   id="post-3 论文笔记/图学习/对比学习/6.Multi-Scale Contrastive Siamese Networks for Self-Supervised Graph Representation Learning"
   class="article article-type-post"
   itemscope
@@ -427,378 +791,13 @@
 </article>
 
     
-    <article
-  id="post-3 论文笔记/图学习/对比学习/2.Graph Contrastive Learning with Augmentations"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/9d9b31282eff/"
-    >Graph Contrastive Learning with Augmentations</a> 
-</h2>
- 
-
-      
-    </header>
-     
-    <div class="article-meta">
-      <a href="/9d9b31282eff/" class="article-date">
-  <time datetime="2021-08-17T12:11:54.000Z" itemprop="datePublished">2021-08-17</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/">论文笔记</a> / <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/%E5%9B%BE%E5%AD%A6%E4%B9%A0/">图学习</a> / <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/%E5%9B%BE%E5%AD%A6%E4%B9%A0/%E5%AF%B9%E6%AF%94%E5%AD%A6%E4%B9%A0/">对比学习</a>
-  </div>
-
-   
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <p><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2010.13902">https://arxiv.org/pdf/2010.13902</a></p>
-<p><a target="_blank" rel="noopener" href="https://github.com/Shen-Lab/GraphCL">https://github.com/Shen-Lab/GraphCL</a></p>
-<p>Graph Contrastive Learning with Augmentations ，2020，NIPS</p>
-<p><span style="font-size:18px;font-weight:bold;">总结：</span>作者认为图学习领域，由于数据集巨大，并且GNNs由于过拟合问题往往层数很浅，因此研究GNNs下的预训练技术十分有必要。针对图分类下的预训练技术，作者的贡献主要有两个：一是仿照CV中的数据增强，提出了四种图数据增强策略；二是提出了一个新的图对比学习框架GraphCL。另外值得一提的是，作者通过实验对四种图数据增强策略进行了很多更细致的研究，得出了一些有趣的结论。</p> 
-      <a class="article-more-link" href="/9d9b31282eff/"
-        >阅读更多...</a
-      >
-       
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%9B%BE%E5%AD%A6%E4%B9%A0/" rel="tag">图学习</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%AF%B9%E6%AF%94%E5%AD%A6%E4%B9%A0/" rel="tag">对比学习</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E5%A2%9E%E5%BC%BA/" rel="tag">数据增强</a></li></ul>
-
-    </footer>
-  </div>
-
-    
- 
-    
-</article>
-
-    
-    <article
-  id="post-3 论文笔记/图学习/对比学习/1.Graph Contrastive Learning with Adaptive Augmentation"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/3ace053d12ac/"
-    >Graph Contrastive Learning with Adaptive Augmentation</a> 
-</h2>
- 
-
-      
-    </header>
-     
-    <div class="article-meta">
-      <a href="/3ace053d12ac/" class="article-date">
-  <time datetime="2021-08-15T12:58:30.000Z" itemprop="datePublished">2021-08-15</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/">论文笔记</a> / <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/%E5%9B%BE%E5%AD%A6%E4%B9%A0/">图学习</a> / <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/%E5%9B%BE%E5%AD%A6%E4%B9%A0/%E5%AF%B9%E6%AF%94%E5%AD%A6%E4%B9%A0/">对比学习</a>
-  </div>
-
-   
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <p><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2010.14945">https://arxiv.org/pdf/2010.14945</a></p>
-<p><a target="_blank" rel="noopener" href="https://github.com/CRIPAC-DIG/GCA">https://github.com/CRIPAC-DIG/GCA</a></p>
-<p>Graph Contrastive Learning with Adaptive Augmentation ，2021，WWW</p>
-<p><span style="font-size:18px;font-weight:bold;">总结：</span>现有的图对比学习方法大多采用统一的数据增强策略，忽略了对数据增强策略方面的研究。作者认为现有的数据增强方式存在两个弊端：一是对于节点属性，简单的数据增强数据增强没什么效果；二是对于拓扑结构数据增强忽略了不同节点在图中影响力不同。因此作者提出了一种新的基于自适应数据增强策略的图对比学习框架GCA。实验结果虽然在大多数设定下都是最优的，但是没提高多少，给人一种调参调出来的感觉。从消融实验的结果来看，模型核心创新点带来的性能提升并不多。</p> 
-      <a class="article-more-link" href="/3ace053d12ac/"
-        >阅读更多...</a
-      >
-       
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%9B%BE%E5%AD%A6%E4%B9%A0/" rel="tag">图学习</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%AF%B9%E6%AF%94%E5%AD%A6%E4%B9%A0/" rel="tag">对比学习</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E5%A2%9E%E5%BC%BA/" rel="tag">数据增强</a></li></ul>
-
-    </footer>
-  </div>
-
-    
- 
-    
-</article>
-
-    
-    <article
-  id="post-3 论文笔记/小样本学习/9.Attentional Constellation Nets for Few-Shot Learning"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/ad4e2c7525d5/"
-    >Attentional Constellation Nets for Few-Shot Learning</a> 
-</h2>
- 
-
-      
-    </header>
-     
-    <div class="article-meta">
-      <a href="/ad4e2c7525d5/" class="article-date">
-  <time datetime="2021-07-12T06:17:34.000Z" itemprop="datePublished">2021-07-12</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/">论文笔记</a> / <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/%E5%B0%8F%E6%A0%B7%E6%9C%AC%E5%AD%A6%E4%B9%A0/">小样本学习</a>
-  </div>
-
-   
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <p><a target="_blank" rel="noopener" href="https://openreview.net/pdf?id=vujTf_I8Kmc">https://openreview.net/pdf?id=vujTf_I8Kmc</a></p>
-<p><a target="_blank" rel="noopener" href="https://github.com/wuwenshan/ConstellationNet">https://github.com/wuwenshan/ConstellationNet</a></p>
-<p>Attentional Constellation Nets for Few-Shot Learning，2021，ICLR</p>
-<p><span style="font-size:18px;font-weight:bold;">总结：</span>本文将传统part-based模型中的constellation模型用于小样本学习中，解决小样本场景下样本稀少问题。文章的创新点在于如何将传统constellation模型融合到CNN中用于小样本学习。给我的启发：感觉和ICLR 2021另外一篇concept learner论文异曲同工，都是从更高层级的part of object入手，而非传统像素级别，让模型学习一些高层级的显性知识（这样模型泛化能力可能更强，有利于测试集上分类）。感觉这种part-based方向值得深入研究下。</p> 
-      <a class="article-more-link" href="/ad4e2c7525d5/"
-        >阅读更多...</a
-      >
-       
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB/" rel="tag">图像分类</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%B0%8F%E6%A0%B7%E6%9C%AC%E5%AD%A6%E4%B9%A0/" rel="tag">小样本学习</a></li></ul>
-
-    </footer>
-  </div>
-
-    
- 
-    
-</article>
-
-    
-    <article
-  id="post-3 论文笔记/小样本学习/8.Rapid Learning or Feature Reuse Towards Understanding the Effectiveness of MAML"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/e0231deb83dc/"
-    >Rapid Learning or Feature Reuse? Towards Understanding the Effectiveness of MAML</a> 
-</h2>
- 
-
-      
-    </header>
-     
-    <div class="article-meta">
-      <a href="/e0231deb83dc/" class="article-date">
-  <time datetime="2021-07-08T02:26:54.000Z" itemprop="datePublished">2021-07-08</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/">论文笔记</a> / <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/%E5%B0%8F%E6%A0%B7%E6%9C%AC%E5%AD%A6%E4%B9%A0/">小样本学习</a>
-  </div>
-
-   
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <p><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/1909.09157">https://arxiv.org/pdf/1909.09157</a></p>
-<p><a target="_blank" rel="noopener" href="https://github.com/learnables/learn2learn">https://github.com/learnables/learn2learn</a></p>
-<p>Rapid Learning or Feature Reuse? Towards Understanding the Effectiveness of MAML，2020，ICLR</p>
-<p><span style="font-size:18px;font-weight:bold;">总结：</span>文章提出的ANIL算法是2021ICLR另一篇BOIL文章的前传，强烈推荐将MAML、ANIL和BOIL三篇文章放到一起看，感觉还是很奇妙的，值得深入研究。文章从“ Is MAML’s efficacy predominantly due to rapid learning or feature reuse?”问题出发，通过实验证明了feature reuse是MAML成功的主要因素，并据此提出了ANIL（Almost No Inner Loop）和NIL（No Inner Loop）两种新算法。文章实验很丰富，结果也很漂亮。</p> 
-      <a class="article-more-link" href="/e0231deb83dc/"
-        >阅读更多...</a
-      >
-       
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MAML/" rel="tag">MAML</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%85%83%E5%AD%A6%E4%B9%A0/" rel="tag">元学习</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%B0%8F%E6%A0%B7%E6%9C%AC%E5%AD%A6%E4%B9%A0/" rel="tag">小样本学习</a></li></ul>
-
-    </footer>
-  </div>
-
-    
- 
-    
-</article>
-
-    
-    <article
-  id="post-3 论文笔记/图学习/异构网络/5.Modeling Relational Data with Graph Convolutional Networks"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/f57d828e8582/"
-    >Modeling Relational Data with Graph Convolutional Networks</a> 
-</h2>
- 
-
-      
-    </header>
-     
-    <div class="article-meta">
-      <a href="/f57d828e8582/" class="article-date">
-  <time datetime="2021-07-07T03:00:01.000Z" itemprop="datePublished">2021-07-07</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/">论文笔记</a> / <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/%E5%9B%BE%E5%AD%A6%E4%B9%A0/">图学习</a> / <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/%E5%9B%BE%E5%AD%A6%E4%B9%A0/%E5%BC%82%E6%9E%84%E7%BD%91%E7%BB%9C/">异构网络</a>
-  </div>
-
-   
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <p><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/1703.06103">https://arxiv.org/pdf/1703.06103</a></p>
-<p><a target="_blank" rel="noopener" href="https://github.com/tkipf/relational-gcn">https://github.com/tkipf/relational-gcn</a></p>
-<p>Modeling Relational Data with Graph Convolutional Networks，2018，ESWC</p>
-<p><span style="font-size:18px;font-weight:bold;">总结：</span>比较早的一篇用于知识图谱上信息补全的模型，具体来说用来解决实体分类和链路预测两个任务。针对知识图谱中三元组数据，对传统GCNs的转换函数做了改进提出了R-GCN模型。在实体分类任务中采用encoder架构，在链路预测任务中采用encoder-decoder即自编码器架构。最后的实验效果不是很理想，不过文章影响力挺大，被引量比较高。</p> 
-      <a class="article-more-link" href="/f57d828e8582/"
-        >阅读更多...</a
-      >
-       
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/GNN/" rel="tag">GNN</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%BC%82%E6%9E%84%E7%BD%91%E7%BB%9C/" rel="tag">异构网络</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%9F%A5%E8%AF%86%E5%9B%BE%E8%B0%B1/" rel="tag">知识图谱</a></li></ul>
-
-    </footer>
-  </div>
-
-    
- 
-    
-</article>
-
-    
-    <article
-  id="post-3 论文笔记/小样本学习/7.BOIL Towards Representation Change for Few-shot Learning"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/98bd19685759/"
-    >BOIL Towards Representation Change for Few-shot Learning</a> 
-</h2>
- 
-
-      
-    </header>
-     
-    <div class="article-meta">
-      <a href="/98bd19685759/" class="article-date">
-  <time datetime="2021-07-05T12:15:25.000Z" itemprop="datePublished">2021-07-05</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/">论文笔记</a> / <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/%E5%B0%8F%E6%A0%B7%E6%9C%AC%E5%AD%A6%E4%B9%A0/">小样本学习</a>
-  </div>
-
-   
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <p><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2008.08882">https://arxiv.org/pdf/2008.08882</a></p>
-<p>BOIL: Towards Representation Change for Few-shot Learning，2021，ICLR</p>
-<p><span style="font-size:18px;font-weight:bold;">总结：</span>本文作者针对MAML方法提出了一种新的变体——BOIL，Body Only undate in Inner Loop，在内循环中只更新特征提取器，不更新分类器。将MAML、ANIL和BOIL三个模型结合起来看还挺有趣的。在前人的研究中，针对MAML有两种假设，分别是representation reuse和representation change。作者通过大量实验证明了MAML和ANIL的内在学习机制是representation reuse，而BOIL的内在学习机制是representation change，并且BOIL的这种机制下的模型性能要优于MAML/ANIL，尤其在跨域任务中。文章实验做得很漂亮，个人觉得是一篇很有阅读价值的论文。</p> 
-      <a class="article-more-link" href="/98bd19685759/"
-        >阅读更多...</a
-      >
-       
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MAML/" rel="tag">MAML</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%85%83%E5%AD%A6%E4%B9%A0/" rel="tag">元学习</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%B0%8F%E6%A0%B7%E6%9C%AC%E5%AD%A6%E4%B9%A0/" rel="tag">小样本学习</a></li></ul>
-
-    </footer>
-  </div>
-
-    
- 
-    
-</article>
-
-    
   </article>
   
 
   
   <nav class="page-nav">
     
-    <a class="extend prev" rel="prev" href="/page/16/">上一页</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/15/">15</a><a class="page-number" href="/page/16/">16</a><span class="page-number current">17</span><a class="page-number" href="/page/18/">18</a><a class="page-number" href="/page/19/">19</a><span class="space">&hellip;</span><a class="page-number" href="/page/21/">21</a><a class="extend next" rel="next" href="/page/18/">下一页</a>
+    <a class="extend prev" rel="prev" href="/page/16/">上一页</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/15/">15</a><a class="page-number" href="/page/16/">16</a><span class="page-number current">17</span><a class="page-number" href="/page/18/">18</a><a class="page-number" href="/page/19/">19</a><span class="space">&hellip;</span><a class="page-number" href="/page/22/">22</a><a class="extend next" rel="next" href="/page/18/">下一页</a>
   </nav>
   
 </section>

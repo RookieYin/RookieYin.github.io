@@ -185,6 +185,388 @@
     
     
     <article
+  id="post-2 后端/MySQL/10. undo log详解"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2a06983ca4ed/"
+    >undo log详解</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2a06983ca4ed/" class="article-date">
+  <time datetime="2021-12-17T12:38:14.000Z" itemprop="datePublished">2021-12-17</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a> / <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/MySQL/">MySQL</a>
+  </div>
+
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h1>undo log详解</h1>
+<p>在介绍事务实现原理时候，我们简单了解过undo log，它可以帮助我们实现事务的原子性。本文把undo log拎出来，详细介绍一下。</p>
+<p>在事务的执行过程中，可能遇到各种错误，此时为了保证事务的原子性，我们需要回滚当前事务已经执行的修改。那么怎么回滚这些修改呢？一种直接的方法就是，每次执行insert、delete、update语句时，我们都要留一手，用某种机制记录下数据修改前的样子，这样当我们需要回滚时，我们就能将修改的数据恢复原样。这就是undo log需要实现的功能。</p> 
+      <a class="article-more-link" href="/2a06983ca4ed/"
+        >阅读更多...</a
+      >
+       
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MySQL/" rel="tag">MySQL</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%90%8E%E7%AB%AF/" rel="tag">后端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="tag">数据库</a></li></ul>
+
+    </footer>
+  </div>
+
+    
+ 
+    
+</article>
+
+    
+    <article
+  id="post-2 后端/MySQL/9. redo log详解"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/3f95ffdd49a0/"
+    >redo log详解</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/3f95ffdd49a0/" class="article-date">
+  <time datetime="2021-12-16T12:38:14.000Z" itemprop="datePublished">2021-12-16</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a> / <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/MySQL/">MySQL</a>
+  </div>
+
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h1>redo log详解</h1>
+<p>之前学习事务的时候，介绍过redo log，其核心功能就是服务器宕机后进行数据恢复。本文把它单独拎出来，详细介绍一下。</p>
+<p>在了解Redo log更具体内容之前，我们先回答一个问题：为什么要有redo log？</p>
+<p>学习过BufferPool，我们知道InnoDB读取/更新数据操作都是在BufferPool中进行的，在某个时间点统一将BufferPool中的脏页同步到磁盘中。但是如果系统发生故障，宕机了，BufferPool中还有脏页没来得及同步到磁盘中，这时就会发生数据丢失。</p>
+<p>为了避免这种情况，我们就需要一种机制，保存BufferPool中数据更新的操作，在系统恢复时，帮助我们恢复宕机前没来得及同步的脏页数据。这就是redo log要完成的功能。</p>
+<p>也就是说，对于更新操作，我们不仅要更新BufferPool中的数据，我们还要将该更新操作记录到redo log中。为了节约空间，redo log中记录的是物理页的变化。比如，某个事务将系统表空间第100号页面中偏移量为1000处的字节从1更改为2，我们只需要进行如下记录：</p>
+<p>“将第0号表空间第100号页面中偏移量为1000处的值改为2”。</p> 
+      <a class="article-more-link" href="/3f95ffdd49a0/"
+        >阅读更多...</a
+      >
+       
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MySQL/" rel="tag">MySQL</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%90%8E%E7%AB%AF/" rel="tag">后端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="tag">数据库</a></li></ul>
+
+    </footer>
+  </div>
+
+    
+ 
+    
+</article>
+
+    
+    <article
+  id="post-2 后端/MySQL/8. MySQL的binlog"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/b15c79e9cdee/"
+    >MySQL的binlog</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/b15c79e9cdee/" class="article-date">
+  <time datetime="2021-12-15T12:38:14.000Z" itemprop="datePublished">2021-12-15</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a> / <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/MySQL/">MySQL</a>
+  </div>
+
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h1>MySQL的binlog</h1>
+<p>MySQL中的日志主要包括错误日志、查询日志、慢查询日志、事务日志、二进制日志几大类。其中比较重要的还要属 二进制日志 <code>binlog</code>（归档日志）和事务日志 <code>redo log</code>（重做日志）和 <code>undo log</code>（回滚日志）。</p>
+<p>在“MySQL事务”一文中，介绍了重做日志和回滚日志的相关知识，包括如何通过redo log实现事务的持久性，通过undo log实现事务的原子性。本文主要介绍binlog相关知识。</p> 
+      <a class="article-more-link" href="/b15c79e9cdee/"
+        >阅读更多...</a
+      >
+       
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MySQL/" rel="tag">MySQL</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%90%8E%E7%AB%AF/" rel="tag">后端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="tag">数据库</a></li></ul>
+
+    </footer>
+  </div>
+
+    
+ 
+    
+</article>
+
+    
+    <article
+  id="post-2 后端/MySQL/7. MySQL索引"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/d7c79caa873a/"
+    >MySQL索引</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/d7c79caa873a/" class="article-date">
+  <time datetime="2021-12-14T12:38:14.000Z" itemprop="datePublished">2021-12-14</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a> / <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/MySQL/">MySQL</a>
+  </div>
+
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h1>MySQL索引</h1>
+<h2 id="1-索引概述">1 索引概述</h2>
+<p><strong>索引是一种用于快速查询和检索数据的数据结构。常见的索引结构有: B 树， B+树和 Hash。</strong></p>
+<p>索引的作用就相当于目录的作用。打个比方: 我们在查字典的时候，如果没有目录，那我们就只能一页一页的去找我们需要查的那个字，速度很慢。如果有目录了，我们只需要先去目录里查找字的位置，然后直接翻到那一页就行了。</p> 
+      <a class="article-more-link" href="/d7c79caa873a/"
+        >阅读更多...</a
+      >
+       
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MySQL/" rel="tag">MySQL</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%90%8E%E7%AB%AF/" rel="tag">后端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="tag">数据库</a></li></ul>
+
+    </footer>
+  </div>
+
+    
+ 
+    
+</article>
+
+    
+    <article
+  id="post-2 后端/MySQL/6. MySQL的缓存机制"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/52b102c1181c/"
+    >MySQL的缓存机制</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/52b102c1181c/" class="article-date">
+  <time datetime="2021-12-13T12:38:14.000Z" itemprop="datePublished">2021-12-13</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a> / <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/MySQL/">MySQL</a>
+  </div>
+
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h1>MySQL的缓存机制</h1>
+<p>本文简单总结下MySQL中的缓存机制，具体来说是，使用InnoDB作为作为存储引擎时的各种缓存机制。主要包含三个方面：</p>
+<ul>
+<li>MySQL层——查询缓存：作用不大，高版本mysql已经去掉了这个功能。</li>
+<li>InooDB层——buffer pool：很重要，是保证InnoDB高性能的核心功能之一，也是本文的重点介绍对象。</li>
+<li>三大日志文件的缓存：binglog、redolog和undolog三个日志文件，写文件时，先写到缓存，然后再刷盘。</li>
+</ul> 
+      <a class="article-more-link" href="/52b102c1181c/"
+        >阅读更多...</a
+      >
+       
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MySQL/" rel="tag">MySQL</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%90%8E%E7%AB%AF/" rel="tag">后端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="tag">数据库</a></li></ul>
+
+    </footer>
+  </div>
+
+    
+ 
+    
+</article>
+
+    
+    <article
+  id="post-2 后端/MySQL/5. InnoDB中的MVCC"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/f7547b80614e/"
+    >InnoDB中的MVCC</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/f7547b80614e/" class="article-date">
+  <time datetime="2021-12-12T12:38:14.000Z" itemprop="datePublished">2021-12-12</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a> / <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/MySQL/">MySQL</a>
+  </div>
+
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h1>InnoDB中的MVCC</h1>
+<h2 id="1-mvcc概述">1 MVCC概述</h2>
+<p>MVCC，全称 Multi-Version Concurrency Control，即多版本并发控制。我们知道数据库并发场景有3种：</p>
+<ol>
+<li>
+<p><strong>读-读</strong>：不存在任何问题，也不需要并发控制</p>
+</li>
+<li>
+<p><strong>读-写</strong>：有线程安全问题，可能会造成事务隔离性问题，可能遇到脏读，幻读，不可重复读</p>
+</li>
+<li>
+<p><strong>写-写</strong>：有线程安全问题，可能会存在更新丢失问题，比如第一类更新丢失，第二类更新丢失</p>
+</li>
+</ol>
+<p>为了在这些场景中实现事务的隔离性，避免脏读、脏写、幻读、不可重复读等现象，一种常规的操作就是加悲观锁，让事务串行执行。但是这种方式会大大削弱系统的并发能力。</p>
+<p>多版本并发控制（MVCC）就是一种用来解决<strong>读-写冲突的无锁并发控制</strong> 。MVCC在MySQL InnoDB中的实现主要是为了提高数据库并发性能，用更好的方式去处理读-写冲突，做到即使有<strong>读写冲突</strong>时，也能做到<strong>不加锁</strong>，<strong>非阻塞并发读</strong> 。</p> 
+      <a class="article-more-link" href="/f7547b80614e/"
+        >阅读更多...</a
+      >
+       
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MySQL/" rel="tag">MySQL</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%90%8E%E7%AB%AF/" rel="tag">后端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="tag">数据库</a></li></ul>
+
+    </footer>
+  </div>
+
+    
+ 
+    
+</article>
+
+    
+    <article
   id="post-2 后端/MySQL/4. MySQL事务"
   class="article article-type-post"
   itemscope
@@ -427,375 +809,13 @@
 </article>
 
     
-    <article
-  id="post-3 论文笔记/图学习/对比学习/22. An Empirical Study of Graph Contrastive Learning "
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/debd25f73abb/"
-    >An Empirical Study of Graph Contrastive Learning</a> 
-</h2>
- 
-
-      
-    </header>
-     
-    <div class="article-meta">
-      <a href="/debd25f73abb/" class="article-date">
-  <time datetime="2021-11-27T05:38:35.000Z" itemprop="datePublished">2021-11-27</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/">论文笔记</a> / <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/%E5%9B%BE%E5%AD%A6%E4%B9%A0/">图学习</a> / <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/%E5%9B%BE%E5%AD%A6%E4%B9%A0/%E5%AF%B9%E6%AF%94%E5%AD%A6%E4%B9%A0/">对比学习</a>
-  </div>
-
-   
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <p><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2109.01116">https://arxiv.org/pdf/2109.01116</a></p>
-<p><a target="_blank" rel="noopener" href="https://github.com/GraphCL/PyGCL">https://github.com/GraphCL/PyGCL</a></p>
-<p>An Empirical Study of Graph Contrastive Learning ，2021，NIPS( Datasets and Benchmarks track )</p>
-<p><span style="font-size:18px;font-weight:bold;">总结：</span>一篇实验型综述，尝试通过实验对现有GCL方法有效性进行解释，并总结出一些通用的结论。另外，作者写了一个GCL库PyGCL，里面封装了一些标准化的GCL组件。</p> 
-      <a class="article-more-link" href="/debd25f73abb/"
-        >阅读更多...</a
-      >
-       
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%9B%BE%E5%AD%A6%E4%B9%A0/" rel="tag">图学习</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%AF%B9%E6%AF%94%E5%AD%A6%E4%B9%A0/" rel="tag">对比学习</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%BB%BC%E8%BF%B0/" rel="tag">综述</a></li></ul>
-
-    </footer>
-  </div>
-
-    
- 
-    
-</article>
-
-    
-    <article
-  id="post-3 论文笔记/图学习/对比学习/21.InfoGCL Information-Aware Graph Contrastive Learning"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/4d8fadbd8370/"
-    >InfoGCL: Information-Aware Graph Contrastive Learning</a> 
-</h2>
- 
-
-      
-    </header>
-     
-    <div class="article-meta">
-      <a href="/4d8fadbd8370/" class="article-date">
-  <time datetime="2021-11-27T05:34:34.000Z" itemprop="datePublished">2021-11-27</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/">论文笔记</a> / <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/%E5%9B%BE%E5%AD%A6%E4%B9%A0/">图学习</a> / <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/%E5%9B%BE%E5%AD%A6%E4%B9%A0/%E5%AF%B9%E6%AF%94%E5%AD%A6%E4%B9%A0/">对比学习</a>
-  </div>
-
-   
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <p><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2110.15438">https://arxiv.org/pdf/2110.15438</a></p>
-<p>InfoGCL: Information-Aware Graph Contrastive Learning  ，2021，NIPS</p>
-<p><span style="font-size:18px;font-weight:bold;">总结：</span>本质上还是一种自适应GCL方法。现有的GCL方法基本都是被精心设计，用于某种特定的数据集或者图学习任务。GCL主要由增强、编码和对比三部分构成，而每个组件都有很多种可选项，因此当我们拿到某种特定图学习任务中，我们很难寻找这些组件间的最优组合，来设计一个最优GCL模型。本文作者就是针对这个问题，提出了三条准则，称之为“<strong>InfoGCL principle</strong>”，分别对应GCL中三个组件。按照作者提出的三条准则来，我们就能设计出用于特定任务的最优GCL模型。</p> 
-      <a class="article-more-link" href="/4d8fadbd8370/"
-        >阅读更多...</a
-      >
-       
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%9B%BE%E5%AD%A6%E4%B9%A0/" rel="tag">图学习</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%AF%B9%E6%AF%94%E5%AD%A6%E4%B9%A0/" rel="tag">对比学习</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%87%AA%E9%80%82%E5%BA%94/" rel="tag">自适应</a></li></ul>
-
-    </footer>
-  </div>
-
-    
- 
-    
-</article>
-
-    
-    <article
-  id="post-3 论文笔记/图学习/对比学习/20.Deep Graph Infomax"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/18558809c1ed/"
-    >Deep Graph Infomax</a> 
-</h2>
- 
-
-      
-    </header>
-     
-    <div class="article-meta">
-      <a href="/18558809c1ed/" class="article-date">
-  <time datetime="2021-10-28T09:27:23.000Z" itemprop="datePublished">2021-10-28</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/">论文笔记</a> / <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/%E5%9B%BE%E5%AD%A6%E4%B9%A0/">图学习</a> / <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/%E5%9B%BE%E5%AD%A6%E4%B9%A0/%E5%AF%B9%E6%AF%94%E5%AD%A6%E4%B9%A0/">对比学习</a>
-  </div>
-
-   
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <p><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/1809.10341">https://arxiv.org/pdf/1809.10341</a></p>
-<p><a target="_blank" rel="noopener" href="https://github.com/PetarV-/DGI">https://github.com/PetarV-/DGI</a></p>
-<p>Deep Graph Infomax ，2019，ICLR</p>
-<p><span style="font-size:18px;font-weight:bold;">总结：</span>图对比学习的鼻祖。作者首次提出基于互信息的无监督图表示学习方法DGI，用于节点分类任务。DGI通过最大化local表示和global表示之间的互信息来节点表示。作者还从理论上证明了最大化DGI的目标函数和图表示学习中的最大化互信息是等价的。</p> 
-      <a class="article-more-link" href="/18558809c1ed/"
-        >阅读更多...</a
-      >
-       
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%9B%BE%E5%AD%A6%E4%B9%A0/" rel="tag">图学习</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%AF%B9%E6%AF%94%E5%AD%A6%E4%B9%A0/" rel="tag">对比学习</a></li></ul>
-
-    </footer>
-  </div>
-
-    
- 
-    
-</article>
-
-    
-    <article
-  id="post-3 论文笔记/图学习/对比学习/19.Motif-based Graph Self-Supervised Learning forMolecular Property Prediction"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/e9edfb23e5c9/"
-    >Motif-based Graph Self-Supervised Learning forMolecular Property Prediction</a> 
-</h2>
- 
-
-      
-    </header>
-     
-    <div class="article-meta">
-      <a href="/e9edfb23e5c9/" class="article-date">
-  <time datetime="2021-10-15T12:43:20.000Z" itemprop="datePublished">2021-10-15</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/">论文笔记</a> / <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/%E5%9B%BE%E5%AD%A6%E4%B9%A0/">图学习</a> / <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/%E5%9B%BE%E5%AD%A6%E4%B9%A0/%E5%AF%B9%E6%AF%94%E5%AD%A6%E4%B9%A0/">对比学习</a>
-  </div>
-
-   
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <p><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2110.00987">https://arxiv.org/pdf/2110.00987</a></p>
-<p>Motif-based Graph Self-Supervised Learning forMolecular Property Prediction，2021，NIPS</p>
-<p><span style="font-size:18px;font-weight:bold;">总结：</span>作者提出了一种基于<strong>motif</strong>的<strong>多层级生成式自监督</strong>预训练方法——MGSSL，用于分子图属性预测。具体来说，作者先利用一种分子碎片化算法将原始图打碎，得到不同类型的motifs，然后把这些motifs看作节点，并连接到一起构成一棵motif树（这里和我之前看过的一篇超图方法比较类似，先构建子图，然后将子图看做节点，在子图间添加边，构成一张超图）。然后利用GNNs学习到的节点嵌入对这棵树进行重构。另外，为了捕获分子图中多尺度信息，作者设计的MGSSL框架是多层级的。即在进行motif-tree生成的同时，对节点类型和边类型进行预测，最小化两者的交叉熵损失。</p> 
-      <a class="article-more-link" href="/e9edfb23e5c9/"
-        >阅读更多...</a
-      >
-       
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%9B%BE%E5%AD%A6%E4%B9%A0/" rel="tag">图学习</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%87%AA%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0/" rel="tag">自监督学习</a></li></ul>
-
-    </footer>
-  </div>
-
-    
- 
-    
-</article>
-
-    
-    <article
-  id="post-3 论文笔记/图学习/对比学习/18.Distance-wise Graph Contrastive Learning"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/60fc6ab88bd5/"
-    >Distance-wise Graph Contrastive Learning</a> 
-</h2>
- 
-
-      
-    </header>
-     
-    <div class="article-meta">
-      <a href="/60fc6ab88bd5/" class="article-date">
-  <time datetime="2021-10-06T09:09:44.000Z" itemprop="datePublished">2021-10-06</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/">论文笔记</a> / <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/%E5%9B%BE%E5%AD%A6%E4%B9%A0/">图学习</a> / <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/%E5%9B%BE%E5%AD%A6%E4%B9%A0/%E5%AF%B9%E6%AF%94%E5%AD%A6%E4%B9%A0/">对比学习</a>
-  </div>
-
-   
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <p><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2012.07437">https://arxiv.org/pdf/2012.07437</a></p>
-<p>Distance-wise Graph Contrastive Learning，2020，arxiv preprint</p>
-<p><span style="font-size:18px;font-weight:bold;">总结：</span>在半监督图学习任务中，作者通过实验发现，CL对模型性能的提升主要集中在那些远离有标签数据的节点上。基于这个发现，作者认为现有的这些GCL方法，GL和Graph Learning的结合方式是不协调的，提出了一种新的半监督图对比学习方法DwGCL。具体来说，作者根据节点的PageRank值进行distance-wise augmentation，根据TIG（作者自己定义的一个东西）值选取Contrastive Pair，最后利用KL散度定义了模型的损失函数。总的来说，个人认为这篇文章切入角度很有趣，其动机让人耳目一新，和其他论文有很大区别。不过比较可惜的是，从实验结果来看，DwGCL带来的性能提升并不多，平均大概有1%，但是DwGCL模型和其他GCL方法相比更复杂，感觉得不偿失。</p> 
-      <a class="article-more-link" href="/60fc6ab88bd5/"
-        >阅读更多...</a
-      >
-       
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%9B%BE%E5%AD%A6%E4%B9%A0/" rel="tag">图学习</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%AF%B9%E6%AF%94%E5%AD%A6%E4%B9%A0/" rel="tag">对比学习</a></li></ul>
-
-    </footer>
-  </div>
-
-    
- 
-    
-</article>
-
-    
-    <article
-  id="post-3 论文笔记/图学习/对比学习/17.Towards Robust Graph Contrastive Learning"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/af7c8be16de8/"
-    >Towards Robust Graph Contrastive Learning</a> 
-</h2>
- 
-
-      
-    </header>
-     
-    <div class="article-meta">
-      <a href="/af7c8be16de8/" class="article-date">
-  <time datetime="2021-10-05T09:11:10.000Z" itemprop="datePublished">2021-10-05</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/">论文笔记</a> / <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/%E5%9B%BE%E5%AD%A6%E4%B9%A0/">图学习</a> / <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/%E5%9B%BE%E5%AD%A6%E4%B9%A0/%E5%AF%B9%E6%AF%94%E5%AD%A6%E4%B9%A0/">对比学习</a>
-  </div>
-
-   
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <p><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2102.13085">https://arxiv.org/pdf/2102.13085</a></p>
-<p>Towards Robust Graph Contrastive Learning，2021，arxiv preprint</p>
-<p><span style="font-size:18px;font-weight:bold;">总结：</span>作者提出一种对抗增强策略，然后基于此提出了一种鲁棒性更强的图对比学习方法GROC。robust这个点感觉可以做，这方面文章暂时不多，不过个人感觉这篇文章写得不太行，有点乱，关键点没有介绍清楚。</p> 
-      <a class="article-more-link" href="/af7c8be16de8/"
-        >阅读更多...</a
-      >
-       
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%9B%BE%E5%AD%A6%E4%B9%A0/" rel="tag">图学习</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%AF%B9%E6%8A%97%E6%94%BB%E5%87%BB/" rel="tag">对抗攻击</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%AF%B9%E6%AF%94%E5%AD%A6%E4%B9%A0/" rel="tag">对比学习</a></li></ul>
-
-    </footer>
-  </div>
-
-    
- 
-    
-</article>
-
-    
   </article>
   
 
   
   <nav class="page-nav">
     
-    <a class="extend prev" rel="prev" href="/page/14/">上一页</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/13/">13</a><a class="page-number" href="/page/14/">14</a><span class="page-number current">15</span><a class="page-number" href="/page/16/">16</a><a class="page-number" href="/page/17/">17</a><span class="space">&hellip;</span><a class="page-number" href="/page/21/">21</a><a class="extend next" rel="next" href="/page/16/">下一页</a>
+    <a class="extend prev" rel="prev" href="/page/14/">上一页</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/13/">13</a><a class="page-number" href="/page/14/">14</a><span class="page-number current">15</span><a class="page-number" href="/page/16/">16</a><a class="page-number" href="/page/17/">17</a><span class="space">&hellip;</span><a class="page-number" href="/page/22/">22</a><a class="extend next" rel="next" href="/page/16/">下一页</a>
   </nav>
   
 </section>

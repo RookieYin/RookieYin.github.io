@@ -185,6 +185,371 @@
     
     
     <article
+  id="post-3 论文笔记/图学习/对比学习/39.Adversarial Cross-View Disentangled Graph Contrastive Learning"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/a9b6475c1860/"
+    >Adversarial Cross-View Disentangled Graph Contrastive Learning</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/a9b6475c1860/" class="article-date">
+  <time datetime="2022-10-08T11:26:03.000Z" itemprop="datePublished">2022-10-08</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/">论文笔记</a> / <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/%E5%9B%BE%E5%AD%A6%E4%B9%A0/">图学习</a> / <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/%E5%9B%BE%E5%AD%A6%E4%B9%A0/%E5%AF%B9%E6%AF%94%E5%AD%A6%E4%B9%A0/">对比学习</a>
+  </div>
+
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <p><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2209.07699">https://arxiv.org/pdf/2209.07699</a></p>
+<p>Adversarial Cross-View Disentangled Graph Contrastive Learning，2022，arxiv preprint</p>
+<p><span style="font-size:18px;font-weight:bold;">总结：</span> 信息论（IB）角度出发，故事讲得比较完整，说的挺有道理的，disentangled可以自圆其说。至于adversarial，感觉是拿来凑数的，从消融实验也可以看出，添加对抗训练后，并没有给模型性能带来太大提升。</p>
+<p>作者的disentanglement我觉得还挺有意思的，从数据增强出发，引出两个视角之间的InfoMax会引入标签无关的冗余信息。作者通过对图编码器学习到的图嵌入<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="bold">z</mi></mrow><annotation encoding="application/x-tex">\mathbf z</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.44444em;vertical-align:0em;"></span><span class="mord mathbf">z</span></span></span></span>进行disentangle，得到augmentation-induced factors对应的表示<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi mathvariant="bold">z</mi><mrow><mi>a</mi><mi>u</mi><mi>g</mi></mrow></msup></mrow><annotation encoding="application/x-tex">\mathbf z^{aug}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.664392em;vertical-align:0em;"></span><span class="mord"><span class="mord mathbf">z</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.664392em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">a</span><span class="mord mathdefault mtight">u</span><span class="mord mathdefault mtight" style="margin-right:0.03588em;">g</span></span></span></span></span></span></span></span></span></span></span></span>和图essential factors对应的表示<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi mathvariant="bold">z</mi><mrow><mi>i</mi><mi>n</mi><mi>v</mi></mrow></msup></mrow><annotation encoding="application/x-tex">\mathbf z^{inv}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.824664em;vertical-align:0em;"></span><span class="mord"><span class="mord mathbf">z</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.824664em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">i</span><span class="mord mathdefault mtight">n</span><span class="mord mathdefault mtight" style="margin-right:0.03588em;">v</span></span></span></span></span></span></span></span></span></span></span></span>，然后对比两个视角的inv嵌入来优化模型。感觉这个点创新性比较足，而且非常符合我们的直觉。</p> 
+      <a class="article-more-link" href="/a9b6475c1860/"
+        >阅读更多...</a
+      >
+       
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%9B%BE%E5%AD%A6%E4%B9%A0/" rel="tag">图学习</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%AF%B9%E6%AF%94%E5%AD%A6%E4%B9%A0/" rel="tag">对比学习</a></li></ul>
+
+    </footer>
+  </div>
+
+    
+ 
+    
+</article>
+
+    
+    <article
+  id="post-3 论文笔记/图学习/对比学习/38.Disentangled Contrastive Learning on Graphs"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/d38a70d07b07/"
+    >Disentangled Contrastive Learning on Graphs</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/d38a70d07b07/" class="article-date">
+  <time datetime="2022-10-07T11:26:03.000Z" itemprop="datePublished">2022-10-07</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/">论文笔记</a> / <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/%E5%9B%BE%E5%AD%A6%E4%B9%A0/">图学习</a> / <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/%E5%9B%BE%E5%AD%A6%E4%B9%A0/%E5%AF%B9%E6%AF%94%E5%AD%A6%E4%B9%A0/">对比学习</a>
+  </div>
+
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <p><a target="_blank" rel="noopener" href="https://proceedings.neurips.cc/paper/2021/file/b6cda17abb967ed28ec9610137aa45f7-Paper.pdf">https://proceedings.neurips.cc/paper/2021/file/b6cda17abb967ed28ec9610137aa45f7-Paper.pdf</a></p>
+<p>Disentangled Contrastive Learning on Graphs，2021，NIPS</p>
+<p><span style="font-size:18px;font-weight:bold;">总结：</span> 把disentangled gnn引入图对比学习中，作者设计了一种distangled图编码器，为每个图生成K个factorized representation。编码器的具体实现上非常简单，就是使用K个参数不同的GNN，生成K个表示。所谓disentangle，就是现实世界中的图往往都是在多种因素驱动下形成的，比如社交图中，可能是在朋友、同事、兴趣爱好等多种因素的驱动下形成的。因此我们只用一个representation来描述这个图是不够精确的，我们应该对这些因素进行解耦，为每个因素都学习一个独立的representation。</p>
+<p>由于每个样本有K个表示，所以作者还需要重新设计模型优化模式，通过ELBO来优化模型。文章方法比较简单，感觉是把有监督中的一些disentangled方法和优化方式引入对比学习中，不过从实验结果来看，作者提出的模型性能确实很好。</p> 
+      <a class="article-more-link" href="/d38a70d07b07/"
+        >阅读更多...</a
+      >
+       
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%9B%BE%E5%AD%A6%E4%B9%A0/" rel="tag">图学习</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%AF%B9%E6%AF%94%E5%AD%A6%E4%B9%A0/" rel="tag">对比学习</a></li></ul>
+
+    </footer>
+  </div>
+
+    
+ 
+    
+</article>
+
+    
+    <article
+  id="post-3 论文笔记/图学习/对比学习/37.Enhancing Graph Contrastive Learning with Node Similarity"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/4f35b4df523d/"
+    >Enhancing Graph Contrastive Learning with Node Similarity</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/4f35b4df523d/" class="article-date">
+  <time datetime="2022-10-06T11:26:03.000Z" itemprop="datePublished">2022-10-06</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/">论文笔记</a> / <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/%E5%9B%BE%E5%AD%A6%E4%B9%A0/">图学习</a> / <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/%E5%9B%BE%E5%AD%A6%E4%B9%A0/%E5%AF%B9%E6%AF%94%E5%AD%A6%E4%B9%A0/">对比学习</a>
+  </div>
+
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <p><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2208.06743">https://arxiv.org/pdf/2208.06743</a></p>
+<p>Enhancing Graph Contrastive Learning with Node Similarity，2022，arxiv preprint</p>
+<p><span style="font-size:18px;font-weight:bold;">总结：</span>一篇针对负样本采样的文章。作者认为现有的很多GCL方法是次优的，原因有二：（1）直接将所有不同节点看作负样本不好，因为这些节点里面包含false-negative samples，即那些和query节点具有相同语义（相同标签）的节点；（2）正样本通常只有1个，这不足以让模型拥有push positive sample together的能力。作者设计了一种方案，基于节点间相似度来选取正负样本，并对GCL的对比损失进行改进，提出了一种enhanced objective。文章方法简单，思想和Protopical Graph Contrastive Learning那篇比较像，不过多了一个正样本的选取。</p> 
+      <a class="article-more-link" href="/4f35b4df523d/"
+        >阅读更多...</a
+      >
+       
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%9B%BE%E5%AD%A6%E4%B9%A0/" rel="tag">图学习</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%AF%B9%E6%AF%94%E5%AD%A6%E4%B9%A0/" rel="tag">对比学习</a></li></ul>
+
+    </footer>
+  </div>
+
+    
+ 
+    
+</article>
+
+    
+    <article
+  id="post-4 算法/13 约瑟夫环问题"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/45dfa1e593ed/"
+    >约瑟夫环问题</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/45dfa1e593ed/" class="article-date">
+  <time datetime="2022-10-06T05:39:48.000Z" itemprop="datePublished">2022-10-06</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+  </div>
+
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <p>约瑟夫环是一个经典的算法题，总是忘记其解法，今天写篇博客记录下，方便复习同时加深印象！</p>
+<h2 id="leetcode-剑指offer-62">LeetCode 剑指Offer 62</h2>
+<p>这里以<a target="_blank" rel="noopener" href="https://leetcode.cn/problems/yuan-quan-zhong-zui-hou-sheng-xia-de-shu-zi-lcof/">LeetCode 剑指 Offer 62题</a>为例，讲解下约瑟夫环问题的解决思路（[Leetcode主站 1823](<a target="_blank" rel="noopener" href="https://leetcode.cn/problems/find-the-winner-of-the-circular-game/">1823. 找出游戏的获胜者</a>)也是同样的问题）。</p>
+<p><strong>题目描述如下：</strong></p>
+<p><em>“0,1,···,n-1这n个数字排成一个圆圈，从数字0开始，每次从这个圆圈里删除第m个数字（删除后从下一个数字开始计数）。求出这个圆圈里剩下的最后一个数字。例如，0、1、2、3、4这5个数字组成一个圆圈，从数字0开始每次删除第3个数字，则删除的前4个数字依次是2、0、4、1，因此最后剩下的数字是3。”</em></p> 
+      <a class="article-more-link" href="/45dfa1e593ed/"
+        >阅读更多...</a
+      >
+       
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Leetcode/" rel="tag">Leetcode</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a></li></ul>
+
+    </footer>
+  </div>
+
+    
+ 
+    
+</article>
+
+    
+    <article
+  id="post-3 论文笔记/图学习/对比学习/35.GRAPH CONTRASTIVE LEARNING WITH PERSONALIZED AUGMENTATION"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/f80da412db0f/"
+    >GRAPH CONTRASTIVE LEARNING WITH PERSONALIZED AUGMENTATION</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/f80da412db0f/" class="article-date">
+  <time datetime="2022-10-05T11:26:03.000Z" itemprop="datePublished">2022-10-05</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/">论文笔记</a> / <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/%E5%9B%BE%E5%AD%A6%E4%B9%A0/">图学习</a> / <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/%E5%9B%BE%E5%AD%A6%E4%B9%A0/%E5%AF%B9%E6%AF%94%E5%AD%A6%E4%B9%A0/">对比学习</a>
+  </div>
+
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <p><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2209.06560">https://arxiv.org/pdf/2209.06560</a></p>
+<p>GRAPH CONTRASTIVE LEARNING WITH PERSONALIZED AUGMENTATION，2022，arxiv preprint</p>
+<p><span style="font-size:18px;font-weight:bold;">总结：</span> 本文提出了一种自适应增强图对比学习方法PGA。和现有自动GCL方法相比，它包含一个增强策略选择器，允许为每个图根据其自身特性选择最优的增强策略组合（印象中其他自动GCL也能实现这个效果）。从实验结果看，PGA性能还是不错的，不过个人认为本文提出的增强策略选择器的可解释较差，作者没有给出相关理论证明，甚至没有太多的关于为什么这样设计的文字解释，借鉴意义不大。</p> 
+      <a class="article-more-link" href="/f80da412db0f/"
+        >阅读更多...</a
+      >
+       
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%9B%BE%E5%AD%A6%E4%B9%A0/" rel="tag">图学习</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%AF%B9%E6%AF%94%E5%AD%A6%E4%B9%A0/" rel="tag">对比学习</a></li></ul>
+
+    </footer>
+  </div>
+
+    
+ 
+    
+</article>
+
+    
+    <article
+  id="post-3 论文笔记/图学习/对比学习/36.Augmentation-Free Graph Contrastive Learning with Performance Guarantee"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/cbcb4550bd3d/"
+    >Augmentation-Free Graph Contrastive Learning with Performance Guarantee</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/cbcb4550bd3d/" class="article-date">
+  <time datetime="2022-10-05T11:26:03.000Z" itemprop="datePublished">2022-10-05</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/">论文笔记</a> / <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/%E5%9B%BE%E5%AD%A6%E4%B9%A0/">图学习</a> / <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/%E5%9B%BE%E5%AD%A6%E4%B9%A0/%E5%AF%B9%E6%AF%94%E5%AD%A6%E4%B9%A0/">对比学习</a>
+  </div>
+
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <p><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2204.04874">https://arxiv.org/pdf/2204.04874</a></p>
+<p>Augmentation-Free Graph Contrastive Learning with Performance Guarantee，2022，arxiv preprint</p>
+<p><span style="font-size:18px;font-weight:bold;">总结：</span>本文提出了一种新的无需增强的图对比学习模型AF-GCL。数据增强的目的是让我们能够选取正负样本对，以此为自监督信号学习节点表示，那么无须增强的AF-GCL是怎样选取正负样本对的呢？AF-GCL的方案很简单，根据节点嵌入选择正负样本对。具体来说，对于query节点，从它T-hop邻居节点集合中，选择相似度最高的K个节点作为正样本，其余节点作为负样本。作者从理论上分析并证明了AF-GCL可以同时适用于同构和异构图，并且能有很不错的表现，而现有的GCL方法在异构图上通常表现较差。</p>
+<p>总的来说，这篇文章还是挺好的，虽然提出的模型比较简单粗暴，但是实验效果还不错，并且文章中给了很多理论分析和证明。看了眼，最近两年，关于GNN的频域研究似乎挺火的，看到了好几篇相关的顶会文章，作者应该是基于现有的一些研究，迁移到对比学习中来了。这篇文章目前还没投出去，盲猜作者投了一手ICML2022。</p> 
+      <a class="article-more-link" href="/cbcb4550bd3d/"
+        >阅读更多...</a
+      >
+       
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%9B%BE%E5%AD%A6%E4%B9%A0/" rel="tag">图学习</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%AF%B9%E6%AF%94%E5%AD%A6%E4%B9%A0/" rel="tag">对比学习</a></li></ul>
+
+    </footer>
+  </div>
+
+    
+ 
+    
+</article>
+
+    
+    <article
   id="post-3 论文笔记/图学习/对比学习/33.Adversarial Graph Contrastive Learning with Information Regularization"
   class="article article-type-post"
   itemscope
@@ -428,461 +793,13 @@
 </article>
 
     
-    <article
-  id="post-3 论文笔记/图学习/对比学习/30.SAIL Self-Augmented Graph Contrastive Learning"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/cb2b42e6046d/"
-    >SAIL: Self-Augmented Graph Contrastive Learning</a> 
-</h2>
- 
-
-      
-    </header>
-     
-    <div class="article-meta">
-      <a href="/cb2b42e6046d/" class="article-date">
-  <time datetime="2022-10-02T11:26:03.000Z" itemprop="datePublished">2022-10-02</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/">论文笔记</a> / <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/%E5%9B%BE%E5%AD%A6%E4%B9%A0/">图学习</a> / <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/%E5%9B%BE%E5%AD%A6%E4%B9%A0/%E5%AF%B9%E6%AF%94%E5%AD%A6%E4%B9%A0/">对比学习</a>
-  </div>
-
-   
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <p><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2009.00934">https://arxiv.org/pdf/2009.00934</a></p>
-<p>SAIL: Self-Augmented Graph Contrastive Learning，2022，AAAI</p>
-<p><span style="font-size:18px;font-weight:bold;">总结：</span>作者提出了一种自增强GCL方法SAIL，和普通GCL方法相比，SAIL没有使用任何增强技术，而是将节点原始输入特征和GNNs学习到的节点表示看作两个视角进行对比。再此基础上，作者认为模型还存在问题，这里正负样本对的选取是通过edge connectivity来进行的，可能无法代表整个节点表示分布的全貌，并且可能导致模型偏向于链路预测任务（在其他pretext task，比如节点分类中表现一般）。为了解决这个问题，作者提出了一种self-distilling方法，包含intra-和inter-distilling两个模块。intra-distilling可以保证学习到的节点表示和原始输入特征具有相同的分布。inter-distilliing可以让浅层GNNs模拟出深层GNNs的效果，并且不存在过平滑问题。</p>
-<p>整体来说，文章还可以，实验比较丰富，实验结果也挺可观的。不过个人感觉，SAIL中的对比策略和知识蒸馏组合在一起有点A+B的意思，结构不是那么连贯，故事不够完整。</p> 
-      <a class="article-more-link" href="/cb2b42e6046d/"
-        >阅读更多...</a
-      >
-       
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%9B%BE%E5%AD%A6%E4%B9%A0/" rel="tag">图学习</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%AF%B9%E6%AF%94%E5%AD%A6%E4%B9%A0/" rel="tag">对比学习</a></li></ul>
-
-    </footer>
-  </div>
-
-    
- 
-    
-</article>
-
-    
-    <article
-  id="post-3 论文笔记/图学习/对比学习/27.Prototypical Graph Contrastive Learning"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/33e72210426f/"
-    >Prototypical Graph Contrastive Learning</a> 
-</h2>
- 
-
-      
-    </header>
-     
-    <div class="article-meta">
-      <a href="/33e72210426f/" class="article-date">
-  <time datetime="2022-10-01T11:26:03.000Z" itemprop="datePublished">2022-10-01</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/">论文笔记</a> / <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/%E5%9B%BE%E5%AD%A6%E4%B9%A0/">图学习</a> / <a class="article-category-link" href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/%E5%9B%BE%E5%AD%A6%E4%B9%A0/%E5%AF%B9%E6%AF%94%E5%AD%A6%E4%B9%A0/">对比学习</a>
-  </div>
-
-   
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <p><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2106.09645">https://arxiv.org/pdf/2106.09645</a></p>
-<p><a target="_blank" rel="noopener" href="https://github.com/ha-lins/pgcl">https://github.com/ha-lins/pgcl</a></p>
-<p>Prototypical Graph Contrastive Learning，2022，TNNLS</p>
-<p><span style="font-size:18px;font-weight:bold;">总结：</span> 文章要解决的一个核心问题就是：GCL负样本采样阶段存在的“sampling bias”问题，即可能选取到的“false negative sample”（即和目标query具有相同语义的负样本）。现有的GCL方法，对于负样本的选取基本都是均匀采样，不考虑负样本和锚点之间的相似度。作者在PGCL中首先对样本进行聚类，计算每个类别的原型向量，然后将和锚点处于不同簇的其他样本视作正负样本，处于相同簇的样本视为假负样本。另外，作者根据样本所在簇的原型和锚点所在簇原型之间距离计算权重用于对比损失的定义。感觉目前学术界对于GCL的研究，基本都是将CV和NLP中对比学习方法拓展到图邻域，可以多多关注CV中对比学习的最新进展。2021ICLR中有一篇名为“ PROTOTYPICAL CONTRASTIVE LEARNING OF UNSUPERVISED REPRESENTATIONS”的CV论文，我没有看着篇文章，不知道和本文是否有联系。2021ICLR还有一篇“ CONTRASTIVE LEARNING WITH HARD NEGATIVE SAMPLES ”的论文，和本文负样本采样思想差不多。因此，总的来看作者可能还是将CV中的方法迁移到图学习中。</p> 
-      <a class="article-more-link" href="/33e72210426f/"
-        >阅读更多...</a
-      >
-       
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%9B%BE%E5%AD%A6%E4%B9%A0/" rel="tag">图学习</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%AF%B9%E6%AF%94%E5%AD%A6%E4%B9%A0/" rel="tag">对比学习</a></li></ul>
-
-    </footer>
-  </div>
-
-    
- 
-    
-</article>
-
-    
-    <article
-  id="post-4 算法/12 哈夫曼树"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/40756c5f7820/"
-    >哈夫曼树</a> 
-</h2>
- 
-
-      
-    </header>
-     
-    <div class="article-meta">
-      <a href="/40756c5f7820/" class="article-date">
-  <time datetime="2022-09-12T05:39:48.000Z" itemprop="datePublished">2022-09-12</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
-  </div>
-
-   
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <h2 id="一些定义">一些定义</h2>
-<p>给定N个带有权值的叶子节点，构造一棵二叉树，如果该树的<strong>带权路径长度最小</strong>，那么它是一棵最优二叉树，即<strong>哈夫曼树</strong>。</p> 
-      <a class="article-more-link" href="/40756c5f7820/"
-        >阅读更多...</a
-      >
-       
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%93%88%E5%A4%AB%E6%9B%BC%E6%A0%91/" rel="tag">哈夫曼树</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a></li></ul>
-
-    </footer>
-  </div>
-
-    
- 
-    
-</article>
-
-    
-    <article
-  id="post-6 设计模式/行为型——责任链模式"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/1b76d52cc09c/"
-    >行为型——责任链模式</a> 
-</h2>
- 
-
-      
-    </header>
-     
-    <div class="article-meta">
-      <a href="/1b76d52cc09c/" class="article-date">
-  <time datetime="2022-08-23T07:08:10.000Z" itemprop="datePublished">2022-08-23</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a>
-  </div>
-
-   
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <h2 id="概念">概念</h2>
-<p><strong>定义：</strong> 责任链模式是一种行为型设计模式，允许我们将请求沿着处理者链进行发送。收到请求后，每个处理者均可对请求进行处理，或将其传递给链上的下个处理者。</p>
-<p><strong>特点：</strong> 在责任链模式中，客户只需要将请求发送到责任链上即可，无需关心请求的处理细节和请求的传递过程，请求会自动进行传递。因此，责任链将请求的发送者和请求的处理者解耦了。</p>
-<p><strong>优点：</strong></p>
-<ul>
-<li>降低对象之间的耦合度。</li>
-<li>增强系统的可扩展性。可以根据需求增加新的请求处理类，满足开闭原则</li>
-<li>增强给对象指派职责的灵活性。当工作流程发生变化，可以动态地改变链内的成员或者调整顺序，也可以动态地新增或删除责任。</li>
-<li>简化对象之间的连接。每个对象只需保持一个指向其后继者的引用，不需要保持其他所有处理者的引用，避免使用众多的if…else…</li>
-<li>责任分担。每个类只处理自己该处理的工作，不处理的传递给下一个对象完成，明确各类的责任范围，符合类的单一职责原则。</li>
-</ul>
-<p><strong>缺点：</strong></p>
-<ul>
-<li>不能保证每个请求一定被处理。 由于一个请求没有明确的接收者，所以不能保证它一定会被处理，该请求可能一直传到链的末端都得不到处理。</li>
-<li>对比较长的职责链，请求的处理可能涉及多个处理对象，系统性能将受到一定影响。</li>
-<li>职责链建立的合理性要靠客户端来保证，增加了客户端的复杂性，可能会由于职责链的错误设置而导致系统出错，如可能会造成循环调用。</li>
-</ul>
-<p><strong>应用场景：</strong> 1、有多个对象可以处理同一个请求，具体哪个对象处理该请求由运行时刻自动确定。 2、在不明确指定接收者的情况下，向多个对象中的一个提交一个请求。 3、可动态指定一组对象处理请求</p>
-<h2 id="实现">实现</h2>
-<h3 id="结构">结构</h3>
-<p>责任链模式具有三个角色：</p>
-<ul>
-<li>抽象处理者：定义一个处理请求的接口，包含抽象处理方法和一个后继连接。</li>
-<li>具体处理者： 实现抽象处理者的处理方法，判断能否处理本次请求，如果可以处理请求则处理，否则将该请求转给它的后继者。</li>
-<li>客户类： 创建处理链，并向链头的具体处理者对象提交请求，它不关心处理细节和请求的传递过程。</li>
-</ul>
-<p>其类图如下：</p>
-<center><img src="/images/Sat, 13 Aug 2022 163929.png" style="width:500px;"></img></center>
-<h3 id="示例">示例</h3>
-<p>下面基于责任链模式实现一个简单的日志记录类，用于记录不同类型的日志。</p>
-<p>我们创建抽象类 <em>AbstractLogger</em>，带有详细的日志记录级别。然后我们创建三种类型的记录器，都扩展了 <em>AbstractLogger</em>。每个记录器消息的级别是否属于自己的级别，如果是则相应地打印出来，否则将不打印并把消息传给下一个记录器。</p>
-<center><img src="/images/2021-chain-of-responsibility.svg" style="width:500px;"></img></center>
-<h4 id="步骤-1">步骤 1</h4>
-<p>创建抽象的记录器类。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">AbstractLogger</span> </span>&#123;</span><br><span class="line">   <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> INFO = <span class="number">1</span>;</span><br><span class="line">   <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> DEBUG = <span class="number">2</span>;</span><br><span class="line">   <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> ERROR = <span class="number">3</span>;</span><br><span class="line"> </span><br><span class="line">   <span class="keyword">protected</span> <span class="keyword">int</span> level;</span><br><span class="line"> </span><br><span class="line">   <span class="comment">//责任链中的下一个元素</span></span><br><span class="line">   <span class="keyword">protected</span> AbstractLogger nextLogger;</span><br><span class="line"> </span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setNextLogger</span><span class="params">(AbstractLogger nextLogger)</span></span>&#123;</span><br><span class="line">      <span class="keyword">this</span>.nextLogger = nextLogger;</span><br><span class="line">   &#125;</span><br><span class="line"> </span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">logMessage</span><span class="params">(<span class="keyword">int</span> level, String message)</span></span>&#123;</span><br><span class="line">      <span class="keyword">if</span>(<span class="keyword">this</span>.level &lt;= level)&#123;</span><br><span class="line">         write(message);</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">if</span>(nextLogger !=<span class="keyword">null</span>)&#123;</span><br><span class="line">         nextLogger.logMessage(level, message);</span><br><span class="line">      &#125;</span><br><span class="line">   &#125;</span><br><span class="line"> </span><br><span class="line">   <span class="function"><span class="keyword">abstract</span> <span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">write</span><span class="params">(String message)</span></span>;</span><br><span class="line">   </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="步骤-2">步骤 2</h4>
-<p>创建扩展了该记录器类的实体类。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ConsoleLogger</span> <span class="keyword">extends</span> <span class="title">AbstractLogger</span> </span>&#123;</span><br><span class="line"> </span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="title">ConsoleLogger</span><span class="params">(<span class="keyword">int</span> level)</span></span>&#123;</span><br><span class="line">      <span class="keyword">this</span>.level = level;</span><br><span class="line">   &#125;</span><br><span class="line"> </span><br><span class="line">   <span class="meta">@Override</span></span><br><span class="line">   <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">write</span><span class="params">(String message)</span> </span>&#123;    </span><br><span class="line">      System.out.println(<span class="string">&quot;Standard Console::Logger: &quot;</span> + message);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ErrorLogger</span> <span class="keyword">extends</span> <span class="title">AbstractLogger</span> </span>&#123;</span><br><span class="line"> </span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="title">ErrorLogger</span><span class="params">(<span class="keyword">int</span> level)</span></span>&#123;</span><br><span class="line">      <span class="keyword">this</span>.level = level;</span><br><span class="line">   &#125;</span><br><span class="line"> </span><br><span class="line">   <span class="meta">@Override</span></span><br><span class="line">   <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">write</span><span class="params">(String message)</span> </span>&#123;    </span><br><span class="line">      System.out.println(<span class="string">&quot;Error Console::Logger: &quot;</span> + message);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FileLogger</span> <span class="keyword">extends</span> <span class="title">AbstractLogger</span> </span>&#123;</span><br><span class="line"> </span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="title">FileLogger</span><span class="params">(<span class="keyword">int</span> level)</span></span>&#123;</span><br><span class="line">      <span class="keyword">this</span>.level = level;</span><br><span class="line">   &#125;</span><br><span class="line"> </span><br><span class="line">   <span class="meta">@Override</span></span><br><span class="line">   <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">write</span><span class="params">(String message)</span> </span>&#123;    </span><br><span class="line">      System.out.println(<span class="string">&quot;File::Logger: &quot;</span> + message);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="步骤-3">步骤 3</h4>
-<p>创建不同类型的记录器。赋予它们不同的错误级别，并在每个记录器中设置下一个记录器。每个记录器中的下一个记录器代表的是链的一部分。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ChainPatternDemo</span> </span>&#123;</span><br><span class="line">   </span><br><span class="line">   <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> AbstractLogger <span class="title">getChainOfLoggers</span><span class="params">()</span></span>&#123;</span><br><span class="line"> </span><br><span class="line">      AbstractLogger errorLogger = <span class="keyword">new</span> ErrorLogger(AbstractLogger.ERROR);</span><br><span class="line">      AbstractLogger fileLogger = <span class="keyword">new</span> FileLogger(AbstractLogger.DEBUG);</span><br><span class="line">      AbstractLogger consoleLogger = <span class="keyword">new</span> ConsoleLogger(AbstractLogger.INFO);</span><br><span class="line"> </span><br><span class="line">      errorLogger.setNextLogger(fileLogger);</span><br><span class="line">      fileLogger.setNextLogger(consoleLogger);</span><br><span class="line"> </span><br><span class="line">      <span class="keyword">return</span> errorLogger;  </span><br><span class="line">   &#125;</span><br><span class="line"> </span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">      AbstractLogger loggerChain = getChainOfLoggers();</span><br><span class="line"> </span><br><span class="line">      loggerChain.logMessage(AbstractLogger.INFO, <span class="string">&quot;This is an information.&quot;</span>);</span><br><span class="line"> </span><br><span class="line">      loggerChain.logMessage(AbstractLogger.DEBUG, </span><br><span class="line">         <span class="string">&quot;This is a debug level information.&quot;</span>);</span><br><span class="line"> </span><br><span class="line">      loggerChain.logMessage(AbstractLogger.ERROR, </span><br><span class="line">         <span class="string">&quot;This is an error information.&quot;</span>);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="步骤-4">步骤 4</h4>
-<p>执行程序，输出结果：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Standard Console::Logger: This is an information.</span><br><span class="line">File::Logger: This is a debug level information.</span><br><span class="line">Standard Console::Logger: This is a debug level information.</span><br><span class="line">Error Console::Logger: This is an error information.</span><br><span class="line">File::Logger: This is an error information.</span><br><span class="line">Standard Console::Logger: This is an error information.</span><br></pre></td></tr></table></figure>
-<h2 id="应用">应用</h2>
-<h3 id="应用场景">应用场景</h3>
-<ol>
-<li>
-<p>当程序需要使用不同方式处理不同种类请求， 而且请求类型和顺序预先未知时， 可以使用责任链模式。</p>
-<p>该模式能将多个处理者连接成一条链。 接收到请求后， 它会 “询问” 每个处理者是否能够对其进行处理。 这样所有处理者都有机会来处理请求。</p>
-</li>
-<li>
-<p>当必须按顺序执行多个处理者时， 可以使用该模式。</p>
-<p>无论你以何种顺序将处理者连接成一条链， 所有请求都会严格按照顺序通过链上的处理者。</p>
-</li>
-<li>
-<p>如果所需处理者及其顺序必须在运行时进行改变， 可以使用责任链模式。</p>
-<p>如果在处理者类中有对引用成员变量的设定方法， 你将能动态地插入和移除处理者， 或者改变其顺序。</p>
-</li>
-</ol>
-<h3 id="典型应用">典型应用</h3>
-<ol>
-<li>Tomcat中的Filter就是使用了责任链模式，创建一个Filter除了要在web.xml文件中做相应配置外，还需要实现javax.servlet.Filter接口。</li>
-<li>Netty 中的 <code>Pipeline</code> 和 <code>ChannelHandler</code> 通过责任链设计模式来组织代码逻辑</li>
-<li>Spring Security 使用责任链模式，可以动态地添加或删除责任（处理 request 请求）</li>
-<li>Spring AOP 通过责任链模式来管理 Advisor</li>
-<li>Dubbo Filter 过滤器链也是用了责任链模式（链表），可以对方法调用做一些过滤处理，譬如超时(TimeoutFilter)，异常(ExceptionFilter)，Token(TokenFilter)等</li>
-<li>Mybatis 中的 Plugin 机制使用了责任链模式，配置各种官方或者自定义的 Plugin，与 Filter 类似，可以在执行 Sql 语句的时候做一些操作</li>
-</ol>
-<h2 id="参考资料">参考资料</h2>
-<ol>
-<li>
-<p><a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000040450513">https://segmentfault.com/a/1190000040450513</a></p>
-</li>
-<li>
-<p><a target="_blank" rel="noopener" href="https://www.runoob.com/design-pattern/chain-of-responsibility-pattern.html">https://www.runoob.com/design-pattern/chain-of-responsibility-pattern.html</a></p>
-</li>
-<li>
-<p><a target="_blank" rel="noopener" href="https://refactoringguru.cn/design-patterns/chain-of-responsibility">https://refactoringguru.cn/design-patterns/chain-of-responsibility</a></p>
-</li>
-<li>
-<p><a target="_blank" rel="noopener" href="https://juejin.cn/post/6844903702260629512">https://juejin.cn/post/6844903702260629512</a></p>
-</li>
-</ol>
- 
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" rel="tag">设计模式</a></li></ul>
-
-    </footer>
-  </div>
-
-    
- 
-    
-</article>
-
-    
-    <article
-  id="post-2 后端/Java/JVM/7 JVM调优"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/77a9c8309105/"
-    >JVM调优</a> 
-</h2>
- 
-
-      
-    </header>
-     
-    <div class="article-meta">
-      <a href="/77a9c8309105/" class="article-date">
-  <time datetime="2022-08-17T14:34:49.000Z" itemprop="datePublished">2022-08-17</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a> / <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/Java/">Java</a> / <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/Java/JVM/">JVM</a>
-  </div>
-
-   
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <h2 id="何时进行jvm调优">何时进行JVM调优</h2>
-<p>遇到以下情况，就需要考虑进行JVM调优了：</p>
-<ul>
-<li>Heap内存（老年代）持续上涨达到设置的最大内存值；</li>
-<li>Full GC 次数频繁；</li>
-<li>GC 停顿时间过长（超过1秒）；</li>
-<li>应用出现OutOfMemory 等内存异常；</li>
-<li>应用中有使用本地缓存且占用大量内存空间；</li>
-<li>系统吞吐量与响应性能不高或下降。</li>
-</ul> 
-      <a class="article-more-link" href="/77a9c8309105/"
-        >阅读更多...</a
-      >
-       
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E4%BC%98%E5%8C%96/" rel="tag">优化</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%90%8E%E7%AB%AF/" rel="tag">后端</a></li></ul>
-
-    </footer>
-  </div>
-
-    
- 
-    
-</article>
-
-    
-    <article
-  id="post-2 后端/MySQL/15.联合索引怎么用"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/426b292b8fce/"
-    >联合索引怎么用</a> 
-</h2>
- 
-
-      
-    </header>
-     
-    <div class="article-meta">
-      <a href="/426b292b8fce/" class="article-date">
-  <time datetime="2022-08-11T06:28:18.000Z" itemprop="datePublished">2022-08-11</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a> / <a class="article-category-link" href="/categories/%E5%90%8E%E7%AB%AF/MySQL/">MySQL</a>
-  </div>
-
-   
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <p>InnoDB中，除了聚簇索引和单个列的辅助索引外，我们还可以将多个列建立联合索引：</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> <span class="keyword">table</span> <span class="keyword">ADD</span> INDEX abc(a, b, c)</span><br></pre></td></tr></table></figure>
-<p>通过上面一行SQL，我们就可以建立a、b、c之间的联合索引。</p> 
-      <a class="article-more-link" href="/426b292b8fce/"
-        >阅读更多...</a
-      >
-       
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MySQL/" rel="tag">MySQL</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%90%8E%E7%AB%AF/" rel="tag">后端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="tag">数据库</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%B4%A2%E5%BC%95/" rel="tag">索引</a></li></ul>
-
-    </footer>
-  </div>
-
-    
- 
-    
-</article>
-
-    
   </article>
   
 
   
   <nav class="page-nav">
     
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/21/">21</a><a class="extend next" rel="next" href="/page/2/">下一页</a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/22/">22</a><a class="extend next" rel="next" href="/page/2/">下一页</a>
   </nav>
   
 </section>

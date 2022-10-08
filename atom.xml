@@ -6,7 +6,7 @@
   <link href="http://rookieyin.github.io/atom.xml" rel="self"/>
   
   <link href="http://rookieyin.github.io/"/>
-  <updated>2022-10-04T08:20:09.064Z</updated>
+  <updated>2022-10-08T09:05:26.479Z</updated>
   <id>http://rookieyin.github.io/</id>
   
   <author>
@@ -15,6 +15,169 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Adversarial Cross-View Disentangled Graph Contrastive Learning</title>
+    <link href="http://rookieyin.github.io/a9b6475c1860/"/>
+    <id>http://rookieyin.github.io/a9b6475c1860/</id>
+    <published>2022-10-08T11:26:03.000Z</published>
+    <updated>2022-10-08T09:05:26.479Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;&lt;a href=&quot;https://arxiv.org/pdf/2209.07699&quot;&gt;https://arxiv.org/pdf/2209.07699&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Adversarial Cross-View Disentangled Graph Contrastive Learning，2022，arxiv preprint&lt;/p&gt;
+&lt;p&gt;&lt;span style=&quot;font-size:18px;font-weight:bold;&quot;&gt;总结：&lt;/span&gt; 信息论（IB）角度出发，故事讲得比较完整，说的挺有道理的，disentangled可以自圆其说。至于adversarial，感觉是拿来凑数的，从消融实验也可以看出，添加对抗训练后，并没有给模型性能带来太大提升。&lt;/p&gt;
+&lt;p&gt;作者的disentanglement我觉得还挺有意思的，从数据增强出发，引出两个视角之间的InfoMax会引入标签无关的冗余信息。作者通过对图编码器学习到的图嵌入&lt;span class=&quot;katex&quot;&gt;&lt;span class=&quot;katex-mathml&quot;&gt;&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;mi mathvariant=&quot;bold&quot;&gt;z&lt;/mi&gt;&lt;/mrow&gt;&lt;annotation encoding=&quot;application/x-tex&quot;&gt;\mathbf z&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&quot;katex-html&quot; aria-hidden=&quot;true&quot;&gt;&lt;span class=&quot;base&quot;&gt;&lt;span class=&quot;strut&quot; style=&quot;height:0.44444em;vertical-align:0em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mord mathbf&quot;&gt;z&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;进行disentangle，得到augmentation-induced factors对应的表示&lt;span class=&quot;katex&quot;&gt;&lt;span class=&quot;katex-mathml&quot;&gt;&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;msup&gt;&lt;mi mathvariant=&quot;bold&quot;&gt;z&lt;/mi&gt;&lt;mrow&gt;&lt;mi&gt;a&lt;/mi&gt;&lt;mi&gt;u&lt;/mi&gt;&lt;mi&gt;g&lt;/mi&gt;&lt;/mrow&gt;&lt;/msup&gt;&lt;/mrow&gt;&lt;annotation encoding=&quot;application/x-tex&quot;&gt;\mathbf z^{aug}&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&quot;katex-html&quot; aria-hidden=&quot;true&quot;&gt;&lt;span class=&quot;base&quot;&gt;&lt;span class=&quot;strut&quot; style=&quot;height:0.664392em;vertical-align:0em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mord&quot;&gt;&lt;span class=&quot;mord mathbf&quot;&gt;z&lt;/span&gt;&lt;span class=&quot;msupsub&quot;&gt;&lt;span class=&quot;vlist-t&quot;&gt;&lt;span class=&quot;vlist-r&quot;&gt;&lt;span class=&quot;vlist&quot; style=&quot;height:0.664392em;&quot;&gt;&lt;span style=&quot;top:-3.063em;margin-right:0.05em;&quot;&gt;&lt;span class=&quot;pstrut&quot; style=&quot;height:2.7em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;sizing reset-size6 size3 mtight&quot;&gt;&lt;span class=&quot;mord mtight&quot;&gt;&lt;span class=&quot;mord mathdefault mtight&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;mord mathdefault mtight&quot;&gt;u&lt;/span&gt;&lt;span class=&quot;mord mathdefault mtight&quot; style=&quot;margin-right:0.03588em;&quot;&gt;g&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;和图essential factors对应的表示&lt;span class=&quot;katex&quot;&gt;&lt;span class=&quot;katex-mathml&quot;&gt;&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;msup&gt;&lt;mi mathvariant=&quot;bold&quot;&gt;z&lt;/mi&gt;&lt;mrow&gt;&lt;mi&gt;i&lt;/mi&gt;&lt;mi&gt;n&lt;/mi&gt;&lt;mi&gt;v&lt;/mi&gt;&lt;/mrow&gt;&lt;/msup&gt;&lt;/mrow&gt;&lt;annotation encoding=&quot;application/x-tex&quot;&gt;\mathbf z^{inv}&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&quot;katex-html&quot; aria-hidden=&quot;true&quot;&gt;&lt;span class=&quot;base&quot;&gt;&lt;span class=&quot;strut&quot; style=&quot;height:0.824664em;vertical-align:0em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mord&quot;&gt;&lt;span class=&quot;mord mathbf&quot;&gt;z&lt;/span&gt;&lt;span class=&quot;msupsub&quot;&gt;&lt;span class=&quot;vlist-t&quot;&gt;&lt;span class=&quot;vlist-r&quot;&gt;&lt;span class=&quot;vlist&quot; style=&quot;height:0.824664em;&quot;&gt;&lt;span style=&quot;top:-3.063em;margin-right:0.05em;&quot;&gt;&lt;span class=&quot;pstrut&quot; style=&quot;height:2.7em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;sizing reset-size6 size3 mtight&quot;&gt;&lt;span class=&quot;mord mtight&quot;&gt;&lt;span class=&quot;mord mathdefault mtight&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;mord mathdefault mtight&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;mord mathdefault mtight&quot; style=&quot;margin-right:0.03588em;&quot;&gt;v&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;，然后对比两个视角的inv嵌入来优化模型。感觉这个点创新性比较足，而且非常符合我们的直觉。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="论文笔记" scheme="http://rookieyin.github.io/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/"/>
+    
+    <category term="图学习" scheme="http://rookieyin.github.io/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/%E5%9B%BE%E5%AD%A6%E4%B9%A0/"/>
+    
+    <category term="对比学习" scheme="http://rookieyin.github.io/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/%E5%9B%BE%E5%AD%A6%E4%B9%A0/%E5%AF%B9%E6%AF%94%E5%AD%A6%E4%B9%A0/"/>
+    
+    
+    <category term="图学习" scheme="http://rookieyin.github.io/tags/%E5%9B%BE%E5%AD%A6%E4%B9%A0/"/>
+    
+    <category term="对比学习" scheme="http://rookieyin.github.io/tags/%E5%AF%B9%E6%AF%94%E5%AD%A6%E4%B9%A0/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Disentangled Contrastive Learning on Graphs</title>
+    <link href="http://rookieyin.github.io/d38a70d07b07/"/>
+    <id>http://rookieyin.github.io/d38a70d07b07/</id>
+    <published>2022-10-07T11:26:03.000Z</published>
+    <updated>2022-10-08T09:06:19.600Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;&lt;a href=&quot;https://proceedings.neurips.cc/paper/2021/file/b6cda17abb967ed28ec9610137aa45f7-Paper.pdf&quot;&gt;https://proceedings.neurips.cc/paper/2021/file/b6cda17abb967ed28ec9610137aa45f7-Paper.pdf&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Disentangled Contrastive Learning on Graphs，2021，NIPS&lt;/p&gt;
+&lt;p&gt;&lt;span style=&quot;font-size:18px;font-weight:bold;&quot;&gt;总结：&lt;/span&gt; 把disentangled gnn引入图对比学习中，作者设计了一种distangled图编码器，为每个图生成K个factorized representation。编码器的具体实现上非常简单，就是使用K个参数不同的GNN，生成K个表示。所谓disentangle，就是现实世界中的图往往都是在多种因素驱动下形成的，比如社交图中，可能是在朋友、同事、兴趣爱好等多种因素的驱动下形成的。因此我们只用一个representation来描述这个图是不够精确的，我们应该对这些因素进行解耦，为每个因素都学习一个独立的representation。&lt;/p&gt;
+&lt;p&gt;由于每个样本有K个表示，所以作者还需要重新设计模型优化模式，通过ELBO来优化模型。文章方法比较简单，感觉是把有监督中的一些disentangled方法和优化方式引入对比学习中，不过从实验结果来看，作者提出的模型性能确实很好。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="论文笔记" scheme="http://rookieyin.github.io/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/"/>
+    
+    <category term="图学习" scheme="http://rookieyin.github.io/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/%E5%9B%BE%E5%AD%A6%E4%B9%A0/"/>
+    
+    <category term="对比学习" scheme="http://rookieyin.github.io/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/%E5%9B%BE%E5%AD%A6%E4%B9%A0/%E5%AF%B9%E6%AF%94%E5%AD%A6%E4%B9%A0/"/>
+    
+    
+    <category term="图学习" scheme="http://rookieyin.github.io/tags/%E5%9B%BE%E5%AD%A6%E4%B9%A0/"/>
+    
+    <category term="对比学习" scheme="http://rookieyin.github.io/tags/%E5%AF%B9%E6%AF%94%E5%AD%A6%E4%B9%A0/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Enhancing Graph Contrastive Learning with Node Similarity</title>
+    <link href="http://rookieyin.github.io/4f35b4df523d/"/>
+    <id>http://rookieyin.github.io/4f35b4df523d/</id>
+    <published>2022-10-06T11:26:03.000Z</published>
+    <updated>2022-10-06T14:06:57.443Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;&lt;a href=&quot;https://arxiv.org/pdf/2208.06743&quot;&gt;https://arxiv.org/pdf/2208.06743&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Enhancing Graph Contrastive Learning with Node Similarity，2022，arxiv preprint&lt;/p&gt;
+&lt;p&gt;&lt;span style=&quot;font-size:18px;font-weight:bold;&quot;&gt;总结：&lt;/span&gt;一篇针对负样本采样的文章。作者认为现有的很多GCL方法是次优的，原因有二：（1）直接将所有不同节点看作负样本不好，因为这些节点里面包含false-negative samples，即那些和query节点具有相同语义（相同标签）的节点；（2）正样本通常只有1个，这不足以让模型拥有push positive sample together的能力。作者设计了一种方案，基于节点间相似度来选取正负样本，并对GCL的对比损失进行改进，提出了一种enhanced objective。文章方法简单，思想和Protopical Graph Contrastive Learning那篇比较像，不过多了一个正样本的选取。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="论文笔记" scheme="http://rookieyin.github.io/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/"/>
+    
+    <category term="图学习" scheme="http://rookieyin.github.io/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/%E5%9B%BE%E5%AD%A6%E4%B9%A0/"/>
+    
+    <category term="对比学习" scheme="http://rookieyin.github.io/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/%E5%9B%BE%E5%AD%A6%E4%B9%A0/%E5%AF%B9%E6%AF%94%E5%AD%A6%E4%B9%A0/"/>
+    
+    
+    <category term="图学习" scheme="http://rookieyin.github.io/tags/%E5%9B%BE%E5%AD%A6%E4%B9%A0/"/>
+    
+    <category term="对比学习" scheme="http://rookieyin.github.io/tags/%E5%AF%B9%E6%AF%94%E5%AD%A6%E4%B9%A0/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>约瑟夫环问题</title>
+    <link href="http://rookieyin.github.io/45dfa1e593ed/"/>
+    <id>http://rookieyin.github.io/45dfa1e593ed/</id>
+    <published>2022-10-06T05:39:48.000Z</published>
+    <updated>2022-10-06T14:09:01.302Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;约瑟夫环是一个经典的算法题，总是忘记其解法，今天写篇博客记录下，方便复习同时加深印象！&lt;/p&gt;
+&lt;h2 id=&quot;leetcode-剑指offer-62&quot;&gt;LeetCode 剑指Offer 62&lt;/h2&gt;
+&lt;p&gt;这里以&lt;a href=&quot;https://leetcode.cn/problems/yuan-quan-zhong-zui-hou-sheng-xia-de-shu-zi-lcof/&quot;&gt;LeetCode 剑指 Offer 62题&lt;/a&gt;为例，讲解下约瑟夫环问题的解决思路（[Leetcode主站 1823](&lt;a href=&quot;https://leetcode.cn/problems/find-the-winner-of-the-circular-game/&quot;&gt;1823. 找出游戏的获胜者&lt;/a&gt;)也是同样的问题）。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;题目描述如下：&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;“0,1,···,n-1这n个数字排成一个圆圈，从数字0开始，每次从这个圆圈里删除第m个数字（删除后从下一个数字开始计数）。求出这个圆圈里剩下的最后一个数字。例如，0、1、2、3、4这5个数字组成一个圆圈，从数字0开始每次删除第3个数字，则删除的前4个数字依次是2、0、4、1，因此最后剩下的数字是3。”&lt;/em&gt;&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="算法" scheme="http://rookieyin.github.io/categories/%E7%AE%97%E6%B3%95/"/>
+    
+    
+    <category term="算法" scheme="http://rookieyin.github.io/tags/%E7%AE%97%E6%B3%95/"/>
+    
+    <category term="Leetcode" scheme="http://rookieyin.github.io/tags/Leetcode/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>GRAPH CONTRASTIVE LEARNING WITH PERSONALIZED AUGMENTATION</title>
+    <link href="http://rookieyin.github.io/f80da412db0f/"/>
+    <id>http://rookieyin.github.io/f80da412db0f/</id>
+    <published>2022-10-05T11:26:03.000Z</published>
+    <updated>2022-10-06T05:20:38.383Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;&lt;a href=&quot;https://arxiv.org/pdf/2209.06560&quot;&gt;https://arxiv.org/pdf/2209.06560&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;GRAPH CONTRASTIVE LEARNING WITH PERSONALIZED AUGMENTATION，2022，arxiv preprint&lt;/p&gt;
+&lt;p&gt;&lt;span style=&quot;font-size:18px;font-weight:bold;&quot;&gt;总结：&lt;/span&gt; 本文提出了一种自适应增强图对比学习方法PGA。和现有自动GCL方法相比，它包含一个增强策略选择器，允许为每个图根据其自身特性选择最优的增强策略组合（印象中其他自动GCL也能实现这个效果）。从实验结果看，PGA性能还是不错的，不过个人认为本文提出的增强策略选择器的可解释较差，作者没有给出相关理论证明，甚至没有太多的关于为什么这样设计的文字解释，借鉴意义不大。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="论文笔记" scheme="http://rookieyin.github.io/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/"/>
+    
+    <category term="图学习" scheme="http://rookieyin.github.io/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/%E5%9B%BE%E5%AD%A6%E4%B9%A0/"/>
+    
+    <category term="对比学习" scheme="http://rookieyin.github.io/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/%E5%9B%BE%E5%AD%A6%E4%B9%A0/%E5%AF%B9%E6%AF%94%E5%AD%A6%E4%B9%A0/"/>
+    
+    
+    <category term="图学习" scheme="http://rookieyin.github.io/tags/%E5%9B%BE%E5%AD%A6%E4%B9%A0/"/>
+    
+    <category term="对比学习" scheme="http://rookieyin.github.io/tags/%E5%AF%B9%E6%AF%94%E5%AD%A6%E4%B9%A0/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Augmentation-Free Graph Contrastive Learning with Performance Guarantee</title>
+    <link href="http://rookieyin.github.io/cbcb4550bd3d/"/>
+    <id>http://rookieyin.github.io/cbcb4550bd3d/</id>
+    <published>2022-10-05T11:26:03.000Z</published>
+    <updated>2022-10-06T04:50:30.516Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;&lt;a href=&quot;https://arxiv.org/pdf/2204.04874&quot;&gt;https://arxiv.org/pdf/2204.04874&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Augmentation-Free Graph Contrastive Learning with Performance Guarantee，2022，arxiv preprint&lt;/p&gt;
+&lt;p&gt;&lt;span style=&quot;font-size:18px;font-weight:bold;&quot;&gt;总结：&lt;/span&gt;本文提出了一种新的无需增强的图对比学习模型AF-GCL。数据增强的目的是让我们能够选取正负样本对，以此为自监督信号学习节点表示，那么无须增强的AF-GCL是怎样选取正负样本对的呢？AF-GCL的方案很简单，根据节点嵌入选择正负样本对。具体来说，对于query节点，从它T-hop邻居节点集合中，选择相似度最高的K个节点作为正样本，其余节点作为负样本。作者从理论上分析并证明了AF-GCL可以同时适用于同构和异构图，并且能有很不错的表现，而现有的GCL方法在异构图上通常表现较差。&lt;/p&gt;
+&lt;p&gt;总的来说，这篇文章还是挺好的，虽然提出的模型比较简单粗暴，但是实验效果还不错，并且文章中给了很多理论分析和证明。看了眼，最近两年，关于GNN的频域研究似乎挺火的，看到了好几篇相关的顶会文章，作者应该是基于现有的一些研究，迁移到对比学习中来了。这篇文章目前还没投出去，盲猜作者投了一手ICML2022。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="论文笔记" scheme="http://rookieyin.github.io/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/"/>
+    
+    <category term="图学习" scheme="http://rookieyin.github.io/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/%E5%9B%BE%E5%AD%A6%E4%B9%A0/"/>
+    
+    <category term="对比学习" scheme="http://rookieyin.github.io/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/%E5%9B%BE%E5%AD%A6%E4%B9%A0/%E5%AF%B9%E6%AF%94%E5%AD%A6%E4%B9%A0/"/>
+    
+    
+    <category term="图学习" scheme="http://rookieyin.github.io/tags/%E5%9B%BE%E5%AD%A6%E4%B9%A0/"/>
+    
+    <category term="对比学习" scheme="http://rookieyin.github.io/tags/%E5%AF%B9%E6%AF%94%E5%AD%A6%E4%B9%A0/"/>
+    
+  </entry>
   
   <entry>
     <title>Adversarial Graph Contrastive Learning with Information Regularization</title>
@@ -401,197 +564,6 @@
     <category term="后端" scheme="http://rookieyin.github.io/tags/%E5%90%8E%E7%AB%AF/"/>
     
     <category term="Java" scheme="http://rookieyin.github.io/tags/Java/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Java新特性</title>
-    <link href="http://rookieyin.github.io/df61fc7edb7a/"/>
-    <id>http://rookieyin.github.io/df61fc7edb7a/</id>
-    <published>2022-08-05T14:34:49.000Z</published>
-    <updated>2022-10-04T13:36:11.941Z</updated>
-    
-    
-    <summary type="html">&lt;p&gt;Java每年发布两个正式版本，每3年发布一个TLS， 意味着Java 8 ，Java 11， Java 17 才可能被大规模使用。&lt;/p&gt;
-&lt;p&gt;本文简单总结一下Java8、Java11和Java17的新特性。文章内容主要总结自&lt;a href=&quot;https://pdai.tech/md/java/java8up/java-8-up-overview.html&quot;&gt;Java全栈知识体系&lt;/a&gt;。&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="后端" scheme="http://rookieyin.github.io/categories/%E5%90%8E%E7%AB%AF/"/>
-    
-    <category term="Java" scheme="http://rookieyin.github.io/categories/%E5%90%8E%E7%AB%AF/Java/"/>
-    
-    <category term="Java基础知识" scheme="http://rookieyin.github.io/categories/%E5%90%8E%E7%AB%AF/Java/Java%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/"/>
-    
-    
-    <category term="后端" scheme="http://rookieyin.github.io/tags/%E5%90%8E%E7%AB%AF/"/>
-    
-    <category term="Java" scheme="http://rookieyin.github.io/tags/Java/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>try-catch-finally</title>
-    <link href="http://rookieyin.github.io/520ad09caee4/"/>
-    <id>http://rookieyin.github.io/520ad09caee4/</id>
-    <published>2022-08-05T14:34:49.000Z</published>
-    <updated>2022-10-04T13:30:41.073Z</updated>
-    
-    
-    <summary type="html">&lt;p&gt;面试的时候遇到try-catch-finally的执行顺序相关问题，发现忘了这个知识点。以此文记录下该知识点。&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="后端" scheme="http://rookieyin.github.io/categories/%E5%90%8E%E7%AB%AF/"/>
-    
-    <category term="Java" scheme="http://rookieyin.github.io/categories/%E5%90%8E%E7%AB%AF/Java/"/>
-    
-    <category term="Java基础知识" scheme="http://rookieyin.github.io/categories/%E5%90%8E%E7%AB%AF/Java/Java%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/"/>
-    
-    
-    <category term="后端" scheme="http://rookieyin.github.io/tags/%E5%90%8E%E7%AB%AF/"/>
-    
-    <category term="Java" scheme="http://rookieyin.github.io/tags/Java/"/>
-    
-    <category term="异常" scheme="http://rookieyin.github.io/tags/%E5%BC%82%E5%B8%B8/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Java异常机制</title>
-    <link href="http://rookieyin.github.io/bcc8998c2008/"/>
-    <id>http://rookieyin.github.io/bcc8998c2008/</id>
-    <published>2022-08-05T14:34:49.000Z</published>
-    <updated>2022-10-04T13:34:06.832Z</updated>
-    
-    
-    <summary type="html">&lt;p&gt;文章转自&lt;a href=&quot;https://pdai.tech/md/java/basic/java-basic-x-exception.html&quot;&gt;这里&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;Java异常是Java提供的一种识别及响应错误的一致性机制，java异常机制可以使程序中异常处理代码和正常业务代码分离，保证程序代码更加优雅，并提高程序健壮性。本文综合多篇文章后，总结了Java 异常的相关知识，希望可以提升你对Java中异常的认知效率。&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="后端" scheme="http://rookieyin.github.io/categories/%E5%90%8E%E7%AB%AF/"/>
-    
-    <category term="Java" scheme="http://rookieyin.github.io/categories/%E5%90%8E%E7%AB%AF/Java/"/>
-    
-    <category term="Java基础知识" scheme="http://rookieyin.github.io/categories/%E5%90%8E%E7%AB%AF/Java/Java%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/"/>
-    
-    
-    <category term="后端" scheme="http://rookieyin.github.io/tags/%E5%90%8E%E7%AB%AF/"/>
-    
-    <category term="Java" scheme="http://rookieyin.github.io/tags/Java/"/>
-    
-    <category term="异常" scheme="http://rookieyin.github.io/tags/%E5%BC%82%E5%B8%B8/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Synchronized和Lock对比</title>
-    <link href="http://rookieyin.github.io/f41ccc86ccbc/"/>
-    <id>http://rookieyin.github.io/f41ccc86ccbc/</id>
-    <published>2022-08-04T14:34:49.000Z</published>
-    <updated>2022-10-04T13:20:55.510Z</updated>
-    
-    
-    <summary type="html">&lt;p&gt;synchronized和lock是Java中提供的两种常用的锁机制，两者对比如下：&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;&lt;strong&gt;使用方法上&lt;/strong&gt;
-&lt;ul&gt;
-&lt;li&gt;synchronize，是Java提供的一个关键字，可以加在方法上，也可以加在特定代码块中&lt;/li&gt;
-&lt;li&gt;lock，是Java提供的一个借口，常用的有ReentrantLock，通过调用lock()和unlock()获取锁和释放锁。通常在finally中添加unlock()防止死锁。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;性能上&lt;/strong&gt;
-&lt;ul&gt;
-&lt;li&gt;synchronized，JDK1.5中，synchronized是非常重量级的操作，但是从1.6开始，进行了优化，引入了锁升级机制，性能得到了较大提升。&lt;/li&gt;
-&lt;li&gt;lock，是乐观锁，通过CAS实现，在资源竞争激烈的情况下，使用lock性能会更好。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;支持的功能上&lt;/strong&gt;
-&lt;ul&gt;
-&lt;li&gt;synchronized，支持的功能简单，是公平锁，不支持中断&lt;/li&gt;
-&lt;li&gt;lock，支持更多的功能，包括公平、非公平锁，trylock、读写锁、condition等。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ol&gt;</summary>
-    
-    
-    
-    <category term="后端" scheme="http://rookieyin.github.io/categories/%E5%90%8E%E7%AB%AF/"/>
-    
-    <category term="Java" scheme="http://rookieyin.github.io/categories/%E5%90%8E%E7%AB%AF/Java/"/>
-    
-    <category term="Java并发" scheme="http://rookieyin.github.io/categories/%E5%90%8E%E7%AB%AF/Java/Java%E5%B9%B6%E5%8F%91/"/>
-    
-    
-    <category term="后端" scheme="http://rookieyin.github.io/tags/%E5%90%8E%E7%AB%AF/"/>
-    
-    <category term="Java" scheme="http://rookieyin.github.io/tags/Java/"/>
-    
-    <category term="多线程" scheme="http://rookieyin.github.io/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/"/>
-    
-    <category term="锁" scheme="http://rookieyin.github.io/tags/%E9%94%81/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>wait、notify、park、sleep、yield等对比</title>
-    <link href="http://rookieyin.github.io/47f68d9d8215/"/>
-    <id>http://rookieyin.github.io/47f68d9d8215/</id>
-    <published>2022-08-04T14:34:49.000Z</published>
-    <updated>2022-10-04T13:38:00.743Z</updated>
-    
-    
-    <summary type="html">&lt;center&gt;&lt;img src=&quot;/images/20210301201459977.png&quot; style=&quot;width:800px;&quot;&gt;&lt;/img&gt;&lt;/center&gt;</summary>
-    
-    
-    
-    <category term="后端" scheme="http://rookieyin.github.io/categories/%E5%90%8E%E7%AB%AF/"/>
-    
-    <category term="Java" scheme="http://rookieyin.github.io/categories/%E5%90%8E%E7%AB%AF/Java/"/>
-    
-    <category term="Java并发" scheme="http://rookieyin.github.io/categories/%E5%90%8E%E7%AB%AF/Java/Java%E5%B9%B6%E5%8F%91/"/>
-    
-    
-    <category term="后端" scheme="http://rookieyin.github.io/tags/%E5%90%8E%E7%AB%AF/"/>
-    
-    <category term="Java" scheme="http://rookieyin.github.io/tags/Java/"/>
-    
-    <category term="多线程" scheme="http://rookieyin.github.io/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/"/>
-    
-    <category term="并发" scheme="http://rookieyin.github.io/tags/%E5%B9%B6%E5%8F%91/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Java中的Future</title>
-    <link href="http://rookieyin.github.io/008aa26390aa/"/>
-    <id>http://rookieyin.github.io/008aa26390aa/</id>
-    <published>2022-08-04T14:34:49.000Z</published>
-    <updated>2022-10-04T13:42:02.833Z</updated>
-    
-    
-    <summary type="html">&lt;h2 id=&quot;future相关概念&quot;&gt;Future相关概念&lt;/h2&gt;
-&lt;h3 id=&quot;定义&quot;&gt;定义&lt;/h3&gt;
-&lt;p&gt;官放时这样描述Future接口的：&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;Future represents the result of an asynchronous computation. Methods are provided to check if the computation is complete, to wait for its completion, and to retrieve the result of the computation. The result can only be retrieved using method get when the computation has completed, blocking if necessary until it is ready. Cancellation is performed by the cancel method. Additional methods are provided to determine if the task completed normally or was cancelled. Once a computation has completed, the computation cannot be cancelled. If you would like to use a Future for the sake of cancellability but not provide a usable result, you can declare types of the form Future&amp;lt;?&amp;gt; and return null as a result of the underlying task.&lt;/p&gt;
-&lt;/blockquote&gt;</summary>
-    
-    
-    
-    <category term="后端" scheme="http://rookieyin.github.io/categories/%E5%90%8E%E7%AB%AF/"/>
-    
-    <category term="Java" scheme="http://rookieyin.github.io/categories/%E5%90%8E%E7%AB%AF/Java/"/>
-    
-    <category term="Java并发" scheme="http://rookieyin.github.io/categories/%E5%90%8E%E7%AB%AF/Java/Java%E5%B9%B6%E5%8F%91/"/>
-    
-    
-    <category term="后端" scheme="http://rookieyin.github.io/tags/%E5%90%8E%E7%AB%AF/"/>
-    
-    <category term="Java" scheme="http://rookieyin.github.io/tags/Java/"/>
-    
-    <category term="多线程" scheme="http://rookieyin.github.io/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/"/>
     
   </entry>
   
